@@ -323,13 +323,18 @@ const buildEditor = ({
       
       // Check if the selected object is a group
       if (activeObject && activeObject.type === 'group') {
-        // Get the center point and current scale of the group
-        const center = activeObject.getCenterPoint();
-        const groupLeft = activeObject.left || 0;
-        const groupTop = activeObject.top || 0;
-        const groupScaleX = activeObject.scaleX || 1;
-        const groupScaleY = activeObject.scaleY || 1;
-        const groupAngle = activeObject.angle || 0;
+        // Store the original properties of the group
+        const groupProps = {
+          left: activeObject.left || 0,
+          top: activeObject.top || 0,
+          width: activeObject.width || 0,
+          height: activeObject.height || 0,
+          scaleX: activeObject.scaleX || 1,
+          scaleY: activeObject.scaleY || 1,
+          angle: activeObject.angle || 0,
+          originX: activeObject.originX || 'left',
+          originY: activeObject.originY || 'top'
+        };
         
         // @ts-ignore - accessing objects property of the group
         const items = activeObject._objects || [];
@@ -350,54 +355,203 @@ const buildEditor = ({
         // Special template flag
         const isSpecialTemplate = isTestimonial || isComingSoon;
         
-        // Remove the group from canvas
+        // Clone all objects before removing the group
+        interface ClonedItem {
+          item: fabric.Object;
+          props: {
+            left: number;
+            top: number;
+            width: number;
+            height: number;
+            scaleX: number;
+            scaleY: number;
+            angle: number;
+            originX: string;
+            originY: string;
+            type: string;
+          }
+        }
+        
+        const clonedItems: ClonedItem[] = [];
+        
+        // First pass - clone the objects to preserve their properties
+        items.forEach((item: fabric.Object) => {
+          // Get coordinates relative to the group's center
+          const itemProps = {
+            left: item.left || 0,
+            top: item.top || 0,
+            width: item.width || 0,
+            height: item.height || 0,
+            scaleX: item.scaleX || 1,
+            scaleY: item.scaleY || 1,
+            angle: item.angle || 0,
+            originX: item.originX || 'left',
+            originY: item.originY || 'top',
+            type: item.type || ''
+          };
+          
+          clonedItems.push({
+            item,
+            props: itemProps
+          });
+        });
+        
+        // Now that we've captured all properties, remove the group
         canvas.remove(activeObject);
         
-        // Add each object to the canvas
-        items.forEach((item: fabric.Object) => {
-          // Clone the object to avoid reference issues
-          canvas.add(item);
+        // Detect background rectangle(s) for special templates
+        let bgRect: fabric.Object | null = null;
+        if (isSpecialTemplate) {
+          bgRect = items.find((item: fabric.Object) => {
+            // @ts-ignore - checking for fill property
+            return item.type === 'rect' && item.fill && 
+                  // @ts-ignore - checking fill color for backgrounds
+                  (item.fill === '#FFF5DC' || item.fill === '#ECD8B7');
+          }) || null;
           
-          // Adjust position and scale based on the original group
-          // These calculations maintain the object's position relative to the group
-          if (groupAngle !== 0) {
-            item.rotate(groupAngle);
+          // If background found, add it first but use the transformation matrix for exact positioning
+          if (bgRect) {
+            const bgItemProps = {
+              left: bgRect.left || 0,
+              top: bgRect.top || 0,
+              width: bgRect.width || 0,
+              height: bgRect.height || 0,
+              scaleX: bgRect.scaleX || 1,
+              scaleY: bgRect.scaleY || 1,
+              angle: bgRect.angle || 0,
+              originX: bgRect.originX || 'left',
+              originY: bgRect.originY || 'top'
+            };
+            
+            // Calculate absolute position in canvas coordinates
+            const matrix = activeObject.calcTransformMatrix();
+            const newPoint = fabric.util.transformPoint(
+              new fabric.Point(bgItemProps.left, bgItemProps.top), 
+              matrix
+            );
+            
+            canvas.add(bgRect);
+            bgRect.set({
+              left: newPoint.x,
+              top: newPoint.y,
+              angle: groupProps.angle + bgItemProps.angle,
+              scaleX: bgItemProps.scaleX * groupProps.scaleX,
+              scaleY: bgItemProps.scaleY * groupProps.scaleY,
+              originX: bgItemProps.originX,
+              originY: bgItemProps.originY,
+              selectable: true,
+              hasControls: true,
+              borderColor: '#3b82f6',
+              cornerColor: '#FFF',
+              cornerSize: 10,
+              transparentCorners: false
+            });
+            bgRect.setCoords();
+            bgRect.sendToBack();
           }
+        }
+        
+        // Process and add each object to the canvas, preserving positions
+        clonedItems.forEach((clonedItem: ClonedItem) => {
+          const item = clonedItem.item;
+          const itemProps = clonedItem.props;
           
-          // Apply the group's scale to the object
-          item.scaleX = item.scaleX! * groupScaleX;
-          item.scaleY = item.scaleY! * groupScaleY;
-          
-          // Set the proper position based on the group
-          item.left = groupLeft + (item.left! * groupScaleX);
-          item.top = groupTop + (item.top! * groupScaleY);
+          // Skip the background rectangle we already added
+          if (item === bgRect) return;
           
           // Special handling for text objects in templates
-          if (isSpecialTemplate && (item.type === 'text' || item.type === 'i-text')) {
-            // Convert any regular text objects to textboxes if possible for better editing
+          if (item.type === 'text' || item.type === 'i-text') {
             // @ts-ignore - text property exists on text objects
             const textContent = item.text || '';
             
-            // Make these more easily visible when ungrouped
-            item.set({
+            if (!textContent.trim()) {
+              return; // Skip empty text elements
+            }
+            
+            // Extract original text properties
+            // @ts-ignore - these properties exist on text objects
+            const fontSize = Math.max(item.fontSize || 32, 12); // Ensure minimum font size
+            // @ts-ignore - these properties exist on text objects
+            const fontFamily = item.fontFamily || 'Arial';
+            // @ts-ignore - these properties exist on text objects
+            const fill = item.fill || '#000000';
+            // @ts-ignore - these properties exist on text objects
+            const textAlign = item.textAlign || 'left';
+            // @ts-ignore - these properties exist on text objects
+            const fontWeight = item.fontWeight || 'normal';
+            
+            // Calculate absolute position in canvas coordinates
+            const matrix = activeObject.calcTransformMatrix();
+            const newPoint = fabric.util.transformPoint(
+              new fabric.Point(itemProps.left, itemProps.top), 
+              matrix
+            );
+            
+            // Create a textbox object for better editing
+            const textbox = new fabric.Textbox(textContent, {
+              left: newPoint.x,
+              top: newPoint.y,
+              width: itemProps.width * groupProps.scaleX,
+              fontSize: fontSize * groupProps.scaleX,
+              fontFamily: fontFamily,
+              fill: fill,
+              textAlign: textAlign,
+              fontWeight: fontWeight,
+              angle: groupProps.angle + itemProps.angle,
+              originX: itemProps.originX,
+              originY: itemProps.originY,
               borderColor: '#3b82f6',
               cornerColor: '#FFF',
               cornerSize: 10,
               transparentCorners: false,
+              selectable: true,
+              hasControls: true,
+              lockScalingX: false,
+              lockScalingY: false,
+              lockRotation: false,
+              editable: true, // Ensure text is editable
+              visible: true, // Explicitly make visible
+              opacity: 1, // Ensure fully opaque
             });
+            
+            // Add the new textbox to canvas
+            canvas.add(textbox);
+            textbox.setCoords();
+          } else {
+            // For non-text objects, position precisely using transformation matrix
+            const matrix = activeObject.calcTransformMatrix();
+            const newPoint = fabric.util.transformPoint(
+              new fabric.Point(itemProps.left, itemProps.top), 
+              matrix
+            );
+            
+            // For regular objects, adjust position and rotation
+            item.set({
+              left: newPoint.x,
+              top: newPoint.y,
+              angle: groupProps.angle + itemProps.angle,
+              scaleX: itemProps.scaleX * groupProps.scaleX,
+              scaleY: itemProps.scaleY * groupProps.scaleY,
+              originX: itemProps.originX,
+              originY: itemProps.originY,
+              borderColor: '#3b82f6',
+              cornerColor: '#FFF',
+              cornerSize: 10,
+              transparentCorners: false,
+              selectable: true,
+              hasControls: true,
+              lockScalingX: false,
+              lockScalingY: false,
+              lockRotation: false,
+            });
+            
+            // Add to canvas if not already added (like the background)
+            if (item !== bgRect) {
+              canvas.add(item);
+            }
+            
+            item.setCoords();
           }
-          
-          // Make sure the element is selectable and has controls
-          item.set({
-            selectable: true,
-            hasControls: true,
-            lockScalingX: false,
-            lockScalingY: false,
-            lockRotation: false,
-          });
-          
-          // Make the object dirty for rendering
-          item.setCoords();
         });
         
         // Update canvas and save state
@@ -407,7 +561,7 @@ const buildEditor = ({
         // Provide special instructions for special templates
         if (isSpecialTemplate) {
           const templateName = isTestimonial ? "Testimonial" : "Coming Soon";
-          toast.success(`${templateName} template ungrouped into ${items.length} elements. You can now edit each part separately.`);
+          toast.success(`${templateName} template ungrouped. All elements remain in their exact positions.`);
         }
         
         return items.length; // Return number of ungrouped items
@@ -933,8 +1087,8 @@ export const useEditor = ({
       });
 
       const initialWorkspace = new fabric.Rect({
-        width: initialWidth.current,
-        height: initialHeight.current,
+        width: initialWidth.current || 1080,  // Default to 1080 if not set
+        height: initialHeight.current || 1080, // Default to 1080 if not set
         name: "clip",
         fill: "white",
         selectable: false,

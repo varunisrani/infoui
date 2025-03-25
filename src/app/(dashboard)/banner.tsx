@@ -17,8 +17,8 @@ export const Banner = () => {
       const project = storage.saveProject({
         name: "Untitled project",
         json: "",
-        width: 1080,
-        height: 1080,
+        width: 1080,  // Changed from default
+        height: 1080, // Changed from default
       });
       
       toast.success("Project created!");
