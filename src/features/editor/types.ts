@@ -107,7 +107,8 @@ export type ActiveTool =
   | "settings"
   | "ai"
   | "remove-bg"
-  | "templates";
+  | "templates"
+  | "svg";
 
 export const FILL_COLOR = "rgba(0,0,0,1)";
 export const STROKE_COLOR = "rgba(0,0,0,1)";
@@ -225,6 +226,8 @@ export interface Editor {
   onPaste: () => void;
   changeImageFilter: (value: string) => void;
   addImage: (value: string) => void;
+  addSVG: (value: string) => void;
+  ungroupSVG: () => number;
   delete: () => void;
   changeFontSize: (value: number) => void;
   getActiveFontSize: () => number;
@@ -261,4 +264,4 @@ export interface Editor {
   getActiveStrokeWidth: () => number;
   getActiveStrokeDashArray: () => number[];
   selectedObjects: fabric.Object[];
-};
+}

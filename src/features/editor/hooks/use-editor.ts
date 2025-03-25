@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import { useCallback, useState, useMemo, useRef } from "react";
+import { toast } from "sonner";
 
 import { 
   Editor, 
@@ -223,6 +224,196 @@ const buildEditor = ({
           crossOrigin: "anonymous",
         },
       );
+    },
+    addSVG: (svgString: string) => {
+      // Clean up SVG string
+      svgString = svgString.trim();
+
+      try {
+        if (canvas) {
+          // Check if this is a testimonial SVG
+          const isTestimonial = svgString.includes('testimonial-background') || 
+                               svgString.includes('Testimonial') || 
+                               svgString.includes('JANE DOE');
+          
+          // Check if this is a Coming Soon SVG
+          // @ts-ignore - text property exists on text objects but TypeScript doesn't recognize it
+          const isComingSoon = svgString.includes('COMING') && 
+                              svgString.includes('SOON') && 
+                              svgString.includes('STAY TUNED');
+          
+          // Special handling for complex templates
+          const isSpecialTemplate = isTestimonial || isComingSoon;
+          
+          // Load SVG string into a Fabric.js object
+          fabric.loadSVGFromString(svgString, (objects, options) => {
+            // Create a group with all SVG elements
+            const svgGroup = new fabric.Group(objects, {
+              name: isTestimonial ? 'testimonial-template' : 
+                    isComingSoon ? 'coming-soon-template' : 'svg-group',
+              selectable: true,
+              hasControls: true,
+            });
+
+            // Special size handling for the Coming Soon template
+            if (isComingSoon) {
+              // Set exact size for Coming Soon template (1080x1080)
+              const targetSize = { width: 1080, height: 1080 };
+              
+              // Add to canvas centered
+              svgGroup.set({
+                scaleX: 1,
+                scaleY: 1,
+                width: targetSize.width,
+                height: targetSize.height,
+                left: (canvas.width! / 2) - (targetSize.width / 2),
+                top: (canvas.height! / 2) - (targetSize.height / 2)
+              });
+              
+              // Set default size in history
+              svgGroup.set({
+                data: {
+                  defaultWidth: targetSize.width,
+                  defaultHeight: targetSize.height
+                }
+              });
+
+              canvas.add(svgGroup);
+              canvas.setActiveObject(svgGroup);
+              canvas.renderAll();
+              
+              toast.success("Coming Soon template added! Use the 'Ungroup' button to edit individual elements");
+              return;
+            }
+
+            // Calculate scaling factor
+            const maxDimension = 500; // Max dimension for non-Coming Soon SVGs
+            const scale = Math.min(
+              maxDimension / (svgGroup.width || 1),
+              maxDimension / (svgGroup.height || 1)
+            );
+
+            // Place centered on canvas with appropriate scaling
+            svgGroup.set({
+              scaleX: scale,
+              scaleY: scale,
+              left: canvas.width! / 2 - ((svgGroup.width || 0) * scale) / 2,
+              top: canvas.height! / 2 - ((svgGroup.height || 0) * scale) / 2,
+            });
+
+            // Add SVG group to canvas
+            canvas.add(svgGroup);
+            canvas.setActiveObject(svgGroup);
+            canvas.renderAll();
+
+            const message = isTestimonial 
+              ? "Testimonial template added! Use the 'Ungroup' button to edit individual elements"
+              : "SVG added to canvas!";
+            
+            toast.success(message);
+          });
+        }
+      } catch (error) {
+        console.error("Error adding SVG:", error);
+        toast.error("Failed to add SVG to canvas");
+      }
+    },
+    ungroupSVG: () => {
+      const activeObject = canvas.getActiveObject();
+      
+      // Check if the selected object is a group
+      if (activeObject && activeObject.type === 'group') {
+        // Get the center point and current scale of the group
+        const center = activeObject.getCenterPoint();
+        const groupLeft = activeObject.left || 0;
+        const groupTop = activeObject.top || 0;
+        const groupScaleX = activeObject.scaleX || 1;
+        const groupScaleY = activeObject.scaleY || 1;
+        const groupAngle = activeObject.angle || 0;
+        
+        // @ts-ignore - accessing objects property of the group
+        const items = activeObject._objects || [];
+        
+        // Detect template type by looking for specific text elements
+        const isTestimonial = items.some((item: fabric.Object) => {
+          // @ts-ignore - text property exists on text objects
+          return item.type === 'text' && item.text && item.text.includes('Testimonial');
+        });
+        
+        const isComingSoon = items.some((item: fabric.Object) => {
+          // @ts-ignore - text property exists on text objects but TypeScript doesn't know about it
+          return item.type === 'text' && item.text && 
+                 // @ts-ignore - text property exists on text objects but TypeScript doesn't know about it
+                 (item.text.includes('COMING') || item.text.includes('SOON') || item.text.includes('STAY TUNED'));
+        });
+        
+        // Special template flag
+        const isSpecialTemplate = isTestimonial || isComingSoon;
+        
+        // Remove the group from canvas
+        canvas.remove(activeObject);
+        
+        // Add each object to the canvas
+        items.forEach((item: fabric.Object) => {
+          // Clone the object to avoid reference issues
+          canvas.add(item);
+          
+          // Adjust position and scale based on the original group
+          // These calculations maintain the object's position relative to the group
+          if (groupAngle !== 0) {
+            item.rotate(groupAngle);
+          }
+          
+          // Apply the group's scale to the object
+          item.scaleX = item.scaleX! * groupScaleX;
+          item.scaleY = item.scaleY! * groupScaleY;
+          
+          // Set the proper position based on the group
+          item.left = groupLeft + (item.left! * groupScaleX);
+          item.top = groupTop + (item.top! * groupScaleY);
+          
+          // Special handling for text objects in templates
+          if (isSpecialTemplate && (item.type === 'text' || item.type === 'i-text')) {
+            // Convert any regular text objects to textboxes if possible for better editing
+            // @ts-ignore - text property exists on text objects
+            const textContent = item.text || '';
+            
+            // Make these more easily visible when ungrouped
+            item.set({
+              borderColor: '#3b82f6',
+              cornerColor: '#FFF',
+              cornerSize: 10,
+              transparentCorners: false,
+            });
+          }
+          
+          // Make sure the element is selectable and has controls
+          item.set({
+            selectable: true,
+            hasControls: true,
+            lockScalingX: false,
+            lockScalingY: false,
+            lockRotation: false,
+          });
+          
+          // Make the object dirty for rendering
+          item.setCoords();
+        });
+        
+        // Update canvas and save state
+        canvas.renderAll();
+        save();
+        
+        // Provide special instructions for special templates
+        if (isSpecialTemplate) {
+          const templateName = isTestimonial ? "Testimonial" : "Coming Soon";
+          toast.success(`${templateName} template ungrouped into ${items.length} elements. You can now edit each part separately.`);
+        }
+        
+        return items.length; // Return number of ungrouped items
+      }
+      
+      return 0; // Return 0 if nothing was ungrouped
     },
     delete: () => {
       canvas.getActiveObjects().forEach((object) => canvas.remove(object));

@@ -8,6 +8,7 @@ import {
   Shapes,
   Sparkles,
   Type,
+  FileType,
 } from "lucide-react";
 
 import { ActiveTool } from "@/features/editor/types";
@@ -36,6 +37,12 @@ export const Sidebar = ({
           label="Image"
           isActive={activeTool === "images"}
           onClick={() => onChangeActiveTool("images")}
+        />
+        <SidebarItem
+          icon={FileType}
+          label="SVG"
+          isActive={activeTool === "svg"}
+          onClick={() => onChangeActiveTool("svg")}
         />
         <SidebarItem
           icon={Type}

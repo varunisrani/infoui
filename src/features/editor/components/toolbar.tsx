@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { 
   FaBold, 
@@ -18,7 +19,8 @@ import {
   AlignRight,
   Trash,
   SquareSplitHorizontal,
-  Copy
+  Copy,
+  Ungroup
 } from "lucide-react";
 
 import { isTextType } from "@/features/editor/utils";
@@ -72,6 +74,7 @@ export const Toolbar = ({
 
   const isText = isTextType(selectedObjectType);
   const isImage = selectedObjectType === "image";
+  const isGroup = selectedObjectType === "group";
 
   const onChangeFontSize = (value: number) => {
     if (!selectedObject) {
@@ -436,6 +439,24 @@ export const Toolbar = ({
           </Button>
         </Hint>
       </div>
+      {isGroup && (
+        <div className="flex items-center h-full justify-center">
+          <Hint label="Ungroup Elements" side="bottom" sideOffset={5}>
+            <Button
+              onClick={() => {
+                const count = editor?.ungroupSVG();
+                if (count && count > 0) {
+                  toast.success(`Ungrouped ${count} elements. You can now edit each element separately.`);
+                }
+              }}
+              size="icon"
+              variant="ghost"
+            >
+              <Ungroup className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
       <div className="flex items-center h-full justify-center">
         <Hint label="Delete" side="bottom" sideOffset={5}>
           <Button
