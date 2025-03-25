@@ -1,27 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { Loader, TriangleAlert } from "lucide-react";
-
-import { useGetProject } from "@/features/projects/api/use-get-project";
-
-import { Editor } from "@/features/editor/components/editor";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Editor } from "@/features/editor/components/editor";
+import { useGetProject } from "@/features/projects/api/use-projects";
 
 interface EditorProjectIdPageProps {
   params: {
     projectId: string;
   };
-};
+}
 
-const EditorProjectIdPage = ({
-  params,
-}: EditorProjectIdPageProps) => {
-  const { 
-    data, 
-    isLoading, 
-    isError
-  } = useGetProject(params.projectId);
+const EditorProjectIdPage = ({ params }: EditorProjectIdPageProps) => {
+  const { data, isLoading, isError } = useGetProject(params.projectId);
 
   if (isLoading || !data) {
     return (
@@ -39,15 +31,13 @@ const EditorProjectIdPage = ({
           Failed to fetch project
         </p>
         <Button asChild variant="secondary">
-          <Link href="/">
-            Back to Home
-          </Link>
+          <Link href="/">Back to Home</Link>
         </Button>
       </div>
     );
   }
 
-  return <Editor initialData={data} />
+  return <Editor initialData={data} />;
 };
- 
+
 export default EditorProjectIdPage;

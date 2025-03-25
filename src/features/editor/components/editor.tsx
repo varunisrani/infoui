@@ -4,8 +4,8 @@ import { fabric } from "fabric";
 import debounce from "lodash.debounce";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { ResponseType } from "@/features/projects/api/use-get-project";
-import { useUpdateProject } from "@/features/projects/api/use-update-project";
+import { useUpdateProject } from "@/features/projects/api/use-projects";
+import { Project } from "@/lib/storage";
 
 import { 
   ActiveTool, 
@@ -32,7 +32,7 @@ import { RemoveBgSidebar } from "@/features/editor/components/remove-bg-sidebar"
 import { SettingsSidebar } from "@/features/editor/components/settings-sidebar";
 
 interface EditorProps {
-  initialData: ResponseType["data"];
+  initialData: Project;
 };
 
 export const Editor = ({ initialData }: EditorProps) => {
