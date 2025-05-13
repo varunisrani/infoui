@@ -466,15 +466,17 @@ const buildEditor = ({
             // Check for common background colors or large rectangles
             const isBackground = fill && (
               // Known template background colors
-              fill === '#FFF5DC' || 
-              fill === '#ECD8B7' || 
-              // Steel/metallic background colors
-              fill.includes('gradient') ||
-              fill.includes('steel') ||
-              fill.includes('metal') ||
-              fill.includes('silver') ||
-              fill.includes('gray') ||
-              fill.includes('grey') ||
+              (typeof fill === 'string' && (
+                fill.toLowerCase() === '#fff5dc' || 
+                fill.toLowerCase() === '#ecd8b7' || 
+                // Steel/metallic background colors
+                /gradient|steel|metal|silver|gr[ae]y/i.test(fill)
+              )) ||
+              // Handle gradient and pattern fills
+              (typeof fill === 'object' && 'type' in fill && (
+                fill.type === 'pattern' ||
+                fill.type === 'gradient'
+              )) ||
               // Or it's a large rectangle that's likely a background
               isLargeRect
             );
@@ -717,15 +719,32 @@ const buildEditor = ({
         } else if (backgroundRects.length > 0) {
           // Check if any of the backgrounds might be steel/metallic
           const hasMetallicBg = backgroundRects.some(bg => {
-            // @ts-ignore - checking fill property
             const fill = bg.fill;
+            // @ts-ignore - checking width/height
+            const width = bg.width || 0;
+            // @ts-ignore - checking width/height
+            const height = bg.height || 0;
+            
+            // Check if this is likely a background rectangle:
+            // 1. It has a fill color
+            // 2. It's relatively large compared to the group
+            const isLargeRect = (width * bg.scaleX! > groupProps.width * 0.8) && 
+                              (height * bg.scaleY! > groupProps.height * 0.8);
+
             return fill && (
-              fill.includes('gradient') || 
-              fill.includes('steel') || 
-              fill.includes('metal') || 
-              fill.includes('silver') || 
-              fill.includes('gray') || 
-              fill.includes('grey')
+              (typeof fill === 'string' && (
+                fill.toLowerCase() === '#fff5dc' || 
+                fill.toLowerCase() === '#ecd8b7' || 
+                // Steel/metallic background colors
+                /gradient|steel|metal|silver|gr[ae]y/i.test(fill)
+              )) ||
+              // Handle gradient and pattern fills
+              (typeof fill === 'object' && 'type' in fill && (
+                fill.type === 'pattern' ||
+                fill.type === 'gradient'
+              )) ||
+              // Or it's a large rectangle that's likely a background
+              isLargeRect
             );
           });
           
@@ -771,9 +790,7 @@ const buildEditor = ({
     changeFontSize: (value: number) => {
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, fontSize exists.
-          object.set({ fontSize: value });
+          (object as fabric.Text).set({ fontSize: value });
         }
       });
       canvas.renderAll();
@@ -785,18 +802,13 @@ const buildEditor = ({
         return FONT_SIZE;
       }
 
-      // @ts-ignore
-      // Faulty TS library, fontSize exists.
-      const value = selectedObject.get("fontSize") || FONT_SIZE;
-
+      const value = (selectedObject as fabric.Text).get("fontSize") || FONT_SIZE;
       return value;
     },
     changeTextAlign: (value: string) => {
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, textAlign exists.
-          object.set({ textAlign: value });
+          (object as fabric.Text).set({ textAlign: value });
         }
       });
       canvas.renderAll();
@@ -808,18 +820,13 @@ const buildEditor = ({
         return "left";
       }
 
-      // @ts-ignore
-      // Faulty TS library, textAlign exists.
-      const value = selectedObject.get("textAlign") || "left";
-
+      const value = (selectedObject as fabric.Text).get("textAlign") || "left";
       return value;
     },
     changeFontUnderline: (value: boolean) => {
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, underline exists.
-          object.set({ underline: value });
+          (object as fabric.Text).set({ underline: value });
         }
       });
       canvas.renderAll();
@@ -831,18 +838,13 @@ const buildEditor = ({
         return false;
       }
 
-      // @ts-ignore
-      // Faulty TS library, underline exists.
-      const value = selectedObject.get("underline") || false;
-
+      const value = (selectedObject as fabric.Text).get("underline") || false;
       return value;
     },
     changeFontLinethrough: (value: boolean) => {
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, linethrough exists.
-          object.set({ linethrough: value });
+          (object as fabric.Text).set({ linethrough: value });
         }
       });
       canvas.renderAll();
@@ -854,18 +856,13 @@ const buildEditor = ({
         return false;
       }
 
-      // @ts-ignore
-      // Faulty TS library, linethrough exists.
-      const value = selectedObject.get("linethrough") || false;
-
+      const value = (selectedObject as fabric.Text).get("linethrough") || false;
       return value;
     },
     changeFontStyle: (value: string) => {
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, fontStyle exists.
-          object.set({ fontStyle: value });
+          (object as fabric.Text).set({ fontStyle: value });
         }
       });
       canvas.renderAll();
@@ -877,21 +874,26 @@ const buildEditor = ({
         return "normal";
       }
 
-      // @ts-ignore
-      // Faulty TS library, fontStyle exists.
-      const value = selectedObject.get("fontStyle") || "normal";
-
+      const value = (selectedObject as fabric.Text).get("fontStyle") || "normal";
       return value;
     },
-    changeFontWeight: (value: number) => {
+    changeFontWeight: (value: number | string) => {
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, fontWeight exists.
-          object.set({ fontWeight: value });
+          (object as fabric.Text).set({ fontWeight: value });
         }
       });
       canvas.renderAll();
+    },
+    getActiveFontWeight: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return FONT_WEIGHT;
+      }
+
+      const value = (selectedObject as fabric.Text).get("fontWeight") || FONT_WEIGHT;
+      return value;
     },
     changeOpacity: (value: number) => {
       canvas.getActiveObjects().forEach((object) => {
@@ -922,9 +924,7 @@ const buildEditor = ({
       setFontFamily(value);
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
-          // @ts-ignore
-          // Faulty TS library, fontFamily exists.
-          object.set({ fontFamily: value });
+          (object as fabric.Text).set({ fontFamily: value });
         }
       });
       canvas.renderAll();
@@ -1054,19 +1054,6 @@ const buildEditor = ({
       addToCanvas(object);
     },
     canvas,
-    getActiveFontWeight: () => {
-      const selectedObject = selectedObjects[0];
-
-      if (!selectedObject) {
-        return FONT_WEIGHT;
-      }
-
-      // @ts-ignore
-      // Faulty TS library, fontWeight exists.
-      const value = selectedObject.get("fontWeight") || FONT_WEIGHT;
-
-      return value;
-    },
     getActiveFontFamily: () => {
       const selectedObject = selectedObjects[0];
 
@@ -1074,10 +1061,7 @@ const buildEditor = ({
         return fontFamily;
       }
 
-      // @ts-ignore
-      // Faulty TS library, fontFamily exists.
-      const value = selectedObject.get("fontFamily") || fontFamily;
-
+      const value = (selectedObject as fabric.Text).get("fontFamily") || fontFamily;
       return value;
     },
     getActiveFillColor: () => {

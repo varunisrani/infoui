@@ -1,33 +1,45 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { client } from "@/lib/hono";
-import { InferRequestType, InferResponseType } from "hono";
+interface Template {
+  id: string;
+  name: string;
+  json: string;
+  width: number;
+  height: number;
+  thumbnailUrl: string | null;
+  isPro: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
 
-export type ResponseType = InferResponseType<typeof client.api.projects.templates.$get, 200>;
-type RequestType = InferRequestType<typeof client.api.projects.templates.$get>["query"];
+interface GetTemplatesResponse {
+  data: Template[];
+}
 
-export const useGetTemplates = (apiQuery: RequestType) => {
-  const query = useQuery({
-    queryKey: [
-      "templates",
-      {
-        page: apiQuery.page,
-        limit: apiQuery.limit,
-      },
-    ],
+interface GetTemplatesQuery {
+  page?: string;
+  limit?: string;
+}
+
+export const useGetTemplates = (query: GetTemplatesQuery) => {
+  return useQuery<GetTemplatesResponse>({
+    queryKey: ["templates", query],
     queryFn: async () => {
-      const response = await client.api.projects.templates.$get({
-        query: apiQuery,
-      });
+      const url = new URL("/api/projects/templates", window.location.origin);
+      if (query.page) {
+        url.searchParams.append("page", query.page);
+      }
+      if (query.limit) {
+        url.searchParams.append("limit", query.limit);
+      }
+
+      const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error("Failed to fetch templates");
       }
 
-      const { data } = await response.json();
-      return data;
+      return response.json();
     },
   });
-
-  return query;
 };

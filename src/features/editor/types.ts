@@ -1,5 +1,37 @@
 import { fabric } from "fabric";
 import { ITextboxOptions } from "fabric/fabric-impl";
+
+// Extend Fabric.js types to include text properties
+declare module 'fabric' {
+  namespace fabric {
+    interface ITextboxOptions {
+      fontSize?: number;
+      textAlign?: string;
+      underline?: boolean;
+      linethrough?: boolean;
+      fontStyle?: string;
+      fontWeight?: number | string;
+      fontFamily?: string;
+      text?: string;
+    }
+
+    interface Text {
+      fontSize: number;
+      textAlign: string;
+      underline: boolean;
+      linethrough: boolean;
+      fontStyle: string;
+      fontWeight: number | string;
+      fontFamily: string;
+      text: string;
+    }
+
+    interface Group {
+      _objects: Object[];
+    }
+  }
+}
+
 import * as material from "material-colors";
 
 export const JSON_KEYS = [
@@ -239,8 +271,8 @@ export interface Editor {
   getActiveFontLinethrough: () => boolean;
   changeFontStyle: (value: string) => void;
   getActiveFontStyle: () => string;
-  changeFontWeight: (value: number) => void;
-  getActiveFontWeight: () => number;
+  changeFontWeight: (value: number | string) => void;
+  getActiveFontWeight: () => number | string;
   getActiveFontFamily: () => string;
   changeFontFamily: (value: string) => void;
   addText: (value: string, options?: ITextboxOptions) => void;

@@ -1,4 +1,4 @@
-import { Editor } from "@/features/editor/types";
+import { Editor, ActiveTool } from "@/features/editor/types";
 import { useRemoveBg } from "@/features/editor/hooks/use-remove-bg";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
 import { ToolSidebarHeader } from "@/features/editor/components/tool-sidebar-header";
@@ -9,8 +9,8 @@ import { fabric } from "fabric";
 
 interface RemoveBgSidebarProps {
   editor: Editor | undefined;
-  activeTool: string;
-  onChangeActiveTool: (tool: string) => void;
+  activeTool: ActiveTool;
+  onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
 // Extend the fabric.Image type to include the properties we need

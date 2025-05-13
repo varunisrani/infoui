@@ -1,20 +1,33 @@
 import { useMutation } from "@tanstack/react-query";
-import { InferRequestType, InferResponseType } from "hono";
 
-import { client } from "@/lib/hono";
+interface RemoveBgRequest {
+  imageUrl: string;
+}
 
-type ResponseType = InferResponseType<typeof client.api.ai["remove-bg"]["$post"]>;
-type RequestType = InferRequestType<typeof client.api.ai["remove-bg"]["$post"]>["json"];
+interface RemoveBgResponse {
+  url: string;
+}
 
 export const useRemoveBg = () => {
   const mutation = useMutation<
-    ResponseType,
+    RemoveBgResponse,
     Error,
-    RequestType
+    RemoveBgRequest
   >({
-    mutationFn: async (json) => {
-      const response = await client.api.ai["remove-bg"].$post({ json });
-      return await response.json();
+    mutationFn: async ({ imageUrl }) => {
+      const response = await fetch("/api/ai/remove-bg", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ imageUrl }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to remove background");
+      }
+
+      return response.json();
     },
   });
 

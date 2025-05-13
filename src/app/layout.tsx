@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 
 import { SubscriptionAlert } from "@/features/subscriptions/components/subscription-alert";
 import { Modals } from "@/components/modals";
@@ -27,7 +28,9 @@ export default function RootLayout({
           <Toaster />
           <Modals />
           <SubscriptionAlert />
-          {children}
+          <Suspense>
+            {children}
+          </Suspense>
         </Providers>
       </body>
     </html>

@@ -1,24 +1,28 @@
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
-import { InferResponseType } from "hono";
 
-import { client } from "@/lib/hono";
-
-type ResponseType = InferResponseType<typeof client.api.subscriptions.checkout["$post"], 200>;
+interface CheckoutResponse {
+  data: string;
+}
 
 export const useCheckout = () => {
   const mutation = useMutation<
-    ResponseType,
+    CheckoutResponse,
     Error
   >({
     mutationFn: async () => {
-      const response = await client.api.subscriptions.checkout.$post();
+      const response = await fetch("/api/subscriptions/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to create session");
       }
 
-      return await response.json();
+      return response.json();
     },
     onSuccess: ({ data }) => {
       window.location.href = data;

@@ -1,32 +1,48 @@
 import { toast } from "sonner";
-import { InferRequestType, InferResponseType } from "hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { client } from "@/lib/hono";
+interface UpdateProjectRequest {
+  name?: string;
+  json?: string;
+  width?: number;
+  height?: number;
+  thumbnailUrl?: string | null;
+}
 
-type ResponseType = InferResponseType<typeof client.api.projects[":id"]["$patch"], 200>;
-type RequestType = InferRequestType<typeof client.api.projects[":id"]["$patch"]>["json"];
+interface UpdateProjectResponse {
+  id: string;
+  name: string;
+  json: string;
+  width: number;
+  height: number;
+  thumbnailUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export const useUpdateProject = (id: string) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<
-    ResponseType,
+    UpdateProjectResponse,
     Error,
-    RequestType
+    UpdateProjectRequest
   >({
     mutationKey: ["project", { id }],
-    mutationFn: async (json) => {
-      const response = await client.api.projects[":id"].$patch({ 
-        json,
-        param: { id },
+    mutationFn: async (data) => {
+      const response = await fetch(`/api/projects/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         throw new Error("Failed to update project");
       }
 
-      return await response.json();
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });

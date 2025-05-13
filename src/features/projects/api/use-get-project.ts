@@ -1,29 +1,27 @@
-import { InferResponseType } from "hono";
 import { useQuery } from "@tanstack/react-query";
 
-import { client } from "@/lib/hono";
-
-export type ResponseType = InferResponseType<typeof client.api.projects[":id"]["$get"], 200>;
+interface GetProjectResponse {
+  id: string;
+  name: string;
+  json: string;
+  width: number;
+  height: number;
+  thumbnailUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export const useGetProject = (id: string) => {
-  const query = useQuery({
-    enabled: !!id,
-    queryKey: ["project", { id }],
+  return useQuery<GetProjectResponse>({
+    queryKey: ["project", id],
     queryFn: async () => {
-      const response = await client.api.projects[":id"].$get({
-        param: {
-          id,
-        },
-      });
+      const response = await fetch(`/api/projects/${id}`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch project");
       }
 
-      const { data } = await response.json();
-      return data;
+      return response.json();
     },
   });
-
-  return query;
 };

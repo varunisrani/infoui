@@ -411,6 +411,7 @@ export const Editor = ({ initialData }: EditorProps) => {
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
+          onClose={() => onChangeActiveTool("select")}
         />
         <FilterSidebar
           editor={editor}

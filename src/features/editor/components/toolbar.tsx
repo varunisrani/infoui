@@ -48,10 +48,40 @@ import {
   DialogClose
 } from "@/components/ui/dialog";
 
+interface Properties {
+  fontSize: number;
+  fontWeight: number;
+  fontStyle: string;
+  textAlign: string;
+  underline: boolean;
+  linethrough: boolean;
+  fillColor: string;
+  strokeColor: string;
+  fontFamily: string;
+  objectWidth: number;
+  objectHeight: number;
+  textContent: string;
+}
+
 interface ToolbarProps {
   editor: Editor | undefined;
   activeTool: ActiveTool;
   onChangeActiveTool: (tool: ActiveTool) => void;
+};
+
+const defaultProperties: Properties = {
+  fontSize: FONT_SIZE,
+  fontWeight: FONT_WEIGHT,
+  fontStyle: "normal",
+  textAlign: "left",
+  underline: false,
+  linethrough: false,
+  fillColor: "#000000",
+  strokeColor: "",
+  fontFamily: "Arial",
+  objectWidth: 0,
+  objectHeight: 0,
+  textContent: "",
 };
 
 export const Toolbar = ({
@@ -59,35 +89,17 @@ export const Toolbar = ({
   activeTool,
   onChangeActiveTool,
 }: ToolbarProps) => {
-  const initialFillColor = editor?.getActiveFillColor();
-  const initialStrokeColor = editor?.getActiveStrokeColor();
-  const initialFontFamily = editor?.getActiveFontFamily();
-  const initialFontWeight = editor?.getActiveFontWeight() || FONT_WEIGHT;
-  const initialFontStyle = editor?.getActiveFontStyle();
-  const initialFontLinethrough = editor?.getActiveFontLinethrough();
-  const initialFontUnderline = editor?.getActiveFontUnderline();
-  const initialTextAlign = editor?.getActiveTextAlign();
-  const initialFontSize = editor?.getActiveFontSize() || FONT_SIZE;
-  
-  // Get initial width, height and text content if an object is selected
-  const initialObject = editor?.selectedObjects[0];
-  const initialWidth = initialObject ? Math.round((initialObject as any).getScaledWidth() || 100) : 0;
-  const initialHeight = initialObject ? Math.round((initialObject as any).getScaledHeight() || 100) : 0;
-  const initialTextContent = initialObject?.type === "text" ? (initialObject as any)?.text || "Text" : "";
-
-  const [properties, setProperties] = useState({
-    fillColor: initialFillColor,
-    strokeColor: initialStrokeColor,
-    fontFamily: initialFontFamily,
-    fontWeight: initialFontWeight,
-    fontStyle: initialFontStyle,
-    fontLinethrough: initialFontLinethrough,
-    fontUnderline: initialFontUnderline,
-    textAlign: initialTextAlign,
-    fontSize: initialFontSize,
-    objectWidth: initialWidth,
-    objectHeight: initialHeight,
-    textContent: initialTextContent,
+  const [properties, setProperties] = useState<Properties>({
+    ...defaultProperties,
+    fontSize: editor?.getActiveFontSize() || defaultProperties.fontSize,
+    fontWeight: Number(editor?.getActiveFontWeight()) || defaultProperties.fontWeight,
+    fontStyle: editor?.getActiveFontStyle() || defaultProperties.fontStyle,
+    textAlign: editor?.getActiveTextAlign() || defaultProperties.textAlign,
+    underline: editor?.getActiveFontUnderline() || defaultProperties.underline,
+    linethrough: editor?.getActiveFontLinethrough() || defaultProperties.linethrough,
+    fillColor: editor?.getActiveFillColor() || defaultProperties.fillColor,
+    strokeColor: editor?.getActiveStrokeColor() || defaultProperties.strokeColor,
+    fontFamily: editor?.getActiveFontFamily() || defaultProperties.fontFamily,
   });
 
   const selectedObject = editor?.selectedObjects[0];
@@ -107,15 +119,15 @@ export const Toolbar = ({
       
       if (!object) {
         setProperties({
+          fontSize: FONT_SIZE,
+          fontWeight: FONT_WEIGHT,
+          fontStyle: "normal",
+          textAlign: "left",
+          underline: false,
+          linethrough: false,
           fillColor: "#000000",
           strokeColor: "",
           fontFamily: "Arial",
-          fontSize: FONT_SIZE,
-          fontWeight: FONT_WEIGHT,
-          textAlign: "left",
-          fontUnderline: false,
-          fontStyle: "normal",
-          fontLinethrough: false,
           objectWidth: 0,
           objectHeight: 0,
           textContent: "",
@@ -160,15 +172,15 @@ export const Toolbar = ({
       const opacity = (object as any).opacity !== undefined ? (object as any).opacity * 100 : 100;
       
       setProperties({
-        fillColor: fill,
-        strokeColor,
-        fontFamily,
         fontSize,
         fontWeight,
-        textAlign,
-        fontUnderline: underline,
         fontStyle: italic ? "italic" : "normal",
-        fontLinethrough: false, // Not currently tracking this property
+        textAlign,
+        underline,
+        linethrough: false, // Not currently tracking this property
+        fillColor: fill,
+        strokeColor: strokeColor,
+        fontFamily: fontFamily,
         objectWidth: width,
         objectHeight: height,
         textContent: text,
@@ -215,12 +227,13 @@ export const Toolbar = ({
     }));
   };
 
-  const toggleBold = () => {
-    if (!selectedObject) {
+  const onBoldClick = () => {
+    if (!editor) {
       return;
     }
 
-    const newValue = properties.fontWeight > 500 ? 500 : 700;
+    const currentWeight = Number(properties.fontWeight);
+    const newValue = currentWeight > 500 ? 400 : 700;
 
     editor?.changeFontWeight(newValue);
     setProperties((current) => ({
@@ -244,31 +257,31 @@ export const Toolbar = ({
     }));
   };
 
-  const toggleLinethrough = () => {
-    if (!selectedObject) {
-      return;
-    }
-
-    const newValue = properties.fontLinethrough ? false : true;
-
-    editor?.changeFontLinethrough(newValue);
-    setProperties((current) => ({
-      ...current,
-      fontLinethrough: newValue,
-    }));
-  };
-
   const toggleUnderline = () => {
     if (!selectedObject) {
       return;
     }
 
-    const newValue = properties.fontUnderline ? false : true;
+    const newValue = properties.underline ? false : true;
 
     editor?.changeFontUnderline(newValue);
     setProperties((current) => ({
       ...current,
-      fontUnderline: newValue,
+      underline: newValue,
+    }));
+  };
+
+  const toggleLinethrough = () => {
+    if (!selectedObject) {
+      return;
+    }
+
+    const newValue = properties.linethrough ? false : true;
+
+    editor?.changeFontLinethrough(newValue);
+    setProperties((current) => ({
+      ...current,
+      linethrough: newValue,
     }));
   };
 
@@ -421,7 +434,7 @@ export const Toolbar = ({
         <div className="flex items-center h-full justify-center">
           <Hint label="Bold" side="bottom" sideOffset={5}>
             <Button
-              onClick={toggleBold}
+              onClick={onBoldClick}
               size="icon"
               variant="ghost"
               className={cn(
@@ -457,7 +470,7 @@ export const Toolbar = ({
               size="icon"
               variant="ghost"
               className={cn(
-                properties.fontUnderline && "bg-gray-100"
+                properties.underline && "bg-gray-100"
               )}
             >
               <FaUnderline className="size-4" />
@@ -473,7 +486,7 @@ export const Toolbar = ({
               size="icon"
               variant="ghost"
               className={cn(
-                properties.fontLinethrough && "bg-gray-100"
+                properties.linethrough && "bg-gray-100"
               )}
             >
               <FaStrikethrough className="size-4" />

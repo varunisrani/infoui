@@ -2,12 +2,16 @@
 
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import { AlertTriangle } from "lucide-react";
 
 import { useFailModal } from "@/features/subscriptions/store/use-fail-modal";
 import { useSuccessModal } from "@/features/subscriptions/store/use-success-modal";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
-export const SubscriptionAlert = () => {
+const SubscriptionAlertContent = () => {
   const params = useSearchParams();
+  const error = params.get("error");
 
   const { onOpen: onOpenFail } = useFailModal();
   const { onOpen: onOpenSuccess } = useSuccessModal();
@@ -25,5 +29,25 @@ export const SubscriptionAlert = () => {
     }
   }, [canceled, onOpenFail, success, onOpenSuccess]);
 
-  return null;
+  if (!error) {
+    return null;
+  }
+
+  return (
+    <Alert variant="destructive" className="mb-4">
+      <AlertTriangle className="size-4" />
+      <AlertDescription>
+        {error === "cancelled" && "Payment cancelled. Please try again."}
+        {error === "failed" && "Payment failed. Please try again."}
+      </AlertDescription>
+    </Alert>
+  );
+};
+
+export const SubscriptionAlert = () => {
+  return (
+    <Suspense>
+      <SubscriptionAlertContent />
+    </Suspense>
+  );
 };

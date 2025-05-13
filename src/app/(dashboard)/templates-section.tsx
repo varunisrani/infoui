@@ -4,11 +4,22 @@ import { useRouter } from "next/navigation";
 import { Loader, TriangleAlert } from "lucide-react";
 
 import { usePaywall } from "@/features/subscriptions/hooks/use-paywall";
-
-import { ResponseType, useGetTemplates } from "@/features/projects/api/use-get-templates";
+import { useGetTemplates } from "@/features/projects/api/use-get-templates";
 import { useCreateProject } from "@/features/projects/api/use-create-project";
 
 import { TemplateCard } from "./template-card";
+
+interface Template {
+  id: string;
+  name: string;
+  json: string;
+  width: number;
+  height: number;
+  thumbnailUrl: string | null;
+  isPro: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export const TemplatesSection = () => {
   const { shouldBlock, triggerPaywall } = usePaywall();
@@ -21,7 +32,7 @@ export const TemplatesSection = () => {
     isError
   } = useGetTemplates({ page: "1", limit: "4" });
 
-  const onClick = (template: ResponseType["data"][0]) => {
+  const onClick = (template: Template) => {
     if (template.isPro && shouldBlock) {
       triggerPaywall();
       return;
@@ -35,7 +46,7 @@ export const TemplatesSection = () => {
         height: template.height,
       },
       {
-        onSuccess: ({ data }) => {
+        onSuccess: (data) => {
           router.push(`/editor/${data.id}`);
         },
       },
@@ -71,7 +82,7 @@ export const TemplatesSection = () => {
     );
   }
 
-  if (!data?.length) {
+  if (!data?.data?.length) {
     return null;
   }
 
@@ -81,7 +92,7 @@ export const TemplatesSection = () => {
         Start from a template
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
-        {data?.map((template: ResponseType["data"][0]) => (
+        {data.data.map((template: Template) => (
           <TemplateCard
             key={template.id}
             title={template.name}

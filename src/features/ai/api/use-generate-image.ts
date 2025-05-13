@@ -1,20 +1,39 @@
 import { useMutation } from "@tanstack/react-query";
-import { InferRequestType, InferResponseType } from "hono";
 
-import { client } from "@/lib/hono";
+interface GenerateImageRequest {
+  prompt: string;
+}
 
-type ResponseType = InferResponseType<typeof client.api.ai["generate-image"]["$post"]>;
-type RequestType = InferRequestType<typeof client.api.ai["generate-image"]["$post"]>["json"];
+interface GenerateImageResponse {
+  original_prompt: string;
+  pre_enhanced_prompt: string;
+  enhanced_prompt: string;
+  gpt_image_base64: string;
+  gpt_image_url: string;
+  svg_code: string;
+  svg_url: string;
+}
 
 export const useGenerateImage = () => {
   const mutation = useMutation<
-    ResponseType,
+    GenerateImageResponse,
     Error,
-    RequestType
+    GenerateImageRequest
   >({
-    mutationFn: async (json) => {
-      const response = await client.api.ai["generate-image"].$post({ json });
-      return await response.json();
+    mutationFn: async ({ prompt }) => {
+      const response = await fetch("/api/ai/generate-image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate image");
+      }
+
+      return response.json();
     },
   });
 
