@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { AlertTriangle, Image as ImageIcon, Upload } from "lucide-react";
+import Image from "next/image";
 
 import { ActiveTool, Editor } from "@/features/editor/types";
 import { ToolSidebarClose } from "@/features/editor/components/tool-sidebar-close";
@@ -170,10 +171,13 @@ export const ImageSidebar = ({ editor, activeTool, onChangeActiveTool }: ImageSi
                   key={image.id}
                   className="relative w-full h-[100px] group hover:opacity-75 transition bg-muted rounded-sm overflow-hidden border"
                 >
-                  <img
+                  <Image
                     src={image.url}
                     alt={image.name}
+                    width={200}
+                    height={100}
                     className="w-full h-full object-cover"
+                    unoptimized // Since we're using data URLs
                   />
                   <div className="absolute left-0 bottom-0 w-full text-[10px] truncate text-white p-1 bg-black/50 text-left">
                     {image.name}
