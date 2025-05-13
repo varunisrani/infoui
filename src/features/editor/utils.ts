@@ -1,4 +1,4 @@
-import { uuid } from "uuidv4";
+import { v4 as uuid } from "uuid";
 import { fabric } from "fabric";
 import type { RGBColor } from "react-color";
 

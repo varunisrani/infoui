@@ -19,6 +19,9 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tanstack/react-query": "^5.50.1",
+    "@types/lodash.debounce": "^4.0.9",
+    "@types/react-color": "^3.0.13",
+    "@types/uuid": "^10.0.0",
     "@uploadthing/react": "^6.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -39,10 +42,12 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.7.2",
+    "uuid": "^11.1.0",
     "zod": "^3.22.4",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
+    "@types/fabric": "^5.3.10",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
