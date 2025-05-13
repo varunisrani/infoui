@@ -81,7 +81,7 @@ export const TemplatesSection = () => {
         Start from a template
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
-        {data?.map((template) => (
+        {data?.map((template: ResponseType["data"][0]) => (
           <TemplateCard
             key={template.id}
             title={template.name}
