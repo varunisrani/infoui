@@ -8,7 +8,7 @@ import {
   primaryKey,
   integer,
 } from "drizzle-orm/pg-core"
-import type { AdapterAccountType } from "next-auth/adapters"
+import type { AdapterAccount as AdapterAccountType } from "@auth/core/adapters"
  
 export const users = pgTable("user", {
   id: text("id")
