@@ -43,6 +43,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.7.2",
+    "use-file-picker": "^2.1.2",
     "uuid": "^11.1.0",
     "zod": "^3.22.4",
     "zustand": "^5.0.4"
