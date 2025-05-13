@@ -1,0 +1,47 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="100%">
+      <stop offset="0%" stop-color="#f6dfa4"/>
+      <stop offset="100%" stop-color="#e6b25d"/>
+    </radialGradient>
+    <filter id="noise" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="2.5" numOctaves="2" seed="8" />
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.13" intercept="0"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect x="0" y="0" width="1080" height="1080" fill="url(#bgGrad)"/>
+  <rect x="55" y="0" width="30" height="1080" fill="#2c1e12"/>
+  <rect x="995" y="0" width="30" height="1080" fill="#2c1e12"/>
+  <rect x="0" y="0" width="1080" height="1080" fill="none" filter="url(#noise)"/>
+
+  <!-- Decorative lines (top burst) -->
+  <g stroke="#2c1e12" stroke-width="13" stroke-linecap="round">
+    <line x1="236" y1="182" x2="296" y2="250"/>
+    <line x1="154" y1="224" x2="250" y2="317"/>
+    <line x1="838" y1="189" x2="777" y2="255"/>
+    <line x1="929" y1="225" x2="828" y2="319"/>
+  </g>
+
+  <!-- Decorative lines (bottom burst) -->
+  <g stroke="#2c1e12" stroke-width="13" stroke-linecap="round">
+    <line x1="231" y1="847" x2="304" y2="772"/>
+    <line x1="146" y1="803" x2="251" y2="719"/>
+    <line x1="857" y1="845" x2="789" y2="772"/>
+    <line x1="945" y1="802" x2="840" y2="719"/>
+    <line x1="360" y1="930" x2="382" y2="840"/>
+    <line x1="535" y1="957" x2="535" y2="860"/>
+    <line x1="710" y1="930" x2="688" y2="840"/>
+  </g>
+
+  <!-- "SHOP" text -->
+  <text x="540" y="172" text-anchor="middle" font-family="Montserrat, Arial Black, Arial, sans-serif" font-weight="900" font-size="90" fill="#2c1e12" letter-spacing="6" style="word-spacing:0;">SHOP</text>
+
+  <!-- "COMING" text -->
+  <text x="538" y="426" text-anchor="middle" font-family="Arial Black, Impact, Arial, sans-serif" font-size="190" font-weight="900" fill="#2c1e12" letter-spacing="8" style="word-spacing: 0;">COMING</text>
+
+  <!-- "SOON" text -->
+  <text x="540" y="640" text-anchor="middle" font-family="Arial Black, Impact, Arial, sans-serif" font-size="190" font-weight="900" fill="#2c1e12" letter-spacing="8" style="word-spacing: 0;">SOON</text>
+</svg>

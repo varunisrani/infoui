@@ -1,0 +1,47 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0c1b2b"/>
+      <stop offset="100%" stop-color="#0c1b2b"/>
+    </linearGradient>
+    <style>
+      .react-text {
+        font-family: 'Arial Black', Arial, sans-serif;
+        font-weight: 900;
+        letter-spacing: 0.01em;
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+      .react-headline {
+        fill: #6dd4ff;
+        font-size: 120px;
+      }
+      .react-comingsoon {
+        fill: #fff4e0;
+        font-size: 78px;
+        font-family: 'Arial Black', Arial, sans-serif;
+        letter-spacing: 0.08em;
+      }
+    </style>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#b)"/>
+  <g id="react-logo" stroke="#6dd4ff" stroke-width="23" fill="none" stroke-linecap="round">
+    <!-- Outer left -->
+    <ellipse rx="180" ry="60" cx="540" cy="310" transform="rotate(0 540 310)" />
+    <!-- Upper right -->
+    <ellipse rx="180" ry="60" cx="540" cy="310" transform="rotate(60 540 310)" />
+    <!-- Lower right -->
+    <ellipse rx="180" ry="60" cx="540" cy="310" transform="rotate(120 540 310)"/>
+    <!-- Center circle -->
+    <circle cx="540" cy="310" r="44" fill="#6dd4ff" stroke="none"/>
+  </g>
+  <!-- Text: REACT NATIVE -->
+  <g>
+    <text x="540" y="530" class="react-text react-headline">REACT</text>
+    <text x="540" y="650" class="react-text react-headline">NATIVE</text>
+  </g>
+  <!-- Text: COMING SOON -->
+  <g>
+    <text x="540" y="770" class="react-text react-comingsoon">COMING SOON</text>
+  </g>
+</svg>

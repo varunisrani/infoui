@@ -1,0 +1,30 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="0%" stop-color="#95b2c7"/>
+      <stop offset="80%" stop-color="#547187"/>
+      <stop offset="100%" stop-color="#405a6e"/>
+    </radialGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.42"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <g>
+    <g filter="url(#shadow)">
+      <text x="156" y="230" font-family="'Montserrat', Arial, sans-serif" font-size="145" font-weight="bold" letter-spacing="-5" fill="#2060ad" stroke="#fff" stroke-width="2">COMING</text>
+      <text x="282" y="410" font-family="'Montserrat', Arial, sans-serif" font-size="145" font-weight="bold" letter-spacing="-5" fill="#2060ad" stroke="#fff" stroke-width="2">SOON</text>
+      <text x="300" y="665" font-family="'Montserrat', Arial, sans-serif" font-size="60" font-weight="bold" fill="#2060ad" stroke="#fff" stroke-width="1.2" letter-spacing="0.5">Launching on</text>
+      <text x="294" y="735" font-family="'Montserrat', Arial, sans-serif" font-size="60" font-weight="bold" fill="#2060ad" stroke="#fff" stroke-width="1.2" letter-spacing="0.5">May 18, 2024</text>
+    </g>
+    <g>
+      <text x="156" y="230" font-family="'Montserrat', Arial, sans-serif" font-size="145" font-weight="bold" letter-spacing="-5" fill="none" stroke="#2060ad" stroke-width="4">COMING</text>
+      <text x="282" y="410" font-family="'Montserrat', Arial, sans-serif" font-size="145" font-weight="bold" letter-spacing="-5" fill="none" stroke="#2060ad" stroke-width="4">SOON</text>
+      <text x="300" y="665" font-family="'Montserrat', Arial, sans-serif" font-size="60" font-weight="bold" fill="#2060ad" letter-spacing="0.5">Launching on</text>
+      <text x="294" y="735" font-family="'Montserrat', Arial, sans-serif" font-size="60" font-weight="bold" fill="#2060ad" letter-spacing="0.5">May 18, 2024</text>
+    </g>
+  </g>
+</svg>

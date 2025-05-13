@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMinYMin meet">
+  <defs>
+    <style>
+      .bg{fill:#182945;}
+      .main-text{font-family:'Montserrat',Arial,sans-serif;font-weight:700;fill:#f2f7fa;letter-spacing:0;}
+      .soon{font-size:184px;line-height:1;}
+      .cta-bg{fill:#f6b84c;}
+      .cta-text{font-family:'Montserrat',Arial,sans-serif;font-weight:700;fill:#f2f7fa;font-size:52px;letter-spacing:1px;}
+      .url{font-family:'Montserrat',Arial,sans-serif;font-weight:400;fill:#f2f7fa;font-size:38px;letter-spacing:0.5px;}
+    </style>
+  </defs>
+  <rect class="bg" width="1080" height="1080"/>
+  <g>
+    <text x="185" y="320" class="main-text soon">COMING</text>
+    <text x="283" y="527" class="main-text soon">SOON</text>
+  </g>
+  <g>
+    <rect class="cta-bg" x="230" y="622" width="620" height="80" rx="5" ry="5"/>
+    <text x="332" y="680" class="cta-text">STAY TUNED</text>
+  </g>
+  <text x="280" y="790" class="url">www.srampik.com</text>
+</svg>

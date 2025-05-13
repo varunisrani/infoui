@@ -1,0 +1,10 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1080" fill="#ece6da"/>
+  <rect x="40" y="0" width="1000" height="1080" fill="none" stroke="#13181C" stroke-width="6"/>
+  <g>
+    <text x="154" y="124" font-family="Arial,sans-serif" font-weight="bold" font-size="114" letter-spacing="2" fill="#13181C">COMING SOON</text>
+    <text x="100" y="400" font-family="Arial,sans-serif" font-weight="bold" font-size="210" letter-spacing="4" fill="#13181C">MODERN</text>
+    <text x="202" y="609" font-family="Arial,sans-serif" font-weight="bold" font-size="202" letter-spacing="2" fill="#13181C">GOODS</text>
+    <text x="303" y="813" font-family="Arial,sans-serif" font-weight="bold" font-size="160" letter-spacing="2" fill="#13181C">SHOP</text>
+  </g>
+</svg>

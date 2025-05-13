@@ -1,0 +1,22 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1080" fill="#FAFAFA"/>
+  <g>
+    <rect x="31" y="15" width="1016" height="1050" fill="none" stroke="#202020" stroke-width="3"/>
+    <path d="M17 0V1080" stroke="#202020" stroke-width="3"/>
+    <path d="M1063 0V1080" stroke="#202020" stroke-width="3"/>
+  </g>
+  <g>
+    <text x="175" y="242" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="185" fill="#202020" letter-spacing="0" textLength="710" lengthAdjust="spacingAndGlyphs">COMING</text>
+    <text x="304" y="462" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="185" fill="#202020" letter-spacing="0" textLength="467" lengthAdjust="spacingAndGlyphs">SOON</text>
+  </g>
+  <g>
+    <text x="140" y="755" font-family="Brush Script MT, BrushScriptMT, cursive" font-size="100" fill="#855B20" font-weight="normal" textLength="800" lengthAdjust="spacingAndGlyphs">Shap Modern Goods</text>
+  </g>
+  <g>
+    <rect x="300" y="860" width="480" height="6" fill="#202020" rx="3"/>
+    <rect x="300" y="860" width="480" height="6" fill="#FAFAFA"/>
+    <rect x="300" y="860" width="200" height="6" fill="#202020" rx="3"/>
+    <rect x="580" y="860" width="200" height="6" fill="#202020" rx="3"/>
+    <polygon points="540,884 515,860 565,860" fill="#202020"/>
+  </g>
+</svg>

@@ -1,0 +1,77 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1080"
+  height="1080"
+  viewBox="0 0 1080 1080"
+>
+  <defs>
+    <!-- Link to Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/css"><![CDATA[
+      /* Import as a fallback for viewers that honor @import */
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans:wght@400&display=swap');
+
+      /* Explicit @font-face rules for better compatibility */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        src: url('https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmWUlfBBc9AMP6lQ.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: url('https://fonts.gstatic.com/s/opensans/v29/mem8YaGs126MiZpBA-UFVZ0e.woff2') format('woff2');
+      }
+    ]]></style>
+  </defs>
+
+  <!-- White background -->
+  <rect width="100%" height="100%" fill="#FFFFFF" />
+
+  <!-- Main Heading -->
+  <text
+    x="50%"
+    y="470"
+    font-family="Roboto, sans-serif"
+    font-weight="700"
+    font-size="60px"
+    fill="#003366"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >
+    COMING SOON
+  </text>
+
+  <!-- Subtitle -->
+  <text
+    x="50%"
+    y="540"
+    font-family="&#34;Open Sans&#34;, sans-serif"
+    font-weight="400"
+    font-size="24px"
+    fill="#666666"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >
+    React Native App Launching Soon
+  </text>
+
+  <!-- Footer -->
+  <text
+    x="50%"
+    y="1020"
+    font-family="&#34;Open Sans&#34;, sans-serif"
+    font-weight="400"
+    font-size="18px"
+    fill="#999999"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >
+    contact@example.com
+  </text>
+</svg>
