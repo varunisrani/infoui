@@ -96,7 +96,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       setSvgLoadingStatus("loading");
       setIsSaved(false);
 
-      const response = await fetch('http://localhost:5001/api/generate-svg', {
+      const response = await fetch('https://pppp-351z.onrender.com/api/generate-svg', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
