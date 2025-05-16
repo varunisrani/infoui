@@ -43,92 +43,166 @@ export class AlignmentGuidelines {
     
     const objectCenter = activeObject.getCenterPoint();
     const objectBounds = activeObject.getBoundingRect(true, true);
+    const objectActualWidth = (activeObject.width || 0) * (activeObject.scaleX || 1);
+    const objectActualHeight = (activeObject.height || 0) * (activeObject.scaleY || 1);
 
-    // Get all other objects
     const otherObjects = this.canvas.getObjects().filter(obj => obj !== activeObject);
 
-    // Check vertical alignment
+    let potentialVerticalSnaps: { position: number; objectSnapValue: number; distance: number; type: string }[] = [];
+    let potentialHorizontalSnaps: { position: number; objectSnapValue: number; distance: number; type: string }[] = [];
+
+    const threshold = this.options.threshold || 5;
+
     otherObjects.forEach(other => {
       if (!(other instanceof fabric.Object)) return;
       
       const otherCenter = other.getCenterPoint();
       const otherBounds = other.getBoundingRect(true, true);
+      const otherActualWidth = (other.width || 0) * (other.scaleX || 1);
+      const otherActualHeight = (other.height || 0) * (other.scaleY || 1);
 
-      // Center alignment
       if (this.options.snapToCenter) {
-        if (Math.abs(objectCenter.x - otherCenter.x) < (this.options.threshold || 5)) {
-          this.drawVerticalLine(otherCenter.x);
-          if (typeof other.left === 'number') {
-            activeObject.set('left', other.left);
-            this.canvas.renderAll();
-          }
+        const diff = Math.abs(objectCenter.x - otherCenter.x);
+        if (diff < threshold) {
+          potentialVerticalSnaps.push({
+            position: otherCenter.x,
+            objectSnapValue: otherCenter.x - objectActualWidth / 2 + (activeObject.left || 0) - objectBounds.left,
+            distance: diff,
+            type: "center"
+          });
         }
       }
 
-      // Edge alignment
       if (this.options.snapToEdges) {
-        // Left edge
-        if (Math.abs(objectBounds.left - otherBounds.left) < (this.options.threshold || 5)) {
-          this.drawVerticalLine(otherBounds.left);
-          if (typeof other.left === 'number') {
-            activeObject.set('left', other.left);
-          }
+        let diff = Math.abs(objectBounds.left - otherBounds.left);
+        if (diff < threshold) {
+          potentialVerticalSnaps.push({
+            position: otherBounds.left,
+            objectSnapValue: otherBounds.left - objectBounds.left + (activeObject.left || 0),
+            distance: diff,
+            type: "left-left"
+          });
         }
-        // Right edge
-        if (Math.abs(objectBounds.left + objectBounds.width - (otherBounds.left + otherBounds.width)) < (this.options.threshold || 5)) {
-          this.drawVerticalLine(otherBounds.left + otherBounds.width);
-          if (typeof other.left === 'number' && typeof otherBounds.width === 'number' && typeof objectBounds.width === 'number') {
-            activeObject.set('left', other.left + otherBounds.width - objectBounds.width);
-          }
+        diff = Math.abs(objectBounds.left + objectBounds.width - (otherBounds.left + otherBounds.width));
+         if (diff < threshold) {
+          potentialVerticalSnaps.push({
+            position: otherBounds.left + otherBounds.width,
+            objectSnapValue: (otherBounds.left + otherBounds.width) - objectActualWidth - objectBounds.left + (activeObject.left || 0),
+            distance: diff,
+            type: "right-right"
+          });
+        }
+        diff = Math.abs(objectBounds.left - (otherBounds.left + otherBounds.width));
+        if (diff < threshold) {
+          potentialVerticalSnaps.push({
+            position: otherBounds.left + otherBounds.width,
+            objectSnapValue: (otherBounds.left + otherBounds.width) - objectBounds.left + (activeObject.left || 0),
+            distance: diff,
+            type: "left-right"
+          });
+        }
+        diff = Math.abs(objectBounds.left + objectBounds.width - otherBounds.left);
+        if (diff < threshold) {
+          potentialVerticalSnaps.push({
+            position: otherBounds.left,
+            objectSnapValue: otherBounds.left - objectActualWidth - objectBounds.left + (activeObject.left || 0),
+            distance: diff,
+            type: "right-left"
+          });
         }
       }
     });
 
-    // Similar logic for horizontal alignment
     otherObjects.forEach(other => {
       if (!(other instanceof fabric.Object)) return;
       
       const otherCenter = other.getCenterPoint();
       const otherBounds = other.getBoundingRect(true, true);
+      const otherActualHeight = (other.height || 0) * (other.scaleY || 1);
 
       if (this.options.snapToCenter) {
-        if (Math.abs(objectCenter.y - otherCenter.y) < (this.options.threshold || 5)) {
-          this.drawHorizontalLine(otherCenter.y);
-          if (typeof other.top === 'number') {
-            activeObject.set('top', other.top);
-            this.canvas.renderAll();
-          }
+        const diff = Math.abs(objectCenter.y - otherCenter.y);
+        if (diff < threshold) {
+          potentialHorizontalSnaps.push({
+            position: otherCenter.y,
+            objectSnapValue: otherCenter.y - objectActualHeight / 2 + (activeObject.top || 0) - objectBounds.top,
+            distance: diff,
+            type: "center"
+          });
         }
       }
 
       if (this.options.snapToEdges) {
-        // Top edge
-        if (Math.abs(objectBounds.top - otherBounds.top) < (this.options.threshold || 5)) {
-          this.drawHorizontalLine(otherBounds.top);
-          if (typeof other.top === 'number') {
-            activeObject.set('top', other.top);
-          }
+        let diff = Math.abs(objectBounds.top - otherBounds.top);
+        if (diff < threshold) {
+          potentialHorizontalSnaps.push({
+            position: otherBounds.top,
+            objectSnapValue: otherBounds.top - objectBounds.top + (activeObject.top || 0),
+            distance: diff,
+            type: "top-top"
+          });
         }
-        // Bottom edge
-        if (Math.abs(objectBounds.top + objectBounds.height - (otherBounds.top + otherBounds.height)) < (this.options.threshold || 5)) {
-          this.drawHorizontalLine(otherBounds.top + otherBounds.height);
-          if (typeof other.top === 'number' && typeof otherBounds.height === 'number' && typeof objectBounds.height === 'number') {
-            activeObject.set('top', other.top + otherBounds.height - objectBounds.height);
-          }
+        diff = Math.abs(objectBounds.top + objectBounds.height - (otherBounds.top + otherBounds.height));
+        if (diff < threshold) {
+          potentialHorizontalSnaps.push({
+            position: otherBounds.top + otherBounds.height,
+            objectSnapValue: (otherBounds.top + otherBounds.height) - objectActualHeight - objectBounds.top + (activeObject.top || 0),
+            distance: diff,
+            type: "bottom-bottom"
+          });
+        }
+        diff = Math.abs(objectBounds.top - (otherBounds.top + otherBounds.height));
+        if (diff < threshold) {
+          potentialHorizontalSnaps.push({
+            position: otherBounds.top + otherBounds.height,
+            objectSnapValue: (otherBounds.top + otherBounds.height) - objectBounds.top + (activeObject.top || 0),
+            distance: diff,
+            type: "top-bottom"
+          });
+        }
+        diff = Math.abs(objectBounds.top + objectBounds.height - otherBounds.top);
+        if (diff < threshold) {
+          potentialHorizontalSnaps.push({
+            position: otherBounds.top,
+            objectSnapValue: otherBounds.top - objectActualHeight - objectBounds.top + (activeObject.top || 0),
+            distance: diff,
+            type: "bottom-top"
+          });
         }
       }
     });
+    
+    let snapped = false;
+
+    if (potentialVerticalSnaps.length > 0) {
+      potentialVerticalSnaps.sort((a, b) => a.distance - b.distance);
+      const bestVerticalSnap = potentialVerticalSnaps[0];
+      activeObject.set('left', bestVerticalSnap.objectSnapValue);
+      this.drawVerticalLine(bestVerticalSnap.position);
+      snapped = true;
+    }
+
+    if (potentialHorizontalSnaps.length > 0) {
+      potentialHorizontalSnaps.sort((a, b) => a.distance - b.distance);
+      const bestHorizontalSnap = potentialHorizontalSnaps[0];
+      activeObject.set('top', bestHorizontalSnap.objectSnapValue);
+      this.drawHorizontalLine(bestHorizontalSnap.position);
+      snapped = true;
+    }
+
+    if (snapped) {
+      activeObject.setCoords();
+      this.canvas.renderAll();
+    }
   }
 
   private handleObjectScaling(event: fabric.IEvent) {
-    // Similar to moving but for scaling operations
-    // This is a simplified version - you might want to add more complex scaling snapping
     this.handleObjectMoving(event);
   }
 
   private drawVerticalLine(x: number) {
     const canvasHeight = this.canvas.getHeight() || 1000;
-    const line = new fabric.Line([x, -canvasHeight / 2, x, canvasHeight * 1.5], {
+    const line = new fabric.Line([x, 0, x, canvasHeight], {
       stroke: this.options.lineColor,
       strokeWidth: this.options.lineWidth,
       selectable: false,
@@ -141,7 +215,7 @@ export class AlignmentGuidelines {
 
   private drawHorizontalLine(y: number) {
     const canvasWidth = this.canvas.getWidth() || 1000;
-    const line = new fabric.Line([-canvasWidth / 2, y, canvasWidth * 1.5, y], {
+    const line = new fabric.Line([0, y, canvasWidth, y], {
       stroke: this.options.lineColor,
       strokeWidth: this.options.lineWidth,
       selectable: false,
@@ -153,12 +227,10 @@ export class AlignmentGuidelines {
   }
 
   public clearGuidelines() {
-    [...this.verticalLines, ...this.horizontalLines].forEach(line => {
-      this.canvas.remove(line);
-    });
+    this.verticalLines.forEach(line => this.canvas.remove(line));
+    this.horizontalLines.forEach(line => this.canvas.remove(line));
     this.verticalLines = [];
     this.horizontalLines = [];
-    this.canvas.renderAll();
   }
 
   public destroy() {
