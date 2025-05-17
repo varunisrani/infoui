@@ -12,26 +12,26 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "The Canvas",
+  title: "Wrecked Labs",
   description: "Build Something Great!",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <Toaster />
-          <Modals />
-          <SubscriptionAlert />
-          <Suspense>
+        <Suspense>
+          <Providers>
+            <Modals />
+            <Toaster />
+            <SubscriptionAlert />
             {children}
-          </Suspense>
-        </Providers>
+          </Providers>
+        </Suspense>
       </body>
     </html>
   );
