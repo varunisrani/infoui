@@ -11,13 +11,13 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const SubscriptionAlertContent = () => {
   const params = useSearchParams();
-  const error = params.get("error");
+  const error = params?.get("error") ?? null;
 
   const { onOpen: onOpenFail } = useFailModal();
   const { onOpen: onOpenSuccess } = useSuccessModal();
 
-  const canceled = params.get("canceled");
-  const success = params.get("success");
+  const canceled = params?.get("canceled") ?? null;
+  const success = params?.get("success") ?? null;
 
   useEffect(() => {
     if (canceled) {
