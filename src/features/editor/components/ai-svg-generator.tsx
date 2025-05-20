@@ -414,10 +414,10 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
 
   return (
     <div className="w-full h-full flex flex-col overflow-hidden">
-      <div className="p-4 pb-2 border-b">
+      <div className="p-4 pb-2 border-b bg-white dark:bg-slate-900">
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="text-lg font-semibold">AI SVG Generator</h3>
+            <h3 className="text-lg font-semibold tracking-tight">AI SVG Generator</h3>
             <p className="text-sm text-muted-foreground">Create custom vector graphics with AI</p>
           </div>
           <Button variant="outline" size="icon" onClick={onClose}>
@@ -426,28 +426,30 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
         </div>
       </div>
 
-      <div className="p-4 pt-0 overflow-auto flex-1">
+      <div className="p-5 pt-4 overflow-auto flex-1">
         {/* Input Section */}
-        <div className="mb-4">
-          <div className="space-y-2 mt-4">
-            <Label htmlFor="prompt" className="font-medium">Describe the SVG you want to generate</Label>
+        <div className="mb-5">
+          <div className="space-y-3 mt-2">
+            <Label htmlFor="prompt" className="font-medium text-sm">Describe the SVG you want to generate</Label>
             <Textarea
               id="prompt"
               placeholder="E.g., A mountain landscape with sunset and pine trees"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               rows={3}
-              className="resize-none border-slate-300 focus:border-blue-500"
+              className="resize-none border-slate-200 focus-visible:ring-blue-500 transition-all text-base"
               disabled={isGenerating}
             />
 
             {showOptions && (
-              <div className="p-3 bg-slate-50 dark:bg-slate-900 rounded-md space-y-3 mt-2">
-                <div className="text-sm font-medium">Advanced Options</div>
+              <div className="p-4 bg-slate-50 dark:bg-slate-900/70 rounded-lg space-y-3 mt-3 border border-slate-200 dark:border-slate-800">
+                <div className="text-sm font-medium flex items-center">
+                  <span>Advanced Options</span>
+                </div>
 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label htmlFor="width" className="text-xs">Width</Label>
+                    <Label htmlFor="width" className="text-xs mb-1 block">Width</Label>
                     <Input
                       id="width"
                       type="number"
@@ -455,10 +457,11 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                       onChange={(e) => setDimensions({...dimensions, width: parseInt(e.target.value) || 1080})}
                       min={100}
                       max={4000}
+                      className="border-slate-200 dark:border-slate-700 h-8"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="height" className="text-xs">Height</Label>
+                    <Label htmlFor="height" className="text-xs mb-1 block">Height</Label>
                     <Input
                       id="height"
                       type="number"
@@ -466,6 +469,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                       onChange={(e) => setDimensions({...dimensions, height: parseInt(e.target.value) || 1080})}
                       min={100}
                       max={4000}
+                      className="border-slate-200 dark:border-slate-700 h-8"
                     />
                   </div>
                 </div>
@@ -491,7 +495,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                   size="sm"
                   onClick={applyCustomDimensions}
                   disabled={!svgData}
-                  className="w-full"
+                  className="w-full mt-1"
                 >
                   Apply Dimensions
                 </Button>
@@ -502,7 +506,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
               <Button
                 onClick={generateSVG}
                 disabled={isGenerating || !prompt.trim()}
-                className="flex-1"
+                className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white border-0"
               >
                 {isGenerating ? (
                   <>
@@ -522,6 +526,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                 size="icon"
                 onClick={() => setShowOptions(!showOptions)}
                 title={showOptions ? "Hide options" : "Show options"}
+                className="border-slate-200 dark:border-slate-700"
               >
                 {showOptions ? <Minimize size={16} /> : <Maximize size={16} />}
               </Button>
@@ -532,7 +537,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                   size="sm"
                   onClick={reprocessSVG}
                   disabled={isGenerating || svgLoadingStatus === "loading"}
-                  className="flex-grow"
+                  className="flex-grow border-slate-200 dark:border-slate-700"
                 >
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Fix SVG
@@ -541,11 +546,14 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
             </div>
             
             {svgData && svgData.enhancedPrompt && (
-              <div className="mt-3 p-3 bg-slate-50 dark:bg-slate-900/50 rounded-md">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Enhanced Prompt</span>
+              <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg border border-blue-100 dark:border-blue-900/30">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-medium text-blue-700 dark:text-blue-400 flex items-center">
+                    <Sparkles className="h-3 w-3 mr-1.5" />
+                    Enhanced Prompt
+                  </span>
                 </div>
-                <p className="text-xs text-slate-600 dark:text-slate-300 whitespace-pre-wrap">
+                <p className="text-xs text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
                   {svgData.enhancedPrompt}
                 </p>
               </div>
@@ -554,8 +562,8 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
         </div>
 
         {/* SVG Output Area */}
-        <div className="mt-6 rounded-lg border overflow-hidden">
-          <div className="bg-slate-50 dark:bg-slate-900 p-3 border-b flex justify-between items-center">
+        <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
+          <div className="bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-900/90 dark:to-slate-900 p-3 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
             <div className="flex items-center">
               <h3 className="text-sm font-medium">Generated SVG</h3>
               {svgData && renderStatusBadge()}
@@ -577,38 +585,46 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
 
           {/* SVG Preview Area */}
           {svgData ? (
-            <div className={`bg-gray-50 flex items-center justify-center p-2 rounded mb-2 border ${isBigPreview ? 'h-[400px]' : 'h-[240px]'}`}>
+            <div className={`bg-[url('/checkered-pattern.png')] bg-[length:16px_16px] flex items-center justify-center p-4 rounded-b-lg ${isBigPreview ? 'h-[400px]' : 'h-[240px]'}`}>
               <div
-                className="w-full h-full overflow-hidden flex items-center justify-center relative bg-white rounded shadow-sm"
+                className="w-full h-full overflow-hidden flex items-center justify-center relative bg-white rounded shadow-sm border border-slate-200 dark:border-slate-700"
                 dangerouslySetInnerHTML={{
                   __html: svgData.svg.replace(/<svg/, '<svg preserveAspectRatio="xMidYMid meet" ')
                 }}
               />
             </div>
           ) : (
-            <div className="bg-gray-50 h-[240px] flex items-center justify-center rounded mb-2 border">
+            <div className="bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-900 dark:to-slate-800 h-[240px] flex items-center justify-center rounded-b-lg">
               {isGenerating ? (
-                <div className="flex flex-col items-center gap-2">
-                  <Loader2 className="animate-spin h-6 w-6 text-blue-500" />
-                  <p className="text-sm text-muted-foreground">Generating SVG...</p>
+                <div className="flex flex-col items-center gap-3 p-6 bg-white/50 dark:bg-slate-800/50 rounded-xl backdrop-blur-sm">
+                  <div className="relative">
+                    <Loader2 className="animate-spin h-8 w-8 text-blue-500" />
+                    <Sparkles className="h-4 w-4 absolute -top-1 -right-1 text-blue-400" />
+                  </div>
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-300">Creating your masterpiece...</p>
                 </div>
               ) : (
-                <div className="flex flex-col items-center gap-2 px-4 text-center">
-                  <Wand2 className="h-8 w-8 text-slate-300" />
-                  <p className="text-sm text-muted-foreground">Your generated SVG will appear here</p>
+                <div className="flex flex-col items-center gap-3 px-6 py-8 text-center bg-white/50 dark:bg-slate-800/50 rounded-xl backdrop-blur-sm">
+                  <div className="relative">
+                    <Wand2 className="h-8 w-8 text-slate-300" />
+                    <Sparkles className="h-4 w-4 absolute -top-1 -right-1 text-blue-400 opacity-50" />
+                  </div>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 max-w-[200px]">
+                    Describe what you want, and AI will generate an SVG for you
+                  </p>
                 </div>
               )}
             </div>
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-col gap-3 mt-4">
+          <div className="flex flex-col gap-3 p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
             {svgData && (
               <Button
                 variant="default"
                 onClick={addToCanvas}
                 disabled={!svgData || isGenerating || isAddingToCanvas}
-                className="w-full"
+                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white border-0"
               >
                 {isAddingToCanvas ? (
                   <>
@@ -625,27 +641,30 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
             )}
             
             <div className="flex flex-wrap gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={copyToClipboard}
-                disabled={!svgData || isGenerating}
-                className="flex-grow"
-              >
-                <Copy className="h-4 w-4 mr-2" />
-                Copy SVG Code
-              </Button>
+              {svgData && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={copyToClipboard}
+                  disabled={!svgData || isGenerating}
+                  className="flex-grow border-slate-200 dark:border-slate-700"
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy SVG Code
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="p-4 border-t flex justify-between gap-2 bg-white dark:bg-slate-900">
+      <div className="p-4 border-t border-slate-200 dark:border-slate-800 flex justify-between gap-3 bg-white dark:bg-slate-900">
         {svgData ? (
           <>
             <Button
               variant="outline"
               onClick={saveToLibrary}
-              className="flex-1"
+              className="flex-1 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800"
               disabled={isGenerating || isSaved}
             >
               {isSaving ? (
@@ -669,7 +688,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
             <Button
               variant="default"
               onClick={createNewProject}
-              className="flex-1"
+              className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white border-0"
               disabled={isGenerating || isCreatingProject}
             >
               {isCreatingProject ? (
@@ -686,7 +705,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
             </Button>
           </>
         ) : (
-          <div className="text-center w-full text-sm text-muted-foreground">
+          <div className="text-center w-full text-sm text-slate-500 dark:text-slate-400 py-2">
             {isGenerating ?
               "Generating your SVG..." :
               "Enter a prompt and generate an SVG to see options"
