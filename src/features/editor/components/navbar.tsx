@@ -68,9 +68,9 @@ export const Navbar = ({
   });
 
   return (
-    <nav className="w-full flex items-center p-4 h-[68px] gap-x-8 border-b lg:pl-[34px]">
+    <nav className="w-full flex items-center p-2 sm:p-4 h-[68px] gap-x-2 sm:gap-x-8 border-b sm:pl-[34px]">
       <Logo />
-      <div className="w-full flex items-center gap-x-1 h-full">
+      <div className="w-full flex items-center gap-x-1 h-full overflow-x-auto">
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button size="sm" variant="ghost">
@@ -93,40 +93,42 @@ export const Navbar = ({
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Separator orientation="vertical" className="mx-2" />
-        <Hint label="Select" side="bottom" sideOffset={10}>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => onChangeActiveTool("select")}
-            className={cn(activeTool === "select" && "bg-gray-100")}
-          >
-            <MousePointerClick className="size-4" />
-          </Button>
-        </Hint>
-        <Hint label="Undo" side="bottom" sideOffset={10}>
-          <Button
-            disabled={!editor?.canUndo()}
-            variant="ghost"
-            size="icon"
-            onClick={() => editor?.onUndo()}
-          >
-            <Undo2 className="size-4" />
-          </Button>
-        </Hint>
-        <Hint label="Redo" side="bottom" sideOffset={10}>
-          <Button
-            disabled={!editor?.canRedo()}
-            variant="ghost"
-            size="icon"
-            onClick={() => editor?.onRedo()}
-          >
-            <Redo2 className="size-4" />
-          </Button>
-        </Hint>
-        <Separator orientation="vertical" className="mx-2" />
+        <Separator orientation="vertical" className="mx-2 hidden sm:block" />
+        <div className="hidden sm:flex items-center">
+          <Hint label="Select" side="bottom" sideOffset={10}>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => onChangeActiveTool("select")}
+              className={cn(activeTool === "select" && "bg-gray-100")}
+            >
+              <MousePointerClick className="size-4" />
+            </Button>
+          </Hint>
+          <Hint label="Undo" side="bottom" sideOffset={10}>
+            <Button
+              disabled={!editor?.canUndo()}
+              variant="ghost"
+              size="icon"
+              onClick={() => editor?.onUndo()}
+            >
+              <Undo2 className="size-4" />
+            </Button>
+          </Hint>
+          <Hint label="Redo" side="bottom" sideOffset={10}>
+            <Button
+              disabled={!editor?.canRedo()}
+              variant="ghost"
+              size="icon"
+              onClick={() => editor?.onRedo()}
+            >
+              <Redo2 className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+        <Separator orientation="vertical" className="mx-2 hidden sm:block" />
         {isPending && ( 
-          <div className="flex items-center gap-x-2">
+          <div className="hidden sm:flex items-center gap-x-2">
             <Loader className="size-4 animate-spin text-muted-foreground" />
             <div className="text-xs text-muted-foreground">
               Saving...
@@ -134,7 +136,7 @@ export const Navbar = ({
           </div>
         )}
         {!isPending && isError && ( 
-          <div className="flex items-center gap-x-2">
+          <div className="hidden sm:flex items-center gap-x-2">
             <BsCloudSlash className="size-[20px] text-muted-foreground" />
             <div className="text-xs text-muted-foreground">
               Failed to save
@@ -142,19 +144,19 @@ export const Navbar = ({
           </div>
         )}
         {!isPending && !isError && ( 
-          <div className="flex items-center gap-x-2">
+          <div className="hidden sm:flex items-center gap-x-2">
             <BsCloudCheck className="size-[20px] text-muted-foreground" />
             <div className="text-xs text-muted-foreground">
               Saved
             </div>
           </div>
         )}
-        <div className="ml-auto flex items-center gap-x-4">
+        <div className="ml-auto flex items-center gap-x-2 sm:gap-x-4">
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-              <Button size="sm" variant="ghost">
+              <Button size="sm" variant="ghost" className="whitespace-nowrap">
                 Export
-                <Download className="size-4 ml-4" />
+                <Download className="size-4 ml-2 sm:ml-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-60">

@@ -5,6 +5,17 @@
 html,
 body {
   height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  touch-action: manipulation;
+}
+
+/* Responsive utilities */
+@layer utilities {
+  .touch-ui {
+    @apply p-2 sm:p-1;
+    min-height: 44px; /* Apple's recommended minimum touch target size */
+  }
 }
 
 @layer base {

@@ -446,7 +446,7 @@ export const Editor = ({ initialData }: EditorProps) => {
             onChangeActiveTool={onChangeActiveTool}
             key={JSON.stringify(editor?.canvas.getActiveObject())}
           />
-          <div className="flex-1 h-[calc(100%-124px)] bg-muted" ref={containerRef}>
+          <div className="flex-1 h-[calc(100%-124px)] sm:h-[calc(100%-82px)] bg-muted" ref={containerRef}>
             <canvas ref={canvasRef} />
             <AiSvgDisplay editor={editor} initialData={initialData} />
           </div>
