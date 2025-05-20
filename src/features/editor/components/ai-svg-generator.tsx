@@ -22,7 +22,8 @@ import {
   Check,
   PlusCircle,
   Loader,
-  ExternalLink
+  ExternalLink,
+  Wand2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -410,8 +411,8 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       <div className="p-4 pb-2 border-b">
         <div className="flex justify-between items-center">
           <div>
-            <h3 className="text-lg font-medium">AI SVG Generator</h3>
-            <p className="text-sm text-muted-foreground">Generate custom SVG graphics with AI</p>
+            <h3 className="text-lg font-semibold">AI SVG Generator</h3>
+            <p className="text-sm text-muted-foreground">Create custom vector graphics with AI</p>
           </div>
           <Button variant="outline" size="icon" onClick={onClose}>
             <ArrowLeft size={16} />
@@ -422,15 +423,15 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       <div className="p-4 pt-0 overflow-auto flex-1">
         {/* Input Section */}
         <div className="mb-4">
-          <div className="space-y-2">
-            <Label htmlFor="prompt">Describe the SVG you want to generate</Label>
+          <div className="space-y-2 mt-4">
+            <Label htmlFor="prompt" className="font-medium">Describe the SVG you want to generate</Label>
             <Textarea
               id="prompt"
               placeholder="E.g., A mountain landscape with sunset and pine trees"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               rows={3}
-              className="resize-none"
+              className="resize-none border-slate-300 focus:border-blue-500"
               disabled={isGenerating}
             />
 
@@ -504,7 +505,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                   </>
                 ) : (
                   <>
-                    <Sparkles className="h-4 w-4 mr-2" />
+                    <Wand2 className="h-4 w-4 mr-2" />
                     Generate SVG
                   </>
                 )}
@@ -543,109 +544,93 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
 
           {/* SVG Preview Area */}
           {svgData ? (
-            <div className={`bg-muted flex items-center justify-center p-2 rounded mb-2 border ${isBigPreview ? 'h-[400px]' : 'h-[200px]'}`}>
+            <div className={`bg-gray-50 flex items-center justify-center p-2 rounded mb-2 border ${isBigPreview ? 'h-[400px]' : 'h-[240px]'}`}>
               <div
-                className="w-full h-full overflow-hidden flex items-center justify-center relative"
+                className="w-full h-full overflow-hidden flex items-center justify-center relative bg-white rounded shadow-sm"
                 dangerouslySetInnerHTML={{
                   __html: svgData.svg.replace(/<svg/, '<svg preserveAspectRatio="xMidYMid meet" ')
                 }}
               />
             </div>
           ) : (
-            <div className="bg-muted h-[200px] flex items-center justify-center rounded mb-2">
+            <div className="bg-gray-50 h-[240px] flex items-center justify-center rounded mb-2 border">
               {isGenerating ? (
                 <div className="flex flex-col items-center gap-2">
-                  <Loader2 className="animate-spin h-6 w-6 text-primary" />
+                  <Loader2 className="animate-spin h-6 w-6 text-blue-500" />
                   <p className="text-sm text-muted-foreground">Generating SVG...</p>
                 </div>
               ) : (
-                <p className="text-sm text-muted-foreground">SVG will appear here</p>
+                <div className="flex flex-col items-center gap-2 px-4 text-center">
+                  <Wand2 className="h-8 w-8 text-slate-300" />
+                  <p className="text-sm text-muted-foreground">Your generated SVG will appear here</p>
+                </div>
               )}
             </div>
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-2 mt-4">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={copyToClipboard}
-              disabled={!svgData || isGenerating}
-              className="flex-grow"
-            >
-              <Copy className="h-4 w-4 mr-2" />
-              Copy SVG
-            </Button>
-
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={saveToLibrary}
-              disabled={!svgData || isGenerating || savedToLibrary}
-              className="flex-grow"
-            >
-              {isSaving ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Saving...
-                </>
-              ) : savedToLibrary ? (
-                <>
-                  <Check className="h-4 w-4 mr-2" />
-                  Saved
-                </>
-              ) : (
-                <>
-                  <Save className="h-4 w-4 mr-2" />
-                  Save to Library
-                </>
-              )}
-            </Button>
-
-            <Button
-              variant="default"
-              size="sm"
-              onClick={addToCanvas}
-              disabled={!svgData || isGenerating || isAddingToCanvas}
-              className="flex-grow"
-            >
-              {isAddingToCanvas ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Adding...
-                </>
-              ) : (
-                <>
-                  <PlusCircle className="h-4 w-4 mr-2" />
-                  Add to Canvas
-                </>
-              )}
-            </Button>
+          <div className="flex flex-col gap-3 mt-4">
+            {svgData && (
+              <Button
+                variant="default"
+                onClick={addToCanvas}
+                disabled={!svgData || isGenerating || isAddingToCanvas}
+                className="w-full"
+              >
+                {isAddingToCanvas ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Adding to Canvas...
+                  </>
+                ) : (
+                  <>
+                    <PlusCircle className="h-4 w-4 mr-2" />
+                    Add to Canvas
+                  </>
+                )}
+              </Button>
+            )}
+            
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={copyToClipboard}
+                disabled={!svgData || isGenerating}
+                className="flex-grow"
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                Copy SVG Code
+              </Button>
           </div>
         </div>
       </div>
 
-      <div className="p-4 border-t flex justify-between gap-2">
+      <div className="p-4 border-t flex justify-between gap-2 bg-white dark:bg-slate-900">
         {svgData ? (
           <>
             <Button
-              variant={svgLoadingStatus !== "success" ? "outline" : "default"}
-              onClick={reprocessSVG}
-              className="flex-1"
-              disabled={isGenerating || svgLoadingStatus === "loading"}
-            >
-              <RefreshCw size={16} className="mr-2" />
-              Reprocess
-            </Button>
-
-            <Button
-              variant={isSaved ? "outline" : "default"}
+              variant="outline"
               onClick={saveToLibrary}
               className="flex-1"
               disabled={isGenerating || isSaved}
             >
-              <Save size={16} className="mr-2" />
-              {isSaved ? "Saved" : "Save"}
+              {isSaving ? (
+                <>
+                  <Loader2 size={16} className="mr-2 animate-spin" />
+                  Saving...
+                </>
+              ) : isSaved ? (
+                <>
+                  <CheckCircle2 size={16} className="mr-2 text-green-500" />
+                  Saved to Library
+                </>
+              ) : (
+                <>
+                  <Save size={16} className="mr-2" />
+                  Save to Library
+                </>
+              )}
             </Button>
             
             <Button
@@ -665,14 +650,6 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                   Use this SVG
                 </>
               )}
-            </Button>
-
-            <Button
-              onClick={addToCanvas}
-              className="flex-1"
-              disabled={isGenerating || svgLoadingStatus === "error" || svgLoadingStatus === "loading"}
-            >
-              Add to Canvas
             </Button>
           </>
         ) : (

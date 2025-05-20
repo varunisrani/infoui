@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { PanelRight, Trash, Sparkles } from "lucide-react";
+import { PanelRight, Sparkles, Wand2 } from "lucide-react";
 import { Editor } from "@/features/editor/types";
 import { AiSvgGenerator } from "@/features/editor/components/ai-svg-generator";
+import { Card } from "@/components/ui/card";
 
 interface AiSidebarProps {
   editor: Editor | undefined;
@@ -27,9 +28,9 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
           <div className="p-4 pb-2 border-b">
             <div className="flex justify-between items-center">
               <div>
-                <h3 className="text-lg font-medium">AI Tools</h3>
+                <h3 className="text-lg font-semibold">AI Creator</h3>
                 <p className="text-sm text-muted-foreground">
-                  Generate content with AI
+                  Generate creative content with AI
                 </p>
               </div>
               <Button variant="outline" size="icon" onClick={onClose}>
@@ -39,17 +40,34 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
           </div>
 
           <div className="p-4 flex-1 overflow-auto">
-            <div className="space-y-3">
+            <div className="space-y-4">
               {/* SVG Generator Card */}
-              <div className="border rounded-lg p-4 hover:border-blue-500 hover:shadow-sm transition-all cursor-pointer" onClick={toggleSvgGenerator}>
-                <div className="flex items-center mb-2">
-                  <Sparkles size={16} className="mr-2 text-blue-500" />
-                  <h4 className="font-medium">AI SVG Generator</h4>
+              <Card className="hover:shadow-md transition-all cursor-pointer overflow-hidden">
+                <div 
+                  className="border-b p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50"
+                  onClick={toggleSvgGenerator}
+                >
+                  <div className="flex items-center mb-2">
+                    <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3">
+                      <Sparkles size={16} className="text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <h4 className="font-medium">AI SVG Generator</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground pl-11">
+                    Create custom vector graphics from text descriptions
+                  </p>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  Generate custom SVG graphics from text prompts
-                </p>
-              </div>
+                <div className="p-4 bg-white dark:bg-slate-900">
+                  <Button 
+                    className="w-full" 
+                    variant="default"
+                    onClick={toggleSvgGenerator}
+                  >
+                    Generate SVG
+                    <Wand2 className="h-4 w-4 ml-2" />
+                  </Button>
+                </div>
+              </Card>
             </div>
           </div>
         </>
