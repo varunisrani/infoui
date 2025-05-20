@@ -375,32 +375,38 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
     let bgColor = "";
     let textColor = "";
     let text = "";
+    let icon = null;
 
     switch (svgLoadingStatus) {
       case "success":
-        bgColor = "bg-green-100";
-        textColor = "text-green-800";
+        bgColor = "bg-green-100 dark:bg-green-900/30";
+        textColor = "text-green-700 dark:text-green-500";
         text = "Compatible";
+        icon = <CheckCircle2 className="h-3 w-3 mr-1" />;
         break;
       case "warning":
-        bgColor = "bg-amber-100";
-        textColor = "text-amber-800";
+        bgColor = "bg-amber-100 dark:bg-amber-900/30";
+        textColor = "text-amber-700 dark:text-amber-500";
         text = "Limited Compatibility";
+        icon = <AlertTriangle className="h-3 w-3 mr-1" />;
         break;
       case "error":
-        bgColor = "bg-red-100";
-        textColor = "text-red-800";
+        bgColor = "bg-red-100 dark:bg-red-900/30";
+        textColor = "text-red-700 dark:text-red-500";
         text = "Error";
+        icon = <X className="h-3 w-3 mr-1" />;
         break;
       case "loading":
-        bgColor = "bg-blue-100";
-        textColor = "text-blue-800";
+        bgColor = "bg-blue-100 dark:bg-blue-900/30";
+        textColor = "text-blue-700 dark:text-blue-500";
         text = "Checking...";
+        icon = <Loader className="h-3 w-3 mr-1 animate-spin" />;
         break;
     }
 
     return (
-      <span className={`ml-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${bgColor} ${textColor}`}>
+      <span className={`ml-2 inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${bgColor} ${textColor}`}>
+        {icon}
         {text}
       </span>
     );
@@ -519,24 +525,51 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
               >
                 {showOptions ? <Minimize size={16} /> : <Maximize size={16} />}
               </Button>
+              
+              {svgLoadingStatus !== "success" && svgData && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={reprocessSVG}
+                  disabled={isGenerating || svgLoadingStatus === "loading"}
+                  className="flex-grow"
+                >
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Fix SVG
+                </Button>
+              )}
             </div>
+            
+            {svgData && svgData.enhancedPrompt && (
+              <div className="mt-3 p-3 bg-slate-50 dark:bg-slate-900/50 rounded-md">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Enhanced Prompt</span>
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-300 whitespace-pre-wrap">
+                  {svgData.enhancedPrompt}
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
         {/* SVG Output Area */}
-        <div className="mt-4 border rounded-md p-3 bg-white">
-          <div className="flex justify-between items-center mb-2">
-            <h3 className="text-sm font-medium">Generated SVG</h3>
+        <div className="mt-6 rounded-lg border overflow-hidden">
+          <div className="bg-slate-50 dark:bg-slate-900 p-3 border-b flex justify-between items-center">
+            <div className="flex items-center">
+              <h3 className="text-sm font-medium">Generated SVG</h3>
+              {svgData && renderStatusBadge()}
+            </div>
             {svgData && (
               <div className="flex items-center gap-1">
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-6 w-6"
+                  className="h-7 w-7"
                   onClick={() => setIsBigPreview(prev => !prev)}
                   title={isBigPreview ? "Minimize preview" : "Maximize preview"}
                 >
-                  {isBigPreview ? <Minimize className="h-3 w-3" /> : <Maximize className="h-3 w-3" />}
+                  {isBigPreview ? <Minimize className="h-3.5 w-3.5" /> : <Maximize className="h-3.5 w-3.5" />}
                 </Button>
               </div>
             )}
