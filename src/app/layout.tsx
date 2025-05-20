@@ -14,6 +14,19 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Wrecked Labs",
   description: "Build Something Great!",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    minimumScale: 1,
+    userScalable: true,
+  },
+  other: {
+    "format-detection": "telephone=no",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default"
+  }
 };
 
 export default function RootLayout({

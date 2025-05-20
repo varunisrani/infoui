@@ -473,7 +473,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                   <span>Advanced Options</span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3">
                   <div>
                     <Label htmlFor="width" className="text-xs mb-1 block">Width</Label>
                     <Input
@@ -611,7 +611,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
 
           {/* SVG Preview Area */}
           {svgData ? (
-            <div className={`bg-[url('/checkered-pattern.png')] bg-[length:16px_16px] flex items-center justify-center p-4 rounded-b-lg ${isBigPreview ? 'h-[400px]' : 'h-[240px]'}`}>
+            <div className={`bg-[url('/checkered-pattern.png')] bg-[length:16px_16px] flex items-center justify-center p-2 sm:p-4 rounded-b-lg ${isBigPreview ? 'h-[300px] sm:h-[400px]' : 'h-[200px] sm:h-[240px]'}`}>
               <div
                 className="w-full h-full overflow-hidden flex items-center justify-center relative bg-white rounded shadow-sm border border-slate-200 dark:border-slate-700"
                 dangerouslySetInnerHTML={{

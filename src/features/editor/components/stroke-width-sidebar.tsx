@@ -42,7 +42,7 @@ export const StrokeWidthSidebar = ({
   return (
     <aside
       className={cn(
-        "bg-white relative border-r z-[40] w-[360px] h-full flex flex-col",
+        "bg-white relative border-r z-[40] w-full sm:w-[300px] md:w-[360px] h-full flex flex-col",
         activeTool === "stroke-width" ? "visible" : "hidden",
       )}
     >
@@ -51,7 +51,7 @@ export const StrokeWidthSidebar = ({
         description="Modify the stroke of your element"
       />
       <ScrollArea>
-        <div className="p-4 space-y-4 border-b">
+        <div className="p-3 sm:p-4 space-y-4 border-b">
           <Label className="text-sm">
             Stroke width
           </Label>
@@ -60,7 +60,7 @@ export const StrokeWidthSidebar = ({
             onValueChange={(values) => onChangeStrokeWidth(values[0])}
           />
         </div>
-        <div className="p-4 space-y-4 border-b">
+        <div className="p-3 sm:p-4 space-y-4 border-b">
           <Label className="text-sm">
             Stroke type
           </Label>
