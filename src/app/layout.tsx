@@ -21,6 +21,12 @@ export const metadata: Metadata = {
     minimumScale: 1,
     userScalable: true,
   },
+  other: {
+    "format-detection": "telephone=no",
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default"
+  }
 };
 
 export default function RootLayout({
