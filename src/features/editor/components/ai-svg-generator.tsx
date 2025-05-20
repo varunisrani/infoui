@@ -124,7 +124,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       // Store the SVG data
       const newSvgData = {
         svg: cleanedSvg,
-        prompt: data.original_prompt || prompt,
+        prompt: prompt,
         enhancedPrompt: data.enhanced_prompt || ""
       };
 
@@ -148,7 +148,33 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
   const processReceivedSVG = (svgContent: string): string => {
     // Apply full SVG processing pipeline
     const { processed } = svgNormalizer.fullyProcessSvg(svgContent);
-    return processed;
+    
+    // Ensure SVG dimensions are set to 1080x1080
+    try {
+      const parser = new DOMParser();
+      const svgDoc = parser.parseFromString(processed, 'image/svg+xml');
+      
+      // Check for parse errors
+      const parseError = svgDoc.querySelector('parsererror');
+      if (parseError) {
+        console.warn("SVG parsing error during dimension setting");
+        return processed;
+      }
+      
+      const svgElement = svgDoc.documentElement as unknown as SVGSVGElement;
+      
+      // Set dimensions to 1080x1080
+      svgElement.setAttribute('width', '1080');
+      svgElement.setAttribute('height', '1080');
+      svgElement.setAttribute('viewBox', '0 0 1080 1080');
+      
+      // Convert back to string
+      const serializer = new XMLSerializer();
+      return serializer.serializeToString(svgElement);
+    } catch (error) {
+      console.error("Error setting SVG dimensions:", error);
+      return processed;
+    }
   };
 
   // Function to save SVG to library
