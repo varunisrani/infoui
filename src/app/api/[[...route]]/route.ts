@@ -59,11 +59,11 @@ const aiRoutes = new Hono()
 
         const html = await response.text();
         
-        // Parse and extract text content
+        // Extract text content using a simpler approach compatible with Edge runtime
         const text = extractTextFromHtml(html);
         
-        // Extract colors from HTML
-        const colors = extractColorsFromHtml(html, url);
+        // Extract colors from HTML using a simple regex approach
+        const colors = extractColorsFromHtml(html);
 
         return c.json({ 
           text, 
@@ -81,41 +81,47 @@ const aiRoutes = new Hono()
 // Helper function to extract text content from HTML
 function extractTextFromHtml(html: string): string {
   try {
-    // Create a DOM parser
-    const { JSDOM } = require('jsdom');
-    const dom = new JSDOM(html);
-    const document = dom.window.document;
-
-    // Remove script, style, noscript, and other non-content elements
-    const elementsToRemove = [
-      'script', 'style', 'noscript', 'iframe', 'svg',
-      'header', 'footer', 'nav', 'aside'
-    ];
-    
-    elementsToRemove.forEach(tag => {
-      const elements = document.querySelectorAll(tag);
-      elements.forEach((el: Element) => el.parentNode?.removeChild(el));
-    });
-
-    // Extract text from main content areas
-    const contentElements = document.querySelectorAll('main, article, section, .content, .main, #content, #main');
-    
-    let text = '';
-    if (contentElements.length > 0) {
-      // If we found specific content elements, use those
-      contentElements.forEach((el: Element) => {
-        text += el.textContent + '\n\n';
-      });
-    } else {
-      // Otherwise fall back to body content
-      text = document.body.textContent || '';
-    }
-
-    // Clean up the text
-    return text
-      .replace(/\s+/g, ' ')  // Replace multiple whitespace with single space
-      .replace(/\n\s*\n/g, '\n\n')  // Replace multiple new lines with double new lines
+    // Remove HTML tags while preserving spacing
+    let text = html
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
+      .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')   // Remove style tags
+      .replace(/<svg\b[^<]*(?:(?!<\/svg>)<[^<]*)*<\/svg>/gi, '')        // Remove SVG
+      .replace(/<[^>]+>/g, ' ')                                         // Replace other tags with space
+      .replace(/&nbsp;/g, ' ')                                          // Replace &nbsp; with space
+      .replace(/\s+/g, ' ')                                             // Replace multiple spaces with one
       .trim();
+      
+    // Extract meaningful sections (approximate main content)
+    const mainContentPattern = /<main\b[^>]*>([\s\S]*?)<\/main>/i;
+    const articlePattern = /<article\b[^>]*>([\s\S]*?)<\/article>/i;
+    const bodyPattern = /<body\b[^>]*>([\s\S]*?)<\/body>/i;
+    
+    let mainContent = '';
+    
+    // Try to find main content in <main> tags
+    const mainMatch = html.match(mainContentPattern);
+    if (mainMatch && mainMatch[1]) {
+      mainContent = mainMatch[1]
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+    
+    // If main content not found, try <article> tags
+    if (!mainContent) {
+      const articleMatch = html.match(articlePattern);
+      if (articleMatch && articleMatch[1]) {
+        mainContent = articleMatch[1]
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/&nbsp;/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+    }
+    
+    // Use the extracted main content if available, otherwise use the whole text
+    return mainContent || text;
   } catch (error) {
     console.error("Error extracting text:", error);
     return "Failed to extract text content from the website.";
@@ -123,65 +129,58 @@ function extractTextFromHtml(html: string): string {
 }
 
 // Helper function to extract colors from HTML
-function extractColorsFromHtml(html: string, url: string): { hex: string; name?: string }[] {
+function extractColorsFromHtml(html: string): { hex: string; name?: string }[] {
   try {
-    const { JSDOM } = require('jsdom');
-    const dom = new JSDOM(html, { url });
-    const document = dom.window.document;
-    
-    // Initialize colors set to avoid duplicates
     const colorSet = new Set<string>();
     
-    // Extract colors from CSS properties
-    const elements = document.querySelectorAll('*');
-    elements.forEach((el: Element) => {
-      const computedStyle = dom.window.getComputedStyle(el);
-      const backgroundColor = computedStyle.backgroundColor;
-      const color = computedStyle.color;
-      
-      // Parse and add background color
-      if (backgroundColor && backgroundColor !== 'transparent' && backgroundColor !== 'rgba(0, 0, 0, 0)') {
-        const hex = rgbToHex(backgroundColor);
-        if (hex) colorSet.add(hex);
-      }
-      
-      // Parse and add text color
-      if (color && color !== 'transparent' && color !== 'rgba(0, 0, 0, 0)') {
-        const hex = rgbToHex(color);
-        if (hex) colorSet.add(hex);
-      }
-    });
+    // Regular expressions to find color values
+    const hexColorRegex = /#([0-9a-f]{3,8})\b/gi;
+    const rgbColorRegex = /rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/gi;
+    const rgbaColorRegex = /rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*([0-9.]+)\s*\)/gi;
     
-    // Extract favicon for brand colors
-    const favicon = document.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
-    let faviconUrl = favicon?.getAttribute('href') || '/favicon.ico';
-    
-    // Handle relative URLs
-    if (faviconUrl && !faviconUrl.startsWith('http')) {
-      const urlObj = new URL(url);
-      faviconUrl = `${urlObj.origin}${faviconUrl.startsWith('/') ? '' : '/'}${faviconUrl}`;
-      // We'd need image processing here to extract colors from favicon,
-      // but for simplicity, we'll skip this part
+    // Extract hex colors
+    let match;
+    while ((match = hexColorRegex.exec(html)) !== null) {
+      let hex = match[0];
+      // Standardize to 6-digit hex
+      if (hex.length === 4) { // #RGB format
+        hex = `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`;
+      }
+      colorSet.add(hex);
     }
     
-    // Convert Set to Array and format
-    return Array.from(colorSet).map(hex => ({ hex })).slice(0, 10);
+    // Extract RGB colors
+    while ((match = rgbColorRegex.exec(html)) !== null) {
+      const r = parseInt(match[1], 10);
+      const g = parseInt(match[2], 10);
+      const b = parseInt(match[3], 10);
+      const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+      colorSet.add(hex);
+    }
+    
+    // Extract RGBA colors (ignore alpha channel)
+    while ((match = rgbaColorRegex.exec(html)) !== null) {
+      const r = parseInt(match[1], 10);
+      const g = parseInt(match[2], 10);
+      const b = parseInt(match[3], 10);
+      // Skip colors with low opacity
+      const alpha = parseFloat(match[4]);
+      if (alpha >= 0.5) {
+        const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+        colorSet.add(hex);
+      }
+    }
+    
+    // Filter out common non-brand colors
+    const commonColors = new Set(['#ffffff', '#000000', '#f0f0f0', '#f8f8f8', '#e0e0e0', '#cccccc']);
+    const filteredColors = Array.from(colorSet).filter(color => !commonColors.has(color.toLowerCase()));
+    
+    // Return colors as hex values
+    return filteredColors.map(hex => ({ hex })).slice(0, 10);
   } catch (error) {
     console.error("Error extracting colors:", error);
     return [];
   }
-}
-
-// Helper function to convert RGB(A) color to HEX
-function rgbToHex(rgb: string): string | null {
-  const match = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/);
-  if (!match) return null;
-  
-  const r = parseInt(match[1], 10);
-  const g = parseInt(match[2], 10);
-  const b = parseInt(match[3], 10);
-  
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
 }
 
 const app = new Hono().basePath("/api");
