@@ -124,7 +124,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       // Store the SVG data
       const newSvgData = {
         svg: cleanedSvg,
-        prompt: data.original_prompt || prompt,
+        prompt: prompt,
         enhancedPrompt: data.enhanced_prompt || ""
       };
 
