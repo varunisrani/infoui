@@ -44,6 +44,7 @@ import {
 import { SvgRenderer } from "@/features/editor/components/svg-renderer";
 import { cn } from "@/lib/utils";
 import { storage } from "@/lib/storage";
+import { websiteDataStorage } from "@/lib/website-data";
 
 // Definition of SVG data structure
 interface SVGData {
@@ -73,11 +74,18 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 1080, height: 1080 });
   const [shouldFillCanvas, setShouldFillCanvas] = useState<boolean>(true);
+  const [hasWebsiteData, setHasWebsiteData] = useState<boolean>(false);
 
   // Refs
   const previewRef = useRef<HTMLDivElement>(null);
   const { shouldBlock, triggerPaywall } = usePaywall();
   const router = useRouter();
+  
+  // Check for website data on mount
+  useEffect(() => {
+    const websiteData = websiteDataStorage.getWebsiteData();
+    setHasWebsiteData(!!websiteData);
+  }, []);
 
   // Function to generate an SVG from a prompt
   const generateSVG = async () => {
@@ -97,13 +105,30 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       setSvgLoadingStatus("loading");
       setIsSaved(false);
 
+      // Check if we have website data to enhance the prompt
+      const websiteData = websiteDataStorage.getWebsiteData();
+      
+      // Prepare the prompt - enhance it with website data if available
+      let enhancedPrompt = prompt.trim();
+      
+      if (websiteData) {
+        // Add website text content and color information to the prompt
+        enhancedPrompt = `Create a personalized poster based on the following website information. 
+WEBSITE TEXT CONTENT: "${websiteData.text.substring(0, 500)}${websiteData.text.length > 500 ? '...' : ''}"
+WEBSITE COLOR THEME: ${websiteData.colors.map(c => c.hex).join(", ")}
+
+Please incorporate these website colors and text content into the design. Use the color theme and create a design that matches the website's style.
+
+USER'S ORIGINAL REQUEST: ${prompt.trim()}`;
+      }
+
       const response = await fetch('https://pppp-351z.onrender.com/api/generate-svg', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          prompt: prompt.trim(),
+          prompt: enhancedPrompt,
           skip_enhancement: false 
         }),
       });
@@ -466,6 +491,17 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
               className="resize-none border-slate-200 focus-visible:ring-blue-500 transition-all text-base"
               disabled={isGenerating}
             />
+            
+            {hasWebsiteData && (
+              <div className="mt-2 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg border border-blue-100 dark:border-blue-900/50">
+                <div className="flex items-center">
+                  <Sparkles className="h-4 w-4 mr-2 text-blue-500" />
+                  <p className="text-xs text-blue-700 dark:text-blue-400 font-medium">
+                    Your website data will be used to personalize the SVG
+                  </p>
+                </div>
+              </div>
+            )}
 
             {showOptions && (
               <div className="p-4 bg-slate-50 dark:bg-slate-900/70 rounded-lg space-y-3 mt-3 border border-slate-200 dark:border-slate-800">

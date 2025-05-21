@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Progress } from "@/components/ui/progress";
 import { Editor } from "@/features/editor/types";
 import { Card } from "@/components/ui/card";
+import { websiteDataStorage } from "@/lib/website-data";
 
 interface AiWebsiteScraperProps {
   editor: Editor | undefined;
@@ -114,6 +115,14 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
       
       const data = await response.json();
       setResult(data);
+      
+      // Save website data to localStorage for use in AI SVG generator
+      websiteDataStorage.saveWebsiteData({
+        text: data.text,
+        colors: data.colors,
+        url: processedUrl,
+        timestamp: Date.now()
+      });
       
       setScrapingStep("complete");
       toast.success("Website scraped successfully!");
