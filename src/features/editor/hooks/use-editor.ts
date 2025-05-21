@@ -82,8 +82,17 @@ const buildEditor = ({
 
   const saveSvg = () => {
     canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
-    // Use toSVG() method to get proper SVG content
-    const svgContent = canvas.toSVG();
+    // Use toSVG() method to get proper SVG content with 1080x1080 dimensions
+    const svgContent = canvas.toSVG({
+      width: 1080,
+      height: 1080,
+      viewBox: {
+        x: 0,
+        y: 0,
+        width: 1080,
+        height: 1080
+      }
+    });
     // Create a proper SVG data URL
     const svgDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgContent)}`;
 
