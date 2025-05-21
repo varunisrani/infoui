@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Globe, Loader2, Copy, CheckCircle2, Paintbrush } from "lucide-react";
+import { ArrowLeft, Globe, Loader2, Copy, CheckCircle2, Paintbrush, CheckCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Progress } from "@/components/ui/progress";
 import { Editor } from "@/features/editor/types";
 
 interface AiWebsiteScraperProps {
@@ -22,12 +23,50 @@ interface WebsiteScraperResult {
   }[];
 }
 
+type ScrapingStep = 
+  | "idle"
+  | "validating"
+  | "connecting"
+  | "fetching"
+  | "extractingText"
+  | "extractingColors"
+  | "complete";
+
 export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => {
   const [url, setUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<WebsiteScraperResult | null>(null);
   const [isCopied, setIsCopied] = useState(false);
+  const [scrapingStep, setScrapingStep] = useState<ScrapingStep>("idle");
+  const [progress, setProgress] = useState(0);
+
+  // Update progress based on current step
+  useEffect(() => {
+    switch (scrapingStep) {
+      case "idle":
+        setProgress(0);
+        break;
+      case "validating":
+        setProgress(10);
+        break;
+      case "connecting":
+        setProgress(20);
+        break;
+      case "fetching":
+        setProgress(40);
+        break;
+      case "extractingText":
+        setProgress(60);
+        break;
+      case "extractingColors":
+        setProgress(80);
+        break;
+      case "complete":
+        setProgress(100);
+        break;
+    }
+  }, [scrapingStep]);
 
   const handleScrapeWebsite = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +76,8 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
       return;
     }
 
+    setScrapingStep("validating");
+    
     // Basic URL validation
     let processedUrl = url;
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -46,6 +87,12 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
     try {
       setIsLoading(true);
       setError(null);
+      setResult(null);
+      
+      // Update steps as we progress through the scraping process
+      setScrapingStep("connecting");
+      
+      setTimeout(() => setScrapingStep("fetching"), 500);
       
       const response = await fetch('/api/ai/scrape-website', {
         method: 'POST',
@@ -60,13 +107,20 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
         throw new Error(errorData.error || "Failed to scrape website");
       }
 
+      setScrapingStep("extractingText");
+      
+      setTimeout(() => setScrapingStep("extractingColors"), 300);
+      
       const data = await response.json();
       setResult(data);
+      
+      setScrapingStep("complete");
       toast.success("Website scraped successfully!");
     } catch (err) {
       console.error("Error scraping website:", err);
       setError(err instanceof Error ? err.message : "An unexpected error occurred");
       toast.error(err instanceof Error ? err.message : "Failed to scrape website");
+      setScrapingStep("idle");
     } finally {
       setIsLoading(false);
     }
@@ -96,6 +150,26 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
       toast.error("Please select an element first");
     }
   }, [editor]);
+
+  // Get step message based on current scraping step
+  const getStepMessage = () => {
+    switch (scrapingStep) {
+      case "validating":
+        return "Validating URL...";
+      case "connecting":
+        return "Connecting to website...";  
+      case "fetching":
+        return "Fetching website content...";
+      case "extractingText":
+        return "Extracting text content...";
+      case "extractingColors":
+        return "Extracting color palette...";
+      case "complete":
+        return "Scraping complete!";
+      default:
+        return "";
+    }
+  };
 
   return (
     <div className="w-full h-full flex flex-col overflow-hidden">
@@ -154,6 +228,53 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
               </div>
             </div>
           </form>
+          
+          {/* Progress indicator */}
+          {isLoading && (
+            <div className="space-y-2 animate-fade-in">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">{getStepMessage()}</span>
+                <span className="text-sm text-muted-foreground">{progress}%</span>
+              </div>
+              <Progress value={progress} className="h-2" />
+              <div className="grid grid-cols-5 gap-1 mt-3">
+                <div className={`h-1.5 rounded-full transition-colors duration-300 ${scrapingStep !== "idle" ? "bg-green-500" : "bg-slate-200 dark:bg-slate-700"}`}></div>
+                <div className={`h-1.5 rounded-full transition-colors duration-300 ${["connecting", "fetching", "extractingText", "extractingColors", "complete"].includes(scrapingStep) ? "bg-green-500" : "bg-slate-200 dark:bg-slate-700"}`}></div>
+                <div className={`h-1.5 rounded-full transition-colors duration-300 ${["fetching", "extractingText", "extractingColors", "complete"].includes(scrapingStep) ? "bg-green-500" : "bg-slate-200 dark:bg-slate-700"}`}></div>
+                <div className={`h-1.5 rounded-full transition-colors duration-300 ${["extractingText", "extractingColors", "complete"].includes(scrapingStep) ? "bg-green-500" : "bg-slate-200 dark:bg-slate-700"}`}></div>
+                <div className={`h-1.5 rounded-full transition-colors duration-300 ${["extractingColors", "complete"].includes(scrapingStep) ? "bg-green-500" : "bg-slate-200 dark:bg-slate-700"}`}></div>
+              </div>
+              <ul className="mt-3 space-y-1.5 text-sm">
+                <li className="flex items-center">
+                  {scrapingStep !== "idle" ? <CheckCircle2 className="h-3.5 w-3.5 mr-2 text-green-500" /> : <div className="h-3.5 w-3.5 mr-2 rounded-full border-2 border-slate-300 dark:border-slate-600" />}
+                  <span className={scrapingStep !== "idle" ? "text-green-600 dark:text-green-400" : "text-slate-500 dark:text-slate-400"}>Validating URL</span>
+                </li>
+                <li className="flex items-center">
+                  {["connecting", "fetching", "extractingText", "extractingColors", "complete"].includes(scrapingStep) ? <CheckCircle2 className="h-3.5 w-3.5 mr-2 text-green-500" /> : <div className="h-3.5 w-3.5 mr-2 rounded-full border-2 border-slate-300 dark:border-slate-600" />}
+                  <span className={["connecting", "fetching", "extractingText", "extractingColors", "complete"].includes(scrapingStep) ? "text-green-600 dark:text-green-400" : "text-slate-500 dark:text-slate-400"}>Connecting to website</span>
+                </li>
+                <li className="flex items-center">
+                  {["fetching", "extractingText", "extractingColors", "complete"].includes(scrapingStep) ? <CheckCircle2 className="h-3.5 w-3.5 mr-2 text-green-500" /> : <div className="h-3.5 w-3.5 mr-2 rounded-full border-2 border-slate-300 dark:border-slate-600" />}
+                  <span className={["fetching", "extractingText", "extractingColors", "complete"].includes(scrapingStep) ? "text-green-600 dark:text-green-400" : "text-slate-500 dark:text-slate-400"}>Fetching website content</span>
+                </li>
+                <li className="flex items-center">
+                  {["extractingText", "extractingColors", "complete"].includes(scrapingStep) ? <CheckCircle2 className="h-3.5 w-3.5 mr-2 text-green-500" /> : <div className="h-3.5 w-3.5 mr-2 rounded-full border-2 border-slate-300 dark:border-slate-600" />}
+                  <span className={["extractingText", "extractingColors", "complete"].includes(scrapingStep) ? "text-green-600 dark:text-green-400" : "text-slate-500 dark:text-slate-400"}>Extracting text content</span>
+                </li>
+                <li className="flex items-center">
+                  {["extractingColors", "complete"].includes(scrapingStep) ? <CheckCircle2 className="h-3.5 w-3.5 mr-2 text-green-500" /> : <div className="h-3.5 w-3.5 mr-2 rounded-full border-2 border-slate-300 dark:border-slate-600" />}
+                  <span className={["extractingColors", "complete"].includes(scrapingStep) ? "text-green-600 dark:text-green-400" : "text-slate-500 dark:text-slate-400"}>Extracting color palette</span>
+                </li>
+              </ul>
+            </div>
+          )}
+
+          {scrapingStep === "complete" && !isLoading && (
+            <div className="py-2 px-4 bg-green-50 border border-green-200 rounded-md text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400 flex items-center justify-center">
+              <CheckCheck className="h-4 w-4 mr-2" />
+              <span>Website scraped successfully!</span>
+            </div>
+          )}
 
           {error && (
             <div className="p-4 border border-red-200 rounded-md bg-red-50 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
