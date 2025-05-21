@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { PanelRight, Sparkles, Wand2 } from "lucide-react";
+import { PanelRight, Sparkles, Wand2, Globe } from "lucide-react";
 import { Editor } from "@/features/editor/types";
 import { AiSvgGenerator } from "@/features/editor/components/ai-svg-generator";
+import { AiWebsiteScraper } from "@/features/editor/components/ai-website-scraper";
 import { Card } from "@/components/ui/card";
 
 interface AiSidebarProps {
@@ -13,11 +14,16 @@ interface AiSidebarProps {
 }
 
 export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
-  const [activeScreen, setActiveScreen] = useState<"main" | "svg-generator">("main");
+  const [activeScreen, setActiveScreen] = useState<"main" | "svg-generator" | "website-scraper">("main");
 
   // Toggle SVG Generator screen
   const toggleSvgGenerator = () => {
     setActiveScreen(activeScreen === "main" ? "svg-generator" : "main");
+  };
+
+  // Toggle Website Scraper screen
+  const toggleWebsiteScraper = () => {
+    setActiveScreen(activeScreen === "main" ? "website-scraper" : "main");
   };
 
   return (
@@ -69,6 +75,34 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
                 </div>
               </Card>
               
+              {/* Website Scraper Card */}
+              <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border-slate-200 dark:border-slate-800">
+                <div 
+                  className="border-b p-5 bg-gradient-to-br from-green-50 via-teal-50 to-cyan-50 dark:from-green-950/50 dark:via-teal-950/30 dark:to-cyan-950/40"
+                  onClick={toggleWebsiteScraper}
+                >
+                  <div className="flex items-center mb-3">
+                    <div className="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mr-3 shadow-sm">
+                      <Globe size={18} className="text-green-600 dark:text-green-400" />
+                    </div>
+                    <h4 className="font-semibold text-base">AI Website Scraper</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground pl-[3.25rem]">
+                    Extract text content and color themes from websites
+                  </p>
+                </div>
+                <div className="p-4 bg-white dark:bg-slate-900">
+                  <Button 
+                    className="w-full font-medium" 
+                    variant="default"
+                    onClick={toggleWebsiteScraper}
+                  >
+                    <span>Scrape Website</span>
+                    <Globe className="h-4 w-4 ml-2" />
+                  </Button>
+                </div>
+              </Card>
+              
               {/* CTA Button */}
               <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800">
                 <Button
@@ -83,11 +117,17 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
             </div>
           </div>
         </>
-      ) : (
+      ) : activeScreen === "svg-generator" ? (
         // SVG Generator screen
         <AiSvgGenerator 
           editor={editor} 
           onClose={toggleSvgGenerator} 
+        />
+      ) : (
+        // Website Scraper screen
+        <AiWebsiteScraper
+          editor={editor}
+          onClose={toggleWebsiteScraper}
         />
       )}
     </div>

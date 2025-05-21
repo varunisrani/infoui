@@ -7,7 +7,7 @@ export const Logo = () => {
       <div className="flex items-center gap-x-2 hover:opacity-75 transition h-[68px] px-4">
         <div className="w-8 h-8 relative">
           <Image 
-            src="/Asset_13x.png" 
+            src="/home/header/logo" 
             alt="Wrecked Labs" 
             fill
             className="object-contain"
