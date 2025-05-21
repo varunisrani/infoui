@@ -60,8 +60,8 @@ export const TemplateSidebar = ({
   return (
     <div className="flex flex-col h-full">
       <ToolSidebarHeader
-        title="Templates"
-        description="Choose from a variety of templates to get started"
+        title=""
+        description=""
       />
       <ScrollArea className="flex-1">
         <div className="grid grid-cols-2 gap-4 p-4">
