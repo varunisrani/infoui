@@ -112,7 +112,8 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       let enhancedPrompt = prompt.trim();
       
       if (websiteData) {
-        // Add website text content and color information to the prompt
+        // Format an enhanced prompt that includes website text and color data
+        // This helps the AI create SVGs that are personalized to the user's website
         enhancedPrompt = `Create a personalized poster based on the following website information. 
 WEBSITE TEXT CONTENT: "${websiteData.text.substring(0, 500)}${websiteData.text.length > 500 ? '...' : ''}"
 WEBSITE COLOR THEME: ${websiteData.colors.map(c => c.hex).join(", ")}
@@ -494,11 +495,26 @@ USER'S ORIGINAL REQUEST: ${prompt.trim()}`;
             
             {hasWebsiteData && (
               <div className="mt-2 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg border border-blue-100 dark:border-blue-900/50">
-                <div className="flex items-center">
-                  <Sparkles className="h-4 w-4 mr-2 text-blue-500" />
-                  <p className="text-xs text-blue-700 dark:text-blue-400 font-medium">
-                    Your website data will be used to personalize the SVG
-                  </p>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Sparkles className="h-4 w-4 mr-2 text-blue-500" />
+                    <p className="text-xs text-blue-700 dark:text-blue-400 font-medium">
+                      Your website data will be used to personalize the SVG
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 text-xs hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                    onClick={() => {
+                      websiteDataStorage.clearWebsiteData();
+                      setHasWebsiteData(false);
+                      toast.success("Website data cleared");
+                    }}
+                  >
+                    <X className="h-3 w-3 mr-1" />
+                    Clear
+                  </Button>
                 </div>
               </div>
             )}

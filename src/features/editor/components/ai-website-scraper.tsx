@@ -117,6 +117,7 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
       setResult(data);
       
       // Save website data to localStorage for use in AI SVG generator
+      // This data will be used to personalize SVG generation with the website's content and colors
       websiteDataStorage.saveWebsiteData({
         text: data.text,
         colors: data.colors,

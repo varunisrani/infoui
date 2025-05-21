@@ -1,18 +1,28 @@
 // Storage key for website scraped data
 export const WEBSITE_DATA_STORAGE_KEY = 'website_data';
 
-// Interface for storing website scraped data
+/**
+ * Interface for storing website scraped data
+ * This data is used to personalize AI SVG generation based on website content
+ */
 export interface WebsiteScrapedData {
+  // The extracted text content from the website
   text: string;
+  // The color palette extracted from the website
   colors: {
     hex: string;
     name?: string;
   }[];
+  // The original URL that was scraped
   url: string;
+  // When the data was scraped (timestamp)
   timestamp: number;
 }
 
-// Website data storage utility
+/**
+ * Website data storage utility
+ * Provides functions to save, retrieve, and clear website data from localStorage
+ */
 export const websiteDataStorage = {
   // Save website data to localStorage
   saveWebsiteData: (data: WebsiteScrapedData): void => {
