@@ -75,6 +75,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
   const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 1080, height: 1080 });
   const [shouldFillCanvas, setShouldFillCanvas] = useState<boolean>(true);
   const [hasWebsiteData, setHasWebsiteData] = useState<boolean>(false);
+  const [useWebsiteData, setUseWebsiteData] = useState<boolean>(true);
 
   // Refs
   const previewRef = useRef<HTMLDivElement>(null);
@@ -108,10 +109,10 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       // Check if we have website data to enhance the prompt
       const websiteData = websiteDataStorage.getWebsiteData();
       
-      // Prepare the prompt - enhance it with website data if available
+      // Prepare the prompt - enhance it with website data if available and enabled
       let enhancedPrompt = prompt.trim();
       
-      if (websiteData) {
+      if (websiteData && useWebsiteData) {
         // Extract key phrases from website text (up to 300 chars to avoid overwhelming the model)
         const websiteTextSample = websiteData.text.substring(0, 300);
         
@@ -519,26 +520,30 @@ Create a high-quality, cohesive SVG design that incorporates these brand element
                     <Sparkles className="h-4 w-4 text-blue-500 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-blue-700 dark:text-blue-400 font-medium">
-                        Website branding will be applied to your SVG
+                        Website branding is available for your SVG
                       </p>
                       <p className="text-xs text-blue-600/70 dark:text-blue-500/70 mt-0.5">
                         Colors and content from your website will influence the design
                       </p>
                     </div>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-6 text-xs hover:bg-blue-100 dark:hover:bg-blue-900/30 flex-shrink-0"
-                    onClick={() => {
-                      websiteDataStorage.clearWebsiteData();
-                      setHasWebsiteData(false);
-                      toast.success("Website data cleared");
-                    }}
-                  >
-                    <X className="h-3 w-3 mr-1" />
-                    Clear
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <div
+                      role="checkbox"
+                      aria-checked={useWebsiteData}
+                      tabIndex={0}
+                      className={`h-4 w-8 rounded-full p-0.5 cursor-pointer transition-colors ${useWebsiteData ? 'bg-blue-500' : 'bg-gray-300'}`}
+                      onClick={() => setUseWebsiteData(!useWebsiteData)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') setUseWebsiteData(!useWebsiteData);
+                      }}
+                    >
+                      <div className={`h-3 w-3 rounded-full bg-white transform transition-transform ${useWebsiteData ? 'translate-x-4' : 'translate-x-0'}`} />
+                    </div>
+                    <span className="text-xs text-blue-700 dark:text-blue-400">
+                      {useWebsiteData ? "Using" : "Not using"}
+                    </span>
+                  </div>
                 </div>
               </div>
             )}
@@ -647,7 +652,7 @@ Create a high-quality, cohesive SVG design that incorporates these brand element
               )}
             </div>
             
-            {svgData && svgData.enhancedPrompt && (
+            {svgData && svgData.enhancedPrompt && hasWebsiteData && useWebsiteData && (
               <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg border border-blue-100 dark:border-blue-900/30">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-medium text-blue-700 dark:text-blue-400 flex items-center">
