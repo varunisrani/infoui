@@ -44,6 +44,7 @@ import {
 import { SvgRenderer } from "@/features/editor/components/svg-renderer";
 import { cn } from "@/lib/utils";
 import { storage } from "@/lib/storage";
+import { websiteDataStorage } from "@/lib/website-data";
 
 // Definition of SVG data structure
 interface SVGData {
@@ -73,11 +74,18 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [dimensions, setDimensions] = useState<{ width: number; height: number }>({ width: 1080, height: 1080 });
   const [shouldFillCanvas, setShouldFillCanvas] = useState<boolean>(true);
+  const [hasWebsiteData, setHasWebsiteData] = useState<boolean>(false);
 
   // Refs
   const previewRef = useRef<HTMLDivElement>(null);
   const { shouldBlock, triggerPaywall } = usePaywall();
   const router = useRouter();
+  
+  // Check for website data on mount
+  useEffect(() => {
+    const websiteData = websiteDataStorage.getWebsiteData();
+    setHasWebsiteData(!!websiteData);
+  }, []);
 
   // Function to generate an SVG from a prompt
   const generateSVG = async () => {
@@ -97,13 +105,50 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       setSvgLoadingStatus("loading");
       setIsSaved(false);
 
+      // Check if we have website data to enhance the prompt
+      const websiteData = websiteDataStorage.getWebsiteData();
+      
+      // Prepare the prompt - enhance it with website data if available
+      let enhancedPrompt = prompt.trim();
+      
+      if (websiteData) {
+        // Extract key phrases from website text (up to 300 chars to avoid overwhelming the model)
+        const websiteTextSample = websiteData.text.substring(0, 300);
+        
+        // Format colors with priority indicators
+        const colorList = websiteData.colors.slice(0, 5).map((c, i) => 
+          `${i === 0 ? "PRIMARY" : i === 1 ? "SECONDARY" : `ACCENT-${i-1}`}: ${c.hex}`
+        ).join("\n");
+        
+        // Create a more structured and specific prompt
+        enhancedPrompt = `I need a professional SVG design that reflects this website's brand identity.
+
+WEBSITE CONTENT SUMMARY:
+"${websiteTextSample}${websiteData.text.length > 300 ? '...' : ''}"
+
+BRAND COLOR PALETTE:
+${colorList}
+
+DESIGN INSTRUCTIONS:
+1. Use the PRIMARY color as the dominant color in the design
+2. Use SECONDARY and ACCENT colors for highlights, accents, and details
+3. Ensure the design style matches the website's tone and purpose
+4. Create a visually appealing and professional composition
+5. Make text elements, if any, legible and properly sized
+6. Create clean vector graphics with well-defined shapes
+
+USER'S SPECIFIC REQUEST: ${prompt.trim()}
+
+Create a high-quality, cohesive SVG design that incorporates these brand elements while fulfilling the user's request.`;
+      }
+
       const response = await fetch('https://pppp-351z.onrender.com/api/generate-svg', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ 
-          prompt: prompt.trim(),
+          prompt: enhancedPrompt,
           skip_enhancement: false 
         }),
       });
@@ -466,6 +511,37 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
               className="resize-none border-slate-200 focus-visible:ring-blue-500 transition-all text-base"
               disabled={isGenerating}
             />
+            
+            {hasWebsiteData && (
+              <div className="mt-2 p-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-lg border border-blue-100 dark:border-blue-900/50">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 flex-1">
+                    <Sparkles className="h-4 w-4 text-blue-500 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs text-blue-700 dark:text-blue-400 font-medium">
+                        Website branding will be applied to your SVG
+                      </p>
+                      <p className="text-xs text-blue-600/70 dark:text-blue-500/70 mt-0.5">
+                        Colors and content from your website will influence the design
+                      </p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-6 text-xs hover:bg-blue-100 dark:hover:bg-blue-900/30 flex-shrink-0"
+                    onClick={() => {
+                      websiteDataStorage.clearWebsiteData();
+                      setHasWebsiteData(false);
+                      toast.success("Website data cleared");
+                    }}
+                  >
+                    <X className="h-3 w-3 mr-1" />
+                    Clear
+                  </Button>
+                </div>
+              </div>
+            )}
 
             {showOptions && (
               <div className="p-4 bg-slate-50 dark:bg-slate-900/70 rounded-lg space-y-3 mt-3 border border-slate-200 dark:border-slate-800">
@@ -576,7 +652,7 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-medium text-blue-700 dark:text-blue-400 flex items-center">
                     <Sparkles className="h-3 w-3 mr-1.5" />
-                    Enhanced Prompt
+                    Enhanced Prompt with Website Branding
                   </span>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 whitespace-pre-wrap leading-relaxed">
