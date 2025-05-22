@@ -119,8 +119,10 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
       // Save website data to localStorage for use in AI SVG generator
       // This data will be used to personalize SVG generation with the website's content and colors
       websiteDataStorage.saveWebsiteData({
-        text: data.text,
-        colors: data.colors,
+        // Process the text to clean up any extra whitespace and ensure it's in a usable format
+        text: data.text.trim().replace(/\s+/g, ' '),
+        // Ensure colors are properly formatted and prioritized
+        colors: data.colors.slice(0, 8), // Limit to 8 most dominant colors
         url: processedUrl,
         timestamp: Date.now()
       });
