@@ -9,11 +9,23 @@ import {
   Loader2,
   PlusCircle,
   MessageSquare,
-  Check
+  Check,
+  Palette,
+  Type,
+  Maximize,
+  RotateCw,
+  Download,
+  Copy,
+  Wand2,
+  RefreshCw,
+  Expand,
+  Minimize
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { Editor } from "@/features/editor/types";
 import { svgNormalizer, svgCanvasUtils } from "@/lib/svg-utils";
 
@@ -27,6 +39,16 @@ interface AiAssistantProps {
   onClose: () => void;
 }
 
+// Quick action suggestions for design modifications
+const quickActions = [
+  { icon: Palette, label: "Change Colors", prompt: "Change the colors to a different color scheme" },
+  { icon: Type, label: "Change Font", prompt: "Change the font style to something more modern" },
+  { icon: Maximize, label: "Make Bigger", prompt: "Make the text and elements larger" },
+  { icon: RotateCw, label: "Different Style", prompt: "Create a different design style for this" },
+  { icon: RefreshCw, label: "Simplify", prompt: "Make this design simpler and more minimalist" },
+  { icon: Wand2, label: "Add Effects", prompt: "Add some visual effects or decorative elements" },
+];
+
 export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   // State management
   const [messages, setMessages] = useState<Message[]>([]);
@@ -34,6 +56,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const [isSending, setIsSending] = useState(false);
   const [svgCode, setSvgCode] = useState<string | null>(null);
   const [isAddingToCanvas, setIsAddingToCanvas] = useState(false);
+  const [showQuickActions, setShowQuickActions] = useState(false);
+  const [showFullImage, setShowFullImage] = useState(false);
   
   // References
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -45,9 +69,18 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     }
   }, [messages]);
 
+  // Show quick actions when SVG is generated
+  useEffect(() => {
+    if (svgCode) {
+      setShowQuickActions(false); // Start with quick actions hidden
+      setShowFullImage(false); // Start with compact view
+    }
+  }, [svgCode]);
+
   // Function to send a message to the AI assistant
-  const sendMessage = async () => {
-    if (!newMessage.trim()) return;
+  const sendMessage = async (messageToSend?: string) => {
+    const messageContent = messageToSend || newMessage;
+    if (!messageContent.trim()) return;
     
     try {
       setIsSending(true);
@@ -55,7 +88,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       // Add user message to chat
       const userMessage: Message = {
         role: "user",
-        content: newMessage
+        content: messageContent
       };
       
       // Update messages with the user's message
@@ -64,11 +97,11 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       setNewMessage("");
       
       // Determine if we should request SVG generation
-      const shouldGenerateSvg = newMessage.toLowerCase().includes("create") || 
-                                newMessage.toLowerCase().includes("generate") || 
-                                newMessage.toLowerCase().includes("draw") ||
-                                newMessage.toLowerCase().includes("design") ||
-                                newMessage.toLowerCase().includes("make");
+      const shouldGenerateSvg = messageContent.toLowerCase().includes("create") || 
+                                messageContent.toLowerCase().includes("generate") || 
+                                messageContent.toLowerCase().includes("draw") ||
+                                messageContent.toLowerCase().includes("design") ||
+                                messageContent.toLowerCase().includes("make");
       
       // Call the API - use the provided external API
       const apiUrl = "https://pppp-351z.onrender.com/api/chat-assistant";
@@ -96,7 +129,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       // Check if SVG was generated
       if (data.svg_code) {
         setSvgCode(data.svg_code);
-        toast.success("SVG design generated!");
+        toast.success("🎨 Design created successfully!");
       }
       
     } catch (error) {
@@ -119,6 +152,12 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       e.preventDefault();
       sendMessage();
     }
+  };
+
+  // Handle quick action clicks
+  const handleQuickAction = (action: typeof quickActions[0]) => {
+    sendMessage(action.prompt);
+    setShowQuickActions(false);
   };
 
   // Add SVG to canvas
@@ -153,7 +192,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
         }
       }
 
-      toast.success('SVG added to canvas!');
+      toast.success('🎉 Design added to canvas!');
       // Close the assistant after adding to canvas
       onClose();
     } catch (error) {
@@ -164,6 +203,32 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     }
   };
 
+  // Copy SVG code to clipboard
+  const copySvgCode = async () => {
+    if (!svgCode) return;
+    try {
+      await navigator.clipboard.writeText(svgCode);
+      toast.success("SVG code copied to clipboard!");
+    } catch (error) {
+      toast.error("Failed to copy SVG code");
+    }
+  };
+
+  // Download SVG as file
+  const downloadSvg = () => {
+    if (!svgCode) return;
+    const blob = new Blob([svgCode], { type: 'image/svg+xml' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'ai-design.svg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success("SVG downloaded!");
+  };
+
   // Function to format message content with syntax highlighting for code blocks
   const formatMessageContent = (content: string) => {
     // Split by code blocks
@@ -172,20 +237,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     return parts.map((part, index) => {
       // Check if this part is a code block
       if (part.startsWith('```svg') && part.endsWith('```')) {
-        // Extract the SVG code
-        const svgCode = part.replace(/```svg|```/g, '').trim();
-        
-        // Return highlighted code
-        return (
-          <div key={index} className="bg-slate-100 dark:bg-slate-800 rounded-md p-3 my-3 text-xs font-mono overflow-hidden">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-xs text-slate-500 dark:text-slate-400">SVG Code</span>
-            </div>
-            <div className="max-h-[200px] overflow-auto">
-              <code className="whitespace-pre-wrap break-all">{svgCode}</code>
-            </div>
-          </div>
-        );
+        // Don't show SVG code in chat - we handle it separately
+        return null;
       }
       
       // Regular text, preserve line breaks
@@ -198,38 +251,63 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden">
-      {/* Header */}
-      <div className="p-4 pb-2 border-b bg-white dark:bg-slate-900">
+    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+      {/* Modern Header */}
+      <div className="relative p-6 pb-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-700/50">
         <div className="flex justify-between items-center">
-          <div>
-            <h3 className="text-lg font-semibold tracking-tight">AI Assistant</h3>
-            <p className="text-sm text-muted-foreground">
-              Your helpful design companion
-            </p>
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl">
+              <Sparkles className="h-5 w-5 text-white" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                AI Design Studio
+              </h3>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                Create stunning designs with AI assistance
+              </p>
+            </div>
           </div>
-          <Button variant="outline" size="icon" onClick={onClose}>
-            <ArrowLeft size={16} />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={onClose}
+            className="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"
+          >
+            <ArrowLeft size={18} />
           </Button>
         </div>
       </div>
 
       {/* Chat container */}
-      <ScrollArea className="flex-1 p-4">
-        <div ref={chatContainerRef} className="space-y-4">
+      <ScrollArea className="flex-1 p-6">
+        <div ref={chatContainerRef} className="space-y-6">
           {/* Welcome message */}
           {messages.length === 0 && (
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-800">
-              <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="h-4 w-4 text-blue-500" />
-                <h4 className="font-medium text-blue-700 dark:text-blue-400">AI Design Assistant</h4>
-              </div>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Hello! I&apos;m your AI design assistant. I can help you create SVG designs, 
-                provide suggestions, and assist with design modifications. Just tell me 
-                what you&apos;d like to create or ask for design advice!
-              </p>
-            </div>
+            <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="p-2 bg-blue-500 rounded-lg">
+                    <Wand2 className="h-4 w-4 text-white" />
+                  </div>
+                  <h4 className="font-semibold text-blue-700 dark:text-blue-300">Welcome to AI Design Studio!</h4>
+                </div>
+                <p className="text-slate-600 dark:text-slate-300 mb-4">
+                  I can help you create amazing designs! Try saying:
+                </p>
+                <div className="grid grid-cols-1 gap-2">
+                  <Badge variant="secondary" className="justify-start py-2 px-3">
+                    &ldquo;Create a coming soon poster for my clothing brand&rdquo;
+                  </Badge>
+                  <Badge variant="secondary" className="justify-start py-2 px-3">
+                    &ldquo;Design a testimonial card for my restaurant&rdquo;
+                  </Badge>
+                  <Badge variant="secondary" className="justify-start py-2 px-3">
+                    &ldquo;Make a logo for my tech startup&rdquo;
+                  </Badge>
+                </div>
+              </CardContent>
+            </Card>
           )}
 
           {/* Messages */}
@@ -238,87 +316,228 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
               key={index} 
               className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
             >
-              <div 
-                className={`max-w-[80%] rounded-lg p-3 ${
+              <Card 
+                className={`max-w-[85%] ${
                   message.role === "user" 
-                    ? "bg-blue-500 text-white" 
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100"
+                    ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white border-blue-500" 
+                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
                 }`}
               >
-                {message.role === "assistant" 
-                  ? formatMessageContent(message.content)
-                  : <span style={{ whiteSpace: 'pre-wrap' }}>{message.content}</span>
-                }
-              </div>
+                <CardContent className="p-4">
+                  <div className={`text-sm ${message.role === "user" ? "text-blue-50" : "text-slate-700 dark:text-slate-300"}`}>
+                    {message.role === "assistant" 
+                      ? formatMessageContent(message.content)
+                      : <span style={{ whiteSpace: 'pre-wrap' }}>{message.content}</span>
+                    }
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           ))}
 
           {/* Loading indicator */}
           {isSending && (
             <div className="flex justify-start">
-              <div className="bg-slate-100 dark:bg-slate-800 rounded-lg p-3">
-                <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
-              </div>
+              <Card className="bg-white dark:bg-slate-800">
+                <CardContent className="p-4 flex items-center gap-3">
+                  <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+                  <span className="text-sm text-slate-600 dark:text-slate-400">Creating your design...</span>
+                </CardContent>
+              </Card>
             </div>
           )}
         </div>
       </ScrollArea>
 
-      {/* SVG Preview and actions (only shown when SVG is available) */}
+      {/* SVG Preview and actions */}
       {svgCode && (
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-          <div className="bg-[url('/checkered-pattern.png')] bg-[length:16px_16px] flex items-center justify-center p-4 rounded-lg mb-3 h-[150px]">
-            <div 
-              className="w-full h-full overflow-hidden flex items-center justify-center relative bg-white rounded shadow-sm border border-slate-200 dark:border-slate-700"
-              dangerouslySetInnerHTML={{
-                __html: svgCode.replace(/<svg/, '<svg preserveAspectRatio="xMidYMid meet" ')
-              }}
-            />
-          </div>
-          
-          <Button
-            onClick={addToCanvas}
-            disabled={isAddingToCanvas}
-            className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white border-0"
-          >
-            {isAddingToCanvas ? (
-              <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Adding to Canvas...
-              </>
-            ) : (
-              <>
-                <PlusCircle className="h-4 w-4 mr-2" />
-                Add to Canvas
-              </>
+        <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
+          <div className="space-y-3">
+            {/* Preview Title */}
+            <div className="flex items-center justify-between">
+              <h4 className="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2 text-sm">
+                <Check className="h-3 w-3 text-green-500" />
+                Design Ready
+              </h4>
+              <Badge variant="outline" className="text-xs">
+                {showFullImage ? '180×180px' : '120×120px'} Preview
+              </Badge>
+            </div>
+
+            {/* Compact Design Preview */}
+            <div className="flex items-center gap-3">
+              <div 
+                className={`${showFullImage ? 'w-[180px] h-[180px]' : 'w-[120px] h-[120px]'} flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex-shrink-0`}
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="8" height="8" fill="#f8fafc"/><rect x="8" y="8" width="8" height="8" fill="#f8fafc"/></svg>')}")`,
+                  backgroundSize: '16px 16px'
+                }}
+              >
+                <div 
+                  className="w-full h-full"
+                  dangerouslySetInnerHTML={{
+                    __html: svgCode.replace(/<svg/, '<svg preserveAspectRatio="xMidYMid meet" width="100%" height="100%" ')
+                  }}
+                />
+              </div>
+
+              {/* Compact Action Buttons */}
+              <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-2 gap-2'}`}>
+                <Button
+                  onClick={addToCanvas}
+                  disabled={isAddingToCanvas}
+                  size="sm"
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 h-8"
+                >
+                  {isAddingToCanvas ? (
+                    <Loader2 className="h-3 w-3 animate-spin" />
+                  ) : (
+                    <>
+                      <PlusCircle className="h-3 w-3 mr-1" />
+                      Add
+                    </>
+                  )}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={() => setShowFullImage(!showFullImage)}
+                  size="sm"
+                  className="hover:bg-indigo-50 hover:border-indigo-300 dark:hover:bg-indigo-950 h-8"
+                >
+                  {showFullImage ? (
+                    <>
+                      <Minimize className="h-3 w-3 mr-1" />
+                      Compact
+                    </>
+                  ) : (
+                    <>
+                      <Expand className="h-3 w-3 mr-1" />
+                      Full View
+                    </>
+                  )}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={() => setShowQuickActions(!showQuickActions)}
+                  size="sm"
+                  className="hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-blue-950 h-8"
+                >
+                  <Wand2 className="h-3 w-3 mr-1" />
+                  {showQuickActions ? 'Less' : 'Edit'}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={copySvgCode}
+                  size="sm"
+                  className="hover:bg-purple-50 hover:border-purple-300 dark:hover:bg-purple-950 h-8"
+                >
+                  <Copy className="h-3 w-3 mr-1" />
+                  Copy
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={downloadSvg}
+                  size="sm"
+                  className="hover:bg-amber-50 hover:border-amber-300 dark:hover:bg-amber-950 h-8"
+                >
+                  <Download className="h-3 w-3 mr-1" />
+                  Save
+                </Button>
+              </div>
+            </div>
+
+            {/* Collapsible Quick Actions */}
+            {showQuickActions && (
+              <div className="space-y-2 border-t border-slate-200 dark:border-slate-700 pt-3">
+                <h5 className="text-xs font-medium text-slate-600 dark:text-slate-400">Quick Edits:</h5>
+                <div className="grid grid-cols-3 gap-1">
+                  {quickActions.map((action, index) => (
+                    <Button
+                      key={index}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleQuickAction(action)}
+                      disabled={isSending}
+                      className="h-7 px-2 flex items-center gap-1 text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                    >
+                      <action.icon className="h-3 w-3" />
+                      {action.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
             )}
-          </Button>
+          </div>
         </div>
       )}
 
       {/* Message input area */}
-      <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-        <div className="flex gap-2 items-end">
-          <Textarea
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            onKeyDown={handleKeyPress}
-            placeholder="Ask me to design something for you..."
-            className="resize-none border-slate-200 focus-visible:ring-blue-500"
-            rows={2}
-            disabled={isSending}
-          />
-          <Button 
-            onClick={sendMessage} 
-            disabled={!newMessage.trim() || isSending}
-            className="h-10 w-10 p-0"
-          >
-            {isSending ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Send className="h-4 w-4" />
-            )}
-          </Button>
+      <div className="p-4 pt-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-t border-slate-200/50 dark:border-slate-700/50">
+        <div className="space-y-2">
+          <div className="flex gap-3 items-end">
+            <div className="flex-1 relative">
+              <Textarea
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyDown={handleKeyPress}
+                placeholder="Describe the design you want to create..."
+                className="resize-none border-slate-300 dark:border-slate-600 focus-visible:ring-blue-500 focus-visible:border-blue-500 rounded-xl pr-12 min-h-[50px]"
+                rows={2}
+                disabled={isSending}
+              />
+              <div className="absolute bottom-3 right-3">
+                <MessageSquare className="h-4 w-4 text-slate-400" />
+              </div>
+            </div>
+            <Button 
+              onClick={() => sendMessage()} 
+              disabled={!newMessage.trim() || isSending}
+              className="h-[50px] w-[50px] p-0 bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl"
+            >
+              {isSending ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Send className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+          
+          {/* Suggestion Pills */}
+          {messages.length === 0 && (
+            <div className="flex gap-2 flex-wrap">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => sendMessage("Create a coming soon poster")}
+                className="h-7 text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 dark:bg-blue-950 dark:hover:bg-blue-900 dark:text-blue-300"
+                disabled={isSending}
+              >
+                Coming Soon Poster
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => sendMessage("Design a testimonial card")}
+                className="h-7 text-xs bg-green-50 hover:bg-green-100 text-green-700 dark:bg-green-950 dark:hover:bg-green-900 dark:text-green-300"
+                disabled={isSending}
+              >
+                Testimonial Card
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => sendMessage("Create a business logo")}
+                className="h-7 text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 dark:bg-purple-950 dark:hover:bg-purple-900 dark:text-purple-300"
+                disabled={isSending}
+              >
+                Business Logo
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>
