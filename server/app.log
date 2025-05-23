@@ -1,0 +1,16 @@
+2025-05-24 01:18:28,021 - INFO - Starting Flask application on port 5001
+2025-05-24 01:18:28,046 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2025-05-24 01:18:28,046 - INFO - [33mPress CTRL+C to quit[0m
+2025-05-24 01:18:28,054 - INFO -  * Restarting with watchdog (fsevents)
+2025-05-24 01:18:28,618 - INFO - Starting Flask application on port 5001
+2025-05-24 01:18:28,629 - WARNING -  * Debugger is active!
+2025-05-24 01:18:28,634 - INFO -  * Debugger PIN: 536-131-396
+2025-05-24 01:20:11,160 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-05-24 01:20:11,619 - INFO -  * Restarting with watchdog (fsevents)
+2025-05-24 01:20:12,658 - INFO - Starting Flask application on port 5001
+2025-05-24 01:20:12,673 - WARNING -  * Debugger is active!
+2025-05-24 01:20:12,678 - INFO -  * Debugger PIN: 536-131-396
+2025-05-24 01:21:13,612 - INFO - Starting Flask application on port 5001
+2025-05-24 01:21:21,738 - INFO - 127.0.0.1 - - [24/May/2025 01:21:21] "[31m[1mGET /api/generate-svg HTTP/1.1[0m" 405 -
+2025-05-24 01:21:27,481 - INFO - 127.0.0.1 - - [24/May/2025 01:21:27] "OPTIONS /api/chat-assistant HTTP/1.1" 200 -

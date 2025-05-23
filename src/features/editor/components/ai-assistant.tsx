@@ -70,9 +70,9 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                                 newMessage.toLowerCase().includes("design") ||
                                 newMessage.toLowerCase().includes("make");
       
-      // Call the API - using absolute URL for development
+      // Call the API - use local server when running locally
       const apiUrl = location.hostname === 'localhost' 
-        ? "https://pppp-351z.onrender.com/api/chat-assistant" 
+        ? "http://localhost:5001/api/chat-assistant" 
         : "/api/chat-assistant";
       
       const response = await fetch(apiUrl, {
