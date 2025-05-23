@@ -45,7 +45,6 @@ PROMPT_ENHANCER_MODEL = "gpt-4o-mini"
 GPT_IMAGE_MODEL = "gpt-image-1"
 SVG_GENERATOR_MODEL = "gpt-4.1"
 CHAT_ASSISTANT_MODEL = "gpt-4o"
-CHAT_ASSISTANT_MODEL = "gpt-4o"
 
 def pre_enhance_prompt(user_input):
     """Initial enhancement of user query using standard GPT-4o mini"""
@@ -415,98 +414,6 @@ def generate_svg():
         logger.error(f"Error in generate_svg: {str(e)}")
         return jsonify({"error": str(e)}), 500
     
-
-@app.route('/api/chat-assistant', methods=['POST'])
-def chat_assistant():
-    try:
-        data = request.json
-        messages = data.get('messages', [])
-        generate_svg = data.get('generate_svg', False)
-        
-        if not messages:
-            return jsonify({"error": "No messages provided"}), 400
-        
-        logger.info(f"Processing chat assistant request with {len(messages)} messages")
-        
-        # Simple SVG generation for demo purposes
-        if generate_svg and len(messages) > 0 and messages[-1]["role"] == "user":
-            user_prompt = messages[-1]["content"]
-            
-            # Use existing SVG generation pipeline
-            svg_code = """<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1080" height="1080" fill="#f8f9fa" />
-  <circle cx="540" cy="540" r="250" fill="#4c6ef5" />
-  <polygon points="540,200 740,500 340,500" fill="#fab005" />
-  <text x="540" y="800" font-family="Arial" font-size="60" text-anchor="middle" fill="#212529">Design Preview</text>
-</svg>"""
-            
-            # Save SVG
-            svg_filename = save_svg(svg_code, prefix="assistant_svg")
-            
-            # Create response
-            ai_response = f"I've created an SVG based on your request. Here it is:\n\n```svg\n{svg_code}\n```"
-            messages.append({
-                "role": "assistant", 
-                "content": ai_response
-            })
-            
-            return jsonify({
-                "messages": messages,
-                "svg_code": svg_code,
-                "svg_url": f"/static/images/{svg_filename}"
-            })
-        else:
-            # Simple response for other messages
-            response_text = "I understand your request. What specific design elements would you like me to help you with?"
-            messages.append({"role": "assistant", "content": response_text})
-            
-            return jsonify({
-                "messages": messages,
-                "svg_code": None,
-                "svg_url": None
-            })
-            
-    except Exception as e:
-        logger.error(f"Error in chat_assistant: {str(e)}")
-        return jsonify({"error": str(e)}), 500
-        
-        # If the user wants to generate SVG, we'll follow a more specific flow
-        if generate_svg and len(messages) > 0 and messages[-1]["role"] == "user":
-            # Extract the last user message
-            user_prompt = messages[-1]["content"]
-            logger.info(f"Generating SVG from prompt: {user_prompt[:50]}...")
-            
-            # Use the existing SVG generation pipeline
-            # Step 1: Pre-enhance the prompt
-            pre_enhanced_prompt = pre_enhance_prompt(user_prompt)
-            
-            # Step 2: Further enhance the prompt
-            enhanced_prompt = enhance_prompt_with_chat(pre_enhanced_prompt)
-            
-            # Step 3: Generate image
-            gpt_image_base64, gpt_image_filename = generate_image_with_gpt(enhanced_prompt)
-            
-            # Step 4: Generate SVG
-            svg_code = generate_svg_from_image(gpt_image_base64, enhanced_prompt)
-            
-            # Save the SVG
-            svg_filename = save_svg(svg_code, prefix="svg")
-            
-            # Create AI response with SVG
-            ai_response = f"I've created an SVG based on your request. Here it is:\n\n```svg\n{svg_code}\n```"
-            
-            # Add AI response to messages
-            messages.append({
-                "role": "assistant",
-                "content": ai_response
-            })
-            
-            return jsonify({
-                "messages": messages,
-                "svg_code": svg_code,
-                "svg_url": f"/static/images/{svg_filename}",
-                "gpt_image_url": f"/static/images/{gpt_image_filename}"
-            })
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { PanelRight, Sparkles, Wand2, Globe } from "lucide-react";
+import { PanelRight, Sparkles, Wand2, Globe, MessageSquare } from "lucide-react";
 import { Editor } from "@/features/editor/types";
 import { AiSvgGenerator } from "@/features/editor/components/ai-svg-generator";
 import { AiWebsiteScraper } from "@/features/editor/components/ai-website-scraper";
+import { AiAssistant } from "@/features/editor/components/ai-assistant";
 import { Card } from "@/components/ui/card";
 
 interface AiSidebarProps {
@@ -14,7 +15,7 @@ interface AiSidebarProps {
 }
 
 export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
-  const [activeScreen, setActiveScreen] = useState<"main" | "svg-generator" | "website-scraper">("main");
+  const [activeScreen, setActiveScreen] = useState<"main" | "svg-generator" | "website-scraper" | "ai-assistant">("main");
 
   // Toggle SVG Generator screen
   const toggleSvgGenerator = () => {
@@ -24,6 +25,11 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
   // Toggle Website Scraper screen
   const toggleWebsiteScraper = () => {
     setActiveScreen(activeScreen === "main" ? "website-scraper" : "main");
+  };
+  
+  // Toggle AI Assistant screen
+  const toggleAiAssistant = () => {
+    setActiveScreen(activeScreen === "main" ? "ai-assistant" : "main");
   };
 
   return (
@@ -103,6 +109,34 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
                 </div>
               </Card>
               
+              {/* AI Assistant Card */}
+              <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border-slate-200 dark:border-slate-800">
+                <div 
+                  className="border-b p-5 bg-gradient-to-br from-purple-50 via-fuchsia-50 to-pink-50 dark:from-purple-950/50 dark:via-fuchsia-950/30 dark:to-pink-950/40"
+                  onClick={toggleAiAssistant}
+                >
+                  <div className="flex items-center mb-3">
+                    <div className="h-10 w-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mr-3 shadow-sm">
+                      <MessageSquare size={18} className="text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <h4 className="font-semibold text-base">AI Design Assistant</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground pl-[3.25rem]">
+                    Chat with AI to create and edit designs
+                  </p>
+                </div>
+                <div className="p-4 bg-white dark:bg-slate-900">
+                  <Button 
+                    className="w-full font-medium" 
+                    variant="default"
+                    onClick={toggleAiAssistant}
+                  >
+                    <span>Chat with Assistant</span>
+                    <MessageSquare className="h-4 w-4 ml-2" />
+                  </Button>
+                </div>
+              </Card>
+              
               {/* CTA Button */}
               <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800">
                 <Button
@@ -122,6 +156,12 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
         <AiSvgGenerator 
           editor={editor} 
           onClose={toggleSvgGenerator} 
+        />
+      ) : activeScreen === "ai-assistant" ? (
+        // AI Assistant screen
+        <AiAssistant
+          editor={editor}
+          onClose={toggleAiAssistant}
         />
       ) : (
         // Website Scraper screen
