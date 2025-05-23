@@ -227,9 +227,9 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                 <h4 className="font-medium text-blue-700 dark:text-blue-400">AI Design Assistant</h4>
               </div>
               <p className="text-sm text-slate-600 dark:text-slate-300">
-                Hello! I'm your AI design assistant. I can help you create SVG designs, 
+                Hello! I&apos;m your AI design assistant. I can help you create SVG designs, 
                 provide suggestions, and assist with design modifications. Just tell me 
-                what you'd like to create or ask for design advice!
+                what you&apos;d like to create or ask for design advice!
               </p>
             </div>
           )}
