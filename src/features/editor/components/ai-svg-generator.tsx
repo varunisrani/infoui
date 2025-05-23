@@ -23,7 +23,8 @@ import {
   PlusCircle,
   Loader,
   ExternalLink,
-  Wand2
+  Wand2,
+  Globe
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -78,6 +79,47 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
   const previewRef = useRef<HTMLDivElement>(null);
   const { shouldBlock, triggerPaywall } = usePaywall();
   const router = useRouter();
+
+  // State for storing web scraper data
+  const [websiteScraperData, setWebsiteScraperData] = useState<{
+    text: string;
+    colors: {hex: string; name?: string}[];
+    url: string;
+  } | null>(null);
+
+  // Listen for web scraper events
+  useEffect(() => {
+    const handleWebsiteScraperData = (event: Event) => {
+      // Use type assertion for the custom event
+      const customEvent = event as CustomEvent<{
+        text: string;
+        colors: {hex: string; name?: string}[];
+        url: string;
+      }>;
+      
+      if (customEvent.detail) {
+        setWebsiteScraperData(customEvent.detail);
+        
+        // If we have a prompt set, append the website data to it
+        if (prompt) {
+          setPrompt(prevPrompt => 
+            `${prevPrompt}\n\nInspiration from website ${customEvent.detail.url}: ${customEvent.detail.text.substring(0, 200)}...`
+          );
+        } else {
+          // Otherwise, create a new prompt with the website data
+          setPrompt(`Create an SVG based on this content from ${customEvent.detail.url}: ${customEvent.detail.text.substring(0, 200)}...`);
+        }
+        
+        toast.success("Website data added to your prompt!");
+      }
+    };
+
+    window.addEventListener('website-scraper-data', handleWebsiteScraperData);
+
+    return () => {
+      window.removeEventListener('website-scraper-data', handleWebsiteScraperData);
+    };
+  }, [prompt]);
 
   // Function to generate an SVG from a prompt
   const generateSVG = async () => {
@@ -481,9 +523,16 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               rows={3}
-              className="resize-none border-slate-200 focus-visible:ring-blue-500 transition-all text-base"
+              className={`resize-none border-slate-200 focus-visible:ring-blue-500 transition-all text-base ${websiteScraperData ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10' : ''}`}
               disabled={isGenerating}
             />
+            
+            {websiteScraperData && (
+              <div className="flex items-center text-xs text-green-600 dark:text-green-400">
+                <Globe className="h-3 w-3 mr-1" />
+                <span>Using data from {websiteScraperData.url.substring(0, 30)}{websiteScraperData.url.length > 30 ? '...' : ''}</span>
+              </div>
+            )}
 
             {showOptions && (
               <div className="p-4 bg-slate-50 dark:bg-slate-900/70 rounded-lg space-y-3 mt-3 border border-slate-200 dark:border-slate-800">
@@ -517,6 +566,28 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
                     />
                   </div>
                 </div>
+
+                {/* Show color options from scraped website */}
+                {websiteScraperData && websiteScraperData.colors && websiteScraperData.colors.length > 0 && (
+                  <div className="mt-2">
+                    <Label className="text-xs mb-2 block">Website Colors</Label>
+                    <div className="flex flex-wrap gap-2">
+                      {websiteScraperData.colors.map((color, idx) => (
+                        <div 
+                          key={`${color.hex}-${idx}`}
+                          className="w-6 h-6 rounded-full border border-slate-200 dark:border-slate-700 cursor-pointer hover:scale-110 transition-transform shadow-sm hover:shadow-md"
+                          style={{ backgroundColor: color.hex }}
+                          onClick={() => {
+                            setPrompt(prev => prev + `\nUse this color: ${color.hex}`);
+                            toast.success(`Added color ${color.hex} to prompt`);
+                          }}
+                          title={`Use color: ${color.hex}`}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-xs text-slate-500 mt-1">Click a color to add it to your prompt</p>
+                  </div>
+                )}
 
                 <div className="flex items-center space-x-2">
                   <div
