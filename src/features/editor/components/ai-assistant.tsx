@@ -70,10 +70,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                                 newMessage.toLowerCase().includes("design") ||
                                 newMessage.toLowerCase().includes("make");
       
-      // Call the API - use local server when running locally
-      const apiUrl = location.hostname === 'localhost' 
-        ? "http://localhost:5001/api/chat-assistant" 
-        : "/api/chat-assistant";
+      // Call the API - use the provided external API
+      const apiUrl = "https://pppp-351z.onrender.com/api/chat-assistant";
       
       const response = await fetch(apiUrl, {
         method: 'POST',
