@@ -63,33 +63,6 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       setMessages(updatedMessages);
       setNewMessage("");
       
-      // TEMPORARY: Mock API response until backend is complete
-      // In production, this will be replaced with the actual API call
-      setTimeout(() => {
-        const mockResponse = {
-          messages: [
-            ...updatedMessages,
-            {
-              role: "assistant" as const,
-              content: generateMockResponse(newMessage)
-            }
-          ],
-          svg_code: newMessage.toLowerCase().includes("create") || 
-                    newMessage.toLowerCase().includes("generate") || 
-                    newMessage.toLowerCase().includes("draw") ? 
-                    generateMockSVG() : null
-        };
-        
-        setMessages(mockResponse.messages);
-        if (mockResponse.svg_code) {
-          setSvgCode(mockResponse.svg_code);
-          toast.success("SVG design generated!");
-        }
-        
-        setIsSending(false);
-      }, 2000);
-      
-      /* COMMENTED OUT UNTIL BACKEND IS READY
       // Determine if we should request SVG generation
       const shouldGenerateSvg = newMessage.toLowerCase().includes("create") || 
                                 newMessage.toLowerCase().includes("generate") || 
@@ -97,8 +70,12 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                                 newMessage.toLowerCase().includes("design") ||
                                 newMessage.toLowerCase().includes("make");
       
-      // Call the API
-      const response = await fetch('/api/chat-assistant', {
+      // Call the API - using absolute URL for development
+      const apiUrl = location.hostname === 'localhost' 
+        ? "https://pppp-351z.onrender.com/api/chat-assistant" 
+        : "/api/chat-assistant";
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,8 +101,6 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
         toast.success("SVG design generated!");
       }
       
-      */
-      
     } catch (error) {
       console.error("Error communicating with AI Assistant:", error);
       toast.error("Failed to get a response from the AI Assistant");
@@ -135,39 +110,9 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
         role: "system",
         content: "Sorry, I encountered an error while processing your request. Please try again."
       }]);
-      
+    } finally {
       setIsSending(false);
     }
-  };
-  
-  // Generate a mock response (TEMPORARY until backend is ready)
-  const generateMockResponse = (userMessage: string): string => {
-    const lowerCaseMsg = userMessage.toLowerCase();
-    
-    if (lowerCaseMsg.includes("create") || lowerCaseMsg.includes("generate") || lowerCaseMsg.includes("draw")) {
-      return `I've created an SVG based on your request. Here it is:\n\n\`\`\`svg\n<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1080" height="1080" fill="#f8f9fa" />
-  <circle cx="540" cy="540" r="250" fill="#4c6ef5" />
-  <polygon points="540,200 740,500 340,500" fill="#fab005" />
-  <text x="540" y="800" font-family="Arial" font-size="60" text-anchor="middle" fill="#212529">Design Preview</text>
-</svg>\n\`\`\``;
-    }
-    
-    if (lowerCaseMsg.includes("hello") || lowerCaseMsg.includes("hi")) {
-      return "Hello there! I'm your AI design assistant. How can I help you with your design needs today?";
-    }
-    
-    return "I understand your request. What specific design elements would you like me to help you with?";
-  };
-  
-  // Generate mock SVG (TEMPORARY until backend is ready)
-  const generateMockSVG = (): string => {
-    return `<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1080" height="1080" fill="#f8f9fa" />
-  <circle cx="540" cy="540" r="250" fill="#4c6ef5" />
-  <polygon points="540,200 740,500 340,500" fill="#fab005" />
-  <text x="540" y="800" font-family="Arial" font-size="60" text-anchor="middle" fill="#212529">Design Preview</text>
-</svg>`;
   };
   
   // Function to handle enter key press
