@@ -281,17 +281,25 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
       }
     };
 
-    // Set a refresh interval to check for changes (e.g., from AI SVG generator)
-    const refreshInterval = setInterval(() => {
+    // Set up a custom event for communicating SVG changes across components
+    const handleCustomEvent = () => {
       refreshSvgs();
-    }, 2000);
+    };
 
+    // Create a more reliable detection mechanism for SVG updates
     window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('svg-library-updated', handleCustomEvent);
+    
+    // Force refresh when the sidebar becomes visible
+    if (activeTool === "svg") {
+      refreshSvgs();
+    }
+
     return () => {
       window.removeEventListener('storage', handleStorageChange);
-      clearInterval(refreshInterval);
+      window.removeEventListener('svg-library-updated', handleCustomEvent);
     };
-  }, [refreshSvgs]);
+  }, [refreshSvgs, activeTool]);
 
   const onClose = () => {
     onChangeActiveTool("select");

@@ -228,23 +228,30 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
     try {
       setIsAddingToCanvas(true);
 
-      // Get canvas from editor prop or global state
-      const canvas = editor?.canvas || window.canvasState?.canvas;
+      // Make sure we get the latest canvas reference
+      // First try editor prop, then try window.canvasState
+      const canvas = editor?.canvas || (typeof window !== 'undefined' ? window.canvasState?.canvas : undefined);
 
+      console.log("Canvas reference:", !!canvas);
+      
       if (!canvas) {
+        console.error("Canvas not found", { editorExists: !!editor, windowCanvasStateExists: !!(typeof window !== 'undefined' && window.canvasState) });
         toast.error("Canvas not initialized");
         return;
       }
 
-      // Use our improved SVG loading utility
-      const result = await svgCanvasUtils.addSvgToCanvas(canvas, svgData.svg);
+      // First ensure the SVG is properly processed
+      const { processed } = svgNormalizer.fullyProcessSvg(svgData.svg);
+      
+      // Use our improved SVG loading utility with the processed SVG
+      const result = await svgCanvasUtils.addSvgToCanvas(canvas, processed);
 
       if (!result) {
         console.warn('Primary SVG loading failed, trying fallback...');
         // If primary method fails, try fallback
         const fallbackResult = await svgCanvasUtils.addSvgAsImageFallback(
           canvas,
-          svgData.svg,
+          processed,
           `AI SVG: ${prompt.substring(0, 20)}`
         );
 
@@ -252,6 +259,9 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
           throw new Error('Failed to add SVG to canvas');
         }
       }
+
+      // Ensure the canvas is rendered
+      canvas.renderAll();
 
       toast.success('SVG added to canvas!');
       // Close the generator after adding to canvas
@@ -377,11 +387,14 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       
       toast.success("New project created with AI SVG!");
       
-      // Close the generator
+      // Close the generator before navigation to prevent any state issues
       onClose();
       
-      // Navigate to the editor with the new project
-      router.push(`/editor/${project.id}`);
+      // Add a short delay before navigating to ensure the component unmounts properly
+      setTimeout(() => {
+        // Navigate to the editor with the new project
+        router.push(`/editor/${project.id}`);
+      }, 100);
     } catch (error) {
       console.error("Error creating new project:", error);
       toast.error("Failed to create new project");
