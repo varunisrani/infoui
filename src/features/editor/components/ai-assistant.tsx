@@ -21,7 +21,9 @@ import {
   RefreshCw,
   Expand,
   Minimize,
-  ExternalLink
+  ExternalLink,
+  Save,
+  CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -29,7 +31,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Editor } from "@/features/editor/types";
-import { svgNormalizer, svgCanvasUtils } from "@/lib/svg-utils";
+import { svgNormalizer, svgCanvasUtils, svgStorage, svgTester } from "@/lib/svg-utils";
 
 interface Message {
   role: "system" | "user" | "assistant";
@@ -63,6 +65,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const [isAddingToCanvas, setIsAddingToCanvas] = useState(false);
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [showFullImage, setShowFullImage] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   
   // References
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -86,6 +90,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
         setSvgCode(newSvgCode);
         setShowQuickActions(false); // Reset view state
         setShowFullImage(false);
+        setIsSaved(false); // Reset saved state for new SVG
         
         // Force a redraw of the preview div
         const previewTimer = setTimeout(() => {
@@ -117,6 +122,15 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       setShowQuickActions(false); // Start with quick actions hidden
       setShowFullImage(false); // Start with compact view
     }
+  }, [svgCode]);
+
+  // Check if current SVG is already saved in the library
+  useEffect(() => {
+    if (!svgCode) return;
+
+    const existingSvgs = svgStorage.getSVGs();
+    const isDuplicate = existingSvgs.some(svg => svg.content.trim() === svgCode.trim());
+    setIsSaved(isDuplicate);
   }, [svgCode]);
 
   // Function to send a message to the AI assistant
@@ -276,6 +290,47 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     toast.success("SVG downloaded!");
   };
 
+  // Save SVG to library
+  const saveToLibrary = async () => {
+    if (!svgCode) return;
+
+    try {
+      setIsSaving(true);
+
+      // First, make sure we have a clean SVG by running it through our normalizer
+      const { processed, dataUrl } = svgNormalizer.fullyProcessSvg(svgCode);
+
+      // Get a name from the last user message or default name
+      const lastUserMessage = [...messages].reverse().find(msg => msg.role === "user");
+      const prompt = lastUserMessage?.content || "AI Assistant Design";
+      const name = `AI: ${prompt.substring(0, 20)}${prompt.length > 20 ? '...' : ''}`;
+
+      // Test if the SVG can be loaded by Fabric.js before saving
+      const canLoad = await svgTester.testWithFabric(processed);
+      
+      if (!canLoad) {
+        console.warn("SVG failed fabric.js loading test, applying additional processing");
+        // Apply more aggressive cleaning if needed
+        const fallbackSvg = svgTester.getFallbackVersion(processed);
+        const { processed: finalProcessed, dataUrl: finalDataUrl } = svgNormalizer.fullyProcessSvg(fallbackSvg);
+        
+        // Save the fallback version
+        svgStorage.saveSVG(finalProcessed, name, finalDataUrl);
+      } else {
+        // Save to storage using the centralized storage utility
+        svgStorage.saveSVG(processed, name, dataUrl);
+      }
+
+      setIsSaved(true);
+      toast.success('SVG saved to your library!');
+    } catch (error) {
+      console.error('Error saving SVG to library:', error);
+      toast.error('Failed to save SVG to library');
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   // Function to format message content with syntax highlighting for code blocks
   const formatMessageContent = (content: string) => {
     // Split by code blocks
@@ -430,7 +485,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
               </div>
 
               {/* Compact Action Buttons */}
-              <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-2 gap-2'}`}>
+              <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-3 gap-2'}`}>
                 <Button
                   onClick={useThisSvg}
                   disabled={isAddingToCanvas}
@@ -445,6 +500,23 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                       Use this SVG
                     </>
                   )}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={saveToLibrary}
+                  disabled={isSaving || isSaved}
+                  size="sm"
+                  className="hover:bg-green-50 hover:border-green-300 dark:hover:bg-green-950 h-8"
+                >
+                  {isSaving ? (
+                    <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                  ) : isSaved ? (
+                    <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
+                  ) : (
+                    <Save className="h-3 w-3 mr-1" />
+                  )}
+                  {isSaving ? 'Saving...' : isSaved ? 'Saved' : 'Library'}
                 </Button>
                 
                 <Button
