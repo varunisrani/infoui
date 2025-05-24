@@ -19,7 +19,8 @@ import {
   Wand2,
   RefreshCw,
   Expand,
-  Minimize
+  Minimize,
+  ExternalLink
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -197,44 +198,47 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     setShowQuickActions(false);
   };
 
-  // Add SVG to canvas
-  const addToCanvas = async () => {
+  // Use SVG in editor (redirect to editor with this SVG)
+  const useThisSvg = async () => {
     if (!svgCode) return;
 
     try {
       setIsAddingToCanvas(true);
-
-      // Get canvas from editor prop or global state
-      const canvas = editor?.canvas || window.canvasState?.canvas;
-
-      if (!canvas) {
-        toast.error("Canvas not initialized");
-        return;
-      }
-
-      // Use our improved SVG loading utility
-      const result = await svgCanvasUtils.addSvgToCanvas(canvas, svgCode);
-
-      if (!result) {
-        console.warn('Primary SVG loading failed, trying fallback...');
-        // If primary method fails, try fallback
-        const fallbackResult = await svgCanvasUtils.addSvgAsImageFallback(
-          canvas,
-          svgCode,
-          "AI Assistant SVG"
-        );
-
-        if (!fallbackResult) {
-          throw new Error('Failed to add SVG to canvas');
-        }
-      }
-
-      toast.success('🎉 Design added to canvas!');
-      // Close the assistant after adding to canvas
+      
+      // Create a new project with the SVG data
+      const projectData = {
+        svg: svgCode,
+        generatedBy: "AI Assistant"
+      };
+      
+      // Import storage from lib/storage to access saveProject
+      const { storage } = await import("@/lib/storage");
+      
+      // Create a new project with the SVG data
+      const project = storage.saveProject({
+        name: `AI Assistant Design`,
+        json: JSON.stringify(projectData),
+        width: 1080,
+        height: 1080,
+      });
+      
+      toast.success("New project created with AI design!");
+      
+      // Close the assistant before navigation to prevent any state issues
       onClose();
+      
+      // Use router to navigate to the editor
+      const { useRouter } = await import("next/navigation");
+      const router = useRouter();
+      
+      // Add a short delay before navigating to ensure the component unmounts properly
+      setTimeout(() => {
+        // Navigate to the editor with the new project
+        router.push(`/editor/${project.id}`);
+      }, 100);
     } catch (error) {
-      console.error('Error adding SVG to canvas:', error);
-      toast.error('Failed to add SVG to canvas');
+      console.error('Error creating project with SVG:', error);
+      toast.error('Failed to create project with design');
     } finally {
       setIsAddingToCanvas(false);
     }
@@ -422,7 +426,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
               {/* Compact Action Buttons */}
               <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-2 gap-2'}`}>
                 <Button
-                  onClick={addToCanvas}
+                  onClick={useThisSvg}
                   disabled={isAddingToCanvas}
                   size="sm"
                   className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 h-8"
@@ -431,8 +435,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                     <Loader2 className="h-3 w-3 animate-spin" />
                   ) : (
                     <>
-                      <PlusCircle className="h-3 w-3 mr-1" />
-                      Add
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      Use this SVG
                     </>
                   )}
                 </Button>
