@@ -37,7 +37,6 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
           hasControls: false,
           evented: false,
           hoverCursor: 'default',
-          selection: false,
           shadow: new fabric.Shadow({
             color: "rgba(0,0,0,0.8)",
             blur: 5,

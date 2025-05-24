@@ -871,7 +871,6 @@ export const useEditor = ({
         hasControls: false,
         evented: false, // Make sure it doesn't capture events
         hoverCursor: 'default', // Cursor should remain default
-        selection: false, // Should not be selectable
         shadow: new fabric.Shadow({
           color: "rgba(0,0,0,0.8)",
           blur: 5,
