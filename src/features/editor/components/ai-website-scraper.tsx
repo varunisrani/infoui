@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Globe, Loader2, Copy, CheckCircle2, Paintbrush, CheckCheck, Link2, Sparkles } from "lucide-react";
+import { ArrowLeft, Globe, Loader2, Copy, CheckCircle2, Paintbrush, CheckCheck, Link2, Sparkles, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
