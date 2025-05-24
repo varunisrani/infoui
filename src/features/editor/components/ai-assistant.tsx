@@ -62,6 +62,43 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   // References
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
+  // Function to extract SVG code from message content
+  const extractSvgCode = (message: string): string | null => {
+    const svgMatch = message.match(/```svg\s*([\s\S]*?)\s*```/);
+    return svgMatch ? svgMatch[1].trim() : null;
+  };
+
+  // Update SVG code when messages change
+  useEffect(() => {
+    // Find the last assistant message that might contain SVG code
+    const lastSvgMessage = [...messages].reverse().find(msg => 
+      msg.role === "assistant" && msg.content.includes("```svg")
+    );
+    
+    if (lastSvgMessage) {
+      const newSvgCode = extractSvgCode(lastSvgMessage.content);
+      if (newSvgCode && newSvgCode !== svgCode) {
+        setSvgCode(newSvgCode);
+        setShowQuickActions(false); // Reset view state
+        setShowFullImage(false);
+        
+        // Force a redraw of the preview div
+        const previewTimer = setTimeout(() => {
+          const previewElements = document.querySelectorAll('.ai-svg-preview');
+          previewElements.forEach(el => {
+            // Force a redraw by slight CSS change and restore
+            const currentDisplay = (el as HTMLElement).style.display;
+            (el as HTMLElement).style.display = 'none';
+            void (el as HTMLElement).offsetHeight; // Trigger reflow
+            (el as HTMLElement).style.display = currentDisplay;
+          });
+        }, 100);
+        
+        return () => clearTimeout(previewTimer);
+      }
+    }
+  }, [messages, svgCode]);
+
   // Scroll to bottom when messages change
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -374,7 +411,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                 }}
               >
                 <div 
-                  className="w-full h-full"
+                  className="w-full h-full ai-svg-preview"
+                  key={`svg-preview-${Date.now()}`} // Force re-render when SVG changes
                   dangerouslySetInnerHTML={{
                     __html: svgCode.replace(/<svg/, '<svg preserveAspectRatio="xMidYMid meet" width="100%" height="100%" ')
                   }}
