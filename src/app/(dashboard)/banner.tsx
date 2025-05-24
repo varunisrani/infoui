@@ -95,22 +95,22 @@ export const Banner = () => {
 
   const createProject = () => {
     if (!generatedSVG) return;
+
+    if (!generatedSVG.svg) {
+      toast.error("No SVG content found to save.");
+      return;
+    }
     
     try {
-      // Create a new project with the generated SVG
-      const project = storage.saveProject({
-        name: `AI: ${prompt.substring(0, 20)}${prompt.length > 20 ? '...' : ''}`,
-        json: JSON.stringify(generatedSVG),
-        width: 1080,
-        height: 1080,
-      });
+      // Store the generated SVG string in localStorage
+      localStorage.setItem("newlyGeneratedSvg", generatedSVG.svg);
       
-      toast.success("AI SVG project created!");
+      toast.success("SVG ready to be used!");
       setAiDialogOpen(false);
-      router.push(`/editor/${project.id}`);
+      router.push("/editor/new-from-ai");
     } catch (error) {
-      console.error("Error creating project:", error);
-      toast.error("Failed to create project: " + (error instanceof Error ? error.message : String(error)));
+      console.error("Error processing AI SVG:", error);
+      toast.error("Failed to process AI SVG: " + (error instanceof Error ? error.message : String(error)));
     }
   };
 
