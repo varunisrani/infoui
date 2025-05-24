@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 import {
   ArrowLeft,
   Send,
@@ -51,6 +52,9 @@ const quickActions = [
 ];
 
 export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
+  // Get the router at the top level of the component
+  const router = useRouter();
+  
   // State management
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
@@ -226,10 +230,6 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       
       // Close the assistant before navigation to prevent any state issues
       onClose();
-      
-      // Use router to navigate to the editor
-      const { useRouter } = await import("next/navigation");
-      const router = useRouter();
       
       // Add a short delay before navigating to ensure the component unmounts properly
       setTimeout(() => {
