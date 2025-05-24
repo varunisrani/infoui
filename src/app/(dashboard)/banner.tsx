@@ -1,9 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ArrowRight, Loader2, Wand2, Eye } from "lucide-react";
+import { ArrowRight, Loader2, Wand2, Eye, Save } from "lucide-react"; // Added Save icon
 import { useState } from "react";
 import { storage } from "@/lib/storage";
+import { svgStorage, svgNormalizer } from "@/lib/svg-utils"; // Added svg-utils imports
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -12,6 +13,7 @@ import { Input } from "@/components/ui/input";
 export const Banner = () => {
   const [loading, setLoading] = useState(false);
   const [aiLoading, setAiLoading] = useState(false);
+  const [quickSaveLoading, setQuickSaveLoading] = useState(false); // Added quickSaveLoading state
   const [aiDialogOpen, setAiDialogOpen] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [previewMode, setPreviewMode] = useState(false);
@@ -114,6 +116,41 @@ export const Banner = () => {
     }
   };
 
+  const handleQuickSaveToLibrary = async () => {
+    if (!generatedSVG || !generatedSVG.svg) {
+      toast.error("No SVG content available to save.");
+      return;
+    }
+    // Check both current prompt and prompt stored in generatedSVG
+    if (!prompt && !generatedSVG.prompt) { 
+      toast.error("Cannot determine a name for the SVG as the prompt is empty.");
+      return;
+    }
+
+    setQuickSaveLoading(true);
+    try {
+      const svgContent = generatedSVG.svg;
+      // Use the prompt from the generatedSVG object if available, otherwise use the current prompt state
+      const nameSource = generatedSVG.prompt || prompt;
+      const svgName = nameSource.trim() ? `AI: ${nameSource.substring(0, 25)}${nameSource.length > 25 ? '...' : ''}` : "AI Generated SVG";
+      
+      const dataUrl = svgNormalizer.createDataUrl(svgContent);
+      
+      const savedSVG = svgStorage.saveSVG(svgContent, svgName, dataUrl);
+
+      if (savedSVG) {
+        toast.success(`SVG "${savedSVG.name}" saved to library!`);
+      } else {
+        toast.error("Failed to save SVG to library.");
+      }
+    } catch (error) {
+      console.error("Error quick saving SVG to library:", error);
+      toast.error(`Failed to save SVG: ${error instanceof Error ? error.message : "Unknown error"}`);
+    } finally {
+      setQuickSaveLoading(false);
+    }
+  };
+
   return (
     <div className="flex items-center gap-x-2">
       <Button onClick={onClick} disabled={loading}>
@@ -178,14 +215,28 @@ export const Banner = () => {
             </Button>
             
             {previewMode && generatedSVG && (
-              <div className="mt-4">
+              <div className="mt-4 space-y-2">
                 <Button 
                   onClick={createProject} 
                   className="w-full"
                   variant="default"
+                  disabled={aiLoading || quickSaveLoading} // Disable if any AI operation is ongoing
                 >
-                  Use This SVG
+                  Use This SVG in Editor
                   <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+                <Button
+                  onClick={handleQuickSaveToLibrary}
+                  className="w-full"
+                  variant="outline"
+                  disabled={aiLoading || quickSaveLoading}
+                >
+                  {quickSaveLoading ? (
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  ) : (
+                    <Save className="h-4 w-4 mr-2" />
+                  )}
+                  Quick Save to Library
                 </Button>
               </div>
             )}
