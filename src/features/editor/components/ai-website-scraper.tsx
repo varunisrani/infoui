@@ -526,7 +526,7 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
                       className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-none"
                     >
                       <Wand2 className="h-3.5 w-3.5 mr-1.5" />
-                      <span>Use in SVG Generator</span>
+                      <span>Use this website in a SVG generator</span>
                     </Button>
                     <Button
                       variant="ghost"
