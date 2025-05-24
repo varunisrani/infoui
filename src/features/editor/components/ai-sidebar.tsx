@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { PanelRight, Sparkles, Wand2, Globe, MessageSquare } from "lucide-react";
 import { Editor } from "@/features/editor/types";
@@ -31,6 +31,20 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
   const toggleAiAssistant = () => {
     setActiveScreen(activeScreen === "main" ? "ai-assistant" : "main");
   };
+
+  // Listen for events to navigate between components
+  useEffect(() => {
+    // Listen for event to open SVG generator from Website Scraper
+    const handleOpenSvgGenerator = () => {
+      setActiveScreen("svg-generator");
+    };
+    
+    window.addEventListener('open-svg-generator', handleOpenSvgGenerator);
+    
+    return () => {
+      window.removeEventListener('open-svg-generator', handleOpenSvgGenerator);
+    };
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col overflow-hidden">

@@ -131,7 +131,8 @@ function extractTextFromHtml(html: string): string {
 // Helper function to extract colors from HTML
 function extractColorsFromHtml(html: string): { hex: string; name?: string }[] {
   try {
-    const colorSet = new Set<string>();
+    // Store colors and their frequency
+    const colorFrequency: Record<string, number> = {};
     
     // Regular expressions to find color values
     const hexColorRegex = /#([0-9a-f]{3,8})\b/gi;
@@ -141,12 +142,12 @@ function extractColorsFromHtml(html: string): { hex: string; name?: string }[] {
     // Extract hex colors
     let match;
     while ((match = hexColorRegex.exec(html)) !== null) {
-      let hex = match[0];
+      let hex = match[0].toLowerCase();
       // Standardize to 6-digit hex
       if (hex.length === 4) { // #RGB format
         hex = `#${hex[1]}${hex[1]}${hex[2]}${hex[2]}${hex[3]}${hex[3]}`;
       }
-      colorSet.add(hex);
+      colorFrequency[hex] = (colorFrequency[hex] || 0) + 1;
     }
     
     // Extract RGB colors
@@ -154,8 +155,8 @@ function extractColorsFromHtml(html: string): { hex: string; name?: string }[] {
       const r = parseInt(match[1], 10);
       const g = parseInt(match[2], 10);
       const b = parseInt(match[3], 10);
-      const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-      colorSet.add(hex);
+      const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toLowerCase();
+      colorFrequency[hex] = (colorFrequency[hex] || 0) + 1;
     }
     
     // Extract RGBA colors (ignore alpha channel)
@@ -166,17 +167,39 @@ function extractColorsFromHtml(html: string): { hex: string; name?: string }[] {
       // Skip colors with low opacity
       const alpha = parseFloat(match[4]);
       if (alpha >= 0.5) {
-        const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-        colorSet.add(hex);
+        const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toLowerCase();
+        colorFrequency[hex] = (colorFrequency[hex] || 0) + 1;
       }
     }
     
     // Filter out common non-brand colors
-    const commonColors = new Set(['#ffffff', '#000000', '#f0f0f0', '#f8f8f8', '#e0e0e0', '#cccccc']);
-    const filteredColors = Array.from(colorSet).filter(color => !commonColors.has(color.toLowerCase()));
+    const commonColors = new Set(['#ffffff', '#000000', '#f0f0f0', '#f8f8f8', '#e0e0e0', '#cccccc', '#333333', '#666666', '#999999']);
+    const filteredColors = Object.entries(colorFrequency)
+      .filter(([color]) => !commonColors.has(color.toLowerCase()))
+      .sort((a, b) => b[1] - a[1]) // Sort by frequency, most frequent first
+      .slice(0, 3) // Get top 3 colors (primary, secondary, tertiary)
+      .map(([hex]) => ({ hex }));
     
-    // Return colors as hex values
-    return filteredColors.map(hex => ({ hex })).slice(0, 10);
+    // If we have fewer than 3 colors, we can allow some common colors back
+    if (filteredColors.length < 3) {
+      const remainingColors = Object.entries(colorFrequency)
+        .filter(([color]) => !filteredColors.some(item => item.hex === color))
+        .sort((a, b) => b[1] - a[1]) // Sort by frequency
+        .slice(0, 3 - filteredColors.length) // Get enough to have 3 total
+        .map(([hex]) => ({ hex }));
+      
+      filteredColors.push(...remainingColors);
+    }
+    
+    // Add labels to the colors
+    const namedColors = filteredColors.map((color, index) => {
+      if (index === 0) return { ...color, name: "Primary" };
+      if (index === 1) return { ...color, name: "Secondary" };
+      if (index === 2) return { ...color, name: "Tertiary" };
+      return color;
+    });
+    
+    return namedColors;
   } catch (error) {
     console.error("Error extracting colors:", error);
     return [];

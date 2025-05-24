@@ -439,8 +439,18 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                   onClick={() => addSVGToCanvas(svg)}
                   draggable
                   onDragStart={(e) => {
+                    // Clear any existing data
+                    localStorage.removeItem('dragging_svg_data');
+                    
+                    // Create a unique key for this drag operation
+                    const dragKey = `svg-${svg.id}-${Date.now()}`;
+                    
                     // Set the SVG ID as plain text for compatibility
                     e.dataTransfer.setData('text/plain', svg.id);
+                    e.dataTransfer.setData('application/json', JSON.stringify({
+                      id: svg.id,
+                      dragKey
+                    }));
                     
                     // Process the SVG content to ensure it's properly formatted for drag and drop
                     const { processed } = svgNormalizer.fullyProcessSvg(svg.content);
@@ -450,7 +460,8 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                       id: svg.id,
                       content: processed, // Use the processed content
                       name: svg.name,
-                      type: 'library-svg'
+                      type: 'library-svg',
+                      dragKey // Add drag key for uniqueness
                     };
                     localStorage.setItem('dragging_svg_data', JSON.stringify(svgData));
                     
@@ -538,8 +549,18 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                 onClick={() => addTemplateSVG(template)}
                 draggable
                 onDragStart={(e) => {
+                  // Clear any existing data
+                  localStorage.removeItem('dragging_svg_data');
+                  
+                  // Create a unique key for this drag operation
+                  const dragKey = `template-${template.id}-${Date.now()}`;
+                  
                   // Set the template ID as plain text for compatibility
                   e.dataTransfer.setData('text/plain', template.id);
+                  e.dataTransfer.setData('application/json', JSON.stringify({
+                    id: template.id,
+                    dragKey
+                  }));
                   
                   // Process the SVG content to ensure it's properly formatted for drag and drop
                   const { processed } = svgNormalizer.fullyProcessSvg(template.content);
@@ -551,7 +572,8 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                     name: template.name,
                     type: 'template-svg',
                     createdAt: new Date().toISOString(),
-                    preview: ''
+                    preview: '',
+                    dragKey // Add drag key for uniqueness
                   };
                   localStorage.setItem('dragging_svg_data', JSON.stringify(tempSvg));
                   

@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { toast } from "sonner";
-import { ArrowLeft, Globe, Loader2, Copy, CheckCircle2, Paintbrush, CheckCheck, Link2, Sparkles } from "lucide-react";
+import { ArrowLeft, Globe, Loader2, Copy, CheckCircle2, Paintbrush, CheckCheck, Link2, Sparkles, Wand2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -503,7 +503,31 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
                   <div className="max-h-96 overflow-y-auto p-6 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
                     <p className="whitespace-pre-wrap text-sm leading-relaxed">{result.text}</p>
                   </div>
-                  <div className="p-4 bg-slate-50 dark:bg-slate-900/50 flex justify-end">
+                  <div className="p-4 bg-slate-50 dark:bg-slate-900/50 flex justify-between items-center">
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={() => {
+                        // Dispatch event to notify AI SVG generator
+                        const event = new CustomEvent('website-scraper-data', {
+                          detail: {
+                            ...result,
+                            url: url
+                          }
+                        });
+                        window.dispatchEvent(event);
+                        
+                        // Close this component and redirect to SVG generator
+                        onClose();
+                        // Notify parent component that user wants to use this data in SVG generator
+                        window.dispatchEvent(new CustomEvent('open-svg-generator'));
+                        toast.success("Website data ready to use in SVG Generator!");
+                      }}
+                      className="bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-none"
+                    >
+                      <Wand2 className="h-3.5 w-3.5 mr-1.5" />
+                      <span>Use in SVG Generator</span>
+                    </Button>
                     <Button
                       variant="ghost"
                       size="sm"
