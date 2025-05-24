@@ -94,12 +94,16 @@ export const svgStorage = {
       svgs.push(newSVG);
       localStorage.setItem(SVG_STORAGE_KEY, JSON.stringify(svgs));
       
-      // Dispatch a storage event to notify other components
+      // Dispatch both a storage event and custom event to notify other components
       if (typeof window !== 'undefined') {
+        // Standard storage event for tab/window communication
         window.dispatchEvent(new StorageEvent('storage', {
           key: SVG_STORAGE_KEY,
           newValue: JSON.stringify(svgs)
         }));
+        
+        // Custom event for in-page communication
+        window.dispatchEvent(new CustomEvent('svg-library-updated'));
       }
       
       return newSVG;

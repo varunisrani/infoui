@@ -27,61 +27,94 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
 
   const save = useCallback((skip = false) => {
     if (!canvas) return;
-
-    const currentState = canvas.toJSON(JSON_KEYS);
-    const json = JSON.stringify(currentState);
-
-    if (!skip && !skipSave.current) {
-      canvasHistory.current.push(json);
-      setHistoryIndex(canvasHistory.current.length - 1);
+    
+    try {
+      const currentState = canvas.toJSON(JSON_KEYS);
+      const json = JSON.stringify(currentState);
+  
+      if (!skip && !skipSave.current) {
+        // If we're in the middle of the history stack, 
+        // remove everything after the current index
+        if (historyIndex < canvasHistory.current.length - 1) {
+          canvasHistory.current = canvasHistory.current.slice(0, historyIndex + 1);
+        }
+        
+        // Add new state to history
+        canvasHistory.current.push(json);
+        setHistoryIndex(canvasHistory.current.length - 1);
+      }
+  
+      const workspace = canvas
+        .getObjects()
+        .find((object) => object.name === "clip");
+      const height = workspace?.height || 0;
+      const width = workspace?.width || 0;
+  
+      saveCallback?.({ json, height, width });
+    } catch (error) {
+      console.error("Error saving canvas state:", error);
     }
-
-    const workspace = canvas
-      .getObjects()
-      .find((object) => object.name === "clip");
-    const height = workspace?.height || 0;
-    const width = workspace?.width || 0;
-
-    saveCallback?.({ json, height, width });
   }, 
   [
     canvas,
     saveCallback,
+    historyIndex
   ]);
 
   const undo = useCallback(() => {
     if (canUndo()) {
-      skipSave.current = true;
-      canvas?.clear().renderAll();
+      try {
+        skipSave.current = true;
+        
+        // Store current canvas state
+        const currentObjects = canvas?.getObjects() || [];
+        
+        // Clear the canvas before loading new state
+        canvas?.clear().renderAll();
 
-      const previousIndex = historyIndex - 1;
-      const previousState = JSON.parse(
-        canvasHistory.current[previousIndex]
-      );
+        const previousIndex = historyIndex - 1;
+        const previousState = JSON.parse(
+          canvasHistory.current[previousIndex]
+        );
 
-      canvas?.loadFromJSON(previousState, () => {
-        canvas.renderAll();
-        setHistoryIndex(previousIndex);
+        // Load the previous state
+        canvas?.loadFromJSON(previousState, () => {
+          // Make sure canvas correctly renders
+          canvas.renderAll();
+          setHistoryIndex(previousIndex);
+          skipSave.current = false;
+        });
+      } catch (error) {
+        console.error("Error during undo operation:", error);
         skipSave.current = false;
-      });
+      }
     }
   }, [canUndo, canvas, historyIndex]);
 
   const redo = useCallback(() => {
     if (canRedo()) {
-      skipSave.current = true;
-      canvas?.clear().renderAll();
+      try {
+        skipSave.current = true;
+        
+        // Clear canvas before loading new state
+        canvas?.clear().renderAll();
 
-      const nextIndex = historyIndex + 1;
-      const nextState = JSON.parse(
-        canvasHistory.current[nextIndex]
-      );
+        const nextIndex = historyIndex + 1;
+        const nextState = JSON.parse(
+          canvasHistory.current[nextIndex]
+        );
 
-      canvas?.loadFromJSON(nextState, () => {
-        canvas.renderAll();
-        setHistoryIndex(nextIndex);
+        // Load the next state
+        canvas?.loadFromJSON(nextState, () => {
+          // Make sure canvas correctly renders
+          canvas.renderAll();
+          setHistoryIndex(nextIndex);
+          skipSave.current = false;
+        });
+      } catch (error) {
+        console.error("Error during redo operation:", error);
         skipSave.current = false;
-      });
+      }
     }
   }, [canvas, historyIndex, canRedo]);
 

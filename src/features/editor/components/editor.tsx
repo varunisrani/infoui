@@ -106,6 +106,7 @@ export const Editor = ({ initialData }: EditorProps) => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       controlsAboveOverlay: true,
       preserveObjectStacking: true,
+      backgroundColor: 'white', // Set background color explicitly
     });
 
     // Initialize alignment guidelines

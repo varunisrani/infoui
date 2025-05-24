@@ -115,6 +115,17 @@ export const AiWebsiteScraper = ({ editor, onClose }: AiWebsiteScraperProps) => 
       const data = await response.json();
       setResult(data);
       
+      // Dispatch a custom event with the scraped data for other components to use
+      if (typeof window !== 'undefined') {
+        const event = new CustomEvent('website-scraper-data', {
+          detail: {
+            ...data,
+            url: processedUrl
+          }
+        });
+        window.dispatchEvent(event);
+      }
+      
       setScrapingStep("complete");
       toast.success("Website scraped successfully!");
     } catch (err) {

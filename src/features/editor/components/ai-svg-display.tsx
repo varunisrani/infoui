@@ -181,7 +181,6 @@ export const AiSvgDisplay = ({
     }
   };
   
-  // Create a new project with the SVG
   const createNewProject = async () => {
     if (!svgData) return;
     
@@ -208,11 +207,14 @@ export const AiSvgDisplay = ({
       
       toast.success("New project created with AI SVG!");
       
-      // Close the display
+      // Close the display before navigation to prevent any state issues
       setIsOpen(false);
       
-      // Navigate to the editor with the new project
-      router.push(`/editor/${project.id}`);
+      // Add a short delay before navigating to ensure the component unmounts properly
+      setTimeout(() => {
+        // Navigate to the editor with the new project
+        router.push(`/editor/${project.id}`);
+      }, 100); 
     } catch (error) {
       console.error("Error creating new project:", error);
       toast.error("Failed to create new project");

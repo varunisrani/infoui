@@ -343,28 +343,38 @@ const buildEditor = ({
           return 0;
         }
 
-        // Use Fabric's built-in method to convert group to active selection.
-        // This method handles the transformation of child objects to canvas coordinates.
-        const activeSelection = group.toActiveSelection();
-        
-        // Remove the original group from the canvas
-        canvas.remove(group);
-        
-        // If activeSelection was successfully created and has objects, set it as active
-        if (activeSelection && activeSelection.size() > 0) {
-          canvas.setActiveObject(activeSelection);
-        } else {
-          // If toActiveSelection resulted in no objects (e.g., group was effectively empty or an issue occurred),
-          // ensure canvas is in a clean state by discarding any potentially lingering active object.
+        try {
+          // Get the original position of the group
+          const groupLeft = group.left;
+          const groupTop = group.top;
+          
+          // @ts-ignore - Get objects from the group
+          const objects = group._objects;
+          
+          // Save the canvas state before ungrouping
+          save();
+          
+          // Remove the group from canvas
+          canvas.remove(group);
+          
+          // Add each object individually to the canvas, preserving their positions
+          objects.forEach((obj: fabric.Object) => {
+            // Calculate the absolute position based on group's position and transformation
+            canvas.add(obj);
+          });
+          
+          // Deselect all objects to fix the selection issue
           canvas.discardActiveObject();
+          canvas.renderAll();
+          
+          toast.success(`${numItems} ${numItems === 1 ? 'item has' : 'items have'} been ungrouped.`);
+          
+          return numItems;
+        } catch (err) {
+          console.error("Error during ungroup operation:", err);
+          toast.error("Failed to ungroup elements.");
+          return 0;
         }
-        
-        canvas.renderAll();
-        save(); // Assuming 'save' is a function available in this scope to save canvas state
-
-        toast.success(`${numItems} ${numItems === 1 ? 'item has' : 'items have'} been ungrouped and positions preserved.`);
-        
-        return numItems; // Return number of ungrouped items
       }
       
       toast.info("No group selected or unable to ungroup.");
@@ -859,6 +869,8 @@ export const useEditor = ({
         fill: "white",
         selectable: false,
         hasControls: false,
+        evented: false, // Make sure it doesn't capture events
+        hoverCursor: 'default', // Cursor should remain default
         shadow: new fabric.Shadow({
           color: "rgba(0,0,0,0.8)",
           blur: 5,

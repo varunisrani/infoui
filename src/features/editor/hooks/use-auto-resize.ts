@@ -24,11 +24,40 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
         .getObjects()
         .find((object) => object.name === "clip");
         
-      // Early return if workspace is not found
+      // If workspace is not found, create it
       if (!localWorkspace) {
-        console.warn("Workspace not found for auto-resize");
-        return;
+        console.warn("Workspace not found, creating one");
+        
+        const newWorkspace = new fabric.Rect({
+          width: 1080,
+          height: 1080,
+          name: "clip",
+          fill: "white",
+          selectable: false,
+          hasControls: false,
+          evented: false,
+          hoverCursor: 'default',
+          shadow: new fabric.Shadow({
+            color: "rgba(0,0,0,0.8)",
+            blur: 5,
+          }),
+        });
+        
+        canvas.add(newWorkspace);
+        canvas.centerObject(newWorkspace);
+        canvas.renderAll();
+        
+        // Use the new workspace for auto-zoom calculations
+        const freshWorkspace = canvas.getObjects().find(obj => obj.name === "clip");
+        if (!freshWorkspace) {
+          console.error("Failed to create workspace");
+          return;
+        }
       }
+      
+      // Get the workspace again, as it might have been created
+      const workspace = canvas.getObjects().find(obj => obj.name === "clip");
+      if (!workspace) return;
 
       // Calculate scale - either use fabric's utility or fallback to custom implementation
       let scale: number;
@@ -38,14 +67,14 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
         // @ts-ignore - findScaleToFit may not be in type definitions but exists in the library
         if (fabric.util && fabric.util.findScaleToFit) {
           // @ts-ignore
-          scale = fabric.util.findScaleToFit(localWorkspace, {
+          scale = fabric.util.findScaleToFit(workspace, {
             width: width,
             height: height,
           });
         } else {
           // Custom implementation as fallback
-          const objectWidth = localWorkspace.getScaledWidth();
-          const objectHeight = localWorkspace.getScaledHeight();
+          const objectWidth = workspace.getScaledWidth();
+          const objectHeight = workspace.getScaledHeight();
           
           if (!objectWidth || !objectHeight) {
             console.warn("Cannot determine workspace dimensions for scaling");
@@ -80,7 +109,7 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
       }
 
       try {
-        const workspaceCenter = localWorkspace.getCenterPoint();
+        const workspaceCenter = workspace.getCenterPoint();
         
         if (!workspaceCenter) {
           console.warn("Could not determine workspace center point");
@@ -105,7 +134,7 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
 
         // Wrap the clone operation in a try-catch to handle potential errors
         try {
-          localWorkspace.clone((cloned: fabric.Rect) => {
+          workspace.clone((cloned: fabric.Rect) => {
             canvas.clipPath = cloned;
             canvas.requestRenderAll();
           });
