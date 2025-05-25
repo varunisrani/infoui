@@ -216,15 +216,6 @@ export const Banner = () => {
             
             {previewMode && generatedSVG && (
               <div className="mt-4 space-y-2">
-                <Button 
-                  onClick={createProject} 
-                  className="w-full"
-                  variant="default"
-                  disabled={aiLoading || quickSaveLoading} // Disable if any AI operation is ongoing
-                >
-                  Use This SVG in Editor
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
                 <Button
                   onClick={handleQuickSaveToLibrary}
                   className="w-full"

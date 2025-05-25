@@ -26,6 +26,16 @@ import {
   CheckCircle2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
@@ -46,7 +56,7 @@ interface AiAssistantProps {
 // Quick action suggestions for design modifications
 const quickActions = [
   { icon: Palette, label: "Change Colors", prompt: "Change the colors to a different color scheme" },
-  { icon: Type, label: "Change Font", prompt: "Change the font style to something more modern" },
+  { icon: Type, label: "Change Font", prompt: "Change the font style to something more modern", actionType: "fontChange" },
   { icon: Maximize, label: "Make Bigger", prompt: "Make the text and elements larger" },
   { icon: RotateCw, label: "Different Style", prompt: "Create a different design style for this" },
   { icon: RefreshCw, label: "Simplify", prompt: "Make this design simpler and more minimalist" },
@@ -67,6 +77,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const [showFullImage, setShowFullImage] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [showFontPromptDialog, setShowFontPromptDialog] = useState(false);
+  const [fontPromptInput, setFontPromptInput] = useState("");
   
   // References
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -212,8 +224,23 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
   // Handle quick action clicks
   const handleQuickAction = (action: typeof quickActions[0]) => {
-    sendMessage(action.prompt);
+    if (action.actionType === "fontChange") {
+      setShowFontPromptDialog(true);
+    } else {
+      sendMessage(action.prompt);
+    }
     setShowQuickActions(false);
+  };
+
+  const handleSendFontPrompt = () => {
+    if (!fontPromptInput.trim()) {
+      toast.error("Please enter a font style.");
+      return;
+    }
+    const finalPrompt = `Change the font style to something ${fontPromptInput}`;
+    sendMessage(finalPrompt);
+    setFontPromptInput("");
+    setShowFontPromptDialog(false);
   };
 
   // Use SVG in editor (redirect to editor with this SVG)
@@ -660,6 +687,31 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           )}
         </div>
       </div>
+
+      {/* Font Prompt Dialog */}
+      <Dialog open={showFontPromptDialog} onOpenChange={setShowFontPromptDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Describe Desired Font Style</DialogTitle>
+            <DialogDescription>
+              Enter the font style you'd like the AI to use (e.g., modern, playful, elegant).
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <Input
+              value={fontPromptInput}
+              onChange={(e) => setFontPromptInput(e.target.value)}
+              placeholder="e.g., modern, playful, elegant"
+            />
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline" onClick={() => setShowFontPromptDialog(false)}>Cancel</Button>
+            </DialogClose>
+            <Button onClick={handleSendFontPrompt}>Apply Font</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

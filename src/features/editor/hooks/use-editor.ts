@@ -542,7 +542,19 @@ const buildEditor = ({
       setFontFamily(value);
       canvas.getActiveObjects().forEach((object) => {
         if (isTextType(object.type)) {
-          (object as fabric.Text).set({ fontFamily: value });
+          const textObject = object as fabric.Text;
+          textObject.set({ fontFamily: value });
+
+          // Ensure coordinates of the text object are updated
+          textObject.setCoords();
+
+          // If the text object is part of a group, update the group
+          if (textObject.group) {
+            textObject.group.dirty = true;
+            // Force recalculation of group's dimensions based on its current objects
+            textObject.group._calcDimensions();
+            textObject.group.setCoords(); // Then update its coordinates
+          }
         }
       });
       canvas.renderAll();
