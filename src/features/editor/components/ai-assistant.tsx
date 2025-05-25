@@ -23,7 +23,11 @@ import {
   Minimize,
   ExternalLink,
   Save,
-  CheckCircle2
+  CheckCircle2,
+  MenuSquare,
+  Trash,
+  X,
+  LayoutGrid
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -32,8 +36,9 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Editor } from "@/features/editor/types";
 import { svgNormalizer, svgCanvasUtils, svgStorage, svgTester } from "@/lib/svg-utils";
+import { chatStorage, Chat } from "@/lib/chat-storage";
 
-interface Message {
+export interface Message {
   role: "system" | "user" | "assistant";
   content: string;
 }
@@ -68,6 +73,11 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   
+  // Chat management state
+  const [activeChat, setActiveChat] = useState<Chat | null>(null);
+  const [chats, setChats] = useState<Chat[]>([]);
+  const [showChatSidebar, setShowChatSidebar] = useState(false);
+  
   // References
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -75,6 +85,179 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const extractSvgCode = (message: string): string | null => {
     const svgMatch = message.match(/```svg\s*([\s\S]*?)\s*```/);
     return svgMatch ? svgMatch[1].trim() : null;
+  };
+
+  // Load chats from storage
+  useEffect(() => {
+    const loadedChats = chatStorage.getChats();
+    setChats(loadedChats);
+  }, []);
+
+  // Listen for chat updates from other components
+  useEffect(() => {
+    const handleChatsUpdated = () => {
+      setChats(chatStorage.getChats());
+    };
+    
+    window.addEventListener('ai-chats-updated', handleChatsUpdated);
+    return () => {
+      window.removeEventListener('ai-chats-updated', handleChatsUpdated);
+    };
+  }, []);
+  
+  // Load chat when activeChat changes
+  useEffect(() => {
+    if (activeChat) {
+      setMessages(activeChat.messages);
+      setSvgCode(activeChat.svgCode);
+    } else {
+      // Clear messages when starting a new chat
+      setMessages([]);
+      setSvgCode(null);
+    }
+  }, [activeChat]);
+
+  // Save chat when messages or SVG changes
+  useEffect(() => {
+    if (messages.length > 0) {
+      // Don't save empty chats
+      if (activeChat) {
+        // Update existing chat
+        chatStorage.updateChat(activeChat.id, { 
+          messages, 
+          svgCode,
+          title: chatStorage.generateChatTitle(messages)
+        });
+      } else if (messages.length > 0) {
+        // Create new chat
+        const newChat = chatStorage.saveChat({
+          title: chatStorage.generateChatTitle(messages),
+          messages,
+          svgCode
+        });
+        setActiveChat(newChat);
+        setChats(chatStorage.getChats());
+      }
+    }
+  }, [messages, svgCode, activeChat]);
+
+  // Function to create a new chat
+  const createNewChat = () => {
+    setActiveChat(null);
+    setMessages([]);
+    setSvgCode(null);
+    setShowChatSidebar(false);
+  };
+  
+  // Format date for display
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, {
+      month: 'short',
+      day: 'numeric',
+      year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
+    });
+  };
+
+  // Chat Sidebar Component
+  const ChatSidebar = () => {
+    return (
+      <div 
+        className={`absolute top-0 left-0 z-50 h-full w-[280px] bg-white dark:bg-slate-900 shadow-xl border-r border-slate-200 dark:border-slate-700 flex flex-col transition-transform ${
+          showChatSidebar ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <MessageSquare className="h-4 w-4 text-slate-500" />
+            <h3 className="font-medium text-sm">Chat History</h3>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setShowChatSidebar(false)}
+            className="h-8 w-8"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+        
+        <div className="p-2 border-b border-slate-200 dark:border-slate-700">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={createNewChat}
+            className="w-full justify-start gap-2"
+          >
+            <PlusCircle className="h-4 w-4" />
+            New Chat
+          </Button>
+        </div>
+        
+        <ScrollArea className="flex-1 p-2">
+          {chats.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-40 text-slate-500 dark:text-slate-400">
+              <LayoutGrid className="h-12 w-12 mb-2 opacity-20" />
+              <p className="text-xs">No chat history yet</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {chats.map((chat) => (
+                <div 
+                  key={chat.id}
+                  className={`p-3 rounded-lg cursor-pointer group transition-colors ${
+                    activeChat?.id === chat.id 
+                      ? 'bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800'
+                      : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 border border-transparent'
+                  }`}
+                  onClick={() => {
+                    setActiveChat(chat);
+                    setShowChatSidebar(false);
+                  }}
+                >
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1 overflow-hidden">
+                      <h4 className="font-medium text-sm truncate mb-1">
+                        {chat.title}
+                      </h4>
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
+                        {formatDate(chat.createdAt)}
+                      </p>
+                    </div>
+                    
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering chat selection
+                        deleteChat(chat.id);
+                      }}
+                      className="h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <Trash className="h-3 w-3 text-slate-500" />
+                    </Button>
+                  </div>
+                  
+                  {chat.svgCode && (
+                    <div className="mt-2 overflow-hidden rounded-md bg-white h-[60px] w-[60px] border flex items-center justify-center">
+                      <div
+                        className="scale-75 ai-svg-preview"
+                        dangerouslySetInnerHTML={{
+                          __html: chat.svgCode.replace(
+                            /<svg/,
+                            '<svg preserveAspectRatio="xMidYMid meet" width="100%" height="100%" '
+                          )
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </ScrollArea>
+      </div>
+    );
   };
 
   // Update SVG code when messages change
@@ -354,10 +537,19 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
   return (
     <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+      {/* Chat Sidebar */}
+      <ChatSidebar />
+      
       {/* Modern Header */}
       <div className="relative p-6 pb-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-700/50">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setShowChatSidebar(!showChatSidebar)}
+              className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+            >
+              <MenuSquare className="h-5 w-5 text-slate-500" />
+            </button>
             <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl">
               <Sparkles className="h-5 w-5 text-white" />
             </div>
@@ -392,22 +584,39 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                   <div className="p-2 bg-blue-500 rounded-lg">
                     <Wand2 className="h-4 w-4 text-white" />
                   </div>
-                  <h4 className="font-semibold text-blue-700 dark:text-blue-300">Welcome to AI Design Studio!</h4>
+                  <h4 className="font-semibold text-blue-700 dark:text-blue-300">
+                    {activeChat ? 'Continue Your Conversation' : 'Welcome to AI Design Studio!'}
+                  </h4>
                 </div>
                 <p className="text-slate-600 dark:text-slate-300 mb-4">
-                  I can help you create amazing designs! Try saying:
+                  {activeChat 
+                    ? 'Your previous conversation has been loaded. Continue where you left off or start a new chat from the sidebar.'
+                    : 'I can help you create amazing designs! Try saying:'}
                 </p>
-                <div className="grid grid-cols-1 gap-2">
-                  <Badge variant="secondary" className="justify-start py-2 px-3">
-                    &ldquo;Create a coming soon poster for my clothing brand&rdquo;
-                  </Badge>
-                  <Badge variant="secondary" className="justify-start py-2 px-3">
-                    &ldquo;Design a testimonial card for my restaurant&rdquo;
-                  </Badge>
-                  <Badge variant="secondary" className="justify-start py-2 px-3">
-                    &ldquo;Make a logo for my tech startup&rdquo;
-                  </Badge>
-                </div>
+                {!activeChat && (
+                  <div className="grid grid-cols-1 gap-2">
+                    <Badge variant="secondary" className="justify-start py-2 px-3">
+                      &ldquo;Create a coming soon poster for my clothing brand&rdquo;
+                    </Badge>
+                    <Badge variant="secondary" className="justify-start py-2 px-3">
+                      &ldquo;Design a testimonial card for my restaurant&rdquo;
+                    </Badge>
+                    <Badge variant="secondary" className="justify-start py-2 px-3">
+                      &ldquo;Make a logo for my tech startup&rdquo;
+                    </Badge>
+                  </div>
+                )}
+                {activeChat && (
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={createNewChat}
+                    className="mt-2"
+                  >
+                    <PlusCircle className="h-4 w-4 mr-2" />
+                    Start New Chat
+                  </Button>
+                )}
               </CardContent>
             </Card>
           )}
@@ -627,7 +836,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           </div>
           
           {/* Suggestion Pills */}
-          {messages.length === 0 && (
+          {messages.length === 0 && !activeChat && (
             <div className="flex gap-2 flex-wrap">
               <Button
                 variant="ghost"
@@ -656,6 +865,21 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
               >
                 Business Logo
               </Button>
+            </div>
+          )}
+          
+          {/* Chat history indicator */}
+          {messages.length === 0 && activeChat && (
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowChatSidebar(true)}
+              >
+                <MenuSquare className="h-3 w-3 mr-1" />
+                Chat History
+              </Button>
+              <p className="text-xs text-slate-500">or continue this conversation below</p>
             </div>
           )}
         </div>
