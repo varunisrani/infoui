@@ -46,7 +46,7 @@ interface AiAssistantProps {
 // Quick action suggestions for design modifications
 const quickActions = [
   { icon: Palette, label: "Change Colors", prompt: "Change the colors to a different color scheme" },
-  { icon: Type, label: "Change Font", prompt: "Change the font style to something more modern" },
+  { icon: Type, label: "Change Font", prompt: "Change the font to something that fits the design style better" },
   { icon: Maximize, label: "Make Bigger", prompt: "Make the text and elements larger" },
   { icon: RotateCw, label: "Different Style", prompt: "Create a different design style for this" },
   { icon: RefreshCw, label: "Simplify", prompt: "Make this design simpler and more minimalist" },
@@ -212,7 +212,26 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
   // Handle quick action clicks
   const handleQuickAction = (action: typeof quickActions[0]) => {
-    sendMessage(action.prompt);
+    // For font change, generate a more specific and contextual prompt
+    if (action.label === "Change Font") {
+      // Get the last SVG to understand its style better
+      const lastUserMessage = [...messages].reverse().find(msg => msg.role === "user");
+      const lastContent = lastUserMessage?.content || "";
+      
+      // Generate a more specific prompt based on existing content or SVG
+      const specificPrompt = `Change the font to something that better fits the ${
+        lastContent.toLowerCase().includes("professional") ? "professional" : 
+        lastContent.toLowerCase().includes("playful") ? "playful" :
+        lastContent.toLowerCase().includes("elegant") ? "elegant" :
+        lastContent.toLowerCase().includes("modern") ? "modern" :
+        lastContent.toLowerCase().includes("vintage") ? "vintage" :
+        "overall"
+      } style of this design`;
+      
+      sendMessage(specificPrompt);
+    } else {
+      sendMessage(action.prompt);
+    }
     setShowQuickActions(false);
   };
 
@@ -485,23 +504,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
               </div>
 
               {/* Compact Action Buttons */}
-              <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-3 gap-2'}`}>
-                <Button
-                  onClick={useThisSvg}
-                  disabled={isAddingToCanvas}
-                  size="sm"
-                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 h-8"
-                >
-                  {isAddingToCanvas ? (
-                    <Loader2 className="h-3 w-3 animate-spin" />
-                  ) : (
-                    <>
-                      <ExternalLink className="h-3 w-3 mr-1" />
-                      Use this SVG
-                    </>
-                  )}
-                </Button>
-                
+              <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-2 gap-2'}`}>
                 <Button
                   variant="outline"
                   onClick={saveToLibrary}

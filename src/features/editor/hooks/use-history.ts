@@ -16,6 +16,7 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
   const [historyIndex, setHistoryIndex] = useState(0);
   const canvasHistory = useRef<string[]>([]);
   const skipSave = useRef(false);
+  const initialStateSet = useRef(false);
 
   const canUndo = useCallback(() => {
     return historyIndex > 0;
@@ -29,6 +30,15 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
     if (!canvas) return;
     
     try {
+      // Ensure objects have accurate positions and properties in the JSON
+      canvas.forEachObject(obj => {
+        if (obj.group) {
+          // Make sure grouped objects have correct coordinates
+          const matrix = obj.calcTransformMatrix();
+          obj.setCoords();
+        }
+      });
+      
       const currentState = canvas.toJSON(JSON_KEYS);
       const json = JSON.stringify(currentState);
   
@@ -61,13 +71,21 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
     historyIndex
   ]);
 
+  // Initialize history with current state if it's empty
+  const initializeHistory = useCallback(() => {
+    if (!canvas || initialStateSet.current) return;
+    save(true);
+    initialStateSet.current = true;
+  }, [canvas, save]);
+
   const undo = useCallback(() => {
     if (canUndo()) {
       try {
         skipSave.current = true;
         
-        // Store current canvas state
-        const currentObjects = canvas?.getObjects() || [];
+        // Reset any ongoing transformations
+        if (canvas?.isDrawingMode) canvas.isDrawingMode = false;
+        canvas?.discardActiveObject();
         
         // Clear the canvas before loading new state
         canvas?.clear().renderAll();
@@ -79,6 +97,11 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
 
         // Load the previous state
         canvas?.loadFromJSON(previousState, () => {
+          // Apply correct transforms to all objects
+          canvas.forEachObject(obj => {
+            obj.setCoords();
+          });
+          
           // Make sure canvas correctly renders
           canvas.renderAll();
           setHistoryIndex(previousIndex);
@@ -96,6 +119,10 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
       try {
         skipSave.current = true;
         
+        // Reset any ongoing transformations
+        if (canvas?.isDrawingMode) canvas.isDrawingMode = false;
+        canvas?.discardActiveObject();
+        
         // Clear canvas before loading new state
         canvas?.clear().renderAll();
 
@@ -106,6 +133,11 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
 
         // Load the next state
         canvas?.loadFromJSON(nextState, () => {
+          // Apply correct transforms to all objects
+          canvas.forEachObject(obj => {
+            obj.setCoords();
+          });
+          
           // Make sure canvas correctly renders
           canvas.renderAll();
           setHistoryIndex(nextIndex);
@@ -126,5 +158,6 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
     redo,
     setHistoryIndex,
     canvasHistory,
+    initializeHistory,
   };
 };
