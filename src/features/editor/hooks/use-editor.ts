@@ -897,9 +897,7 @@ export const useEditor = ({
       setHistoryIndex(0);
     },
     [
-      canvasHistory, // No need, this is from useRef
       setHistoryIndex,
-    initializeHistory, // No need, this is from useState
     ]
   );
 

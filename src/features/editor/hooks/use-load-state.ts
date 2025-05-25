@@ -9,6 +9,7 @@ interface UseLoadStateProps {
   initialState: React.MutableRefObject<string | undefined>;
   canvasHistory: React.MutableRefObject<string[]>;
   setHistoryIndex: React.Dispatch<React.SetStateAction<number>>;
+  initializeHistory?: () => void;
 };
 
 export const useLoadState = ({

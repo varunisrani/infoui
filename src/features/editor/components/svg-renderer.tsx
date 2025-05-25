@@ -152,7 +152,7 @@ export const SvgRenderer = ({
         </svg>
       `);
     }
-  }, [svgContent, width, height, preserveAspectRatio, onError]);
+  }, [svgContent, width, height, preserveAspectRatio, onError, fallback]);
   
   if (!processedSvg) {
     return fallback || null;
