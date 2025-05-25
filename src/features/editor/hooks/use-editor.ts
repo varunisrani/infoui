@@ -552,7 +552,6 @@ const buildEditor = ({
           if (textObject.group) {
             textObject.group.dirty = true;
             // Force recalculation of group's dimensions based on its current objects
-            textObject.group._calcDimensions();
             textObject.group.setCoords(); // Then update its coordinates
           }
         }
