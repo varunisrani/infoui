@@ -694,7 +694,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           <DialogHeader>
             <DialogTitle>Describe Desired Font Style</DialogTitle>
             <DialogDescription>
-              Enter the font style you'd like the AI to use (e.g., modern, playful, elegant).
+              Enter the font style you&apos;d like the AI to use (e.g., modern, playful, elegant).
             </DialogDescription>
           </DialogHeader>
           <div className="py-4">
