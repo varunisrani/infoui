@@ -97,36 +97,40 @@ export const AiSvgDisplay = ({
           console.warn("Error parsing SVG, using original content:", parseError);
         }
         
-        fabric.loadSVGFromString(svgContent, (objects, options) => {
-          // Create a group containing all the objects
-          const svgGroup = new fabric.Group(objects);
-          
-          // Scale to fit inside the canvas
-          const canvasWidth = editor.canvas.getWidth();
-          const canvasHeight = editor.canvas.getHeight();
-          
-          const groupWidth = svgGroup.width || 100;
-          const groupHeight = svgGroup.height || 100;
-          
-          const scale = Math.min(
-            (canvasWidth - 100) / groupWidth,
-            (canvasHeight - 100) / groupHeight
-          );
-          
-          svgGroup.scale(scale);
-          
-          // Center the object
-          svgGroup.set({
-            left: canvasWidth / 2,
-            top: canvasHeight / 2,
-            originX: 'center',
-            originY: 'center'
+        try {
+          fabric.loadSVGFromString(svgContent, (objects, options) => {
+            // Create a group containing all the objects
+            const svgGroup = new fabric.Group(objects);
+            
+            // Scale to fit inside the canvas
+            const canvasWidth = editor.canvas.getWidth();
+            const canvasHeight = editor.canvas.getHeight();
+            
+            const groupWidth = svgGroup.width || 100;
+            const groupHeight = svgGroup.height || 100;
+            
+            const scale = Math.min(
+              (canvasWidth - 100) / groupWidth,
+              (canvasHeight - 100) / groupHeight
+            );
+            
+            svgGroup.scale(scale);
+            
+            // Center the object
+            svgGroup.set({
+              left: canvasWidth / 2,
+              top: canvasHeight / 2,
+              originX: 'center',
+              originY: 'center'
+            });
+            
+            // Add to canvas
+            editor.canvas.add(svgGroup);
+            editor.canvas.renderAll();
           });
-          
-          // Add to canvas
-          editor.canvas.add(svgGroup);
-          editor.canvas.renderAll();
-        });
+        } catch (svgLoadError) {
+          console.error("Error loading SVG into fabric:", svgLoadError);
+        }
       }
     } catch (error) {
       console.error("Error loading SVG data:", error);

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Suspense } from "react";
 
 import { SubscriptionAlert } from "@/features/subscriptions/components/subscription-alert";
@@ -8,8 +7,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
 
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Wrecked Labs",
@@ -23,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <Suspense>
           <Providers>
             <Modals />
