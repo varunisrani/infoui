@@ -22,6 +22,18 @@ export function downloadFile(file: string, type: string) {
   document.body.appendChild(anchorElement);
   anchorElement.click();
   anchorElement.remove();
+  
+  // If this is an object URL (blob:), it should be revoked after the download is triggered
+  // We don't revoke it immediately to give the browser time to process the download
+  if (file.startsWith('blob:')) {
+    setTimeout(() => {
+      try {
+        URL.revokeObjectURL(file);
+      } catch (e) {
+        console.error("Failed to revoke object URL", e);
+      }
+    }, 1000);
+  }
 };
 
 export function isTextType(type: string | undefined) {

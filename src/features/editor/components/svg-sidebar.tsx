@@ -442,26 +442,31 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                     // Clear any existing data
                     localStorage.removeItem('dragging_svg_data');
                     
-                    // Create a unique key for this drag operation
-                    const dragKey = `svg-${svg.id}-${Date.now()}`;
+                    // Create a truly unique key for this drag operation using a combination of values
+                    const timestamp = Date.now();
+                    const randomPart = Math.floor(Math.random() * 10000);
+                    const dragKey = `svg-${svg.id}-${timestamp}-${randomPart}`;
                     
                     // Set the SVG ID as plain text for compatibility
                     e.dataTransfer.setData('text/plain', svg.id);
                     e.dataTransfer.setData('application/json', JSON.stringify({
                       id: svg.id,
-                      dragKey
+                      dragKey,
+                      timestamp
                     }));
                     
                     // Process the SVG content to ensure it's properly formatted for drag and drop
                     const { processed } = svgNormalizer.fullyProcessSvg(svg.content);
                     
-                    // Store the full SVG data for direct access with processed content
+                    // Store the full SVG data for direct access with processed content and positioning info
                     const svgData = {
                       id: svg.id,
                       content: processed, // Use the processed content
                       name: svg.name,
                       type: 'library-svg',
-                      dragKey // Add drag key for uniqueness
+                      dragKey, // Add drag key for uniqueness
+                      timestamp, // Add timestamp for sorting/ordering
+                      zIndex: 999 // High z-index to ensure it appears on top
                     };
                     localStorage.setItem('dragging_svg_data', JSON.stringify(svgData));
                     
@@ -552,20 +557,23 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                   // Clear any existing data
                   localStorage.removeItem('dragging_svg_data');
                   
-                  // Create a unique key for this drag operation
-                  const dragKey = `template-${template.id}-${Date.now()}`;
+                  // Create a truly unique key for this drag operation using a combination of values
+                  const timestamp = Date.now();
+                  const randomPart = Math.floor(Math.random() * 10000);
+                  const dragKey = `template-${template.id}-${timestamp}-${randomPart}`;
                   
                   // Set the template ID as plain text for compatibility
                   e.dataTransfer.setData('text/plain', template.id);
                   e.dataTransfer.setData('application/json', JSON.stringify({
                     id: template.id,
-                    dragKey
+                    dragKey,
+                    timestamp
                   }));
                   
                   // Process the SVG content to ensure it's properly formatted for drag and drop
                   const { processed } = svgNormalizer.fullyProcessSvg(template.content);
                   
-                  // Store the full SVG data for direct access with processed content
+                  // Store the full SVG data for direct access with processed content and positioning info
                   const tempSvg = {
                     id: template.id,
                     content: processed, // Use the processed content
@@ -573,7 +581,9 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                     type: 'template-svg',
                     createdAt: new Date().toISOString(),
                     preview: '',
-                    dragKey // Add drag key for uniqueness
+                    dragKey, // Add drag key for uniqueness
+                    timestamp, // Add timestamp for sorting/ordering
+                    zIndex: 999 // High z-index to ensure it appears on top
                   };
                   localStorage.setItem('dragging_svg_data', JSON.stringify(tempSvg));
                   
