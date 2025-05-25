@@ -62,13 +62,20 @@ export const SvgRenderer = ({
           svgElement.setAttribute('height', typeof height === 'number' ? `${height}px` : height);
         }
         
+        // Add viewBox if missing but have width and height
         if (!svgElement.hasAttribute('viewBox') && 
             svgElement.hasAttribute('width') && 
             svgElement.hasAttribute('height')) {
+          // Try to get numeric width/height values
           const svgWidth = svgElement.getAttribute('width') || '100';
           const svgHeight = svgElement.getAttribute('height') || '100';
-          const numWidth = parseInt(svgWidth, 10) || 100;
-          const numHeight = parseInt(svgHeight, 10) || 100;
+          let numWidth = parseInt(svgWidth, 10);
+          let numHeight = parseInt(svgHeight, 10);
+          
+          // If parsing fails, use default dimensions
+          if (isNaN(numWidth)) numWidth = 100;
+          if (isNaN(numHeight)) numHeight = 100;
+          
           svgElement.setAttribute('viewBox', `0 0 ${numWidth} ${numHeight}`);
         }
         
@@ -76,6 +83,10 @@ export const SvgRenderer = ({
         if (preserveAspectRatio && !svgElement.hasAttribute('preserveAspectRatio')) {
           svgElement.setAttribute('preserveAspectRatio', preserveAspectRatio);
         }
+        
+        // Remove any script tags for security
+        const scripts = svgElement.querySelectorAll('script');
+        scripts.forEach(script => script.parentNode?.removeChild(script));
         
         // Convert back to string with all original elements intact
         const serializer = new XMLSerializer();
@@ -98,7 +109,7 @@ export const SvgRenderer = ({
         const widthValue = typeof width === 'number' ? `${width}px` : width;
         const heightValue = typeof height === 'number' ? `${height}px` : height;
         
-        // Replace width and height attributes
+        // Replace width and height attributes if they exist
         finalSvg = finalSvg.replace(
           /<svg([^>]*)width="[^"]*"([^>]*)height="[^"]*"([^>]*)>/,
           `<svg$1width="${widthValue}"$2height="${heightValue}"$3>`
@@ -136,11 +147,11 @@ export const SvgRenderer = ({
         onError(error as Error);
       }
       
-      // Provide a fallback in case of error
+      // Provide a better fallback in case of error
       setProcessedSvg(`
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="${width}" height="${height}">
           <rect width="200" height="200" fill="#f8f9fa" />
-          <text x="50%" y="50%" font-family="Arial" font-size="16" fill="#6c757d" text-anchor="middle">
+          <text x="50%" y="50%" font-family="Arial" font-size="16" fill="#6c757d" text-anchor="middle" dominant-baseline="middle">
             SVG Error
           </text>
         </svg>

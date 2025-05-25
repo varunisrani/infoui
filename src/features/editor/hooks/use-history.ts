@@ -30,6 +30,13 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
     
     try {
       const currentState = canvas.toJSON(JSON_KEYS);
+      
+      // Add viewport transform data to the state
+      if (canvas.viewportTransform) {
+        // Save the current viewport transform (zoom and pan)
+        currentState._viewportTransform = [...canvas.viewportTransform];
+      }
+      
       const json = JSON.stringify(currentState);
   
       if (!skip && !skipSave.current) {
@@ -66,21 +73,47 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
       try {
         skipSave.current = true;
         
-        // Store current canvas state
-        const currentObjects = canvas?.getObjects() || [];
+        // Get current viewport transform before making changes
+        const currentViewportTransform = canvas?.viewportTransform || [1, 0, 0, 1, 0, 0];
         
         // Clear the canvas before loading new state
         canvas?.clear().renderAll();
 
         const previousIndex = historyIndex - 1;
-        const previousState = JSON.parse(
+        const previousStateData = JSON.parse(
           canvasHistory.current[previousIndex]
         );
-
+        
+        // Check if the state has viewport transform data
+        const hasViewportData = previousStateData._viewportTransform && 
+                                Array.isArray(previousStateData._viewportTransform) && 
+                                previousStateData._viewportTransform.length === 6;
+        
+        // Extract the previous canvas state (separate from viewport data)
+        const previousState = previousStateData;
+        
         // Load the previous state
         canvas?.loadFromJSON(previousState, () => {
+          // After loading the state, restore viewport if needed
+          if (hasViewportData && canvas) {
+            canvas.setViewportTransform(previousStateData._viewportTransform);
+          }
+          
+          // Make sure objects are positioned correctly
+          canvas?.getObjects().forEach(obj => {
+            if (obj.name !== "clip") {  // Don't touch the workspace/clip object
+              // Re-set position to force proper positioning
+              if (obj.left !== undefined && obj.top !== undefined) {
+                obj.set({
+                  left: obj.left,
+                  top: obj.top
+                });
+              }
+            }
+          });
+          
           // Make sure canvas correctly renders
-          canvas.renderAll();
+          canvas?.renderAll();
           setHistoryIndex(previousIndex);
           skipSave.current = false;
         });
@@ -96,18 +129,47 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
       try {
         skipSave.current = true;
         
+        // Get current viewport transform before making changes
+        const currentViewportTransform = canvas?.viewportTransform || [1, 0, 0, 1, 0, 0];
+        
         // Clear canvas before loading new state
         canvas?.clear().renderAll();
 
         const nextIndex = historyIndex + 1;
-        const nextState = JSON.parse(
+        const nextStateData = JSON.parse(
           canvasHistory.current[nextIndex]
         );
-
+        
+        // Check if the state has viewport transform data
+        const hasViewportData = nextStateData._viewportTransform && 
+                               Array.isArray(nextStateData._viewportTransform) && 
+                               nextStateData._viewportTransform.length === 6;
+        
+        // Extract the next canvas state
+        const nextState = nextStateData;
+        
         // Load the next state
         canvas?.loadFromJSON(nextState, () => {
+          // After loading the state, restore viewport if needed
+          if (hasViewportData && canvas) {
+            canvas.setViewportTransform(nextStateData._viewportTransform);
+          }
+          
+          // Make sure objects are positioned correctly
+          canvas?.getObjects().forEach(obj => {
+            if (obj.name !== "clip") {  // Don't touch the workspace/clip object
+              // Re-set position to force proper positioning
+              if (obj.left !== undefined && obj.top !== undefined) {
+                obj.set({
+                  left: obj.left,
+                  top: obj.top
+                });
+              }
+            }
+          });
+          
           // Make sure canvas correctly renders
-          canvas.renderAll();
+          canvas?.renderAll();
           setHistoryIndex(nextIndex);
           skipSave.current = false;
         });

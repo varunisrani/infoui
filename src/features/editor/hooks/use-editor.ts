@@ -82,8 +82,9 @@ const buildEditor = ({
 
   const saveSvg = () => {
     canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    
     // Use toSVG() method to get proper SVG content with 1080x1080 dimensions
-    const svgContent = canvas.toSVG({
+    let svgContent = canvas.toSVG({
       width: 1080,
       height: 1080,
       viewBox: {
@@ -93,10 +94,31 @@ const buildEditor = ({
         height: 1080
       }
     });
-    // Create a proper SVG data URL
-    const svgDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgContent)}`;
-
-    downloadFile(svgDataUrl, "svg");
+    
+    // Ensure SVG has proper XML structure
+    if (!svgContent.startsWith('<?xml')) {
+      svgContent = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + svgContent;
+    }
+    
+    // Ensure SVG has proper namespace
+    if (!svgContent.includes('xmlns=')) {
+      svgContent = svgContent.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    
+    // Ensure SVG has proper viewBox if missing
+    if (!svgContent.includes('viewBox=')) {
+      svgContent = svgContent.replace('<svg', '<svg viewBox="0 0 1080 1080"');
+    }
+    
+    // Create a proper blob for download instead of data URL
+    const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    
+    downloadFile(url, "svg");
+    
+    // Clean up object URL after download
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    
     autoZoom();
   };
 

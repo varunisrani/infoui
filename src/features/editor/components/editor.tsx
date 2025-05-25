@@ -260,10 +260,11 @@ export const Editor = ({ initialData }: EditorProps) => {
         const dropX = e.clientX - canvasOffset.left;
         const dropY = e.clientY - canvasOffset.top;
         
-        // Convert drop position to canvas coordinates
+        // Get current canvas zoom and pan values
         const zoom = editor.canvas.getZoom();
-        const viewportLeft = editor.canvas.viewportTransform?.[4] || 0;
-        const viewportTop = editor.canvas.viewportTransform?.[5] || 0;
+        const viewportTransform = editor.canvas.viewportTransform || [1, 0, 0, 1, 0, 0];
+        const viewportLeft = viewportTransform[4];
+        const viewportTop = viewportTransform[5];
         
         // Calculate position within the canvas accounting for zoom and pan
         const canvasX = (dropX - viewportLeft) / zoom;
@@ -276,6 +277,9 @@ export const Editor = ({ initialData }: EditorProps) => {
               // Get the added object (should be the active object)
               const addedObject = editor.canvas.getActiveObject();
               if (addedObject) {
+                // Ensure the object is placed on top of other objects
+                editor.canvas.bringToFront(addedObject);
+                
                 // Move to drop position
                 addedObject.set({
                   left: canvasX,
@@ -294,6 +298,7 @@ export const Editor = ({ initialData }: EditorProps) => {
                   addedObject.scale(scale);
                 }
                 
+                // Ensure the SVG is rendered on top of other elements
                 editor.canvas.renderAll();
                 
                 // Show success toast
@@ -314,6 +319,9 @@ export const Editor = ({ initialData }: EditorProps) => {
               // Get the added object (should be the active object)
               const addedObject = editor.canvas.getActiveObject();
               if (addedObject) {
+                // Ensure the object is placed on top
+                editor.canvas.bringToFront(addedObject);
+                
                 // Move to drop position
                 addedObject.set({
                   left: canvasX,

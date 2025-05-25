@@ -216,7 +216,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     setShowQuickActions(false);
   };
 
-  // Use SVG in editor (redirect to editor with this SVG)
+  // Use SVG in editor (add to current canvas or create new project)
   const useThisSvg = async () => {
     if (!svgCode) return;
 
@@ -224,8 +224,93 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       setIsAddingToCanvas(true);
       
       // Process the SVG to ensure it's properly formatted
-      const { svgNormalizer } = await import("@/lib/svg-utils");
       const { processed } = svgNormalizer.fullyProcessSvg(svgCode);
+      
+      // If we have an editor instance, add directly to the current canvas
+      if (editor && editor.canvas) {
+        // Use the SVG canvas utilities to add the SVG to current canvas
+        const result = await svgCanvasUtils.addSvgToCanvas(editor.canvas, processed);
+        
+        if (result) {
+          // Get the added object (should be the active object)
+          const addedObject = editor.canvas.getActiveObject();
+          
+          if (addedObject) {
+            // Center the object in the canvas
+            const canvasWidth = editor.canvas.width || 1080;
+            const canvasHeight = editor.canvas.height || 1080;
+            
+            addedObject.set({
+              left: canvasWidth / 2,
+              top: canvasHeight / 2,
+              originX: 'center',
+              originY: 'center'
+            });
+            
+            // Scale if necessary
+            const maxDimension = 500; // Maximum dimension we want for the SVG
+            const objectWidth = addedObject.width || 100;
+            const objectHeight = addedObject.height || 100;
+            
+            if (objectWidth > maxDimension || objectHeight > maxDimension) {
+              const scale = maxDimension / Math.max(objectWidth, objectHeight);
+              addedObject.scale(scale);
+            }
+            
+            // Ensure it's on top and rendered
+            editor.canvas.bringToFront(addedObject);
+            editor.canvas.renderAll();
+            
+            // Close the AI Assistant
+            onClose();
+            
+            toast.success("AI design added to canvas!");
+            
+            // Stop here - we've successfully added to the canvas
+            setIsAddingToCanvas(false);
+            return;
+          }
+        } else {
+          // Try fallback method if primary method fails
+          const fallbackResult = await svgCanvasUtils.addSvgAsImageFallback(
+            editor.canvas,
+            processed,
+            'AI Generated SVG'
+          );
+          
+          if (fallbackResult) {
+            // Get the added object
+            const addedObject = editor.canvas.getActiveObject();
+            
+            if (addedObject) {
+              // Center in canvas
+              const canvasWidth = editor.canvas.width || 1080;
+              const canvasHeight = editor.canvas.height || 1080;
+              
+              addedObject.set({
+                left: canvasWidth / 2,
+                top: canvasHeight / 2,
+                originX: 'center',
+                originY: 'center'
+              });
+              
+              editor.canvas.renderAll();
+              
+              // Close the AI Assistant
+              onClose();
+              
+              toast.success("AI design added to canvas (as image)!");
+              
+              // Stop here - we've successfully added to the canvas as an image
+              setIsAddingToCanvas(false);
+              return;
+            }
+          }
+        }
+      }
+      
+      // If we get here, either there's no editor or we failed to add to canvas
+      // Fall back to creating a new project (existing functionality)
       
       // Create a new project with the SVG data
       // Using the same structure as AI SVG Generator for compatibility with AI SVG Display
@@ -257,8 +342,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
         router.push(`/editor/${project.id}`);
       }, 100);
     } catch (error) {
-      console.error('Error creating project with SVG:', error);
-      toast.error('Failed to create project with design');
+      console.error('Error using SVG:', error);
+      toast.error('Failed to use AI design');
     } finally {
       setIsAddingToCanvas(false);
     }
@@ -278,16 +363,37 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   // Download SVG as file
   const downloadSvg = () => {
     if (!svgCode) return;
-    const blob = new Blob([svgCode], { type: 'image/svg+xml' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'ai-design.svg';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    toast.success("SVG downloaded!");
+    
+    try {
+      // Process and normalize the SVG before download
+      const { processed } = svgNormalizer.fullyProcessSvg(svgCode);
+      
+      // Create a proper XML declaration if missing
+      let finalSvg = processed;
+      if (!finalSvg.startsWith('<?xml')) {
+        finalSvg = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n' + finalSvg;
+      }
+      
+      // Create a Blob with the proper MIME type
+      const blob = new Blob([finalSvg], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      
+      // Create and trigger the download
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ai-design.svg';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      
+      // Clean up the URL object
+      URL.revokeObjectURL(url);
+      
+      toast.success("SVG downloaded!");
+    } catch (error) {
+      console.error("Error downloading SVG:", error);
+      toast.error("Failed to download SVG");
+    }
   };
 
   // Save SVG to library
