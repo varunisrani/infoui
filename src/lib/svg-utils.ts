@@ -396,9 +396,12 @@ export const svgNormalizer = {
 
   // Full processing pipeline for SVG cleaning
   fullyProcessSvg: (svgContent: string): { processed: string, dataUrl: string } => {
+    // Add debugging info
+    console.log(`[SVG] Processing SVG: ${svgContent ? svgContent.substring(0, 50) + '...' : 'undefined/null'}`);
+    
     // Handle null or empty content gracefully
     if (!svgContent || typeof svgContent !== 'string') {
-      console.error("Invalid SVG content received:", svgContent);
+      console.error("[SVG] Invalid SVG content received:", svgContent);
       // Return a simple placeholder SVG
       const fallbackSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
         <rect width="1080" height="1080" fill="#f0f0f0" />
@@ -501,6 +504,7 @@ export const svgNormalizer = {
         const minimallyProcessed = serializer.serializeToString(svgElement);
         const dataUrl = svgNormalizer.createDataUrl(minimallyProcessed);
 
+        console.log(`[SVG] Successfully processed SVG with minimal changes (${minimallyProcessed.length} bytes)`);
         return { processed: minimallyProcessed, dataUrl };
       } else {
         console.warn('SVG parse error detected, applying more thorough cleaning', parseError.textContent);
@@ -521,7 +525,8 @@ export const svgNormalizer = {
 
     // Create data URL for preview
     const dataUrl = svgNormalizer.createDataUrl(cleaned);
-
+    
+    console.log(`[SVG] Processed SVG with aggressive cleaning (${cleaned.length} bytes)`);
     return { processed: cleaned, dataUrl };
   }
 };
@@ -532,6 +537,7 @@ export const svgNormalizer = {
 export const svgTester = {
   // Test if SVG can be loaded by Fabric.js
   testWithFabric: async (svgContent: string): Promise<boolean> => {
+    console.log(`[SVG Test] Starting Fabric.js compatibility test`);
     return new Promise((resolve) => {
       try {
         // Create temporary canvas for testing
@@ -543,6 +549,7 @@ export const svgTester = {
         // Set a timeout in case loading hangs
         const timeoutId = setTimeout(() => {
           fabricCanvas.dispose();
+          console.warn('[SVG Test] Test timed out after 1000ms');
           resolve(false);
         }, 1000);
 
@@ -552,13 +559,15 @@ export const svgTester = {
           fabricCanvas.dispose();
 
           if (!objects || objects.length === 0) {
+            console.warn('[SVG Test] No objects found in SVG');
             resolve(false);
           } else {
+            console.log(`[SVG Test] Successfully loaded ${objects.length} objects with Fabric.js`);
             resolve(true);
           }
         });
       } catch (error) {
-        console.error("Error testing SVG with Fabric:", error);
+        console.error("[SVG Test] Error testing SVG with Fabric:", error);
         resolve(false);
       }
     });
@@ -593,22 +602,25 @@ export const svgTester = {
 export const svgCanvasUtils = {
   // Add SVG to canvas - returns true if successful, false if failed
   addSvgToCanvas: async (canvas: fabric.Canvas, svgContent: string): Promise<boolean> => {
+    console.log('[SVG Canvas] Adding SVG to canvas');
     return new Promise<boolean>((resolve) => {
       try {
         // First normalize the SVG content with strict preservation of dimensions and styles
         const normalized = svgNormalizer.fullyProcessSvg(svgContent);
         const cleanedSvg = normalized.processed;
 
-        console.log('Loading SVG with fabric.loadSVGFromString...', cleanedSvg.substring(0, 100) + '...');
+        console.log('[SVG Canvas] Loading SVG with fabric.loadSVGFromString...', cleanedSvg.substring(0, 100) + '...');
 
         // Use Fabric's built-in SVG loader with options to preserve SVG structure
         fabric.loadSVGFromString(cleanedSvg, (objects, options) => {
           // Check if objects were found
           if (!objects || objects.length === 0) {
-            console.warn('No objects found in SVG');
+            console.warn('[SVG Canvas] No objects found in SVG');
             resolve(false);
             return;
           }
+
+          console.log(`[SVG Canvas] Successfully loaded ${objects.length} objects`);
 
           // Get canvas dimensions
           const canvasWidth = canvas.getWidth();
@@ -665,11 +677,12 @@ export const svgCanvasUtils = {
           canvas.add(svgGroup);
           canvas.setActiveObject(svgGroup);
           canvas.renderAll();
-
+          
+          console.log('[SVG Canvas] SVG group added successfully to canvas');
           resolve(true);
         });
       } catch (error) {
-        console.error('Error loading SVG:', error);
+        console.error('[SVG Canvas] Error loading SVG:', error);
         resolve(false);
       }
     });
@@ -677,6 +690,7 @@ export const svgCanvasUtils = {
 
   // Fallback method: add SVG as image if direct SVG loading fails
   addSvgAsImageFallback: async (canvas: fabric.Canvas, svgContent: string, name: string): Promise<boolean> => {
+    console.log('[SVG Fallback] Attempting to add SVG as image');
     return new Promise<boolean>((resolve) => {
       try {
         // Normalize the SVG content first with strict preservation of dimensions and styles
@@ -693,6 +707,7 @@ export const svgCanvasUtils = {
           if (viewBoxParts.length === 4) {
             viewBoxWidth = parseFloat(viewBoxParts[2]);
             viewBoxHeight = parseFloat(viewBoxParts[3]);
+            console.log(`[SVG Fallback] Extracted viewBox dimensions: ${viewBoxWidth}x${viewBoxHeight}`);
           }
         }
 
@@ -742,7 +757,8 @@ export const svgCanvasUtils = {
 
           // Clean up URL
           URL.revokeObjectURL(url);
-
+          
+          console.log('[SVG Fallback] Successfully added SVG as image');
           resolve(true);
         }, {
           crossOrigin: 'anonymous',
@@ -751,7 +767,7 @@ export const svgCanvasUtils = {
           height: viewBoxHeight
         });
       } catch (error) {
-        console.error('Error loading SVG as image:', error);
+        console.error('[SVG Fallback] Error loading SVG as image:', error);
         resolve(false);
       }
     });
