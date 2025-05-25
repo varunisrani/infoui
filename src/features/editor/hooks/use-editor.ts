@@ -762,6 +762,7 @@ export const useEditor = ({
     redo,
     canvasHistory,
     setHistoryIndex,
+    initializeHistory,
   } = useHistory({ 
     canvas,
     saveCallback
@@ -776,6 +777,7 @@ export const useEditor = ({
 
   useCanvasEvents({
     save,
+    initializeHistory,
     canvas,
     setSelectedObjects,
     clearSelectionCallback,
@@ -796,6 +798,7 @@ export const useEditor = ({
     initialState,
     canvasHistory,
     setHistoryIndex,
+    initializeHistory,
   });
 
   const editor = useMemo(() => {
@@ -895,7 +898,8 @@ export const useEditor = ({
     },
     [
       canvasHistory, // No need, this is from useRef
-      setHistoryIndex, // No need, this is from useState
+      setHistoryIndex,
+    initializeHistory, // No need, this is from useState
     ]
   );
 
