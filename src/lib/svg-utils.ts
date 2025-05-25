@@ -143,6 +143,12 @@ export const svgNormalizer = {
       processedContent = processedContent.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
     }
 
+    // Add XLink namespace if needed for href attributes
+    if ((processedContent.includes('xlink:href') || processedContent.includes('href=')) 
+        && !processedContent.includes('xmlns:xlink=')) {
+      processedContent = processedContent.replace('<svg', '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+    }
+
     return processedContent;
   },
 
@@ -159,6 +165,16 @@ export const svgNormalizer = {
       viewBoxValue = viewBoxMatch[1];
       // Remove the existing viewBox to avoid duplicates
       processedContent = processedContent.replace(/viewBox=['"][^'"]*['"]/, '');
+    } else {
+      // Try to extract width and height to create a viewBox
+      const widthMatch = processedContent.match(/width=['"]([^'"]*)['"]/);
+      const heightMatch = processedContent.match(/height=['"]([^'"]*)['"]/);
+      
+      if (widthMatch && heightMatch) {
+        const width = parseFloat(widthMatch[1]) || 1080;
+        const height = parseFloat(heightMatch[1]) || 1080;
+        viewBoxValue = `0 0 ${width} ${height}`;
+      }
     }
 
     // Ensure viewBox attribute with original or default value
@@ -200,10 +216,35 @@ export const svgNormalizer = {
   // Ensure styles are properly applied
   ensureStyles: (svgElement: SVGSVGElement): void => {
     // Make sure all elements have basic styling if needed
-    const elements = svgElement.querySelectorAll('path, rect, circle, ellipse, polygon, polyline');
+    const elements = svgElement.querySelectorAll('path, rect, circle, ellipse, polygon, polyline, line');
     elements.forEach(el => {
-      if (!el.hasAttribute('fill') && !el.hasAttribute('style')) {
-        el.setAttribute('fill', '#000000');
+      // Check various ways an element could have fill defined
+      const hasFill = el.hasAttribute('fill') || 
+                      el.hasAttribute('style') && el.getAttribute('style')?.includes('fill') ||
+                      getComputedStyle(el).fill !== 'none';
+      
+      if (!hasFill) {
+        // For stroke-only elements like line or polyline with stroke
+        if (el.hasAttribute('stroke') || 
+            el.tagName.toLowerCase() === 'line' || 
+            (el.hasAttribute('style') && el.getAttribute('style')?.includes('stroke'))) {
+          el.setAttribute('fill', 'none');
+        } else {
+          el.setAttribute('fill', '#000000');
+        }
+      }
+      
+      // Ensure stroke elements have stroke-width if stroke exists
+      if (el.hasAttribute('stroke') && !el.hasAttribute('stroke-width')) {
+        el.setAttribute('stroke-width', '1');
+      }
+    });
+    
+    // Make sure text elements have proper defaults
+    const textElements = svgElement.querySelectorAll('text');
+    textElements.forEach(el => {
+      if (!el.hasAttribute('font-family')) {
+        el.setAttribute('font-family', 'Arial, sans-serif');
       }
     });
   },
@@ -355,6 +396,18 @@ export const svgNormalizer = {
 
   // Full processing pipeline for SVG cleaning
   fullyProcessSvg: (svgContent: string): { processed: string, dataUrl: string } => {
+    // Handle null or empty content gracefully
+    if (!svgContent || typeof svgContent !== 'string') {
+      console.error("Invalid SVG content received:", svgContent);
+      // Return a simple placeholder SVG
+      const fallbackSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+        <rect width="1080" height="1080" fill="#f0f0f0" />
+        <text x="540" y="540" font-family="Arial" font-size="24" fill="red" text-anchor="middle">Invalid SVG</text>
+      </svg>`;
+      const dataUrl = svgNormalizer.createDataUrl(fallbackSvg);
+      return { processed: fallbackSvg, dataUrl };
+    }
+
     try {
       // First try minimal processing to preserve original structure
       const parser = new DOMParser();
@@ -373,23 +426,27 @@ export const svgNormalizer = {
 
         // Add XLink namespace if needed
         if (!svgElement.hasAttribute('xmlns:xlink') &&
-            (svgContent.includes('xlink:href') || svgContent.includes('use'))) {
+            (svgContent.includes('xlink:href') || svgContent.includes('use') || svgContent.includes('href='))) {
           svgElement.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
         }
 
         // Add minimal viewBox if needed
-        if (!svgElement.hasAttribute('viewBox') &&
-            svgElement.hasAttribute('width') &&
-            svgElement.hasAttribute('height')) {
-          const width = svgElement.getAttribute('width') || '100';
-          const height = svgElement.getAttribute('height') || '100';
-          const numWidth = parseInt(width, 10) || 100;
-          const numHeight = parseInt(height, 10) || 100;
-          svgElement.setAttribute('viewBox', `0 0 ${numWidth} ${numHeight}`);
+        if (!svgElement.hasAttribute('viewBox')) {
+          if (svgElement.hasAttribute('width') && svgElement.hasAttribute('height')) {
+            const width = svgElement.getAttribute('width') || '100';
+            const height = svgElement.getAttribute('height') || '100';
+            // Handle percentage-based dimensions
+            const numWidth = width.includes('%') ? 1080 : (parseInt(width, 10) || 1080);
+            const numHeight = height.includes('%') ? 1080 : (parseInt(height, 10) || 1080);
+            svgElement.setAttribute('viewBox', `0 0 ${numWidth} ${numHeight}`);
+          } else {
+            // Default viewBox if no dimensions available
+            svgElement.setAttribute('viewBox', '0 0 1080 1080');
+          }
         }
 
         // Ensure width and height attributes exist
-        if (!svgElement.hasAttribute('width')) {
+        if (!svgElement.hasAttribute('width') || svgElement.getAttribute('width') === '100%') {
           const viewBox = svgElement.getAttribute('viewBox');
           if (viewBox) {
             const parts = viewBox.split(/\s+/);
@@ -403,7 +460,7 @@ export const svgNormalizer = {
           }
         }
 
-        if (!svgElement.hasAttribute('height')) {
+        if (!svgElement.hasAttribute('height') || svgElement.getAttribute('height') === '100%') {
           const viewBox = svgElement.getAttribute('viewBox');
           if (viewBox) {
             const parts = viewBox.split(/\s+/);
@@ -416,10 +473,18 @@ export const svgNormalizer = {
             svgElement.setAttribute('height', '1080');
           }
         }
+        
+        // Add preserveAspectRatio if missing
+        if (!svgElement.hasAttribute('preserveAspectRatio')) {
+          svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        }
 
-        // Only clean up potentially harmful elements
+        // Clean up potentially harmful elements
         const scripts = svgElement.querySelectorAll('script');
         scripts.forEach(script => script.parentNode?.removeChild(script));
+
+        // Ensure all shape elements have fill attributes
+        svgNormalizer.ensureStyles(svgElement as unknown as SVGSVGElement);
 
         // Preserve all groups and their transforms
         const groups = svgElement.querySelectorAll('g');
@@ -437,6 +502,8 @@ export const svgNormalizer = {
         const dataUrl = svgNormalizer.createDataUrl(minimallyProcessed);
 
         return { processed: minimallyProcessed, dataUrl };
+      } else {
+        console.warn('SVG parse error detected, applying more thorough cleaning', parseError.textContent);
       }
     } catch (error) {
       console.warn('Error with minimal SVG processing, falling back to more aggressive processing', error);

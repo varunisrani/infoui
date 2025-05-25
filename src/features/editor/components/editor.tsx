@@ -187,7 +187,13 @@ export const Editor = ({ initialData }: EditorProps) => {
         try {
           // Use the direct SVG data that was stored during drag start
           svg = JSON.parse(draggingSvgData);
-          console.log("Using direct SVG data from drag operation:", svg.name);
+          
+          // Verify the dragKey exists
+          if (!svg.dragKey) {
+            console.warn("Missing dragKey in SVG data, continuing with available data");
+          }
+          
+          console.log(`Using direct SVG data from drag operation: ${svg.name} (dragKey: ${svg.dragKey})`);
         } catch (error) {
           console.error("Error parsing dragging SVG data:", error);
         }
@@ -248,12 +254,12 @@ export const Editor = ({ initialData }: EditorProps) => {
           return;
         }
         
-        // The SVG content should already be processed from the drag start event,
-        // but let's ensure it's properly formatted just to be safe
+        // Re-normalize the SVG content to ensure it's properly formatted
+        // This is important because localStorage might truncate or modify data
         const { processed } = svgNormalizer.fullyProcessSvg(svg.content);
         
         // Log the SVG content for debugging
-        console.log("Processing SVG for drop:", processed.substring(0, 100) + "...");
+        console.log(`Processing SVG for drop: ${svg.name} (dragKey: ${svg.dragKey})`);
         
         // Calculate position based on drop location
         const canvasOffset = container.getBoundingClientRect();

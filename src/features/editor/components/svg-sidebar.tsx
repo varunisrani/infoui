@@ -442,8 +442,10 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                     // Clear any existing data
                     localStorage.removeItem('dragging_svg_data');
                     
-                    // Create a unique key for this drag operation
-                    const dragKey = `svg-${svg.id}-${Date.now()}`;
+                    // Create a truly unique key for this drag operation
+                    const timestamp = Date.now();
+                    const randomVal = Math.floor(Math.random() * 100000);
+                    const dragKey = `svg-${svg.id}-${timestamp}-${randomVal}`;
                     
                     // Set the SVG ID as plain text for compatibility
                     e.dataTransfer.setData('text/plain', svg.id);
@@ -504,6 +506,13 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                       preserveAspectRatio="xMidYMid meet"
                       className="w-full h-full"
                       onError={(error) => handleSvgError(svg.id, error)}
+                      fallback={
+                        <div className="w-full h-full flex items-center justify-center bg-slate-100 rounded-md">
+                          <div className="text-center p-1">
+                            <span className="text-slate-500 text-xs">SVG Preview</span>
+                          </div>
+                        </div>
+                      }
                     />
 
                     {/* Error indicator */}
@@ -552,8 +561,10 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                   // Clear any existing data
                   localStorage.removeItem('dragging_svg_data');
                   
-                  // Create a unique key for this drag operation
-                  const dragKey = `template-${template.id}-${Date.now()}`;
+                  // Create a truly unique key for this drag operation
+                  const timestamp = Date.now();
+                  const randomVal = Math.floor(Math.random() * 100000);
+                  const dragKey = `template-${template.id}-${timestamp}-${randomVal}`;
                   
                   // Set the template ID as plain text for compatibility
                   e.dataTransfer.setData('text/plain', template.id);
@@ -615,6 +626,14 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                     height={80}
                     preserveAspectRatio="xMidYMid meet"
                     className="w-full h-full"
+                    onError={(error) => console.error(`Error rendering template ${template.id}:`, error)}
+                    fallback={
+                      <div className="w-full h-full flex items-center justify-center bg-slate-100 rounded-md">
+                        <div className="text-center p-1">
+                          <span className="text-slate-500 text-xs">Template Preview</span>
+                        </div>
+                      </div>
+                    }
                   />
                 </div>
                 <div className="absolute left-0 bottom-0 w-full text-[10px] truncate text-white p-1 bg-black/50">

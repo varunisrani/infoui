@@ -58,75 +58,98 @@ export const AiSvgDisplay = ({
       const isSavedAlready = svgs.some(svg => svg.content.trim() === data.svg.trim());
       setIsSaved(isSavedAlready);
       
-      // Load the SVG into the canvas if not already loaded
-      if (editor.canvas.getObjects().length === 0) {
-        // First ensure the SVG has proper attributes
-        let svgContent = data.svg.trim();
+              // Ensure the SVG has proper attributes 
+              let svgContent = data.svg.trim();
+              
+              try {
+                // Apply full SVG processing pipeline to ensure all required attributes
+                const { processed } = svgNormalizer.fullyProcessSvg(svgContent);
+                svgContent = processed;
+                
+                // Update the SVG data with the fully processed version
+                setSvgData(prev => prev ? { ...prev, svg: svgContent } : null);
+              } catch (parseError) {
+                console.warn("Error processing SVG, attempting fallback:", parseError);
+                try {
+                  // Parse and clean the SVG as a fallback
+                  const parser = new DOMParser();
+                  const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
+                  
+                  if (!svgDoc.querySelector('parsererror')) {
+                    const svgElement = svgDoc.documentElement;
+                    
+                    // Essential attributes
+                    if (!svgElement.hasAttribute('xmlns')) {
+                      svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+                    }
+                    
+                    if (!svgElement.hasAttribute('viewBox')) {
+                      svgElement.setAttribute('viewBox', '0 0 1080 1080');
+                    }
+                    
+                    // Ensure all path and shape elements have fill attributes if missing
+                    const elements = svgElement.querySelectorAll('path, rect, circle, ellipse, line, polyline, polygon');
+                    elements.forEach(el => {
+                      if (!el.hasAttribute('fill') && !el.hasAttribute('style')) {
+                        el.setAttribute('fill', '#000000'); // Set a default black fill
+                      }
+                    });
+                    
+                    // Convert back to string
+                    const serializer = new XMLSerializer();
+                    svgContent = serializer.serializeToString(svgElement);
+                    
+                    // Update the SVG data with the cleaned version
+                    setSvgData(prev => prev ? { ...prev, svg: svgContent } : null);
+                  }
+                } catch (secondError) {
+                  console.error("Critical error parsing SVG:", secondError);
+                }
+              }
         
         try {
-          // Parse and clean the SVG
-          const parser = new DOMParser();
-          const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
-          
-          // Check for parse errors
-          const parseError = svgDoc.querySelector('parsererror');
-          if (!parseError) {
-            const svgElement = svgDoc.documentElement;
-            
-            // Ensure viewBox exists
-            if (!svgElement.hasAttribute('viewBox')) {
-              svgElement.setAttribute('viewBox', '0 0 1080 1080');
-            }
-            
-            // Ensure all path and shape elements have fill attributes if missing
-            const elements = svgElement.querySelectorAll('path, rect, circle, ellipse, line, polyline, polygon');
-            elements.forEach(el => {
-              if (!el.hasAttribute('fill') && !el.hasAttribute('style')) {
-                el.setAttribute('fill', '#000000'); // Set a default black fill
+          fabric.loadSVGFromString(svgContent, (objects, options) => {
+            try {
+              // Create a group containing all the objects
+              if (!objects || objects.length === 0) {
+                console.warn("No SVG objects found to add to canvas");
+                return;
               }
-            });
-            
-            // Convert back to string
-            const serializer = new XMLSerializer();
-            svgContent = serializer.serializeToString(svgElement);
-            
-            // Update the SVG data with the cleaned version
-            setSvgData(prev => prev ? { ...prev, svg: svgContent } : null);
-          }
-        } catch (parseError) {
-          console.warn("Error parsing SVG, using original content:", parseError);
-        }
-        
-        fabric.loadSVGFromString(svgContent, (objects, options) => {
-          // Create a group containing all the objects
-          const svgGroup = new fabric.Group(objects);
-          
-          // Scale to fit inside the canvas
-          const canvasWidth = editor.canvas.getWidth();
-          const canvasHeight = editor.canvas.getHeight();
-          
-          const groupWidth = svgGroup.width || 100;
-          const groupHeight = svgGroup.height || 100;
-          
-          const scale = Math.min(
-            (canvasWidth - 100) / groupWidth,
-            (canvasHeight - 100) / groupHeight
-          );
-          
-          svgGroup.scale(scale);
-          
-          // Center the object
-          svgGroup.set({
-            left: canvasWidth / 2,
-            top: canvasHeight / 2,
-            originX: 'center',
-            originY: 'center'
+              
+              const svgGroup = new fabric.Group(objects);
+              
+              // Scale to fit inside the canvas
+              const canvasWidth = editor.canvas.getWidth();
+              const canvasHeight = editor.canvas.getHeight();
+              
+              const groupWidth = svgGroup.width || 100;
+              const groupHeight = svgGroup.height || 100;
+              
+              const scale = Math.min(
+                (canvasWidth - 100) / groupWidth,
+                (canvasHeight - 100) / groupHeight
+              );
+              
+              svgGroup.scale(scale);
+              
+              // Center the object
+              svgGroup.set({
+                left: canvasWidth / 2,
+                top: canvasHeight / 2,
+                originX: 'center',
+                originY: 'center'
+              });
+              
+              // Add to canvas
+              editor.canvas.add(svgGroup);
+              editor.canvas.renderAll();
+            } catch (groupError) {
+              console.error("Error creating SVG group:", groupError);
+            }
           });
-          
-          // Add to canvas
-          editor.canvas.add(svgGroup);
-          editor.canvas.renderAll();
-        });
+        } catch (svgLoadError) {
+          console.error("Error loading SVG into fabric:", svgLoadError);
+        }
       }
     } catch (error) {
       console.error("Error loading SVG data:", error);
@@ -306,7 +329,11 @@ export const AiSvgDisplay = ({
                   justifyContent: "center"
                 }}
                 dangerouslySetInnerHTML={{ 
-                  __html: svgData.svg.replace(/<svg/, '<svg preserveAspectRatio="xMidYMid meet" ') 
+                  __html: svgData.svg.startsWith('<svg') ? 
+                    svgData.svg.replace(/<svg/, '<svg preserveAspectRatio="xMidYMid meet" ') :
+                    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="100%" height="100%">
+                      <text x="50%" y="50%" font-family="Arial" text-anchor="middle" fill="red">Invalid SVG</text>
+                    </svg>`
                 }}
               />
             </div>
