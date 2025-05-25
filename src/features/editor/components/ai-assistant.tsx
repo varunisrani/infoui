@@ -148,6 +148,12 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     setSvgCode(null);
     setShowChatSidebar(false);
     setNewMessage(""); // Clear any message that was being composed
+    setIsSending(false); // Reset message sending state
+    setIsAddingToCanvas(false); // Reset canvas adding state
+    setShowQuickActions(false); // Hide quick actions
+    setShowFullImage(false); // Reset image view state
+    setIsSaving(false); // Reset saving state
+    setIsSaved(false); // Reset saved state
   };
   
   // Function to delete a chat
