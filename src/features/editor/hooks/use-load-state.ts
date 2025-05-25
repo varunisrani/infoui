@@ -9,7 +9,7 @@ interface UseLoadStateProps {
   initialState: React.MutableRefObject<string | undefined>;
   canvasHistory: React.MutableRefObject<string[]>;
   setHistoryIndex: React.Dispatch<React.SetStateAction<number>>;
-  initializeHistory?: () => void;
+  initializeHistory: () => void;
 };
 
 export const useLoadState = ({
@@ -18,6 +18,7 @@ export const useLoadState = ({
   initialState,
   canvasHistory,
   setHistoryIndex,
+  initializeHistory,
 }: UseLoadStateProps) => {
   const initialized = useRef(false);
 
@@ -32,6 +33,7 @@ export const useLoadState = ({
 
         canvasHistory.current = [currentState];
         setHistoryIndex(0);
+        initializeHistory();
         autoZoom();
       });
       initialized.current = true;
@@ -40,8 +42,9 @@ export const useLoadState = ({
   [
     canvas,
     autoZoom,
-    initialState, // no need, this is a ref
-    canvasHistory, // no need, this is a ref
-    setHistoryIndex, // no need, this is a dispatch
+    initialState,
+    canvasHistory,
+    setHistoryIndex,
+    initializeHistory,
   ]);
 };
