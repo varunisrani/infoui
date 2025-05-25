@@ -29,7 +29,7 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
     if (!canvas) return;
     
     try {
-      const currentState = canvas.toJSON(JSON_KEYS);
+      const currentState = canvas.toJSON(JSON_KEYS) as fabric.ICanvasOptions & { _viewportTransform?: number[] };
       
       // Add viewport transform data to the state
       if (canvas.viewportTransform) {
