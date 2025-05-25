@@ -149,6 +149,22 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     setShowChatSidebar(false);
   };
   
+  // Function to delete a chat
+  const deleteChat = (chatId: string) => {
+    // If we're deleting the active chat, reset the view
+    if (activeChat?.id === chatId) {
+      setActiveChat(null);
+      setMessages([]);
+      setSvgCode(null);
+    }
+    
+    // Delete the chat from storage
+    chatStorage.deleteChat(chatId);
+    
+    // Update the chats list
+    setChats(chatStorage.getChats());
+  };
+  
   // Format date for display
   const formatDate = (dateString: string): string => {
     const date = new Date(dateString);
