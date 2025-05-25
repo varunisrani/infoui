@@ -128,8 +128,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           svgCode,
           title: chatStorage.generateChatTitle(messages)
         });
-      } else if (messages.length > 0) {
-        // Create new chat
+      } else {
+        // Create new chat when we have messages but no activeChat
         const newChat = chatStorage.saveChat({
           title: chatStorage.generateChatTitle(messages),
           messages,
@@ -147,6 +147,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     setMessages([]);
     setSvgCode(null);
     setShowChatSidebar(false);
+    setNewMessage(""); // Clear any message that was being composed
   };
   
   // Function to delete a chat
