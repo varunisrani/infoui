@@ -107,49 +107,48 @@ export const AiSvgDisplay = ({
                 }
               }
         
-        try {
-          fabric.loadSVGFromString(svgContent, (objects, options) => {
-            try {
-              // Create a group containing all the objects
-              if (!objects || objects.length === 0) {
-                console.warn("No SVG objects found to add to canvas");
-                return;
-              }
-              
-              const svgGroup = new fabric.Group(objects);
-              
-              // Scale to fit inside the canvas
-              const canvasWidth = editor.canvas.getWidth();
-              const canvasHeight = editor.canvas.getHeight();
-              
-              const groupWidth = svgGroup.width || 100;
-              const groupHeight = svgGroup.height || 100;
-              
-              const scale = Math.min(
-                (canvasWidth - 100) / groupWidth,
-                (canvasHeight - 100) / groupHeight
-              );
-              
-              svgGroup.scale(scale);
-              
-              // Center the object
-              svgGroup.set({
-                left: canvasWidth / 2,
-                top: canvasHeight / 2,
-                originX: 'center',
-                originY: 'center'
-              });
-              
-              // Add to canvas
-              editor.canvas.add(svgGroup);
-              editor.canvas.renderAll();
-            } catch (groupError) {
-              console.error("Error creating SVG group:", groupError);
+      try {
+        fabric.loadSVGFromString(svgContent, (objects, options) => {
+          try {
+            // Create a group containing all the objects
+            if (!objects || objects.length === 0) {
+              console.warn("No SVG objects found to add to canvas");
+              return;
             }
-          });
-        } catch (svgLoadError) {
-          console.error("Error loading SVG into fabric:", svgLoadError);
-        }
+            
+            const svgGroup = new fabric.Group(objects);
+            
+            // Scale to fit inside the canvas
+            const canvasWidth = editor.canvas.getWidth();
+            const canvasHeight = editor.canvas.getHeight();
+            
+            const groupWidth = svgGroup.width || 100;
+            const groupHeight = svgGroup.height || 100;
+            
+            const scale = Math.min(
+              (canvasWidth - 100) / groupWidth,
+              (canvasHeight - 100) / groupHeight
+            );
+            
+            svgGroup.scale(scale);
+            
+            // Center the object
+            svgGroup.set({
+              left: canvasWidth / 2,
+              top: canvasHeight / 2,
+              originX: 'center',
+              originY: 'center'
+            });
+            
+            // Add to canvas
+            editor.canvas.add(svgGroup);
+            editor.canvas.renderAll();
+          } catch (groupError) {
+            console.error("Error creating SVG group:", groupError);
+          }
+        });
+      } catch (svgLoadError) {
+        console.error("Error loading SVG into fabric:", svgLoadError);
       }
     } catch (error) {
       console.error("Error loading SVG data:", error);
