@@ -43,14 +43,24 @@ interface AiAssistantProps {
   onClose: () => void;
 }
 
+// Font categories with descriptions and examples for better prompts
+const fontCategories = [
+  { name: 'serif', description: 'classic, formal, traditional', fonts: 'Georgia, Times New Roman, Baskerville' },
+  { name: 'sans-serif', description: 'modern, clean, minimal', fonts: 'Helvetica, Arial, Roboto' },
+  { name: 'display', description: 'bold, attention-grabbing, decorative', fonts: 'Impact, Bebas Neue, Playfair Display' },
+  { name: 'script', description: 'elegant, flowing, handwritten', fonts: 'Brush Script, Dancing Script, Pacifico' },
+  { name: 'monospace', description: 'technical, structured, equal-width', fonts: 'Courier, Roboto Mono, Source Code Pro' },
+  { name: 'handwritten', description: 'casual, personal, authentic', fonts: 'Comic Sans, Indie Flower, Caveat' },
+];
+
 // Quick action suggestions for design modifications
 const quickActions = [
   { icon: Palette, label: "Change Colors", prompt: "Change the colors to a different color scheme" },
-  { icon: Type, label: "Change Font", prompt: "Change the font style to something more modern" },
+  { icon: Type, label: "Change Font", prompt: "DYNAMIC_FONT_PROMPT" },
   { icon: Maximize, label: "Make Bigger", prompt: "Make the text and elements larger" },
-  { icon: RotateCw, label: "Different Style", prompt: "Create a different design style for this" },
+  { icon: RotateCw, label: "Different Style", prompt: "DYNAMIC_STYLE_PROMPT" },
   { icon: RefreshCw, label: "Simplify", prompt: "Make this design simpler and more minimalist" },
-  { icon: Wand2, label: "Add Effects", prompt: "Add some visual effects or decorative elements" },
+  { icon: Wand2, label: "Add Effects", prompt: "DYNAMIC_EFFECTS_PROMPT" },
 ];
 
 export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
@@ -210,9 +220,210 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     }
   };
 
+  // Generate a context-aware font prompt
+  const generateFontPrompt = (): string => {
+    // Pick 2-3 random font categories for variety
+    const shuffled = [...fontCategories].sort(() => 0.5 - Math.random());
+    const selectedCategories = shuffled.slice(0, 3);
+    
+    // Build a context-aware prompt
+    // Extract context from the last user message if possible
+    const lastUserMessage = [...messages].reverse().find(msg => msg.role === "user");
+    const userContext = lastUserMessage ? extractDesignContext(lastUserMessage.content) : '';
+    
+    // Build the base prompt
+    let prompt = "Change the font to ";
+    
+    // If we have context from the user message, use it
+    if (userContext) {
+      prompt += `something that fits the ${userContext} theme better. `;
+    } else {
+      // Use one of several variations for the prompt
+      const promptVariations = [
+        "a more suitable style that enhances the design. ",
+        "a font that better conveys the message. ",
+        "a more distinctive typeface that makes the text stand out. ",
+        "a font that creates better visual hierarchy. ",
+        "a font that adds more personality to the design. ",
+      ];
+      prompt += promptVariations[Math.floor(Math.random() * promptVariations.length)];
+    }
+    
+    // Add suggestions based on the selected categories
+    prompt += "Consider fonts like ";
+    
+    selectedCategories.forEach((category, index) => {
+      if (index > 0) {
+        prompt += index === selectedCategories.length - 1 ? " or " : ", ";
+      }
+      prompt += `${category.fonts.split(',')[0].trim()} (${category.description})`;
+    });
+    
+    return prompt;
+  };
+
+  // Helper to extract design context from a user message
+  const extractDesignContext = (message: string): string => {
+    // List of common design themes to look for
+    const themes = [
+      'modern', 'vintage', 'retro', 'minimal', 'bold', 'elegant', 'corporate', 
+      'playful', 'serious', 'tech', 'artsy', 'casual', 'formal', 'luxury',
+      'friendly', 'professional', 'creative', 'futuristic', 'traditional'
+    ];
+    
+    // Check if any theme word is present in the message
+    const lowerMsg = message.toLowerCase();
+    for (const theme of themes) {
+      if (lowerMsg.includes(theme)) {
+        return theme;
+      }
+    }
+    
+    return ''; // No specific theme found
+  };
+
+  // Generate a context-aware style change prompt
+  const generateStylePrompt = (): string => {
+    // Extract context from previous messages
+    const lastUserMessage = [...messages].reverse().find(msg => msg.role === "user");
+    const lastAssistantMessage = [...messages].reverse().find(msg => msg.role === "assistant");
+    
+    // Detect the current design type (if possible)
+    let designType = '';
+    let mainElements = '';
+    let currentStyle = '';
+    
+    if (lastUserMessage) {
+      const content = lastUserMessage.content.toLowerCase();
+      
+      // Try to identify what type of design we're working with
+      if (content.includes('logo')) designType = 'logo';
+      else if (content.includes('poster')) designType = 'poster';
+      else if (content.includes('banner')) designType = 'banner';
+      else if (content.includes('card')) designType = 'card';
+      else if (content.includes('flyer')) designType = 'flyer';
+      else if (content.includes('icon')) designType = 'icon';
+      
+      // Try to identify main elements/themes
+      const knownElements = ['text', 'image', 'photo', 'background', 'shape', 'icon', 'logo'];
+      knownElements.forEach(element => {
+        if (content.includes(element) && !mainElements.includes(element)) {
+          if (mainElements) mainElements += ', ';
+          mainElements += element;
+        }
+      });
+      
+      // Try to identify current style
+      const knownStyles = ['modern', 'vintage', 'retro', 'minimal', 'bold', 'elegant', 
+                          'corporate', 'playful', 'serious', 'tech', 'artsy'];
+      knownStyles.forEach(style => {
+        if (content.includes(style)) {
+          currentStyle = style;
+        }
+      });
+    }
+    
+    // Build a context-aware style prompt
+    let prompt = "Change the design to a different style";
+    
+    // Add design type if identified
+    if (designType) {
+      prompt += ` for this ${designType}`;
+    }
+    
+    // Add styling instruction
+    prompt += ", but preserve the";
+    
+    // Add elements to preserve if identified
+    if (mainElements) {
+      prompt += ` main ${mainElements}`;
+    } else {
+      prompt += " core elements and overall structure";
+    }
+    
+    // Suggest alternative styles
+    if (currentStyle) {
+      prompt += `. Instead of the current ${currentStyle} style, try a`;
+      
+      // Suggest contrasting styles based on the current style
+      const contrastingStyles: Record<string, string[]> = {
+        'modern': ['vintage', 'retro', 'classical'],
+        'vintage': ['modern', 'futuristic', 'minimalist'],
+        'retro': ['modern', 'sleek', 'contemporary'],
+        'minimal': ['elaborate', 'detailed', 'rich'],
+        'bold': ['subtle', 'delicate', 'refined'],
+        'elegant': ['rugged', 'industrial', 'robust'],
+        'corporate': ['playful', 'casual', 'artistic'],
+        'playful': ['serious', 'corporate', 'formal'],
+        'serious': ['playful', 'lighthearted', 'casual'],
+        'tech': ['organic', 'natural', 'handcrafted'],
+        'artsy': ['technical', 'precise', 'structured']
+      };
+      
+      const alternatives = contrastingStyles[currentStyle] || ['different', 'alternative', 'fresh'];
+      const randomAlt = alternatives[Math.floor(Math.random() * alternatives.length)];
+      prompt += ` ${randomAlt} style`;
+    } else {
+      // If we don't know the current style, suggest some random styles
+      const randomStyles = [
+        'minimalist', 'bold and colorful', 'elegant', 'vintage', 'futuristic',
+        'hand-drawn', 'geometric', 'flat design', 'isometric', '3D', 'retro'
+      ];
+      const randomStyle = randomStyles[Math.floor(Math.random() * randomStyles.length)];
+      prompt += ` different style, such as ${randomStyle}`;
+    }
+    
+    return prompt;
+  };
+
+  // Generate dynamic effects prompts based on context
+  const generateEffectsPrompt = (): string => {
+    const effectTypes = [
+      'subtle shadows and depth',
+      'gradient overlays',
+      'texture or pattern backgrounds',
+      'highlight glows',
+      'decorative borders or frames',
+      'geometric shape accents',
+      'dynamic motion lines',
+      'subtle texture overlays',
+      'dot patterns or halftones',
+      '3D perspective effects'
+    ];
+    
+    // Pick 2-3 random effect suggestions
+    const shuffled = [...effectTypes].sort(() => 0.5 - Math.random());
+    const selectedEffects = shuffled.slice(0, Math.floor(Math.random() * 2) + 2);
+    
+    // Build the prompt
+    let prompt = "Add some visual effects to enhance this design. Consider adding ";
+    
+    selectedEffects.forEach((effect, index) => {
+      if (index > 0) {
+        prompt += index === selectedEffects.length - 1 ? " or " : ", ";
+      }
+      prompt += effect;
+    });
+    
+    prompt += ". Make sure the effects complement the design without overwhelming it.";
+    
+    return prompt;
+  };
+
   // Handle quick action clicks
   const handleQuickAction = (action: typeof quickActions[0]) => {
-    sendMessage(action.prompt);
+    let prompt = action.prompt;
+    
+    // Generate dynamic prompts based on the action
+    if (action.label === "Change Font") {
+      prompt = generateFontPrompt();
+    } else if (action.label === "Different Style") {
+      prompt = generateStylePrompt();
+    } else if (action.label === "Add Effects") {
+      prompt = generateEffectsPrompt();
+    }
+    
+    sendMessage(prompt);
     setShowQuickActions(false);
   };
 
