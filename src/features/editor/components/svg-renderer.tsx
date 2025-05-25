@@ -10,6 +10,7 @@ interface SvgRendererProps {
   preserveAspectRatio?: string;
   className?: string;
   onError?: (error: Error) => void;
+  fallback?: React.ReactNode;
 }
 
 /**
@@ -22,6 +23,7 @@ export const SvgRenderer = ({
   preserveAspectRatio = 'xMidYMid meet',
   className = '',
   onError,
+  fallback,
 }: SvgRendererProps) => {
   const [processedSvg, setProcessedSvg] = useState<string>('');
   const containerRef = useRef<HTMLDivElement>(null);
@@ -137,6 +139,10 @@ export const SvgRenderer = ({
       }
       
       // Provide a fallback in case of error
+      if (fallback) {
+        return;
+      }
+      
       setProcessedSvg(`
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="${width}" height="${height}">
           <rect width="200" height="200" fill="#f8f9fa" />
@@ -149,7 +155,7 @@ export const SvgRenderer = ({
   }, [svgContent, width, height, preserveAspectRatio, onError]);
   
   if (!processedSvg) {
-    return null;
+    return fallback || null;
   }
   
   return (

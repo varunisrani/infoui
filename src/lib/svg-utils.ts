@@ -143,6 +143,12 @@ export const svgNormalizer = {
       processedContent = processedContent.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
     }
 
+    // Add XLink namespace if needed for href attributes
+    if ((processedContent.includes('xlink:href') || processedContent.includes('href=')) 
+        && !processedContent.includes('xmlns:xlink=')) {
+      processedContent = processedContent.replace('<svg', '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+    }
+
     return processedContent;
   },
 
@@ -159,6 +165,16 @@ export const svgNormalizer = {
       viewBoxValue = viewBoxMatch[1];
       // Remove the existing viewBox to avoid duplicates
       processedContent = processedContent.replace(/viewBox=['"][^'"]*['"]/, '');
+    } else {
+      // Try to extract width and height to create a viewBox
+      const widthMatch = processedContent.match(/width=['"]([^'"]*)['"]/);
+      const heightMatch = processedContent.match(/height=['"]([^'"]*)['"]/);
+      
+      if (widthMatch && heightMatch) {
+        const width = parseFloat(widthMatch[1]) || 1080;
+        const height = parseFloat(heightMatch[1]) || 1080;
+        viewBoxValue = `0 0 ${width} ${height}`;
+      }
     }
 
     // Ensure viewBox attribute with original or default value
@@ -200,10 +216,35 @@ export const svgNormalizer = {
   // Ensure styles are properly applied
   ensureStyles: (svgElement: SVGSVGElement): void => {
     // Make sure all elements have basic styling if needed
-    const elements = svgElement.querySelectorAll('path, rect, circle, ellipse, polygon, polyline');
+    const elements = svgElement.querySelectorAll('path, rect, circle, ellipse, polygon, polyline, line');
     elements.forEach(el => {
-      if (!el.hasAttribute('fill') && !el.hasAttribute('style')) {
-        el.setAttribute('fill', '#000000');
+      // Check various ways an element could have fill defined
+      const hasFill = el.hasAttribute('fill') || 
+                      el.hasAttribute('style') && el.getAttribute('style')?.includes('fill') ||
+                      getComputedStyle(el).fill !== 'none';
+      
+      if (!hasFill) {
+        // For stroke-only elements like line or polyline with stroke
+        if (el.hasAttribute('stroke') || 
+            el.tagName.toLowerCase() === 'line' || 
+            (el.hasAttribute('style') && el.getAttribute('style')?.includes('stroke'))) {
+          el.setAttribute('fill', 'none');
+        } else {
+          el.setAttribute('fill', '#000000');
+        }
+      }
+      
+      // Ensure stroke elements have stroke-width if stroke exists
+      if (el.hasAttribute('stroke') && !el.hasAttribute('stroke-width')) {
+        el.setAttribute('stroke-width', '1');
+      }
+    });
+    
+    // Make sure text elements have proper defaults
+    const textElements = svgElement.querySelectorAll('text');
+    textElements.forEach(el => {
+      if (!el.hasAttribute('font-family')) {
+        el.setAttribute('font-family', 'Arial, sans-serif');
       }
     });
   },
@@ -355,6 +396,21 @@ export const svgNormalizer = {
 
   // Full processing pipeline for SVG cleaning
   fullyProcessSvg: (svgContent: string): { processed: string, dataUrl: string } => {
+    // Add debugging info
+    console.log(`[SVG] Processing SVG: ${svgContent ? svgContent.substring(0, 50) + '...' : 'undefined/null'}`);
+    
+    // Handle null or empty content gracefully
+    if (!svgContent || typeof svgContent !== 'string') {
+      console.error("[SVG] Invalid SVG content received:", svgContent);
+      // Return a simple placeholder SVG
+      const fallbackSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+        <rect width="1080" height="1080" fill="#f0f0f0" />
+        <text x="540" y="540" font-family="Arial" font-size="24" fill="red" text-anchor="middle">Invalid SVG</text>
+      </svg>`;
+      const dataUrl = svgNormalizer.createDataUrl(fallbackSvg);
+      return { processed: fallbackSvg, dataUrl };
+    }
+
     try {
       // First try minimal processing to preserve original structure
       const parser = new DOMParser();
@@ -373,23 +429,27 @@ export const svgNormalizer = {
 
         // Add XLink namespace if needed
         if (!svgElement.hasAttribute('xmlns:xlink') &&
-            (svgContent.includes('xlink:href') || svgContent.includes('use'))) {
+            (svgContent.includes('xlink:href') || svgContent.includes('use') || svgContent.includes('href='))) {
           svgElement.setAttribute('xmlns:xlink', 'http://www.w3.org/1999/xlink');
         }
 
         // Add minimal viewBox if needed
-        if (!svgElement.hasAttribute('viewBox') &&
-            svgElement.hasAttribute('width') &&
-            svgElement.hasAttribute('height')) {
-          const width = svgElement.getAttribute('width') || '100';
-          const height = svgElement.getAttribute('height') || '100';
-          const numWidth = parseInt(width, 10) || 100;
-          const numHeight = parseInt(height, 10) || 100;
-          svgElement.setAttribute('viewBox', `0 0 ${numWidth} ${numHeight}`);
+        if (!svgElement.hasAttribute('viewBox')) {
+          if (svgElement.hasAttribute('width') && svgElement.hasAttribute('height')) {
+            const width = svgElement.getAttribute('width') || '100';
+            const height = svgElement.getAttribute('height') || '100';
+            // Handle percentage-based dimensions
+            const numWidth = width.includes('%') ? 1080 : (parseInt(width, 10) || 1080);
+            const numHeight = height.includes('%') ? 1080 : (parseInt(height, 10) || 1080);
+            svgElement.setAttribute('viewBox', `0 0 ${numWidth} ${numHeight}`);
+          } else {
+            // Default viewBox if no dimensions available
+            svgElement.setAttribute('viewBox', '0 0 1080 1080');
+          }
         }
 
         // Ensure width and height attributes exist
-        if (!svgElement.hasAttribute('width')) {
+        if (!svgElement.hasAttribute('width') || svgElement.getAttribute('width') === '100%') {
           const viewBox = svgElement.getAttribute('viewBox');
           if (viewBox) {
             const parts = viewBox.split(/\s+/);
@@ -403,7 +463,7 @@ export const svgNormalizer = {
           }
         }
 
-        if (!svgElement.hasAttribute('height')) {
+        if (!svgElement.hasAttribute('height') || svgElement.getAttribute('height') === '100%') {
           const viewBox = svgElement.getAttribute('viewBox');
           if (viewBox) {
             const parts = viewBox.split(/\s+/);
@@ -416,10 +476,18 @@ export const svgNormalizer = {
             svgElement.setAttribute('height', '1080');
           }
         }
+        
+        // Add preserveAspectRatio if missing
+        if (!svgElement.hasAttribute('preserveAspectRatio')) {
+          svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        }
 
-        // Only clean up potentially harmful elements
+        // Clean up potentially harmful elements
         const scripts = svgElement.querySelectorAll('script');
         scripts.forEach(script => script.parentNode?.removeChild(script));
+
+        // Ensure all shape elements have fill attributes
+        svgNormalizer.ensureStyles(svgElement as unknown as SVGSVGElement);
 
         // Preserve all groups and their transforms
         const groups = svgElement.querySelectorAll('g');
@@ -436,7 +504,10 @@ export const svgNormalizer = {
         const minimallyProcessed = serializer.serializeToString(svgElement);
         const dataUrl = svgNormalizer.createDataUrl(minimallyProcessed);
 
+        console.log(`[SVG] Successfully processed SVG with minimal changes (${minimallyProcessed.length} bytes)`);
         return { processed: minimallyProcessed, dataUrl };
+      } else {
+        console.warn('SVG parse error detected, applying more thorough cleaning', parseError.textContent);
       }
     } catch (error) {
       console.warn('Error with minimal SVG processing, falling back to more aggressive processing', error);
@@ -454,7 +525,8 @@ export const svgNormalizer = {
 
     // Create data URL for preview
     const dataUrl = svgNormalizer.createDataUrl(cleaned);
-
+    
+    console.log(`[SVG] Processed SVG with aggressive cleaning (${cleaned.length} bytes)`);
     return { processed: cleaned, dataUrl };
   }
 };
@@ -465,6 +537,7 @@ export const svgNormalizer = {
 export const svgTester = {
   // Test if SVG can be loaded by Fabric.js
   testWithFabric: async (svgContent: string): Promise<boolean> => {
+    console.log(`[SVG Test] Starting Fabric.js compatibility test`);
     return new Promise((resolve) => {
       try {
         // Create temporary canvas for testing
@@ -476,6 +549,7 @@ export const svgTester = {
         // Set a timeout in case loading hangs
         const timeoutId = setTimeout(() => {
           fabricCanvas.dispose();
+          console.warn('[SVG Test] Test timed out after 1000ms');
           resolve(false);
         }, 1000);
 
@@ -485,13 +559,15 @@ export const svgTester = {
           fabricCanvas.dispose();
 
           if (!objects || objects.length === 0) {
+            console.warn('[SVG Test] No objects found in SVG');
             resolve(false);
           } else {
+            console.log(`[SVG Test] Successfully loaded ${objects.length} objects with Fabric.js`);
             resolve(true);
           }
         });
       } catch (error) {
-        console.error("Error testing SVG with Fabric:", error);
+        console.error("[SVG Test] Error testing SVG with Fabric:", error);
         resolve(false);
       }
     });
@@ -526,22 +602,25 @@ export const svgTester = {
 export const svgCanvasUtils = {
   // Add SVG to canvas - returns true if successful, false if failed
   addSvgToCanvas: async (canvas: fabric.Canvas, svgContent: string): Promise<boolean> => {
+    console.log('[SVG Canvas] Adding SVG to canvas');
     return new Promise<boolean>((resolve) => {
       try {
         // First normalize the SVG content with strict preservation of dimensions and styles
         const normalized = svgNormalizer.fullyProcessSvg(svgContent);
         const cleanedSvg = normalized.processed;
 
-        console.log('Loading SVG with fabric.loadSVGFromString...', cleanedSvg.substring(0, 100) + '...');
+        console.log('[SVG Canvas] Loading SVG with fabric.loadSVGFromString...', cleanedSvg.substring(0, 100) + '...');
 
         // Use Fabric's built-in SVG loader with options to preserve SVG structure
         fabric.loadSVGFromString(cleanedSvg, (objects, options) => {
           // Check if objects were found
           if (!objects || objects.length === 0) {
-            console.warn('No objects found in SVG');
+            console.warn('[SVG Canvas] No objects found in SVG');
             resolve(false);
             return;
           }
+
+          console.log(`[SVG Canvas] Successfully loaded ${objects.length} objects`);
 
           // Get canvas dimensions
           const canvasWidth = canvas.getWidth();
@@ -598,11 +677,12 @@ export const svgCanvasUtils = {
           canvas.add(svgGroup);
           canvas.setActiveObject(svgGroup);
           canvas.renderAll();
-
+          
+          console.log('[SVG Canvas] SVG group added successfully to canvas');
           resolve(true);
         });
       } catch (error) {
-        console.error('Error loading SVG:', error);
+        console.error('[SVG Canvas] Error loading SVG:', error);
         resolve(false);
       }
     });
@@ -610,6 +690,7 @@ export const svgCanvasUtils = {
 
   // Fallback method: add SVG as image if direct SVG loading fails
   addSvgAsImageFallback: async (canvas: fabric.Canvas, svgContent: string, name: string): Promise<boolean> => {
+    console.log('[SVG Fallback] Attempting to add SVG as image');
     return new Promise<boolean>((resolve) => {
       try {
         // Normalize the SVG content first with strict preservation of dimensions and styles
@@ -626,6 +707,7 @@ export const svgCanvasUtils = {
           if (viewBoxParts.length === 4) {
             viewBoxWidth = parseFloat(viewBoxParts[2]);
             viewBoxHeight = parseFloat(viewBoxParts[3]);
+            console.log(`[SVG Fallback] Extracted viewBox dimensions: ${viewBoxWidth}x${viewBoxHeight}`);
           }
         }
 
@@ -675,7 +757,8 @@ export const svgCanvasUtils = {
 
           // Clean up URL
           URL.revokeObjectURL(url);
-
+          
+          console.log('[SVG Fallback] Successfully added SVG as image');
           resolve(true);
         }, {
           crossOrigin: 'anonymous',
@@ -684,7 +767,7 @@ export const svgCanvasUtils = {
           height: viewBoxHeight
         });
       } catch (error) {
-        console.error('Error loading SVG as image:', error);
+        console.error('[SVG Fallback] Error loading SVG as image:', error);
         resolve(false);
       }
     });
