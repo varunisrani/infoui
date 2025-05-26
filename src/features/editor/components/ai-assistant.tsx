@@ -27,7 +27,8 @@ import {
   MenuSquare,
   Trash,
   X,
-  LayoutGrid
+  LayoutGrid,
+  Image
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -73,6 +74,10 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const [showFullImage, setShowFullImage] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  
+  // Workflow stages state
+  const [workflowStages, setWorkflowStages] = useState<any>(null);
+  const [workflowProgress, setWorkflowProgress] = useState<number>(0);
   
   // Chat management state
   const [activeChat, setActiveChat] = useState<Chat | null>(null);
@@ -183,8 +188,75 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     });
   };
 
-  // Chat Sidebar Component
-  const ChatSidebar = () => {
+  // Workflow Progress Component
+  const WorkflowProgress = () => {
+    if (!workflowStages) return null;
+    
+    const stageNames: { [key: string]: string } = {
+      vector_suitability: "Suitability Check",
+      design_plan: "Planning",
+      design_knowledge: "Design Knowledge",
+      pre_enhancement: "Pre-Enhancement",
+      prompt_enhancement: "Prompt Enhancement",
+      image_generation: "Image Generation",
+      svg_generation: "SVG Creation"
+    };
+    
+    const stageIcons: { [key: string]: React.ElementType } = {
+      vector_suitability: CheckCircle2,
+      design_plan: MenuSquare,
+      design_knowledge: Palette,
+      pre_enhancement: Type,
+      prompt_enhancement: Wand2,
+      image_generation: Image || Download,
+      svg_generation: Download
+    };
+    
+    // Get stages in proper order
+    const orderedStages = ["vector_suitability", "design_plan", "design_knowledge", 
+                         "pre_enhancement", "prompt_enhancement", "image_generation", 
+                         "svg_generation"].filter(stage => workflowStages[stage]);
+    
+    return (
+      <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30">
+        <div className="mb-2 flex justify-between items-center">
+          <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300">Workflow Progress</h4>
+          <div className="text-xs font-medium text-blue-600 dark:text-blue-400">{workflowProgress}%</div>
+        </div>
+        
+        <div className="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-3">
+          <div 
+            className="h-full bg-gradient-to-r from-blue-500 to-indigo-600" 
+            style={{ width: `${workflowProgress}%` }}
+          />
+        </div>
+        
+        <div className="grid grid-cols-4 gap-2">
+          {orderedStages.map((stage) => {
+            const StageIcon = stageIcons[stage] || MenuSquare;
+            const completed = workflowStages[stage].completed;
+            const skipped = workflowStages[stage].skipped;
+            
+            return (
+              <div 
+                key={stage}
+                className={`flex flex-col items-center p-2 rounded-md text-center ${
+                  completed 
+                    ? skipped 
+                      ? 'bg-slate-100 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400' 
+                      : 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' 
+                    : 'bg-slate-100 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500'
+                }`}
+              >
+                <StageIcon className="h-4 w-4 mb-1" />
+                <span className="text-xs font-medium truncate w-full">{stageNames[stage]}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
     return (
       <div 
         className={`absolute top-0 left-0 z-50 h-full w-[280px] bg-white dark:bg-slate-900 shadow-xl border-r border-slate-200 dark:border-slate-700 flex flex-col transition-transform ${
@@ -391,6 +463,13 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
             content: errorData.guidance + " Would you like me to suggest a vector-friendly alternative?"
           };
           setMessages([...updatedMessages, guidanceMessage]);
+          
+          // Update workflow stages if available
+          if (errorData.results && errorData.results.stages) {
+            setWorkflowStages(errorData.results.stages);
+            setWorkflowProgress(errorData.results.progress || 10);
+          }
+          
           setIsSending(false);
           return;
         }
@@ -407,6 +486,12 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       if (data.svg_code) {
         setSvgCode(data.svg_code);
         toast.success("🎨 Design created successfully!");
+      }
+      
+      // Update workflow stages if available
+      if (data.stages) {
+        setWorkflowStages(data.stages);
+        setWorkflowProgress(data.progress || 100);
       }
       
     } catch (error) {
@@ -688,15 +773,35 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           {isSending && (
             <div className="flex justify-start">
               <Card className="bg-white dark:bg-slate-800">
-                <CardContent className="p-4 flex items-center gap-3">
-                  <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
-                  <span className="text-sm text-slate-600 dark:text-slate-400">Creating your design...</span>
+                <CardContent className="p-4 flex flex-col gap-3">
+                  <div className="flex items-center gap-3">
+                    <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+                    <span className="text-sm text-slate-600 dark:text-slate-400">
+                      {workflowProgress > 0 && workflowProgress < 100 
+                        ? `Creating your design... ${workflowProgress}% complete` 
+                        : "Creating your design..."}
+                    </span>
+                  </div>
+                  
+                  {workflowProgress > 0 && (
+                    <div className="w-full">
+                      <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-blue-500 to-indigo-600" 
+                          style={{ width: `${workflowProgress}%` }}
+                        />
+                      </div>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
           )}
         </div>
       </ScrollArea>
+
+      {/* Workflow Progress */}
+      {workflowStages && Object.keys(workflowStages).length > 0 && <WorkflowProgress />}
 
       {/* SVG Preview and actions */}
       {svgCode && (

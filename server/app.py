@@ -430,14 +430,25 @@ def generate_svg():
         logger.info(f"Processing prompt: {user_input[:50]}... Skip enhancement: {skip_enhancement}")
 
         # Check if prompt is suitable for SVG vector graphics
+        logger.info("STAGE 1: Vector Suitability Check")
         vector_suitability = check_vector_suitability(user_input)
         
         if vector_suitability.get('not_suitable', False):
             # Return guidance for non-suitable prompts
             return jsonify({
                 "error": "Not suitable for SVG",
-                "guidance": vector_suitability.get('guidance', "Your request may not be ideal for SVG vector graphics. Please consider a simpler, more graphic design oriented request.")
+                "guidance": vector_suitability.get('guidance', "Your request may not be ideal for SVG vector graphics. Please consider a simpler, more graphic design oriented request."),
+                "progress_stage": "vector_suitability",
+                "progress": 10
             }), 400
+        
+        # Stage 2: Planning Phase
+        logger.info("STAGE 2: Planning Phase")
+        design_plan = plan_design(user_input)
+        
+        # Stage 3: Design Knowledge Generation
+        logger.info("STAGE 3: Design Knowledge Generation")
+        design_knowledge = generate_design_knowledge(design_plan, user_input)
         
         if skip_enhancement:
             # Skip enhancement and use the original prompt directly
@@ -446,21 +457,25 @@ def generate_svg():
             enhanced_prompt = user_input
             logger.info(f"Using original prompt without enhancement: {prompt_to_use[:50]}...")
         else:
-            # Step 1: Pre-enhance the prompt with AI planning
+            # Stage 4: Pre-enhance the prompt with AI planning
+            logger.info("STAGE 4: Pre-enhancement Phase")
             pre_enhanced_prompt = pre_enhance_prompt(user_input)
             logger.info(f"Pre-enhanced prompt: {pre_enhanced_prompt[:50]}...")
 
-            # Step 2: Further enhance the prompt with design knowledge and best practices
+            # Stage 5: Further enhance the prompt with design knowledge and best practices
+            logger.info("STAGE 5: Prompt Enhancement Phase")
             enhanced_prompt = enhance_prompt_with_chat(pre_enhanced_prompt)
             logger.info(f"Enhanced prompt: {enhanced_prompt[:50]}...")
             
             prompt_to_use = enhanced_prompt
 
-        # Step 3: Generate image using GPT Image-1
+        # Stage 6: Generate image using GPT Image-1
+        logger.info("STAGE 6: Image Generation Phase")
         gpt_image_base64, gpt_image_filename = generate_image_with_gpt(prompt_to_use)
         logger.info("Image generated with GPT Image-1")
 
-        # Step 4: Generate SVG using GPT-4.1
+        # Stage 7: Generate SVG using GPT-4.1
+        logger.info("STAGE 7: SVG Generation Phase")
         svg_code = generate_svg_from_image(gpt_image_base64, prompt_to_use)
         logger.info("SVG code generated from image")
         
@@ -474,7 +489,40 @@ def generate_svg():
             "gpt_image_base64": gpt_image_base64,
             "gpt_image_url": f"/static/images/{gpt_image_filename}",
             "svg_code": svg_code,
-            "svg_url": f"/static/images/{svg_filename}"
+            "svg_url": f"/static/images/{svg_filename}",
+            "stages": {
+                "vector_suitability": {
+                    "completed": True,
+                    "suitable": True
+                },
+                "design_plan": {
+                    "completed": True,
+                    "content": design_plan if 'design_plan' in locals() else ""
+                },
+                "design_knowledge": {
+                    "completed": True, 
+                    "content": design_knowledge if 'design_knowledge' in locals() else ""
+                },
+                "pre_enhancement": {
+                    "completed": True,
+                    "skipped": skip_enhancement,
+                    "content": pre_enhanced_prompt
+                },
+                "prompt_enhancement": {
+                    "completed": True,
+                    "skipped": skip_enhancement,
+                    "content": enhanced_prompt
+                },
+                "image_generation": {
+                    "completed": True, 
+                    "image_url": f"/static/images/{gpt_image_filename}"
+                },
+                "svg_generation": {
+                    "completed": True, 
+                    "svg_url": f"/static/images/{svg_filename}"
+                }
+            },
+            "progress": 100
         })
 
     except Exception as e:
