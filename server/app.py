@@ -234,7 +234,7 @@ def generate_svg_from_image(image_base64, enhanced_prompt):
         "Authorization": f"Bearer {OPENAI_API_KEY_SVG}"
     }
 
-    # Restored original system prompt
+    # Improved system prompt with SVG best practices
     system_prompt = """You are an expert SVG code generator. Your task is to create precise, clean, and optimized SVG code that exactly matches the provided image. Follow these guidelines:
 
 1. Create SVG with dimensions 1080x1080 pixels
@@ -247,6 +247,15 @@ def generate_svg_from_image(image_base64, enhanced_prompt):
 8. Ensure text elements are properly positioned and styled
 9. Implement gradients, patterns, or filters if present in the image
 10. Use precise color values matching the image exactly
+
+Best Practices for Vector Graphics:
+- Keep paths simple and efficient
+- Use appropriate grouping for related elements
+- Ensure text is preserved as text elements, not paths (when possible)
+- Use relative coordinates for better scalability
+- Apply appropriate rounding for numeric values
+- Include accessibility attributes where relevant
+- Ensure proper namespace declarations
 
 Focus on producing production-ready, clean SVG code that renders identically to the input image.
 Return ONLY the SVG code without any explanations or comments."""
@@ -279,7 +288,7 @@ Return ONLY the SVG code without any explanations or comments."""
                 "content": message_content
             }
         ],
-        "temperature": 1,  # Restored original temperature
+        "temperature": 0.5,  # Lower temperature for more precise SVG generation
         "max_tokens": 4000
     }
 
