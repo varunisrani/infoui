@@ -65,6 +65,8 @@ OPENAI_API_BASE = "https://api.openai.com/v1"
 OPENAI_CHAT_ENDPOINT = f"{OPENAI_API_BASE}/chat/completions"
 
 # Model names - updated to use GPT-4.1 mini for logic/text and gpt-image for images
+PLANNER_MODEL = "gpt-4.1-mini"
+DESIGN_KNOWLEDGE_MODEL = "gpt-4.1-mini"
 PRE_ENHANCER_MODEL = "gpt-4.1-mini"
 PROMPT_ENHANCER_MODEL = "gpt-4.1-mini"
 GPT_IMAGE_MODEL = "gpt-image-1"
