@@ -619,13 +619,13 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                 {!activeChat && (
                   <div className="grid grid-cols-1 gap-2">
                     <Badge variant="secondary" className="justify-start py-2 px-3">
-                      &ldquo;Create a coming soon poster for my clothing brand&rdquo;
+                      &ldquo;Create an icon set for a fitness app&rdquo;
                     </Badge>
                     <Badge variant="secondary" className="justify-start py-2 px-3">
-                      &ldquo;Design a testimonial card for my restaurant&rdquo;
+                      &ldquo;Design an elegant logo with a mountain theme&rdquo;
                     </Badge>
                     <Badge variant="secondary" className="justify-start py-2 px-3">
-                      &ldquo;Make a logo for my tech startup&rdquo;
+                      &ldquo;Make an infographic about renewable energy&rdquo;
                     </Badge>
                   </div>
                 )}
@@ -868,7 +868,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                 className="h-7 text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 dark:bg-blue-950 dark:hover:bg-blue-900 dark:text-blue-300"
                 disabled={isSending}
               >
-                Coming Soon Poster
+                Icon Design
               </Button>
               <Button
                 variant="ghost"
@@ -877,7 +877,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                 className="h-7 text-xs bg-green-50 hover:bg-green-100 text-green-700 dark:bg-green-950 dark:hover:bg-green-900 dark:text-green-300"
                 disabled={isSending}
               >
-                Testimonial Card
+                Illustration
               </Button>
               <Button
                 variant="ghost"
