@@ -64,12 +64,12 @@ openai.api_key = OPENAI_API_KEY_SVG
 OPENAI_API_BASE = "https://api.openai.com/v1"
 OPENAI_CHAT_ENDPOINT = f"{OPENAI_API_BASE}/chat/completions"
 
-# Model names
-PRE_ENHANCER_MODEL = "gpt-4o-mini"
-PROMPT_ENHANCER_MODEL = "gpt-4o-mini"
+# Model names - updated to use GPT-4.1 mini for logic/text and gpt-image for images
+PRE_ENHANCER_MODEL = "gpt-4.1-mini"
+PROMPT_ENHANCER_MODEL = "gpt-4.1-mini"
 GPT_IMAGE_MODEL = "gpt-image-1"
 SVG_GENERATOR_MODEL = "gpt-4.1-mini"
-CHAT_ASSISTANT_MODEL = "gpt-4o-mini"
+CHAT_ASSISTANT_MODEL = "gpt-4.1-mini"
 
 def pre_enhance_prompt(user_input):
     """Initial enhancement of user query using standard GPT-4o mini"""
@@ -407,7 +407,7 @@ def serve_image(filename):
 
 @app.route('/api/generate-svg', methods=['POST'])
 def generate_svg():
-    """Original SVG generator endpoint with high quality"""
+    """Universal SVG generator endpoint for any design request"""
     try:
         data = request.json
         user_input = data.get('prompt', '')
@@ -418,6 +418,16 @@ def generate_svg():
 
         logger.info(f"Processing prompt: {user_input[:50]}... Skip enhancement: {skip_enhancement}")
 
+        # Check if prompt is suitable for SVG vector graphics
+        vector_suitability = check_vector_suitability(user_input)
+        
+        if vector_suitability.get('not_suitable', False):
+            # Return guidance for non-suitable prompts
+            return jsonify({
+                "error": "Not suitable for SVG",
+                "guidance": vector_suitability.get('guidance', "Your request may not be ideal for SVG vector graphics. Please consider a simpler, more graphic design oriented request.")
+            }), 400
+        
         if skip_enhancement:
             # Skip enhancement and use the original prompt directly
             prompt_to_use = user_input
@@ -425,11 +435,11 @@ def generate_svg():
             enhanced_prompt = user_input
             logger.info(f"Using original prompt without enhancement: {prompt_to_use[:50]}...")
         else:
-            # Step 1: Pre-enhance the prompt
+            # Step 1: Pre-enhance the prompt with AI planning
             pre_enhanced_prompt = pre_enhance_prompt(user_input)
             logger.info(f"Pre-enhanced prompt: {pre_enhanced_prompt[:50]}...")
 
-            # Step 2: Further enhance the prompt
+            # Step 2: Further enhance the prompt with design knowledge and best practices
             enhanced_prompt = enhance_prompt_with_chat(pre_enhanced_prompt)
             logger.info(f"Enhanced prompt: {enhanced_prompt[:50]}...")
             
