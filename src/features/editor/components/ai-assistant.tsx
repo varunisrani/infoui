@@ -56,6 +56,7 @@ const quickActions = [
   { icon: RotateCw, label: "Different Style", prompt: "Create a different design style for this" },
   { icon: RefreshCw, label: "Simplify", prompt: "Make this design simpler and more minimalist" },
   { icon: Wand2, label: "Add Effects", prompt: "Add some visual effects or decorative elements" },
+  { icon: LayoutGrid, label: "Rebalance", prompt: "Rebalance the layout for better visual harmony" },
 ];
 
 export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
@@ -380,6 +381,20 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       });
       
       if (!response.ok) {
+        // Check if it's a not suitable for SVG error
+        const errorData = await response.json();
+        
+        if (errorData.error === "Not suitable for SVG" && errorData.guidance) {
+          // Add AI response explaining why the request isn't suitable for SVG
+          const guidanceMessage: Message = {
+            role: "assistant",
+            content: errorData.guidance + " Would you like me to suggest a vector-friendly alternative?"
+          };
+          setMessages([...updatedMessages, guidanceMessage]);
+          setIsSending(false);
+          return;
+        }
+        
         throw new Error(`API request failed with status ${response.status}`);
       }
       
@@ -753,6 +768,16 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                 
                 <Button
                   variant="outline"
+                  onClick={() => sendMessage("Improve this design")}
+                  size="sm"
+                  className="hover:bg-amber-50 hover:border-amber-300 dark:hover:bg-amber-950 h-8"
+                >
+                  <RefreshCw className="h-3 w-3 mr-1" />
+                  Improve Design
+                </Button>
+                
+                <Button
+                  variant="outline"
                   onClick={() => setShowFullImage(!showFullImage)}
                   size="sm"
                   className="hover:bg-indigo-50 hover:border-indigo-300 dark:hover:bg-indigo-950 h-8"
@@ -864,7 +889,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => sendMessage("Create a coming soon poster")}
+                onClick={() => sendMessage("Create an icon set for a fitness app")}
                 className="h-7 text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 dark:bg-blue-950 dark:hover:bg-blue-900 dark:text-blue-300"
                 disabled={isSending}
               >
@@ -873,7 +898,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => sendMessage("Design a testimonial card")}
+                onClick={() => sendMessage("Design an illustration")}
                 className="h-7 text-xs bg-green-50 hover:bg-green-100 text-green-700 dark:bg-green-950 dark:hover:bg-green-900 dark:text-green-300"
                 disabled={isSending}
               >
