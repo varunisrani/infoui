@@ -1,6 +1,9 @@
 import { fabric } from "fabric";
 import { useCallback, useState, useMemo, useRef } from "react";
 import { toast } from "sonner";
+import { parseSVG, makeAbsolute, Command as SvgPathCommand } from 'svg-path-parser';
+
+// Define a more specific type for SvgPathCommand if library types are too loose	ype SvgPathCommand = SvgPathCommandBase | [string, ...number[]];
 
 import { 
   Editor, 
@@ -330,55 +333,238 @@ const buildEditor = ({
     },
     ungroupSVG: () => {
       const activeObject = canvas.getActiveObject();
-      
-      // Check if the selected object is a group and an instance of fabric.Group
-      if (activeObject && activeObject.type === 'group' && activeObject instanceof fabric.Group) {
-        const group = activeObject as fabric.Group;
-        
-        // @ts-ignore - _objects is 'private' but accessible
-        const numItems = group._objects ? group._objects.length : 0;
 
-        if (numItems === 0) {
+      if (!activeObject) {
+        toast.info("No object selected.");
+        return 0;
+      }
+
+      if (activeObject.type === 'path' && (activeObject as fabric.Path).path) {
+        const pathObject = activeObject as fabric.Path;
+        let pathDataString = '';
+
+        // Prioritize toPathData() if it exists, as it gives the canonical string representation
+        if (typeof (pathObject as any).toPathData === 'function') {
+          pathDataString = (pathObject as any).toPathData();
+        } else if (Array.isArray(pathObject.path)) {
+          // @ts-ignore path is an array of arrays for fabric.Path
+          pathDataString = fabric.util.pathSegmentsToString(pathObject.path as unknown as Array<[string, ...number[]]>);
+        } else if (typeof pathObject.path === 'string') { // Added this check for string path
+          pathDataString = pathObject.path;
+        } else {
+          pathDataString = (pathObject.data?.originalPathString as string) || '';
+        }
+        
+        if (!pathDataString || pathDataString.trim() === '') {
+          toast.error("Path data is empty or invalid for ungrouping.");
+          return 0;
+        }
+
+        try {
+          save(); 
+
+          const parsedCommands = parseSVG(pathDataString);
+          if (!parsedCommands || parsedCommands.length === 0) {
+            toast.info("Path data parsed into zero commands. Cannot ungroup.");
+            undo();
+            return 0;
+          }
+          makeAbsolute(parsedCommands); // Modifies in place
+
+          const newPaths: fabric.Path[] = [];
+          let currentSubPathD = ""; // Stores the 'd' string for the current sub-path being built
+
+          const commonPathProps = {
+            fill: pathObject.fill,
+            stroke: pathObject.stroke,
+            strokeWidth: pathObject.strokeWidth,
+            opacity: pathObject.opacity,
+            shadow: pathObject.shadow ? new fabric.Shadow(pathObject.shadow as fabric.IShadowOptions) : undefined,
+            visible: pathObject.visible,
+          };
+
+          for (const command of parsedCommands) {
+            const codeUpper = command.code.toUpperCase();
+
+            if (codeUpper === 'M' && currentSubPathD.trim() !== "") {
+              try {
+                const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
+                newPaths.push(p);
+              } catch (e) {
+                console.warn("Failed to create fabric.Path from sub-path segment:", currentSubPathD.trim(), e);
+              }
+              currentSubPathD = ""; 
+            }
+
+            let commandStringSegment = command.code;
+            switch (codeUpper) {
+                case 'M': case 'L': case 'T':
+                    commandStringSegment += ` ${command.x} ${command.y}`;
+                    break;
+                case 'H':
+                    commandStringSegment += ` ${command.x}`;
+                    break;
+                case 'V':
+                    commandStringSegment += ` ${command.y}`;
+                    break;
+                case 'C':
+                    commandStringSegment += ` ${command.x1} ${command.y1} ${command.x2} ${command.y2} ${command.x} ${command.y}`;
+                    break;
+                case 'S': case 'Q':
+                    commandStringSegment += ` ${command.x1} ${command.y1} ${command.x} ${command.y}`;
+                    break;
+                case 'A':
+                    commandStringSegment += ` ${command.rx} ${command.ry} ${command.xAxisRotation} ${command.largeArc ? 1 : 0} ${command.sweep ? 1 : 0} ${command.x} ${command.y}`;
+                    break;
+                case 'Z':
+                    break; // Z has no parameters, command.code itself is sufficient.
+                default:
+                    console.warn("Unknown SVG path command:", command.code);
+            }
+            currentSubPathD += commandStringSegment + " ";
+
+            if (codeUpper === 'Z') {
+              if (currentSubPathD.trim() !== "") {
+                try {
+                  const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
+                  newPaths.push(p);
+                } catch (e) {
+                  console.warn("Failed to create fabric.Path from Z-closed sub-path:", currentSubPathD.trim(), e);
+                }
+              }
+              currentSubPathD = ""; 
+            }
+          }
+
+          if (currentSubPathD.trim() !== "") {
+            try {
+              const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
+              newPaths.push(p);
+            } catch (e) {
+              console.warn("Failed to create fabric.Path from final sub-path segment:", currentSubPathD.trim(), e);
+            }
+          }
+          
+          // Check if ungrouping resulted in meaningful separation
+          let effectivelyUngrouped = newPaths.length > 1;
+          if (newPaths.length === 1 && pathObject.path) {
+             // If only one path, ensure it's different from original or that original had multiple "M"s
+             // This check is simplified: if only one path results, assume no effective ungroup unless original was complex
+             const originalPathStringForComparison = typeof (pathObject as any).toPathData === 'function' 
+                ? (pathObject as any).toPathData() 
+                : typeof pathObject.path === 'string' 
+                    ? pathObject.path 
+                    : (fabric.util as any).pathSegmentsToString(pathObject.path as unknown as Array<[string, ...number[]]>);
+             
+             let newPathDString = '';
+             const newPathObjectPath = newPaths[0].path;
+             if (typeof (newPaths[0] as any).toPathData === 'function') {
+                newPathDString = (newPaths[0] as any).toPathData();
+             } else if (typeof newPathObjectPath === 'string') {
+                newPathDString = newPathObjectPath;
+             } else if (Array.isArray(newPathObjectPath)) {
+                newPathDString = (fabric.util as any).pathSegmentsToString(newPathObjectPath as unknown as Array<[string, ...number[]]>);
+             }
+
+             if (originalPathStringForComparison === newPathDString && parsedCommands.filter(cmd => cmd.code.toUpperCase() === 'M').length <=1) {
+                 effectivelyUngrouped = false;
+             }
+          } else if (newPaths.length === 0) {
+            effectivelyUngrouped = false;
+          }
+
+
+          if (!effectivelyUngrouped) {
+            toast.info("Path does not contain multiple distinct shapes to ungroup or is a single shape.");
+            undo(); // Reverts the canvas.remove(pathObject) and the save()
+            return 0;
+          }
+
+          canvas.remove(pathObject); 
+
+          const finalItemsToSelect: fabric.Object[] = [];
+
+          const tempGroup = new fabric.Group(newPaths, {
+            left: pathObject.left,
+            top: pathObject.top,
+            angle: pathObject.angle,
+            scaleX: pathObject.scaleX,
+            scaleY: pathObject.scaleY,
+            originX: pathObject.originX,
+            originY: pathObject.originY,
+            // Consider if other properties of pathObject should be applied to tempGroup
+          });
+          
+          // @ts-ignore
+          const restoredItems = tempGroup.destroy().getObjects() as fabric.Object[]; 
+
+          restoredItems.forEach((item: fabric.Object) => {
+            item.set({
+              selectable: true,
+              hasControls: true,
+              evented: true,
+            });
+            canvas.add(item);
+            finalItemsToSelect.push(item);
+          });
+          
+          canvas.discardActiveObject(); // Deselect the original path
+          if(finalItemsToSelect.length > 0){
+            const sel = new fabric.ActiveSelection(finalItemsToSelect, { canvas: canvas });
+            canvas.setActiveObject(sel);
+          }
+          canvas.renderAll();
+          toast.success(`${finalItemsToSelect.length} elements created from the path.`);
+          return finalItemsToSelect.length;
+
+        } catch (err) {
+          console.error("Error ungrouping path:", err);
+          toast.error("Failed to ungroup path. It might be too complex or malformed.");
+          undo(); 
+          return 0;
+        }
+
+      } else if (activeObject && activeObject.type === 'group' && activeObject instanceof fabric.Group) {
+        const group = activeObject as fabric.Group;
+        const items = group.getObjects().map(o => o); 
+
+        if (items.length === 0) {
           toast.info("Group is empty.");
           return 0;
         }
 
         try {
-          // Get the original position of the group
-          const groupLeft = group.left;
-          const groupTop = group.top;
-          
-          // @ts-ignore - Get objects from the group
-          const objects = group._objects;
-          
-          // Save the canvas state before ungrouping
           save();
-          
-          // Remove the group from canvas
+          // @ts-ignore 
+          group._restoreObjectsState(); 
           canvas.remove(group);
           
-          // Add each object individually to the canvas, preserving their positions
-          objects.forEach((obj: fabric.Object) => {
-            // Calculate the absolute position based on group's position and transformation
-            canvas.add(obj);
+          items.forEach((item: fabric.Object) => {
+            item.set({
+              selectable: true,
+              hasControls: true,
+              evented: true,
+            });
+            canvas.add(item); 
           });
           
-          // Deselect all objects to fix the selection issue
-          canvas.discardActiveObject();
+          // Select the ungrouped items
+          const sel = new fabric.ActiveSelection(items, { canvas: canvas });
+          canvas.setActiveObject(sel);
           canvas.renderAll();
-          
-          toast.success(`${numItems} ${numItems === 1 ? 'item has' : 'items have'} been ungrouped.`);
-          
-          return numItems;
+
+          toast.success(`${items.length} ${items.length === 1 ? "item has" : "items have"} been ungrouped.`);
+          return items.length;
         } catch (err) {
-          console.error("Error during ungroup operation:", err);
-          toast.error("Failed to ungroup elements.");
+          console.error("Error ungrouping group:", err);
+          toast.error("Failed to ungroup group.");
+          undo();
           return 0;
         }
       }
-      
-      toast.info("No group selected or unable to ungroup.");
-      return 0; // Return 0 if not a group or nothing was ungrouped
+
+      toast.info("Please select a group or a combined path to ungroup.");
+      return 0;
     },
     delete: () => {
       canvas.getActiveObjects().forEach((object) => canvas.remove(object));
