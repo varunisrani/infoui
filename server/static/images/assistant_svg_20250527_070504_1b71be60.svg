@@ -1,0 +1,131 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+      .title1 { font-family: serif; font-weight: 700; font-size: 72px; fill: #a15f3f; stroke: #66422b; stroke-width: 1; filter: url(#grainFilter); }
+      .title2 { font-family: serif; font-weight: 900; font-size: 96px; fill: #b58866; stroke: #754c29; stroke-width: 1; filter:url(#grainFilterLight);}
+      .title3 { font-family: 'Rock Salt', cursive; font-weight: 900; font-size: 72px; fill: #a15238; stroke: #6b3f29; stroke-width: 1; filter: url(#grainFilter); }
+      .title4 { font-family: serif; font-weight: 700; font-size: 80px; fill: #a18465; filter:url(#grainFilterLight);}
+      .textBase { font-family: serif; font-weight: 700; font-size: 48px; fill: #a67c4f; stroke: #754c29; stroke-width: 0.7; filter: url(#grainFilter); }
+      .textBaseLight { font-family: serif; font-weight: 900; font-size: 58px; fill: #b7ad99; filter:url(#grainFilterLight);}
+      .textCurve { font-family: serif; font-weight: 700; font-size: 48px; fill: #a67c4f; stroke: #754c29; stroke-width: 0.7; filter: url(#grainFilter);}
+    </style>
+    <filter id="grainFilter" x="0" y="0" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="2" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+    </filter>
+    <filter id="grainFilterLight" x="0" y="0" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" />
+    </filter>
+    <radialGradient id="breadTopLight" cx="0.3" cy="0.3" r="0.7" fx="0.35" fy="0.35">
+      <stop offset="0%" stop-color="#d99f65"/>
+      <stop offset="100%" stop-color="#7d4a2b"/>
+    </radialGradient>
+    <radialGradient id="breadShadow" cx="0.4" cy="0.4" r="0.6" fx="0.45" fy="0.45">
+      <stop offset="0%" stop-color="#5b3a27" />
+      <stop offset="100%" stop-color="#2c1a11" />
+    </radialGradient>
+    <radialGradient id="breadBottom" cx="0.5" cy="0.9" r="0.5" fx="0.5" fy="1">
+      <stop offset="0%" stop-color="#f0dec7"/>
+      <stop offset="100%" stop-color="#b39278" />
+    </radialGradient>
+    <radialGradient id="plateGradient" cx="0.5" cy="0.5" r="0.6" fx="0.5" fy="0.5">
+      <stop offset="0%" stop-color="#f0ede8"/>
+      <stop offset="100%" stop-color="#b39f91" />
+    </radialGradient>
+    <radialGradient id="crumbShadow" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+      <stop offset="0%" stop-color="#a56f44"/>
+      <stop offset="100%" stop-color="#5e3a21" />
+    </radialGradient>
+    <radialGradient id="crustShadow" cx="0.55" cy="0.25" r="0.5" fx="0.55" fy="0.25">
+      <stop offset="0%" stop-color="#b97a4b"/>
+      <stop offset="100%" stop-color="#663c23"/>
+    </radialGradient>
+    <radialGradient id="woodenBowl" cx="0.5" cy="0.6" r="0.5" fx="0.5" fy="0.6">
+      <stop offset="0%" stop-color="#c88d55"/>
+      <stop offset="100%" stop-color="#6a3f18"/>
+    </radialGradient>
+    <radialGradient id="crumbsColor" cx="0.5" cy="0.5" r="0.4" fx="0.5" fy="0.5">
+      <stop offset="0%" stop-color="#b37a43" />
+      <stop offset="100%" stop-color="#7a4d22" />
+    </radialGradient>
+    <radialGradient id="leafGreen" cx="0.5" cy="0.3" r="0.5" fx="0.5" fy="0.3">
+      <stop offset="0%" stop-color="#67903d"/>
+      <stop offset="100%" stop-color="#2e4420"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#bgGradient)"/>
+
+  <!-- Background gradient -->
+  <radialGradient id="bgGradient" cx="0.5" cy="0.5" r="0.8" fx="0.5" fy="0.5">
+    <stop offset="0%" stop-color="#a9754f"/>
+    <stop offset="100%" stop-color="#66422b"/>
+  </radialGradient>
+  <rect width="1080" height="1080" fill="url(#bgGradient)"/>
+
+  <!-- Upper Left Text Block -->
+  <g transform="translate(180, 120)">
+    <text class="title1" x="0" y="0">CIASSIE</text>
+    <text class="title2" x="0" y="90">NEW YORN</text>
+    <text class="textBaseLight" x="0" y="170" letter-spacing="5">OIEESEEAKE</text>
+  </g>
+
+  <!-- Top Right pastry -->
+  <g transform="translate(660, 120)">
+    <path d="M 100 120 Q 200 40 280 130 Q 320 180 270 230 Q 220 270 190 240 Q 110 180 100 120 Z"
+      fill="url(#breadTopLight)" stroke="#6a3d1b" stroke-width="2" filter="url(#grainFilter)"/>
+    <path d="M 130 200 Q 210 160 250 230 Q 210 270 160 250 Q 120 230 130 200 Z"
+      fill="url(#breadShadow)" />
+    <ellipse cx="190" cy="265" rx="90" ry="15" fill="url(#breadBottom)" />
+    <path d="M 180 70 Q 230 125 210 165 Q 170 115 180 70 Z" fill="white" opacity="0.15"/>
+  </g>
+
+  <!-- Nearby Right Text -->
+  <g transform="translate(680, 350)">
+    <text class="title1" x="0" y="0" letter-spacing="0">RE E C</text>
+    <text class="title2" x="-20" y="90">WELLINGTON</text>
+  </g>
+
+  <!-- Bottom Left Text Block -->
+  <g transform="translate(140, 650)">
+    <text class="title3" x="0" y="0">Southein</text>
+    <text class="title2" x="0" y="80">BBanubs</text>
+  </g>
+
+  <!-- Bottom Left bread on plate -->
+  <g transform="translate(210, 730)">
+    <ellipse cx="180" cy="70" rx="160" ry="55" fill="url(#plateGradient)" />
+    <ellipse cx="180" cy="60" rx="150" ry="50" fill="url(#crumbShadow)" />
+    <ellipse cx="180" cy="80" rx="130" ry="40" fill="url(#breadTopLight)" />
+    <path d="M 80 70 Q 120 10 220 20 Q 260 60 220 90 Q 160 120 80 70 Z" fill="url(#breadShadow)" />
+    <ellipse cx="60" cy="110" rx="30" ry="30" fill="url(#crumbsColor)" filter="url(#grainFilter)"/>
+  </g>
+
+  <!-- Bottom Right Text -->
+  <g transform="translate(720, 710)" text-anchor="middle">
+    <text class="textBaseLight" x="120" y="0" style="font-size: 34px" letter-spacing="4">LONNCK</text>
+    <text class="title4" x="120" y="70" style="font-size: 70px" letter-spacing="3">PARATOCLILL</text>
+    <text class="textBaseLight" x="120" y="130" style="font-size: 34px" letter-spacing="6">UUICES</text>
+  </g>
+
+  <!-- Bottom Right bowl with food -->
+  <g transform="translate(700, 740)">
+    <ellipse cx="110" cy="140" rx="112" ry="45" fill="url(#woodenBowl)" />
+    <ellipse cx="110" cy="120" rx="110" ry="40" fill="#a4723b" />
+    <ellipse cx="110" cy="130" rx="108" ry="35" fill="url(#crumbShadow)" />
+    <circle cx="70" cy="100" r="18" fill="url(#crumbsColor)" filter="url(#grainFilter)" />
+    <circle cx="130" cy="90" r="15" fill="url(#crumbsColor)" filter="url(#grainFilter)" />
+    <circle cx="150" cy="110" r="12" fill="url(#crumbsColor)" filter="url(#grainFilter)" />
+    <circle cx="90" cy="125" r="16" fill="url(#crumbsColor)" filter="url(#grainFilter)" />
+    <circle cx="120" cy="130" r="10" fill="url(#crumbsColor)" filter="url(#grainFilter)" />
+    <circle cx="100" cy="110" r="14" fill="url(#crumbsColor)" filter="url(#grainFilter)" />
+    <circle cx="140" cy="100" r="13" fill="url(#crumbsColor)" filter="url(#grainFilter)" />
+
+    <!-- Green leaves -->
+    <path d="M 70 90 Q 72 80 84 75 Q 68 90 70 90 Z" fill="url(#leafGreen)" />
+    <path d="M 90 80 Q 96 60 106 72 Q 90 80 90 80 Z" fill="url(#leafGreen)" />
+    <path d="M 112 80 Q 120 65 130 80 Q 112 80 112 80 Z" fill="url(#leafGreen)" />
+  </g>
+</svg>

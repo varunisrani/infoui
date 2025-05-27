@@ -1,0 +1,73 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+      .title {
+        font-family: 'Fredoka One', cursive;
+        font-weight: 700;
+        fill: #ae5723;
+        font-size: 160px;
+      }
+      .subtitle {
+        font-family: 'Pacifico', cursive;
+        font-weight: 400;
+        fill: #552f12;
+        font-size: 50px;
+      }
+    </style>
+  </defs>
+  <!-- Background orange gradient -->
+  <rect width="1080" height="1080" fill="url(#bgGradient)" />
+  <defs>
+    <radialGradient id="bgGradient" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#f8a71c"/>
+      <stop offset="100%" stop-color="#d97500"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Title text -->
+  <text x="50%" y="180" class="title" dominant-baseline="middle" text-anchor="middle" letter-spacing="6">
+    GOURMET
+  </text>
+  <text x="50%" y="320" class="title" dominant-baseline="middle" text-anchor="middle" letter-spacing="6">
+    EXPLOSION
+  </text>
+
+  <!-- Burger group -->
+  <g transform="translate(540, 600)">
+    <!-- Bun Top -->
+    <ellipse cx="0" cy="-150" rx="240" ry="120" fill="#d99536" stroke="#0d0c06" stroke-width="7"/>
+    <ellipse cx="0" cy="-157" rx="230" ry="110" fill="#d99536" />
+    <circle cx="-50" cy="-170" r="3" fill="#f3c46a" />
+    <circle cx="40" cy="-130" r="3.5" fill="#f3c46a"/>
+    <circle cx="80" cy="-115" r="4" fill="#f3c46a"/>
+    <circle cx="150" cy="-150" r="2.5" fill="#f3c46a"/>
+
+    <!-- Lettuce -->
+    <path d="M-215 -90 Q-180 -110 -150 -80 Q-135 -140 -110 -110 Q-95 -170 -60 -140 Q-10 -180 30 -120 Q60 -170 90 -120 Q120 -150 150 -100 Q185 -130 215 -90" fill="#6f8e44" stroke="#4a5629" stroke-width="3" />
+    <!-- Some leaves falling -->
+    <path d="M-300 -130 L-280 -160 L-260 -140" stroke="#c22a15" stroke-width="6" fill="#c22a15"/>
+    <path d="M230 -60 L 260 -90 L 235 -90" stroke="#c22a15" stroke-width="6" fill="#c22a15"/>
+    <path d="M270 -20 L 290 -40 L 290 -25" stroke="#42782e" stroke-width="6" fill="#42782e"/>
+    <path d="M-280 -30 L-270 -50 L-260 -30" stroke="#42782e" stroke-width="4" fill="#6e9043"/>
+    <path d="M-250 -120 L-230 -150 L-220 -135" stroke="#c22a15" stroke-width="6" fill="#c22a15"/>
+
+    <!-- Cheese Slice -->
+    <path d="M-180 -30 Q-120 20 -50 -5 Q-20 45 -90 80 Q-180 65 -180 20Z" fill="#f9c54e" stroke="#6b4a19" stroke-width="6"/>
+    <!-- Meat patty -->
+    <path d="M-180 20 Q-140 110 -40 110 Q60 135 -30 160 Q-110 190 -170 140 Q-230 110 -180 20" fill="#4f3a25" stroke="#24160d" stroke-width="7" />
+    <!-- Meat leaf/veggie items -->
+    <path d="M-110 60 Q-30 100 0 65 Q20 95 40 75 Q70 110 120 40 Q140 75 170 35" stroke="#c22a15" stroke-width="10" fill="none" stroke-linejoin="round"/>
+    <path d="M-80 110 Q-10 140 10 110 Q40 135 50 105" stroke="#6a9035" stroke-width="8" fill="none" stroke-linejoin="round"/>
+    <path d="M20 75 Q60 90 80 55" stroke="#42782e" stroke-width="7" fill="none" stroke-linejoin="round"/>
+    
+    <!-- Bun Bottom -->
+    <ellipse cx="0" cy="140" rx="230" ry="90" fill="#e4a147" stroke="#0d0c06" stroke-width="7"/>
+    <ellipse cx="0" cy="148" rx="225" ry="80" fill="#e1ab4e"/>
+  </g>
+
+  <!-- Subtitle text -->
+  <text x="50%" y="880" class="subtitle" dominant-baseline="middle" text-anchor="middle" letter-spacing="2" style="font-style: italic;">
+    Avweei, havncotea hiv ger
+  </text>
+</svg>
