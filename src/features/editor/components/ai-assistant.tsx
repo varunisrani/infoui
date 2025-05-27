@@ -37,11 +37,24 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Editor } from "@/features/editor/types";
 import { svgNormalizer, svgCanvasUtils, svgStorage, svgTester } from "@/lib/svg-utils";
-import { chatStorage, Chat } from "@/lib/chat-storage";
+import { chatStorage } from "@/lib/chat-storage";
 
 export interface Message {
   role: "system" | "user" | "assistant";
   content: string;
+}
+
+interface Chat {
+  id: string;
+  title: string;
+  messages: Message[];
+  svgCode: string | null;
+  createdAt: string;
+}
+
+interface WorkflowStage {
+  completed: boolean;
+  content?: string;
 }
 
 interface AiAssistantProps {
@@ -64,7 +77,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   // Get the router at the top level of the component
   const router = useRouter();
   
-  // State management
+  // State management with default values
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -74,10 +87,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const [showFullImage, setShowFullImage] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  
-  // Workflow stages state
-  const [workflowStages, setWorkflowStages] = useState<any>(null);
-  const [workflowProgress, setWorkflowProgress] = useState<number>(0);
+  const [workflowProgress, setWorkflowProgress] = useState(0);
+  const [workflowStages, setWorkflowStages] = useState<Record<string, WorkflowStage>>({});
   
   // Chat management state
   const [activeChat, setActiveChat] = useState<Chat | null>(null);
@@ -87,176 +98,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   // References
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Function to extract SVG code from message content
-  const extractSvgCode = (message: string): string | null => {
-    const svgMatch = message.match(/```svg\s*([\s\S]*?)\s*```/);
-    return svgMatch ? svgMatch[1].trim() : null;
-  };
-
-  // Load chats from storage
-  useEffect(() => {
-    const loadedChats = chatStorage.getChats();
-    setChats(loadedChats);
-  }, []);
-
-  // Listen for chat updates from other components
-  useEffect(() => {
-    const handleChatsUpdated = () => {
-      setChats(chatStorage.getChats());
-    };
-    
-    window.addEventListener('ai-chats-updated', handleChatsUpdated);
-    return () => {
-      window.removeEventListener('ai-chats-updated', handleChatsUpdated);
-    };
-  }, []);
-  
-  // Load chat when activeChat changes
-  useEffect(() => {
-    if (activeChat) {
-      setMessages(activeChat.messages);
-      setSvgCode(activeChat.svgCode);
-    } else {
-      // Clear messages when starting a new chat
-      setMessages([]);
-      setSvgCode(null);
-    }
-  }, [activeChat]);
-
-  // Save chat when messages or SVG changes
-  useEffect(() => {
-    if (messages.length > 0) {
-      // Don't save empty chats
-      if (activeChat) {
-        // Update existing chat
-        chatStorage.updateChat(activeChat.id, { 
-          messages, 
-          svgCode,
-          title: chatStorage.generateChatTitle(messages)
-        });
-      } else {
-        // Create new chat when we have messages but no activeChat
-        const newChat = chatStorage.saveChat({
-          title: chatStorage.generateChatTitle(messages),
-          messages,
-          svgCode
-        });
-        setActiveChat(newChat);
-        setChats(chatStorage.getChats());
-      }
-    }
-  }, [messages, svgCode, activeChat]);
-
-  // Function to create a new chat
-  const createNewChat = () => {
-    setActiveChat(null);
-    setMessages([]);
-    setSvgCode(null);
-    setShowChatSidebar(false);
-    setNewMessage(""); // Clear any message that was being composed
-    setIsSending(false); // Reset message sending state
-    setIsAddingToCanvas(false); // Reset canvas adding state
-    setShowQuickActions(false); // Hide quick actions
-    setShowFullImage(false); // Reset image view state
-    setIsSaving(false); // Reset saving state
-    setIsSaved(false); // Reset saved state
-  };
-  
-  // Function to delete a chat
-  const deleteChat = (chatId: string) => {
-    // If we're deleting the active chat, reset the view
-    if (activeChat?.id === chatId) {
-      setActiveChat(null);
-      setMessages([]);
-      setSvgCode(null);
-    }
-    
-    // Delete the chat from storage
-    chatStorage.deleteChat(chatId);
-    
-    // Update the chats list
-    setChats(chatStorage.getChats());
-  };
-  
-  // Format date for display
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
-    });
-  };
-
-  // Workflow Progress Component
-  const WorkflowProgress = () => {
-    if (!workflowStages) return null;
-    
-    const stageNames: { [key: string]: string } = {
-      vector_suitability: "Suitability Check",
-      design_plan: "Planning",
-      design_knowledge: "Design Knowledge",
-      pre_enhancement: "Pre-Enhancement",
-      prompt_enhancement: "Prompt Enhancement",
-      image_generation: "Image Generation",
-      svg_generation: "SVG Creation"
-    };
-    
-    const stageIcons: { [key: string]: React.ElementType } = {
-      vector_suitability: CheckCircle2,
-      design_plan: MenuSquare,
-      design_knowledge: Palette,
-      pre_enhancement: Type,
-      prompt_enhancement: Wand2,
-      image_generation: Image || Download,
-      svg_generation: Download
-    };
-    
-    // Get stages in proper order
-    const orderedStages = ["vector_suitability", "design_plan", "design_knowledge", 
-                         "pre_enhancement", "prompt_enhancement", "image_generation", 
-                         "svg_generation"].filter(stage => workflowStages[stage]);
-    
-    return (
-      <div className="p-4 border-t border-slate-200 dark:border-slate-700 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-950/30">
-        <div className="mb-2 flex justify-between items-center">
-          <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300">Workflow Progress</h4>
-          <div className="text-xs font-medium text-blue-600 dark:text-blue-400">{workflowProgress}%</div>
-        </div>
-        
-        <div className="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mb-3">
-          <div 
-            className="h-full bg-gradient-to-r from-blue-500 to-indigo-600" 
-            style={{ width: `${workflowProgress}%` }}
-          />
-        </div>
-        
-        <div className="grid grid-cols-4 gap-2">
-          {orderedStages.map((stage) => {
-            const StageIcon = stageIcons[stage] || MenuSquare;
-            const completed = workflowStages[stage].completed;
-            const skipped = workflowStages[stage].skipped;
-            
-            return (
-              <div 
-                key={stage}
-                className={`flex flex-col items-center p-2 rounded-md text-center ${
-                  completed 
-                    ? skipped 
-                      ? 'bg-slate-100 dark:bg-slate-800/50 text-slate-500 dark:text-slate-400' 
-                      : 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' 
-                    : 'bg-slate-100 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500'
-                }`}
-              >
-                <StageIcon className="h-4 w-4 mb-1" />
-                <span className="text-xs font-medium truncate w-full">{stageNames[stage]}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
+  // Chat Sidebar Component
+  const ChatSidebar = () => {
     return (
       <div 
         className={`absolute top-0 left-0 z-50 h-full w-[280px] bg-white dark:bg-slate-900 shadow-xl border-r border-slate-200 dark:border-slate-700 flex flex-col transition-transform ${
@@ -356,36 +199,192 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     );
   };
 
-  // Update SVG code when messages change
-  useEffect(() => {
-    // Find the last assistant message that might contain SVG code
-    const lastSvgMessage = [...messages].reverse().find(msg => 
-      msg.role === "assistant" && msg.content.includes("```svg")
+  // WorkflowProgress component
+  const WorkflowProgress = () => {
+    // Map stage names to friendly display names and icons
+    const stageInfo = {
+      vector_suitability: {
+        name: "Vector Compatibility Check",
+        icon: Image,
+        description: "Checking if the design is suitable for SVG"
+      },
+      design_plan: {
+        name: "Design Planning",
+        icon: LayoutGrid,
+        description: "Creating structured design approach"
+      },
+      design_knowledge: {
+        name: "Design Knowledge",
+        icon: Sparkles,
+        description: "Gathering design best practices"
+      },
+      pre_enhancement: {
+        name: "Initial Prompt Enhancement",
+        icon: Wand2,
+        description: "Refining design requirements"
+      },
+      prompt_enhancement: {
+        name: "Final Prompt Enhancement",
+        icon: Wand2,
+        description: "Optimizing design specifications"
+      },
+      image_generation: {
+        name: "Design Generation",
+        icon: Image,
+        description: "Creating the initial design"
+      },
+      svg_generation: {
+        name: "SVG Generation",
+        icon: Type,
+        description: "Converting to vector format"
+      }
+    };
+
+    return (
+      <div className="fixed bottom-4 right-4 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-4 max-w-md">
+        <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
+          <Sparkles className="h-4 w-4 text-blue-500" />
+          Design Progress
+        </h3>
+        <div className="space-y-3">
+          {Object.entries(workflowStages).map(([stage, info]) => {
+            const stageDetails = stageInfo[stage as keyof typeof stageInfo];
+            const StageIcon = stageDetails?.icon || Sparkles;
+            
+            return (
+              <div key={stage} className="space-y-1">
+                <div className="flex items-center gap-2">
+                  {info.completed ? (
+                    <CheckCircle2 className="h-4 w-4 text-green-500" />
+                  ) : (
+                    <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+                  )}
+                  <span className="text-sm font-medium">{stageDetails?.name || stage}</span>
+                </div>
+                {info.content && (
+                  <div className="ml-6 text-xs text-slate-500 dark:text-slate-400">
+                    {typeof info.content === 'string' 
+                      ? info.content.split('\n')[0] // Show first line only
+                      : stageDetails?.description
+                    }
+                  </div>
+                )}
+                {!info.completed && (
+                  <div className="ml-6 mt-1">
+                    <div className="h-1 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-blue-500 transition-all duration-300" 
+                        style={{ width: `${workflowProgress}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     );
+  };
+
+  // Load chats from storage
+  useEffect(() => {
+    const loadedChats = chatStorage.getChats();
+    setChats(loadedChats);
+  }, []);
+
+  // Listen for chat updates from other components
+  useEffect(() => {
+    const handleChatsUpdated = () => {
+      setChats(chatStorage.getChats());
+    };
     
-    if (lastSvgMessage) {
-      const newSvgCode = extractSvgCode(lastSvgMessage.content);
-      if (newSvgCode && newSvgCode !== svgCode) {
-        setSvgCode(newSvgCode);
-        setShowQuickActions(false); // Reset view state
-        setShowFullImage(false);
-        setIsSaved(false); // Reset saved state for new SVG
-        
-        // Force a redraw of the preview div
-        const previewTimer = setTimeout(() => {
-          const previewElements = document.querySelectorAll('.ai-svg-preview');
-          previewElements.forEach(el => {
-            // Force a redraw by slight CSS change and restore
-            const currentDisplay = (el as HTMLElement).style.display;
-            (el as HTMLElement).style.display = 'none';
-            void (el as HTMLElement).offsetHeight; // Trigger reflow
-            (el as HTMLElement).style.display = currentDisplay;
-          });
-        }, 100);
-        
-        return () => clearTimeout(previewTimer);
+    window.addEventListener('ai-chats-updated', handleChatsUpdated);
+    return () => {
+      window.removeEventListener('ai-chats-updated', handleChatsUpdated);
+    };
+  }, []);
+  
+  // Load chat when activeChat changes
+  useEffect(() => {
+    if (activeChat) {
+      setMessages(activeChat.messages);
+      setSvgCode(activeChat.svgCode);
+    } else {
+      // Clear messages when starting a new chat
+      setMessages([]);
+      setSvgCode(null);
+    }
+  }, [activeChat]);
+
+  // Save chat when messages or SVG changes
+  useEffect(() => {
+    if (messages && messages.length > 0) {
+      // Don't save empty chats
+      if (activeChat) {
+        // Update existing chat
+        chatStorage.updateChat(activeChat.id, { 
+          messages, 
+          svgCode,
+          title: chatStorage.generateChatTitle(messages)
+        });
+      } else {
+        // Create new chat when we have messages but no activeChat
+        const newChat = chatStorage.saveChat({
+          title: chatStorage.generateChatTitle(messages),
+          messages,
+          svgCode
+        });
+        setActiveChat(newChat);
+        setChats(chatStorage.getChats());
       }
     }
+  }, [messages, svgCode, activeChat]);
+
+  // Format date helper function
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, {
+      month: 'short',
+      day: 'numeric',
+      year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
+    });
+  };
+
+  // Function to create a new chat
+  const createNewChat = () => {
+    setActiveChat(null);
+    setMessages([]);
+    setSvgCode(null);
+    setShowChatSidebar(false);
+    setNewMessage(""); // Clear any message that was being composed
+    setIsSending(false); // Reset message sending state
+    setIsAddingToCanvas(false); // Reset canvas adding state
+    setShowQuickActions(false); // Hide quick actions
+    setShowFullImage(false); // Reset image view state
+    setIsSaving(false); // Reset saving state
+    setIsSaved(false); // Reset saved state
+  };
+  
+  // Function to delete a chat
+  const deleteChat = (chatId: string) => {
+    // If we're deleting the active chat, reset the view
+    if (activeChat?.id === chatId) {
+      setActiveChat(null);
+      setMessages([]);
+      setSvgCode(null);
+    }
+    
+    // Delete the chat from storage
+    chatStorage.deleteChat(chatId);
+    
+    // Update the chats list
+    setChats(chatStorage.getChats());
+  };
+
+  // Update SVG code when messages change
+  useEffect(() => {
+    // Remove this effect as we don't need to process messages for SVG anymore
   }, [messages, svgCode]);
 
   // Scroll to bottom when messages change
@@ -420,26 +419,16 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     try {
       setIsSending(true);
       
-      // Add user message to chat
       const userMessage: Message = {
         role: "user",
         content: messageContent
       };
       
-      // Update messages with the user's message
-      const updatedMessages = [...messages, userMessage];
+      const updatedMessages = messages ? [...messages, userMessage] : [userMessage];
       setMessages(updatedMessages);
       setNewMessage("");
       
-      // Determine if we should request SVG generation
-      const shouldGenerateSvg = messageContent.toLowerCase().includes("create") || 
-                                messageContent.toLowerCase().includes("generate") || 
-                                messageContent.toLowerCase().includes("draw") ||
-                                messageContent.toLowerCase().includes("design") ||
-                                messageContent.toLowerCase().includes("make");
-      
-      // Call the API - use the provided external API
-      const apiUrl = "https://pppp-351z.onrender.com/api/chat-assistant";
+      const apiUrl = "http://127.0.0.1:5001/api/chat-assistant";
       
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -447,59 +436,58 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          messages: updatedMessages,
-          generate_svg: shouldGenerateSvg
+          messages: updatedMessages
         }),
       });
       
       if (!response.ok) {
-        // Check if it's a not suitable for SVG error
-        const errorData = await response.json();
-        
-        if (errorData.error === "Not suitable for SVG" && errorData.guidance) {
-          // Add AI response explaining why the request isn't suitable for SVG
-          const guidanceMessage: Message = {
-            role: "assistant",
-            content: errorData.guidance + " Would you like me to suggest a vector-friendly alternative?"
-          };
-          setMessages([...updatedMessages, guidanceMessage]);
-          
-          // Update workflow stages if available
-          if (errorData.results && errorData.results.stages) {
-            setWorkflowStages(errorData.results.stages);
-            setWorkflowProgress(errorData.results.progress || 10);
-          }
-          
-          setIsSending(false);
-          return;
-        }
-        
         throw new Error(`API request failed with status ${response.status}`);
       }
       
       const data = await response.json();
       
-      // Update messages with the assistant's response
-      setMessages(data.messages);
+      // Add the assistant's response to messages
+      const assistantMessage: Message = {
+        role: "assistant",
+        content: data.response
+      };
+      setMessages([...updatedMessages, assistantMessage]);
       
-      // Check if SVG was generated
-      if (data.svg_code) {
-        setSvgCode(data.svg_code);
-        toast.success("🎨 Design created successfully!");
+      // Get the actual SVG content from the server
+      if (data.svg_path) {
+        try {
+          const svgUrl = `http://127.0.0.1:5001/static/images/${data.svg_path}`;
+          const svgResponse = await fetch(svgUrl);
+          if (svgResponse.ok) {
+            const svgContent = await svgResponse.text();
+            setSvgCode(svgContent);
+            toast.success("🎨 Design created successfully!");
+          } else {
+            console.error("Failed to fetch SVG content");
+          }
+        } catch (error) {
+          console.error("Error fetching SVG:", error);
+        }
       }
       
-      // Update workflow stages if available
-      if (data.stages) {
-        setWorkflowStages(data.stages);
-        setWorkflowProgress(data.progress || 100);
+      // Update workflow progress
+      if (data.progress) {
+        setWorkflowStages(prev => ({
+          ...prev,
+          [data.progress.stage]: {
+            completed: data.progress.progress === 100,
+            content: data.progress.message
+          }
+        }));
+        setWorkflowProgress(data.progress.progress || 100);
       }
       
     } catch (error) {
       console.error("Error communicating with AI Assistant:", error);
       toast.error("Failed to get a response from the AI Assistant");
       
-      // Add a system message indicating the error
-      setMessages([...messages, {
+      const currentMessages = messages || [];
+      setMessages([...currentMessages, {
         role: "system",
         content: "Sorry, I encountered an error while processing your request. Please try again."
       }]);
@@ -529,22 +517,14 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     try {
       setIsAddingToCanvas(true);
       
-      // Process the SVG to ensure it's properly formatted
-      const { svgNormalizer } = await import("@/lib/svg-utils");
-      const { processed } = svgNormalizer.fullyProcessSvg(svgCode);
-      
-      // Create a new project with the SVG data
-      // Using the same structure as AI SVG Generator for compatibility with AI SVG Display
       const projectData = {
-        svg: processed,
+        svg: svgCode,
         prompt: "Generated by AI Assistant",
         enhancedPrompt: ""
       };
       
-      // Import storage from lib/storage to access saveProject
       const { storage } = await import("@/lib/storage");
       
-      // Create a new project with the SVG data
       const project = storage.saveProject({
         name: `AI Assistant Design`,
         json: JSON.stringify(projectData),
@@ -553,13 +533,9 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       });
       
       toast.success("New project created with AI design!");
-      
-      // Close the assistant before navigation to prevent any state issues
       onClose();
       
-      // Add a short delay before navigating to ensure the component unmounts properly
       setTimeout(() => {
-        // Navigate to the editor with the new project
         router.push(`/editor/${project.id}`);
       }, 100);
     } catch (error) {
@@ -602,31 +578,17 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
     try {
       setIsSaving(true);
-
-      // First, make sure we have a clean SVG by running it through our normalizer
-      const { processed, dataUrl } = svgNormalizer.fullyProcessSvg(svgCode);
-
-      // Get a name from the last user message or default name
+      
       const lastUserMessage = [...messages].reverse().find(msg => msg.role === "user");
       const prompt = lastUserMessage?.content || "AI Assistant Design";
       const name = `AI: ${prompt.substring(0, 20)}${prompt.length > 20 ? '...' : ''}`;
 
-      // Test if the SVG can be loaded by Fabric.js before saving
-      const canLoad = await svgTester.testWithFabric(processed);
+      // Create a data URL for the SVG preview
+      const dataUrl = `data:image/svg+xml;base64,${btoa(svgCode)}`;
       
-      if (!canLoad) {
-        console.warn("SVG failed fabric.js loading test, applying additional processing");
-        // Apply more aggressive cleaning if needed
-        const fallbackSvg = svgTester.getFallbackVersion(processed);
-        const { processed: finalProcessed, dataUrl: finalDataUrl } = svgNormalizer.fullyProcessSvg(fallbackSvg);
-        
-        // Save the fallback version
-        svgStorage.saveSVG(finalProcessed, name, finalDataUrl);
-      } else {
-        // Save to storage using the centralized storage utility
-        svgStorage.saveSVG(processed, name, dataUrl);
-      }
-
+      // Save to storage with the actual SVG content
+      svgStorage.saveSVG(svgCode, name, dataUrl);
+      
       setIsSaved(true);
       toast.success('SVG saved to your library!');
     } catch (error) {
@@ -639,28 +601,48 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
   // Function to format message content with syntax highlighting for code blocks
   const formatMessageContent = (content: string) => {
+    if (!content) return null;
+    
     // Split by code blocks
     const parts = content.split(/(```svg[\s\S]*?```)/g);
     
     return parts.map((part, index) => {
       // Check if this part is a code block
       if (part.startsWith('```svg') && part.endsWith('```')) {
-        // Don't show SVG code in chat - we handle it separately
+        // Extract SVG code but don't display it in the message
+        // The SVG will be shown in the preview section
         return null;
       }
       
-      // Regular text, preserve line breaks
+      // Regular text, preserve line breaks and remove any remaining markdown code blocks
       return (
         <span key={index} style={{ whiteSpace: 'pre-wrap' }}>
-          {part}
+          {part.replace(/```[\s\S]*?```/g, '')}
         </span>
       );
-    });
+    }).filter(Boolean); // Remove null values
+  };
+
+  // Simple SVG Preview component that renders the SVG content directly
+  const SvgPreview = () => {
+    if (!svgCode) return null;
+
+    return (
+      <div 
+        className={`${showFullImage ? 'w-[180px] h-[180px]' : 'w-[120px] h-[120px]'} flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex-shrink-0`}
+      >
+        <div 
+          className="w-full h-full"
+          dangerouslySetInnerHTML={{ 
+            __html: svgCode.replace(/<svg/, '<svg width="100%" height="100%" preserveAspectRatio="xMidYMid meet"')
+          }}
+        />
+      </div>
+    );
   };
 
   return (
     <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-      {/* Chat Sidebar */}
       <ChatSidebar />
       
       {/* Modern Header */}
@@ -700,7 +682,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       <ScrollArea className="flex-1 p-6">
         <div ref={chatContainerRef} className="space-y-6">
           {/* Welcome message */}
-          {messages.length === 0 && (
+          {Array.isArray(messages) && messages.length === 0 && (
             <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -745,7 +727,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           )}
 
           {/* Messages */}
-          {messages.filter(m => m.role !== "system").map((message, index) => (
+          {Array.isArray(messages) && messages.filter(m => m.role !== "system").map((message, index) => (
             <div 
               key={index} 
               className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
@@ -820,22 +802,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
             {/* Compact Design Preview */}
             <div className="flex items-center gap-3">
-              <div 
-                className={`${showFullImage ? 'w-[180px] h-[180px]' : 'w-[120px] h-[120px]'} flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex-shrink-0`}
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="8" height="8" fill="#f8fafc"/><rect x="8" y="8" width="8" height="8" fill="#f8fafc"/></svg>')}")`,
-                  backgroundSize: '16px 16px'
-                }}
-              >
-                <div 
-                  className="w-full h-full ai-svg-preview"
-                  key={`svg-preview-${Date.now()}`} // Force re-render when SVG changes
-                  dangerouslySetInnerHTML={{
-                    __html: svgCode.replace(/<svg/, '<svg preserveAspectRatio="xMidYMid meet" width="100%" height="100%" ')
-                  }}
-                />
-              </div>
-
+              <SvgPreview />
+              
               {/* Compact Action Buttons */}
               <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-3 gap-2'}`}>
                 <Button
@@ -989,7 +957,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           </div>
           
           {/* Suggestion Pills */}
-          {messages.length === 0 && !activeChat && (
+          {messages && messages.length === 0 && !activeChat && (
             <div className="flex gap-2 flex-wrap">
               <Button
                 variant="ghost"
@@ -1022,7 +990,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           )}
           
           {/* Chat history indicator */}
-          {messages.length === 0 && activeChat && (
+          {messages && messages.length === 0 && activeChat && (
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
