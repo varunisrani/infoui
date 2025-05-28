@@ -455,7 +455,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       setMessages(updatedMessages);
       setNewMessage("");
       
-      const apiUrl = "http://127.0.0.1:5001/api/chat-assistant";
+      const apiUrl = "https://pppp-351z.onrender.com/api/chat-assistant";
       
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -483,7 +483,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       // Get the actual SVG content from the server
       if (data.svg_path) {
         try {
-          const svgUrl = `http://127.0.0.1:5001/static/images/${data.svg_path}`;
+          const svgUrl = `https://pppp-351z.onrender.com/static/images/${data.svg_path}`;
           const svgResponse = await fetch(svgUrl);
           if (svgResponse.ok) {
             const svgContent = await svgResponse.text();
