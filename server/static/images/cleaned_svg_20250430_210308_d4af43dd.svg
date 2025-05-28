@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1080" height="1080"
+     viewBox="0 0 1080 1080">
+
+  <style type="text/css"><![CDATA[
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Poppins Regular'), local('Poppins-Regular'),
+           url('https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJneGg.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 600;
+      src: local('Poppins Medium'), local('Poppins-Medium'),
+           url('https://fonts.gstatic.com/s/poppins/v15/pxiDyp8kv8JHgFVrLCz7Z1xlEA.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Poppins Bold'), local('Poppins-Bold'),
+           url('https://fonts.gstatic.com/s/poppins/v15/pxiByp8kv8JHgFVrLCz7Z1xlEA.woff2') format('woff2');
+    }
+    svg { font-family: 'Poppins', sans-serif; }
+  ]]></style>
+
+  <rect width="1080" height="1080" fill="#ffffff"/>
+
+  <text x="540" y="180"
+        text-anchor="middle"
+        fill="#0A0E1A"
+        font-size="80"
+        font-weight="700">
+    COMING SOON
+  </text>
+
+  <text x="540" y="260"
+        text-anchor="middle"
+        fill="#0A0E1A"
+        font-size="32"
+        font-weight="400">
+    <tspan x="540" dy="0">Qur wiete inc., ciuptret baqmr tuir dohfiile noce</tspan>
+    <tspan x="540" dy="40">daar nofnfniero. Eus somstonotier, dey notael!</tspan>
+  </text>
+
+  <rect x="440" y="380" width="200" height="30" rx="15"
+        fill="#567AFF" stroke="#0A0E1A" stroke-width="8"/>
+
+  <rect x="440" y="620" width="200" height="30" rx="15"
+        fill="#567AFF" stroke="#0A0E1A" stroke-width="8"/>
+
+  <path d="
+    M 540,410
+    C 500,410 500,520 540,540
+    C 580,520 580,410 540,410
+    M 540,590
+    C 500,590 500,480 540,460
+    C 580,480 580,590 540,590
+  "
+        fill="none"
+        stroke="#0A0E1A"
+        stroke-width="8"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <path d="
+    M 540,440
+    C 520,440 520,500 540,510
+    C 560,500 560,440 540,440 Z
+  "
+        fill="#FFA500"/>
+
+  <path d="
+    M 540,590
+    C 530,590 500,630 540,630
+    C 580,630 550,590 540,590 Z
+  "
+        fill="#FFA500"/>
+
+  <circle cx="650" cy="480" r="8" fill="none" stroke="#0A0E1A" stroke-width="4"/>
+  <line x1="600" y1="350" x2="600" y2="365" stroke="#0A0E1A" stroke-width="6" stroke-linecap="round"/>
+  <line x1="500" y1="450" x2="520" y2="455" stroke="#0A0E1A" stroke-width="6" stroke-linecap="round"/>
+  <line x1="580" y1="680" x2="595" y2="670" stroke="#0A0E1A" stroke-width="6" stroke-linecap="round"/>
+  <line x1="460" y1="600" x2="470" y2="585" stroke="#0A0E1A" stroke-width="6" stroke-linecap="round"/>
+
+  <rect x="360" y="760" width="360" height="100" rx="50"
+        fill="#567AFF"/>
+  <text x="540" y="830"
+        text-anchor="middle"
+        fill="#ffffff"
+        font-size="40"
+        font-weight="600">
+    NOTIFY ME
+  </text>
+</svg>

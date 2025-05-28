@@ -1,0 +1,73 @@
+<svg
+    width="1080" height="1080"
+    viewBox="0 0 1080 1080"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Allura&family=Open+Sans:wght@400&family=Playfair+Display:wght@700&display=swap');
+
+      @font-face {
+        font-family: 'PlayfairDisplay';
+        font-style: normal;
+        font-weight: 700;
+        src: local('Playfair Display Bold'), local('PlayfairDisplay-Bold'),
+             url('https://fonts.gstatic.com/s/playfairdisplay/v29/nuFvD-vYSZviVYUb_rj3ij__anPXDTzYp7CQ.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'Allura';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Allura Regular'), local('Allura-Regular'),
+             url('https://fonts.gstatic.com/s/allura/v14/SLXI_gtnKIiMP8mul-a_6Hzt.woff2') format('woff2');
+      }
+
+      @font-face {
+        font-family: 'OpenSans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Open Sans'), local('OpenSans'),
+             url('https://fonts.gstatic.com/s/opensans/v25/mem8YaGs126MiZpBA-UFVZ0e.woff2') format('woff2');
+      }
+
+      text { user-select: none; }
+    ]]></style>
+  </defs>
+
+  <rect x="0" y="0" width="1080" height="1080" fill="#FFFFFF"/>
+
+  <rect
+    x="40" y="40" width="1000" height="1000"
+    fill="none" stroke="#F5F0E6" stroke-width="2"
+  />
+
+  <text
+    x="540" y="200"
+    text-anchor="middle"
+    font-family="PlayfairDisplay"
+    font-weight="700"
+    font-size="48"
+    fill="#000000"
+  >HAREKRISHNA MALL</text>
+
+  <text
+    x="540" y="520"
+    text-anchor="middle"
+    font-family="Allura"
+    font-size="60"
+    fill="#5B3A29"
+  >
+    <tspan x="540" dy="0">Coming</tspan>
+    <tspan x="540" dy="1.2em">Soon</tspan>
+  </text>
+
+  <text
+    x="540" y="660"
+    text-anchor="middle"
+    font-family="OpenSans"
+    font-size="20"
+    fill="#333333"
+  >www.harekrishnamall.com</text>
+</svg>

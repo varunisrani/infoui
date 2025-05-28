@@ -1,0 +1,62 @@
+<svg
+    width="1080" height="1080"
+    viewBox="0 0 1080 1080"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+  <defs>
+    <style type="text/css"><![CDATA[
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400&family=Roboto:wght@400&display=swap');
+
+      @font-face {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 700;
+        src: local('Montserrat Bold'), local('Montserrat-Bold'),
+             url('fonts/Montserrat-Bold.woff2') format('woff2'),
+             url('fonts/Montserrat-Bold.woff') format('woff');
+      }
+      @font-face {
+        font-family: 'Open Sans';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Open Sans'), local('OpenSans-Regular'),
+             url('fonts/OpenSans-Regular.woff2') format('woff2'),
+             url('fonts/OpenSans-Regular.woff') format('woff');
+      }
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Roboto'), local('Roboto-Regular'),
+             url('fonts/Roboto-Regular.woff2') format('woff2'),
+             url('fonts/Roboto-Regular.woff') format('woff');
+      }
+
+      text {
+        text-anchor: middle;
+        dominant-baseline: middle;
+      }
+
+      .headline {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 60px;
+        fill: #FFFFFF;
+        filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+      }
+
+      .url {
+        font-family: 'Open Sans', 'Roboto', sans-serif;
+        font-size: 20px;
+        fill: #FFFFFF;
+      }
+    ]]></style>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#D32F2F" />
+
+  <text x="50%" y="45%" class="headline">COMING</text>
+  <text x="50%" y="55%" class="headline">SOON</text>
+
+  <text x="50%" y="70%" class="url">www.example.com</text>
+</svg>

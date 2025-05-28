@@ -356,6 +356,36 @@ export const Editor = ({ initialData }: EditorProps) => {
     };
   }, [editor]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!editor) return;
+
+      // Handle keyboard shortcuts
+      if (e.metaKey || e.ctrlKey) {
+        if (e.key === 'c') {
+          e.preventDefault();
+          editor.onCopy();
+        } else if (e.key === 'v') {
+          e.preventDefault();
+          editor.onPaste();
+        } else if (e.key === 'z') {
+          e.preventDefault();
+          if (e.shiftKey) {
+            editor.onRedo();
+          } else {
+            editor.onUndo();
+          }
+        } else if (e.shiftKey && e.key.toLowerCase() === 'u') {
+          e.preventDefault();
+          editor.ungroupSVG();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [editor]);
+
   return (
     <div className="h-full flex flex-col">
       <Navbar

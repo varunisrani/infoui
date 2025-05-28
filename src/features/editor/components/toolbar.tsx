@@ -708,7 +708,11 @@ export const Toolbar = ({
       </div>
       {isGroup && (
         <div className="flex items-center h-full justify-center">
-          <Hint label="Ungroup SVG (Preserves Positions)" side="bottom" sideOffset={5}>
+          <Hint 
+            label="Ungroup SVG (Ctrl/⌘ + Shift + U)" 
+            side="bottom" 
+            sideOffset={5}
+          >
             <Button
               onClick={() => {
                 const count = editor?.ungroupSVG();
@@ -717,9 +721,10 @@ export const Toolbar = ({
                 }
               }}
               size="icon"
-              variant="ghost"
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary/10"
             >
-              <Ungroup className="size-4" />
+              <Ungroup className="size-5" />
             </Button>
           </Hint>
         </div>
