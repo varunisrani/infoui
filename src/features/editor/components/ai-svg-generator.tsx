@@ -139,10 +139,10 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
       setSvgLoadingStatus("loading");
       setIsSaved(false);
 
-      // Use local server when running locally, otherwise use an absolute URL to the API
-      const apiUrl = location.hostname === 'localhost' 
+      // Use local server when running locally, otherwise use relative API path
+      const apiUrl = typeof window !== 'undefined' && location.hostname === 'localhost' 
         ? "http://localhost:5001/api/generate-svg" 
-        : "https://pppp-351z.onrender.com/api/chat-assistant";
+        : "/api/generate-svg";
       
       const response = await fetch(apiUrl, {
         method: 'POST',
