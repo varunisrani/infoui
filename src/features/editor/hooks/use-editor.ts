@@ -1,25 +1,9 @@
 import { fabric } from "fabric";
 import { useCallback, useState, useMemo, useRef } from "react";
 import { toast } from "sonner";
-import { parseSVG, makeAbsolute } from 'svg-path-parser';
+import { parseSVG, makeAbsolute, PathCommand } from 'svg-path-parser';
 
-// Define our own SvgPathCommand type since the library doesn't export it correctly
-type SvgPathCommand = {
-  code: string;
-  command?: string;
-  x?: number;
-  y?: number;
-  x1?: number;
-  y1?: number;
-  x2?: number;
-  y2?: number;
-  rx?: number;
-  ry?: number;
-  xAxisRotation?: number;
-  largeArc?: boolean;
-  sweep?: boolean;
-  relative?: boolean; // Added for compatibility with makeAbsolute
-};
+// We don't need to define our own SvgPathCommand type anymore since we installed the types package
 
 import { 
   Editor, 
@@ -1005,7 +989,7 @@ const buildEditor = ({
           // Parse path data with a slight delay to allow UI to update
           setTimeout(() => {
             try {
-              let parsedCommands: SvgPathCommand[];
+              let parsedCommands: PathCommand[];
               
               // Optimize parsing for very large paths by chunking the path into subpaths at 'M' commands
               if (typeof pathDataString === 'string' && pathDataString.length > 30000) {
@@ -1028,7 +1012,6 @@ const buildEditor = ({
                   try {
                     const segmentCommands = parseSVG(segment);
                     if (segmentCommands && segmentCommands.length > 0) {
-                      // @ts-ignore - makeAbsolute has compatibility issues with our type definition
                       makeAbsolute(segmentCommands);
                       parsedCommands.push(...segmentCommands);
                     }
@@ -1044,30 +1027,29 @@ const buildEditor = ({
               } else {
                 // For smaller paths, parse normally
                 parsedCommands = parseSVG(pathDataString);
-                // @ts-ignore - makeAbsolute has compatibility issues with our type definition
                 makeAbsolute(parsedCommands); // Modifies in place
               }
               
               progressIndicator.innerText = 'Creating new paths...';
               
-              if (!parsedCommands || parsedCommands.length === 0) {
+          if (!parsedCommands || parsedCommands.length === 0) {
                 document.body.removeChild(progressIndicator);
-                toast.info("Path data parsed into zero commands. Cannot ungroup.");
-                undo();
-                return 0;
-              }
+            toast.info("Path data parsed into zero commands. Cannot ungroup.");
+            undo();
+            return 0;
+          }
 
-              const newPaths: fabric.Path[] = [];
-              let currentSubPathD = ""; // Stores the 'd' string for the current sub-path being built
+          const newPaths: fabric.Path[] = [];
+          let currentSubPathD = ""; // Stores the 'd' string for the current sub-path being built
 
-              const commonPathProps = {
-                fill: pathObject.fill,
-                stroke: pathObject.stroke,
-                strokeWidth: pathObject.strokeWidth,
-                opacity: pathObject.opacity,
-                shadow: pathObject.shadow ? new fabric.Shadow(pathObject.shadow as fabric.IShadowOptions) : undefined,
-                visible: pathObject.visible,
-              };
+          const commonPathProps = {
+            fill: pathObject.fill,
+            stroke: pathObject.stroke,
+            strokeWidth: pathObject.strokeWidth,
+            opacity: pathObject.opacity,
+            shadow: pathObject.shadow ? new fabric.Shadow(pathObject.shadow as fabric.IShadowOptions) : undefined,
+            visible: pathObject.visible,
+          };
 
               // Batch process commands for better performance
               const batchSize = parsedCommands.length > 2000 ? 200 : 500;
@@ -1079,58 +1061,58 @@ const buildEditor = ({
                 
                 for (let i = startIdx; i < endIdx; i++) {
                   const command = parsedCommands[i];
-                  const codeUpper = command.code.toUpperCase();
+            const codeUpper = command.code.toUpperCase();
 
-                  if (codeUpper === 'M' && currentSubPathD.trim() !== "") {
-                    try {
-                      const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
-                      newPaths.push(p);
-                    } catch (e) {
-                      console.warn("Failed to create fabric.Path from sub-path segment:", currentSubPathD.trim(), e);
-                    }
-                    currentSubPathD = ""; 
-                  }
+            if (codeUpper === 'M' && currentSubPathD.trim() !== "") {
+              try {
+                const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
+                newPaths.push(p);
+              } catch (e) {
+                console.warn("Failed to create fabric.Path from sub-path segment:", currentSubPathD.trim(), e);
+              }
+              currentSubPathD = ""; 
+            }
 
-                  let commandStringSegment = command.code;
-                  switch (codeUpper) {
-                      case 'M': case 'L': case 'T':
-                          commandStringSegment += ` ${command.x} ${command.y}`;
-                          break;
-                      case 'H':
-                          commandStringSegment += ` ${command.x}`;
-                          break;
-                      case 'V':
-                          commandStringSegment += ` ${command.y}`;
-                          break;
-                      case 'C':
-                          commandStringSegment += ` ${command.x1} ${command.y1} ${command.x2} ${command.y2} ${command.x} ${command.y}`;
-                          break;
-                      case 'S': case 'Q':
-                          commandStringSegment += ` ${command.x1} ${command.y1} ${command.x} ${command.y}`;
-                          break;
-                      case 'A':
-                          commandStringSegment += ` ${command.rx} ${command.ry} ${command.xAxisRotation} ${command.largeArc ? 1 : 0} ${command.sweep ? 1 : 0} ${command.x} ${command.y}`;
-                          break;
-                      case 'Z':
-                          break; // Z has no parameters, command.code itself is sufficient.
-                      default:
-                          console.warn("Unknown SVG path command:", command.code);
-                  }
-                  currentSubPathD += commandStringSegment + " ";
+            let commandStringSegment = command.code;
+            switch (codeUpper) {
+                case 'M': case 'L': case 'T':
+                    commandStringSegment += ` ${command.x} ${command.y}`;
+                    break;
+                case 'H':
+                    commandStringSegment += ` ${command.x}`;
+                    break;
+                case 'V':
+                    commandStringSegment += ` ${command.y}`;
+                    break;
+                case 'C':
+                    commandStringSegment += ` ${command.x1} ${command.y1} ${command.x2} ${command.y2} ${command.x} ${command.y}`;
+                    break;
+                case 'S': case 'Q':
+                    commandStringSegment += ` ${command.x1} ${command.y1} ${command.x} ${command.y}`;
+                    break;
+                case 'A':
+                    commandStringSegment += ` ${command.rx} ${command.ry} ${command.xAxisRotation} ${command.largeArc ? 1 : 0} ${command.sweep ? 1 : 0} ${command.x} ${command.y}`;
+                    break;
+                case 'Z':
+                    break; // Z has no parameters, command.code itself is sufficient.
+                default:
+                    console.warn("Unknown SVG path command:", command.code);
+            }
+            currentSubPathD += commandStringSegment + " ";
 
-                  if (codeUpper === 'Z') {
-                    if (currentSubPathD.trim() !== "") {
-                      try {
-                        const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
-                        newPaths.push(p);
-                      } catch (e) {
-                        console.warn("Failed to create fabric.Path from Z-closed sub-path:", currentSubPathD.trim(), e);
-                      }
-                    }
-                    currentSubPathD = ""; 
-                  }
+            if (codeUpper === 'Z') {
+              if (currentSubPathD.trim() !== "") {
+                try {
+                  const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
+                  newPaths.push(p);
+                } catch (e) {
+                  console.warn("Failed to create fabric.Path from Z-closed sub-path:", currentSubPathD.trim(), e);
                 }
-                
+              }
+              currentSubPathD = ""; 
+            }
+          }
+
                 // Update progress
                 const progress = Math.round((Math.min(endIdx, totalCommands) / totalCommands) * 100);
                 progressIndicator.innerText = `Processing path commands: ${progress}%`;
@@ -1148,15 +1130,15 @@ const buildEditor = ({
                 } else {
                   // Done processing all commands
                   // Handle any remaining path data
-                  if (currentSubPathD.trim() !== "") {
-                    try {
-                      const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
-                      newPaths.push(p);
-                    } catch (e) {
-                      console.warn("Failed to create fabric.Path from final sub-path segment:", currentSubPathD.trim(), e);
-                    }
-                  }
-                  
+          if (currentSubPathD.trim() !== "") {
+            try {
+              const p = new fabric.Path(currentSubPathD.trim(), { ...commonPathProps });
+              newPaths.push(p);
+            } catch (e) {
+              console.warn("Failed to create fabric.Path from final sub-path segment:", currentSubPathD.trim(), e);
+            }
+          }
+          
                   // For extremely large path sets, throttle memory by limiting paths
                   if (newPaths.length > 5000) {
                     progressIndicator.innerText = 'Too many paths detected. Optimizing...';
@@ -1183,84 +1165,84 @@ const buildEditor = ({
               
               // Function to finalize path processing
               const finalizePaths = () => {
-                // Check if ungrouping resulted in meaningful separation
-                let effectivelyUngrouped = newPaths.length > 1;
-                if (newPaths.length === 1 && pathObject.path) {
-                   // If only one path, ensure it's different from original or that original had multiple "M"s
-                   // This check is simplified: if only one path results, assume no effective ungroup unless original was complex
-                   const originalPathStringForComparison = typeof (pathObject as any).toPathData === 'function' 
-                      ? (pathObject as any).toPathData() 
-                      : typeof pathObject.path === 'string' 
-                          ? pathObject.path 
-                          : (fabric.util as any).pathSegmentsToString(pathObject.path as unknown as Array<[string, ...number[]]>);
-                   
-                   let newPathDString = '';
-                   const newPathObjectPath = newPaths[0].path;
-                   if (typeof (newPaths[0] as any).toPathData === 'function') {
-                      newPathDString = (newPaths[0] as any).toPathData();
-                   } else if (typeof newPathObjectPath === 'string') {
-                      newPathDString = newPathObjectPath;
-                   } else if (Array.isArray(newPathObjectPath)) {
-                      newPathDString = (fabric.util as any).pathSegmentsToString(newPathObjectPath as unknown as Array<[string, ...number[]]>);
-                   }
+          // Check if ungrouping resulted in meaningful separation
+          let effectivelyUngrouped = newPaths.length > 1;
+          if (newPaths.length === 1 && pathObject.path) {
+             // If only one path, ensure it's different from original or that original had multiple "M"s
+             // This check is simplified: if only one path results, assume no effective ungroup unless original was complex
+             const originalPathStringForComparison = typeof (pathObject as any).toPathData === 'function' 
+                ? (pathObject as any).toPathData() 
+                : typeof pathObject.path === 'string' 
+                    ? pathObject.path 
+                    : (fabric.util as any).pathSegmentsToString(pathObject.path as unknown as Array<[string, ...number[]]>);
+             
+             let newPathDString = '';
+             const newPathObjectPath = newPaths[0].path;
+             if (typeof (newPaths[0] as any).toPathData === 'function') {
+                newPathDString = (newPaths[0] as any).toPathData();
+             } else if (typeof newPathObjectPath === 'string') {
+                newPathDString = newPathObjectPath;
+             } else if (Array.isArray(newPathObjectPath)) {
+                newPathDString = (fabric.util as any).pathSegmentsToString(newPathObjectPath as unknown as Array<[string, ...number[]]>);
+             }
 
-                   if (originalPathStringForComparison === newPathDString && parsedCommands.filter(cmd => cmd.code.toUpperCase() === 'M').length <=1) {
-                       effectivelyUngrouped = false;
-                   }
-                } else if (newPaths.length === 0) {
-                  effectivelyUngrouped = false;
-                }
+             if (originalPathStringForComparison === newPathDString && parsedCommands.filter(cmd => cmd.code.toUpperCase() === 'M').length <=1) {
+                 effectivelyUngrouped = false;
+             }
+          } else if (newPaths.length === 0) {
+            effectivelyUngrouped = false;
+          }
 
-                if (!effectivelyUngrouped) {
+          if (!effectivelyUngrouped) {
                   document.body.removeChild(progressIndicator);
-                  toast.info("Path does not contain multiple distinct shapes to ungroup or is a single shape.");
-                  undo(); // Reverts the canvas.remove(pathObject) and the save()
-                  return 0;
-                }
+            toast.info("Path does not contain multiple distinct shapes to ungroup or is a single shape.");
+            undo(); // Reverts the canvas.remove(pathObject) and the save()
+            return 0;
+          }
 
                 progressIndicator.innerText = 'Adding paths to canvas...';
-                canvas.remove(pathObject); 
+          canvas.remove(pathObject); 
 
                 // Process in batches if there are many paths
                 if (newPaths.length > 300) {
                   processBatchedPaths();
                 } else {
                   // Original code for smaller path sets
-                  const finalItemsToSelect: fabric.Object[] = [];
+          const finalItemsToSelect: fabric.Object[] = [];
 
-                  const tempGroup = new fabric.Group(newPaths, {
-                    left: pathObject.left,
-                    top: pathObject.top,
-                    angle: pathObject.angle,
-                    scaleX: pathObject.scaleX,
-                    scaleY: pathObject.scaleY,
-                    originX: pathObject.originX,
-                    originY: pathObject.originY,
-                  });
-                  
-                  // @ts-ignore
-                  const restoredItems = tempGroup.destroy().getObjects() as fabric.Object[]; 
+          const tempGroup = new fabric.Group(newPaths, {
+            left: pathObject.left,
+            top: pathObject.top,
+            angle: pathObject.angle,
+            scaleX: pathObject.scaleX,
+            scaleY: pathObject.scaleY,
+            originX: pathObject.originX,
+            originY: pathObject.originY,
+          });
+          
+          // @ts-ignore
+          const restoredItems = tempGroup.destroy().getObjects() as fabric.Object[]; 
 
-                  restoredItems.forEach((item: fabric.Object) => {
-                    item.set({
-                      selectable: true,
-                      hasControls: true,
-                      evented: true,
-                    });
-                    canvas.add(item);
-                    finalItemsToSelect.push(item);
-                  });
+          restoredItems.forEach((item: fabric.Object) => {
+            item.set({
+              selectable: true,
+              hasControls: true,
+              evented: true,
+            });
+            canvas.add(item);
+            finalItemsToSelect.push(item);
+          });
                   
                   document.body.removeChild(progressIndicator);
-                  
-                  canvas.discardActiveObject(); // Deselect the original path
-                  if(finalItemsToSelect.length > 0){
-                    const sel = new fabric.ActiveSelection(finalItemsToSelect, { canvas: canvas });
-                    canvas.setActiveObject(sel);
-                  }
-                  canvas.renderAll();
-                  toast.success(`${finalItemsToSelect.length} elements created from the path.`);
-                  return finalItemsToSelect.length;
+          
+          canvas.discardActiveObject(); // Deselect the original path
+          if(finalItemsToSelect.length > 0){
+            const sel = new fabric.ActiveSelection(finalItemsToSelect, { canvas: canvas });
+            canvas.setActiveObject(sel);
+          }
+          canvas.renderAll();
+          toast.success(`${finalItemsToSelect.length} elements created from the path.`);
+          return finalItemsToSelect.length;
                 }
               };
               
@@ -1296,8 +1278,8 @@ const buildEditor = ({
                     
                     restoredItems.forEach((item: fabric.Object) => {
                       item.set({
-                        selectable: true,
-                        hasControls: true,
+              selectable: true,
+              hasControls: true,
                         evented: true,
                       });
                       canvas.add(item);
@@ -1338,9 +1320,9 @@ const buildEditor = ({
                       }
                       
                       const sel = new fabric.ActiveSelection(itemsToSelect, { canvas: canvas });
-                      canvas.setActiveObject(sel);
-                      canvas.renderAll();
-                      
+          canvas.setActiveObject(sel);
+          canvas.renderAll();
+
                       toast.success(`${finalItemsToSelect.length} elements created from the path.`);
                     }
                   }
@@ -1355,7 +1337,7 @@ const buildEditor = ({
               // Start processing commands
               processCommandBatch(0);
               
-            } catch (err) {
+        } catch (err) {
               document.body.removeChild(progressIndicator);
               console.error("Error parsing path:", err);
               toast.error("Failed to parse path data. It might be malformed.");
@@ -1369,7 +1351,7 @@ const buildEditor = ({
         } catch (err) {
           console.error("Error ungrouping path:", err);
           toast.error("Failed to ungroup path. It might be too complex or malformed.");
-          undo(); 
+          undo();
           return 0;
         }
       }
