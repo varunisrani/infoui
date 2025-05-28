@@ -471,7 +471,10 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       setMessages(updatedMessages);
       setNewMessage("");
       
-      const apiUrl = "http://127.0.0.1:5001/api/chat-assistant";
+      // Use local server when running locally, otherwise use relative API path
+      const apiUrl = typeof window !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+        ? "http://127.0.0.1:5001/api/chat-assistant"
+        : "/api/chat-assistant";
       
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -499,7 +502,11 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       // Get the actual SVG content from the server
       if (data.svg_path) {
         try {
-          const svgUrl = `http://127.0.0.1:5001/static/images/${data.svg_path}`;
+          // Use local server when running locally, otherwise use relative path
+          const baseUrl = typeof window !== 'undefined' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+            ? "http://127.0.0.1:5001"
+            : "";
+          const svgUrl = `${baseUrl}/static/images/${data.svg_path}`;
           const svgResponse = await fetch(svgUrl);
           if (svgResponse.ok) {
             const svgContent = await svgResponse.text();
