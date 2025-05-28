@@ -1,0 +1,21 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1080" fill="#fff"/>
+  <rect x="25" y="0" width="10" height="1080" fill="#09245B"/>
+  <rect x="1045" y="0" width="10" height="1080" fill="#09245B"/>
+  <g>
+    <text x="540" y="160" text-anchor="middle" font-family="Times New Roman, Times, serif" font-size="68" fill="#232425">One-Plan Company</text>
+    <rect x="340" y="200" width="400" height="0" />
+    <rect x="370" y="225" width="340" height="4" rx="2" fill="#09245B"/>
+  </g>
+  <g>
+    <text x="540" y="370" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="110" font-weight="bold" fill="#09245B" letter-spacing="2">COMING</text>
+    <text x="540" y="470" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="110" font-weight="bold" fill="#09245B" letter-spacing="2">SOON</text>
+  </g>
+  <g>
+    <text x="540" y="550" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" fill="#232425" letter-spacing="0.01em">Our desities sore bic autinvroirtsn</text>
+    <text x="540" y="590" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" fill="#232425" letter-spacing="0.01em">With toftste toreinnvoy wonplie</text>
+  </g>
+  <g>
+    <text x="540" y="680" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="38" font-style="italic" fill="#254286">www.example.com</text>
+  </g>
+</svg>

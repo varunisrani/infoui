@@ -333,12 +333,13 @@ const buildEditor = ({
     },
     ungroupSVG: () => {
       const activeObject = canvas.getActiveObject();
-
+      
       if (!activeObject) {
         toast.info("No object selected.");
         return 0;
       }
 
+      // Handle path objects
       if (activeObject.type === 'path' && (activeObject as fabric.Path).path) {
         const pathObject = activeObject as fabric.Path;
         let pathDataString = '';
@@ -523,10 +524,12 @@ const buildEditor = ({
           undo(); 
           return 0;
         }
+      }
 
-      } else if (activeObject && activeObject.type === 'group' && activeObject instanceof fabric.Group) {
+      // Handle groups
+      if (activeObject.type === 'group') {
         const group = activeObject as fabric.Group;
-        const items = group.getObjects().map(o => o); 
+        const items = group.getObjects().map(o => o);
 
         if (items.length === 0) {
           toast.info("Group is empty.");
@@ -534,21 +537,90 @@ const buildEditor = ({
         }
 
         try {
+          // Save state for undo
           save();
-          // @ts-ignore 
-          group._restoreObjectsState(); 
+
+          // Get group's transformation matrix
+          const groupMatrix = group.calcTransformMatrix();
+          const groupProps = {
+            left: group.left || 0,
+            top: group.top || 0,
+            scaleX: group.scaleX || 1,
+            scaleY: group.scaleY || 1,
+            angle: group.angle || 0,
+            flipX: group.flipX || false,
+            flipY: group.flipY || false,
+            opacity: group.opacity || 1,
+            originX: group.originX || 'left',
+            originY: group.originY || 'top'
+          };
+
+          // Restore objects' state and remove group
+          // @ts-ignore - internal fabric.js method
+          group._restoreObjectsState();
           canvas.remove(group);
-          
+
+          // Process each item
           items.forEach((item: fabric.Object) => {
-            item.set({
+            // Calculate absolute position
+            const newPoint = fabric.util.transformPoint(
+              new fabric.Point(item.left || 0, item.top || 0),
+              groupMatrix
+            );
+
+            // Set common properties
+            const commonProps = {
+              left: newPoint.x,
+              top: newPoint.y,
+              angle: (groupProps.angle + (item.angle || 0)) % 360,
+              scaleX: (item.scaleX || 1) * groupProps.scaleX,
+              scaleY: (item.scaleY || 1) * groupProps.scaleY,
+              flipX: groupProps.flipX !== item.flipX,
+              flipY: groupProps.flipY !== item.flipY,
+              opacity: (item.opacity || 1) * groupProps.opacity,
+              originX: item.originX || 'left',
+              originY: item.originY || 'top',
               selectable: true,
               hasControls: true,
-              evented: true,
-            });
-            canvas.add(item); 
+              evented: true
+            };
+
+            // Handle specific object types
+            if (item.type === 'text' || item.type === 'textbox') {
+              // Preserve text properties
+              Object.assign(commonProps, {
+                fontSize: (item as fabric.Text).fontSize,
+                fontFamily: (item as fabric.Text).fontFamily,
+                fontWeight: (item as fabric.Text).fontWeight,
+                fontStyle: (item as fabric.Text).fontStyle,
+                textAlign: (item as fabric.Text).textAlign,
+                underline: (item as fabric.Text).underline,
+                linethrough: (item as fabric.Text).linethrough,
+                editable: true
+              });
+            } else if (item.type === 'path') {
+              // Preserve path properties
+              Object.assign(commonProps, {
+                path: (item as fabric.Path).path,
+                fill: item.fill,
+                stroke: item.stroke,
+                strokeWidth: item.strokeWidth
+              });
+            } else if (item.type === 'image') {
+              // Preserve image properties
+              Object.assign(commonProps, {
+                crossOrigin: 'anonymous',
+                filters: (item as fabric.Image).filters
+              });
+            }
+
+            // Apply all properties
+            item.set(commonProps);
+            canvas.add(item);
+            item.setCoords();
           });
-          
-          // Select the ungrouped items
+
+          // Select all ungrouped items
           const sel = new fabric.ActiveSelection(items, { canvas: canvas });
           canvas.setActiveObject(sel);
           canvas.renderAll();
@@ -556,8 +628,8 @@ const buildEditor = ({
           toast.success(`${items.length} ${items.length === 1 ? "item has" : "items have"} been ungrouped.`);
           return items.length;
         } catch (err) {
-          console.error("Error ungrouping group:", err);
-          toast.error("Failed to ungroup group.");
+          console.error("Error ungrouping:", err);
+          toast.error("Failed to ungroup elements.");
           undo();
           return 0;
         }

@@ -28,7 +28,12 @@ import {
   Trash,
   X,
   LayoutGrid,
-  Image
+  Image,
+  ClipboardIcon,
+  DownloadIcon,
+  CheckIcon,
+  SendHorizontalIcon,
+  ArrowUpDown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -38,6 +43,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Editor } from "@/features/editor/types";
 import { svgNormalizer, svgCanvasUtils, svgStorage, svgTester } from "@/lib/svg-utils";
 import { chatStorage } from "@/lib/chat-storage";
+import type { LucideIcon } from 'lucide-react';
 
 export interface Message {
   role: "system" | "user" | "assistant";
@@ -57,6 +63,12 @@ interface WorkflowStage {
   content?: string;
 }
 
+interface QuickAction {
+  label: string;
+  icon: LucideIcon;
+  prompt: string;
+}
+
 interface AiAssistantProps {
   editor: Editor | undefined;
   onClose: () => void;
@@ -72,6 +84,25 @@ const quickActions = [
   { icon: Wand2, label: "Add Effects", prompt: "Add some visual effects or decorative elements" },
   { icon: LayoutGrid, label: "Rebalance", prompt: "Rebalance the layout for better visual harmony" },
 ];
+
+// Add global styles for SVG preview
+const styles = `
+  .ai-svg-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+  }
+  
+  .ai-svg-preview svg {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+`;
 
 export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   // Get the router at the top level of the component
@@ -94,9 +125,21 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const [activeChat, setActiveChat] = useState<Chat | null>(null);
   const [chats, setChats] = useState<Chat[]>([]);
   const [showChatSidebar, setShowChatSidebar] = useState(false);
+  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
+  const [messageInput, setMessageInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [quickActions] = useState<QuickAction[]>([
+    { label: "Make it bigger", icon: Maximize, prompt: "Make the design bigger" },
+    { label: "Make it smaller", icon: Minimize, prompt: "Make the design smaller" },
+    { label: "Change colors", icon: Palette, prompt: "Change the color scheme" },
+    { label: "Add text", icon: Type, prompt: "Add text to the design" },
+    { label: "Simplify", icon: RefreshCw, prompt: "Simplify the design" },
+    { label: "More details", icon: Wand2, prompt: "Add more details to the design" },
+  ]);
   
   // References
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
 
   // Chat Sidebar Component
   const ChatSidebar = () => {
@@ -505,9 +548,8 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   };
 
   // Handle quick action clicks
-  const handleQuickAction = (action: typeof quickActions[0]) => {
+  const handleQuickAction = (action: QuickAction) => {
     sendMessage(action.prompt);
-    setShowQuickActions(false);
   };
 
   // Use SVG in editor (redirect to editor with this SVG)
@@ -625,21 +667,80 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
   // Simple SVG Preview component that renders the SVG content directly
   const SvgPreview = () => {
-    if (!svgCode) return null;
+    const currentChat = chats.find((chat) => chat.id === selectedChatId);
+    const svgCode = currentChat?.svgCode;
+
+    if (!svgCode) {
+      return (
+        <div className="flex items-center justify-center h-full bg-slate-50 dark:bg-slate-900/50 rounded-lg">
+          <div className="text-center text-slate-500 dark:text-slate-400">
+            <Image className="h-12 w-12 mx-auto mb-2 opacity-20" />
+            <p className="text-sm">No SVG generated yet</p>
+          </div>
+        </div>
+      );
+    }
 
     return (
-      <div 
-        className={`${showFullImage ? 'w-[180px] h-[180px]' : 'w-[120px] h-[120px]'} flex items-center justify-center bg-white rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex-shrink-0`}
-      >
-        <div 
-          className="w-full h-full"
-          dangerouslySetInnerHTML={{ 
-            __html: svgCode.replace(/<svg/, '<svg width="100%" height="100%" preserveAspectRatio="xMidYMid meet"')
-          }}
-        />
+      <div className="relative flex flex-col h-full">
+        {/* Controls */}
+        <div className="absolute top-4 right-4 flex gap-2 z-10">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={copySvgCode}
+            className="bg-white/50 backdrop-blur-sm hover:bg-white/80"
+          >
+            <ClipboardIcon className="w-4 h-4 mr-2" />
+            Copy SVG
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={downloadSvg}
+            className="bg-white/50 backdrop-blur-sm hover:bg-white/80"
+          >
+            <DownloadIcon className="w-4 h-4 mr-2" />
+            Download
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={useThisSvg}
+            className="bg-white/50 backdrop-blur-sm hover:bg-white/80"
+          >
+            <CheckIcon className="w-4 h-4 mr-2" />
+            Use This
+          </Button>
+        </div>
+
+        {/* SVG Preview */}
+        <div className="flex-1 bg-white rounded-lg shadow-sm overflow-hidden">
+          <div className="w-full h-full flex items-center justify-center bg-[#f8f9fa] dark:bg-slate-900/50">
+            <div 
+              className="ai-svg-preview max-w-full max-h-full p-8"
+              dangerouslySetInnerHTML={{
+                __html: svgCode.replace(
+                  /<svg/,
+                  '<svg preserveAspectRatio="xMidYMid meet" class="w-full h-full" '
+                )
+              }}
+            />
+          </div>
+        </div>
       </div>
     );
   };
+
+  // Add styles to head
+  useEffect(() => {
+    const styleElement = document.createElement('style');
+    styleElement.textContent = styles;
+    document.head.appendChild(styleElement);
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
@@ -787,142 +888,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
       {/* SVG Preview and actions */}
       {svgCode && (
-        <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
-          <div className="space-y-3">
-            {/* Preview Title */}
-            <div className="flex items-center justify-between">
-              <h4 className="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2 text-sm">
-                <Check className="h-3 w-3 text-green-500" />
-                Design Ready
-              </h4>
-              <Badge variant="outline" className="text-xs">
-                {showFullImage ? '180×180px' : '120×120px'} Preview
-              </Badge>
-            </div>
-
-            {/* Compact Design Preview */}
-            <div className="flex items-center gap-3">
-              <SvgPreview />
-              
-              {/* Compact Action Buttons */}
-              <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-3 gap-2'}`}>
-                <Button
-                  onClick={useThisSvg}
-                  disabled={isAddingToCanvas}
-                  size="sm"
-                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 h-8"
-                >
-                  {isAddingToCanvas ? (
-                    <Loader2 className="h-3 w-3 animate-spin" />
-                  ) : (
-                    <>
-                      <ExternalLink className="h-3 w-3 mr-1" />
-                      Use this SVG
-                    </>
-                  )}
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  onClick={saveToLibrary}
-                  disabled={isSaving || isSaved}
-                  size="sm"
-                  className="hover:bg-green-50 hover:border-green-300 dark:hover:bg-green-950 h-8"
-                >
-                  {isSaving ? (
-                    <Loader2 className="h-3 w-3 animate-spin mr-1" />
-                  ) : isSaved ? (
-                    <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
-                  ) : (
-                    <Save className="h-3 w-3 mr-1" />
-                  )}
-                  {isSaving ? 'Saving...' : isSaved ? 'Saved' : 'Library'}
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  onClick={() => sendMessage("Improve this design")}
-                  size="sm"
-                  className="hover:bg-amber-50 hover:border-amber-300 dark:hover:bg-amber-950 h-8"
-                >
-                  <RefreshCw className="h-3 w-3 mr-1" />
-                  Improve Design
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  onClick={() => setShowFullImage(!showFullImage)}
-                  size="sm"
-                  className="hover:bg-indigo-50 hover:border-indigo-300 dark:hover:bg-indigo-950 h-8"
-                >
-                  {showFullImage ? (
-                    <>
-                      <Minimize className="h-3 w-3 mr-1" />
-                      Compact
-                    </>
-                  ) : (
-                    <>
-                      <Expand className="h-3 w-3 mr-1" />
-                      Full View
-                    </>
-                  )}
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  onClick={() => setShowQuickActions(!showQuickActions)}
-                  size="sm"
-                  className="hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-blue-950 h-8"
-                >
-                  <Wand2 className="h-3 w-3 mr-1" />
-                  {showQuickActions ? 'Less' : 'Edit'}
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  onClick={copySvgCode}
-                  size="sm"
-                  className="hover:bg-purple-50 hover:border-purple-300 dark:hover:bg-purple-950 h-8"
-                >
-                  <Copy className="h-3 w-3 mr-1" />
-                  Copy
-                </Button>
-                
-                <Button
-                  variant="outline"
-                  onClick={downloadSvg}
-                  size="sm"
-                  className="hover:bg-amber-50 hover:border-amber-300 dark:hover:bg-amber-950 h-8"
-                >
-                  <Download className="h-3 w-3 mr-1" />
-                  Save
-                </Button>
-              </div>
-            </div>
-
-            {/* Collapsible Quick Actions */}
-            {showQuickActions && (
-              <div className="space-y-2 border-t border-slate-200 dark:border-slate-700 pt-3">
-                <h5 className="text-xs font-medium text-slate-600 dark:text-slate-400">Quick Edits:</h5>
-                <div className="grid grid-cols-3 gap-1">
-                  {quickActions.map((action, index) => (
-                    <Button
-                      key={index}
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleQuickAction(action)}
-                      disabled={isSending}
-                      className="h-7 px-2 flex items-center gap-1 text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
-                    >
-                      <action.icon className="h-3 w-3" />
-                      {action.label}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        <SvgPreview />
       )}
 
       {/* Message input area */}
