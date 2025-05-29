@@ -27,6 +27,10 @@ if (typeof window !== 'undefined') {
 
 // Helper function to ensure user is authenticated
 const ensureAuthenticated = async () => {
+  if (!supabase) {
+    throw new Error('Supabase client is not available. This function can only be called on the client side.');
+  }
+  
   const { data: { session }, error } = await supabase.auth.getSession();
   if (error || !session) {
     // If not authenticated, sign in anonymously

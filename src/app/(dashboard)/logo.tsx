@@ -1,12 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Space_Grotesk } from "next/font/google";
 import { cn } from "@/lib/utils";
-
-const font = Space_Grotesk({
-  weight: ["700"],
-  subsets: ["latin"],
-});
 
 export const Logo = () => {
   return (
@@ -20,7 +14,7 @@ export const Logo = () => {
             className="object-contain" 
           />
         </div>
-        <h1 className={cn(font.className, "text-xl font-bold")}>Wrecked Labs</h1>
+        <h1 className="text-xl font-bold">Wrecked Labs</h1>
       </div>
     </Link>
   );
