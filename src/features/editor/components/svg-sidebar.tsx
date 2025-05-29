@@ -396,69 +396,49 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-2">
               {svgs.map((svg) => (
                 <div
                   key={svg.id}
-                  className="aspect-square bg-muted rounded-md flex items-center justify-center cursor-pointer group relative"
-                  onClick={() => addSVGToCanvas(svg)}
-                  draggable
-                  onDragStart={(e) => {
-                    // Process the SVG content to ensure it's properly formatted for drag and drop
-                    const { processed } = svgNormalizer.fullyProcessSvg(svg.content);
-                    
-                    // Store the full SVG data for direct access with processed content
-                    const svgData = {
-                      id: svg.id,
-                      content: processed,
-                      name: svg.name,
-                      type: 'library-svg'
-                    };
-                    
-                    // Set the drag data
-                    e.dataTransfer.setData('text/plain', JSON.stringify(svgData));
-                  }}
+                  className="relative group aspect-square bg-white rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors overflow-hidden"
                 >
-                  {/* Delete button */}
-                  <button
-                    className="absolute top-1 right-1 p-1 bg-white/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deleteSVGFromStorage(svg.id);
-                    }}
-                  >
-                    <Trash2 className="h-4 w-4 text-red-500" />
-                  </button>
-
-                  <div className="relative w-full h-full flex items-center justify-center p-2">
-                    <SvgRenderer
-                      svgContent={svg.content}
-                      width={80}
-                      height={80}
-                      preserveAspectRatio="xMidYMid meet"
-                      className="w-full h-full"
-                      onError={(error) => handleSvgError(svg.id, error)}
-                      fallback={
-                        <div className="w-full h-full flex items-center justify-center bg-slate-100 rounded-md">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    {svgErrors[svg.id] ? (
+                      <div className="text-center p-1">
+                        <span className="text-red-500 text-xs">Error loading SVG</span>
+                      </div>
+                    ) : (
+                      <SvgRenderer
+                        svgContent={svg.content}
+                        className="w-full h-full"
+                        onError={(error) => handleSvgError(svg.id, error)}
+                        fallback={
                           <div className="text-center p-1">
                             <span className="text-slate-500 text-xs">SVG Preview</span>
                           </div>
-                        </div>
-                      }
-                    />
-
-                    {/* Error indicator */}
-                    {svgErrors[svg.id] && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-red-100/80 rounded-md">
-                        <div className="text-center p-1">
-                          <span className="text-red-500 text-xs">Error loading SVG</span>
-                        </div>
-                      </div>
+                        }
+                      />
                     )}
                   </div>
 
-                  <div className="absolute left-0 bottom-0 w-full text-[10px] truncate text-white p-1 bg-black/50 text-left">
-                    {svg.name}
+                  {/* Action buttons */}
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => addSVGToCanvas(svg)}
+                    >
+                      <PanelRight className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="icon"
+                      className="h-8 w-8"
+                      onClick={() => deleteSVGFromStorage(svg.id)}
+                    >
+                      <Trash className="h-4 w-4" />
+                    </Button>
                   </div>
                 </div>
               ))}
