@@ -4,11 +4,12 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, Loader2, Wand2, Eye, Save } from "lucide-react"; // Added Save icon
 import { useState } from "react";
 import { storage } from "@/lib/storage";
-import { svgStorage, svgNormalizer } from "@/lib/svg-utils"; // Added svg-utils imports
+import { svgNormalizer, svgTester } from '@/lib/svg-utils';
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { svgStorageSupabase } from '@/lib/svg-storage-supabase';
 
 export const Banner = () => {
   const [loading, setLoading] = useState(false);
@@ -134,14 +135,24 @@ export const Banner = () => {
       const nameSource = generatedSVG.prompt || prompt;
       const svgName = nameSource.trim() ? `AI: ${nameSource.substring(0, 25)}${nameSource.length > 25 ? '...' : ''}` : "AI Generated SVG";
       
-      const dataUrl = svgNormalizer.createDataUrl(svgContent);
+      const { processed, dataUrl } = svgNormalizer.fullyProcessSvg(svgContent);
       
-      const savedSVG = svgStorage.saveSVG(svgContent, svgName, dataUrl);
-
-      if (savedSVG) {
-        toast.success(`SVG "${savedSVG.name}" saved to library!`);
+      // Test if the SVG can be loaded by Fabric.js before saving
+      const canLoad = await svgTester.testWithFabric(processed);
+      
+      if (!canLoad) {
+        console.warn("SVG failed fabric.js loading test, applying additional processing");
+        // Apply more aggressive cleaning if needed
+        const fallbackSvg = svgTester.getFallbackVersion(processed);
+        const { processed: finalProcessed, dataUrl: finalDataUrl } = svgNormalizer.fullyProcessSvg(fallbackSvg);
+        
+        // Save the fallback version to Supabase
+        await svgStorageSupabase.saveSVG(finalProcessed, svgName, finalDataUrl);
+        toast.success(`SVG "${svgName}" saved to library!`);
       } else {
-        toast.error("Failed to save SVG to library.");
+        // Save to Supabase
+        await svgStorageSupabase.saveSVG(processed, svgName, dataUrl);
+        toast.success(`SVG "${svgName}" saved to library!`);
       }
     } catch (error) {
       console.error("Error quick saving SVG to library:", error);

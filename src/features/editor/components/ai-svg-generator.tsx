@@ -45,6 +45,7 @@ import {
 import { SvgRenderer } from "@/features/editor/components/svg-renderer";
 import { cn } from "@/lib/utils";
 import { storage } from "@/lib/storage";
+import { svgStorageSupabase } from '@/lib/svg-storage-supabase';
 
 // Definition of SVG data structure
 interface SVGData {
@@ -56,9 +57,10 @@ interface SVGData {
 interface AiSvgGeneratorProps {
   editor: Editor | undefined;
   onClose: () => void;
+  messages?: { role: string; content: string; }[];
 }
 
-export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
+export const AiSvgGenerator = ({ editor, onClose, messages = [] }: AiSvgGeneratorProps) => {
   // State management
   const [prompt, setPrompt] = useState<string>("");
   const [svgData, setSvgData] = useState<SVGData | null>(null);
@@ -230,11 +232,13 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
 
     try {
       setIsSaving(true);
-
+      
       // First, make sure we have a clean SVG by running it through our normalizer
       const { processed, dataUrl } = svgNormalizer.fullyProcessSvg(svgData.svg);
 
-      // Get a name from the prompt
+      // Get a name from the last user message or default name
+      const lastUserMessage = messages.length ? [...messages].reverse().find(msg => msg.role === "user") : null;
+      const prompt = lastUserMessage?.content || svgData.prompt || "AI Assistant Design";
       const name = `AI: ${prompt.substring(0, 20)}${prompt.length > 20 ? '...' : ''}`;
 
       // Test if the SVG can be loaded by Fabric.js before saving
@@ -246,14 +250,14 @@ export const AiSvgGenerator = ({ editor, onClose }: AiSvgGeneratorProps) => {
         const fallbackSvg = svgTester.getFallbackVersion(processed);
         const { processed: finalProcessed, dataUrl: finalDataUrl } = svgNormalizer.fullyProcessSvg(fallbackSvg);
         
-        // Save the fallback version
-        svgStorage.saveSVG(finalProcessed, name, finalDataUrl);
+        // Save the fallback version to Supabase
+        await svgStorageSupabase.saveSVG(finalProcessed, name, finalDataUrl);
       } else {
-        // Save to storage using the centralized storage utility
-        svgStorage.saveSVG(processed, name, dataUrl);
+        // Save to Supabase
+        await svgStorageSupabase.saveSVG(processed, name, dataUrl);
       }
-
-      setSavedToLibrary(true);
+      
+      setIsSaved(true);
       toast.success('SVG saved to your library!');
     } catch (error) {
       console.error('Error saving SVG to library:', error);
