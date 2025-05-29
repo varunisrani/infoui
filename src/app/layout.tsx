@@ -14,6 +14,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Wrecked Labs",
   description: "Build Something Great!",
+  icons: {
+    icon: [
+      { url: "/logo.svg", type: "image/svg+xml" }
+    ]
+  }
 };
 
 export default function RootLayout({

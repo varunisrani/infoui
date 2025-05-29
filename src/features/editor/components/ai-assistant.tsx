@@ -347,7 +347,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
         }
       }
     }
-  }, [messages]);
+  }, [messages, svgCode]);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -406,17 +406,17 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       // Try local API first
       try {
         response = await fetch("http://127.0.0.1:5001/api/chat-assistant", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
             messages: updatedMessages,
             generate_svg: shouldGenerateSvg
-          }),
-        });
-
-        if (!response.ok) {
+        }),
+      });
+      
+      if (!response.ok) {
           throw new Error(`Local API request failed with status ${response.status}`);
         }
       } catch (localError) {
@@ -794,9 +794,9 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                         )
                       }}
                     />
-                  </div>
-                )}
-              </div>
+                        </div>
+                      )}
+                </div>
 
               {/* Compact Action Buttons */}
               <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-3 gap-2'}`}>

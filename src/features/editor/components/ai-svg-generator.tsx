@@ -31,16 +31,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { usePaywall } from "@/features/subscriptions/hooks/use-paywall";
 import { fabric } from "fabric";
 import { Editor } from "@/features/editor/types";
 import {
   svgStorage,
   svgNormalizer,
   svgTester,
-  svgCanvasUtils,
-  StoredSVG,
-  SVG_STORAGE_KEY
+  svgCanvasUtils
 } from "@/lib/svg-utils";
 import { SvgRenderer } from "@/features/editor/components/svg-renderer";
 import { cn } from "@/lib/utils";
@@ -79,7 +76,6 @@ export const AiSvgGenerator = ({ editor, onClose, messages = [] }: AiSvgGenerato
 
   // Refs
   const previewRef = useRef<HTMLDivElement>(null);
-  const { shouldBlock, triggerPaywall } = usePaywall();
   const router = useRouter();
 
   // State for storing web scraper data
@@ -127,11 +123,6 @@ export const AiSvgGenerator = ({ editor, onClose, messages = [] }: AiSvgGenerato
   const generateSVG = async () => {
     if (!prompt.trim()) {
       toast.error("Please enter a prompt for your SVG");
-      return;
-    }
-
-    if (shouldBlock) {
-      triggerPaywall();
       return;
     }
 

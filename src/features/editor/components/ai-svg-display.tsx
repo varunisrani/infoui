@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { XCircle, Save, BookmarkPlus, ExternalLink, Loader2, ChevronDown, ChevronUp, Maximize2, Minimize2 } from "lucide-react";
 import { toast } from "sonner";
-import { svgStorage, svgNormalizer, svgCanvasUtils, svgTester, SVG_STORAGE_KEY, StoredSVG } from "@/lib/svg-utils";
+import { svgStorage, svgNormalizer, svgCanvasUtils, svgTester } from "@/lib/svg-utils";
 
 interface AiSvgDisplayProps {
   editor: any;
