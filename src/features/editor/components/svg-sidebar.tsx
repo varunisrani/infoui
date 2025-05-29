@@ -12,7 +12,8 @@ import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { svgCanvasUtils, svgNormalizer, svgStorage, svgTester, SVG_STORAGE_KEY, StoredSVG } from "@/lib/svg-utils";
+import { svgCanvasUtils, svgNormalizer, svgTester } from "@/lib/svg-utils";
+import { svgStorageSupabase, SVGData } from '@/lib/svg-storage-supabase';
 import { SvgRenderer } from "@/features/editor/components/svg-renderer";
 import { Button } from "@/components/ui/button";
 
@@ -151,14 +152,14 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
   // State for tracking SVGs with rendering errors
   const [svgErrors, setSvgErrors] = useState<Record<string, boolean>>({});
   // Get all SVGs
-  const [svgs, setSvgs] = useState<StoredSVG[]>([]);
+  const [svgs, setSvgs] = useState<SVGData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Helper function to refresh SVGs
-  const refreshSvgs = useCallback(() => {
+  const refreshSvgs = useCallback(async () => {
     try {
-      const loadedSvgs = svgStorage.getSVGs();
-      console.log(`Loaded ${loadedSvgs.length} SVGs from storage`);
+      const loadedSvgs = await svgStorageSupabase.getSVGs();
+      console.log(`Loaded ${loadedSvgs.length} SVGs from Supabase`);
       setSvgs(loadedSvgs);
       setIsLoading(false);
     } catch (error) {
@@ -168,7 +169,7 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
   }, []);
 
   // Add SVG to canvas
-  const addSVGToCanvas = useCallback(async (svg: StoredSVG) => {
+  const addSVGToCanvas = useCallback(async (svg: SVGData) => {
     try {
       // Try editor prop first, then fall back to window.canvasState
       const canvas = editor?.canvas || window.canvasState?.canvas;
@@ -179,7 +180,6 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
       }
 
       // Process the SVG content again to ensure it's properly formatted
-      // This is important for AI-generated SVGs that might need additional processing
       const { processed } = svgNormalizer.fullyProcessSvg(svg.content);
 
       // Try to add SVG to canvas using the utility
@@ -254,51 +254,31 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
   }, []);
 
   // Delete SVG from storage
-  const deleteSVGFromStorage = useCallback((id: string) => {
+  const deleteSVGFromStorage = useCallback(async (id: string) => {
     try {
-      svgStorage.deleteSVG(id);
+      await svgStorageSupabase.deleteSVG(id);
       setSvgErrors(prev => {
         const newErrors = { ...prev };
         delete newErrors[id];
         return newErrors;
       });
       toast.success("SVG deleted from library");
+      refreshSvgs(); // Refresh the list after deletion
     } catch (error) {
       console.error("Error deleting SVG:", error);
       toast.error("Failed to delete SVG");
     }
-  }, []);
+  }, [refreshSvgs]);
 
   // Load SVGs on mount and refresh when needed
   useEffect(() => {
     setIsLoading(true);
     refreshSvgs();
 
-    // Setup storage event listener to refresh when SVGs change
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === SVG_STORAGE_KEY) {
-        refreshSvgs();
-      }
-    };
-
-    // Set up a custom event for communicating SVG changes across components
-    const handleCustomEvent = () => {
-      refreshSvgs();
-    };
-
-    // Create a more reliable detection mechanism for SVG updates
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('svg-library-updated', handleCustomEvent);
-    
     // Force refresh when the sidebar becomes visible
     if (activeTool === "svg") {
       refreshSvgs();
     }
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('svg-library-updated', handleCustomEvent);
-    };
   }, [refreshSvgs, activeTool]);
 
   const onClose = () => {
@@ -306,13 +286,13 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
   };
 
   // Handle SVG file upload
-  const handleFileUpload = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Check file size (max 1MB)
-    if (file.size > 1024 * 1024) {
-      toast.error("File size exceeds 1MB limit");
+    // Check file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("File size exceeds 5MB limit");
       return;
     }
 
@@ -343,18 +323,15 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
           const fallbackSvg = svgTester.getFallbackVersion(processed);
           const { processed: finalProcessed, dataUrl: finalDataUrl } = svgNormalizer.fullyProcessSvg(fallbackSvg);
           
-          // Save the fallback version
-          const newSvg = svgStorage.saveSVG(finalProcessed, name, finalDataUrl);
-          console.log("Saved new SVG (with fallback processing):", newSvg);
+          // Save the fallback version to Supabase
+          await svgStorageSupabase.saveSVG(finalProcessed, name, finalDataUrl);
         } else {
-          // Save to library with normal processing
-          const newSvg = svgStorage.saveSVG(processed, name, dataUrl);
-          console.log("Saved new SVG:", newSvg);
+          // Save to Supabase
+          await svgStorageSupabase.saveSVG(processed, name, dataUrl);
         }
 
         // Update SVGs list
-        setSvgs(svgStorage.getSVGs());
-
+        refreshSvgs();
         toast.success("SVG uploaded successfully!");
       } catch (error) {
         console.error("Error processing uploaded SVG:", error);
@@ -370,19 +347,7 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
 
     // Reset the input
     event.target.value = '';
-  }, []);
-
-  // Clean up URL objects when component unmounts
-  useEffect(() => {
-    return () => {
-      // Revoke object URLs to prevent memory leaks
-      svgs.forEach(svg => {
-        if (svg.dataUrl && svg.dataUrl.startsWith('blob:')) {
-          URL.revokeObjectURL(svg.dataUrl);
-        }
-      });
-    };
-  }, [svgs]);
+  }, [refreshSvgs]);
 
   return (
     <aside
@@ -409,7 +374,7 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
           onChange={handleFileUpload}
         />
         <p className="text-xs text-muted-foreground text-center mt-1">
-          Max 1MB · SVG files only
+          Max 5MB · SVG files only
         </p>
       </div>
 
@@ -439,65 +404,32 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                   onClick={() => addSVGToCanvas(svg)}
                   draggable
                   onDragStart={(e) => {
-                    // Clear any existing data
-                    localStorage.removeItem('dragging_svg_data');
-                    
-                    // Create a truly unique key for this drag operation
-                    const timestamp = Date.now();
-                    const randomVal = Math.floor(Math.random() * 100000);
-                    const dragKey = `svg-${svg.id}-${timestamp}-${randomVal}`;
-                    
-                    // Set the SVG ID as plain text for compatibility
-                    e.dataTransfer.setData('text/plain', svg.id);
-                    e.dataTransfer.setData('application/json', JSON.stringify({
-                      id: svg.id,
-                      dragKey
-                    }));
-                    
                     // Process the SVG content to ensure it's properly formatted for drag and drop
                     const { processed } = svgNormalizer.fullyProcessSvg(svg.content);
                     
                     // Store the full SVG data for direct access with processed content
                     const svgData = {
                       id: svg.id,
-                      content: processed, // Use the processed content
+                      content: processed,
                       name: svg.name,
-                      type: 'library-svg',
-                      dragKey // Add drag key for uniqueness
+                      type: 'library-svg'
                     };
-                    localStorage.setItem('dragging_svg_data', JSON.stringify(svgData));
                     
-                    // Set drag image if browser supports it
-                    if (e.dataTransfer.setDragImage) {
-                      const dragPreview = document.createElement('div');
-                      dragPreview.innerHTML = processed; // Use processed SVG for preview
-                      dragPreview.style.width = '100px';
-                      dragPreview.style.height = '100px';
-                      dragPreview.style.position = 'absolute';
-                      dragPreview.style.top = '-1000px';
-                      dragPreview.style.background = 'white';
-                      dragPreview.style.padding = '10px';
-                      dragPreview.style.borderRadius = '4px';
-                      dragPreview.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-                      document.body.appendChild(dragPreview);
-                      
-                      e.dataTransfer.setDragImage(dragPreview, 50, 50);
-                      
-                      // Remove the element after drag starts
-                      setTimeout(() => {
-                        document.body.removeChild(dragPreview);
-                      }, 0);
-                    }
-                    
-                    // Add a class to the body to indicate dragging
-                    document.body.classList.add('svg-dragging');
-                  }}
-                  onDragEnd={() => {
-                    // Clean up
-                    document.body.classList.remove('svg-dragging');
-                    localStorage.removeItem('dragging_svg_data');
+                    // Set the drag data
+                    e.dataTransfer.setData('text/plain', JSON.stringify(svgData));
                   }}
                 >
+                  {/* Delete button */}
+                  <button
+                    className="absolute top-1 right-1 p-1 bg-white/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteSVGFromStorage(svg.id);
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4 text-red-500" />
+                  </button>
+
                   <div className="relative w-full h-full flex items-center justify-center p-2">
                     <SvgRenderer
                       svgContent={svg.content}
@@ -527,18 +459,6 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
 
                   <div className="absolute left-0 bottom-0 w-full text-[10px] truncate text-white p-1 bg-black/50 text-left">
                     {svg.name}
-                  </div>
-
-                  <div className="absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteSVGFromStorage(svg.id);
-                      }}
-                      className="bg-white rounded-full p-1 shadow-sm hover:bg-red-50 transition-colors"
-                    >
-                      <Trash className="h-3 w-3 text-red-500" />
-                    </button>
                   </div>
                 </div>
               ))}

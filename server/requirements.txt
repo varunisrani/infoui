@@ -6,3 +6,4 @@ pillow
 openai
 python-dotenv
 gunicorn
+vtracer

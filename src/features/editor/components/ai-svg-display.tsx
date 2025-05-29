@@ -13,6 +13,56 @@ interface AiSvgDisplayProps {
   initialData: Project;
 }
 
+// Add API configuration at the top
+const API_ENDPOINTS = {
+  local: "http://127.0.0.1:5001/api/chat-assistant",
+  remote: "https://pppp-351z.onrender.com/api/chat-assistant"
+};
+
+// Helper function to try both APIs
+const tryBothAPIs = async (requestData: any) => {
+  let response;
+  let error;
+
+  // Try local API first
+  try {
+    response = await fetch(API_ENDPOINTS.local, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Local API request failed with status ${response.status}`);
+    }
+    return response;
+  } catch (localError) {
+    console.log("Local API failed, trying remote API...", localError);
+    error = localError;
+
+    // Try remote API as fallback
+    try {
+      response = await fetch(API_ENDPOINTS.remote, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Remote API request failed with status ${response.status}`);
+      }
+      return response;
+    } catch (remoteError) {
+      console.error("Both APIs failed:", { localError, remoteError });
+      throw new Error("Failed to connect to both local and remote APIs");
+    }
+  }
+};
+
 export const AiSvgDisplay = ({ 
   editor,
   initialData

@@ -27,13 +27,7 @@ import {
   MenuSquare,
   Trash,
   X,
-  LayoutGrid,
-  Image,
-  ClipboardIcon,
-  DownloadIcon,
-  CheckIcon,
-  SendHorizontalIcon,
-  ArrowUpDown
+  LayoutGrid
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -42,31 +36,12 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Editor } from "@/features/editor/types";
 import { svgNormalizer, svgCanvasUtils, svgStorage, svgTester } from "@/lib/svg-utils";
-import { chatStorage } from "@/lib/chat-storage";
-import type { LucideIcon } from 'lucide-react';
+import { chatStorage, Chat } from "@/lib/chat-storage";
+import { svgStorageSupabase } from '@/lib/svg-storage-supabase';
 
 export interface Message {
   role: "system" | "user" | "assistant";
   content: string;
-}
-
-interface Chat {
-  id: string;
-  title: string;
-  messages: Message[];
-  svgCode: string | null;
-  createdAt: string;
-}
-
-interface WorkflowStage {
-  completed: boolean;
-  content?: string;
-}
-
-interface QuickAction {
-  label: string;
-  icon: LucideIcon;
-  prompt: string;
 }
 
 interface AiAssistantProps {
@@ -82,33 +57,13 @@ const quickActions = [
   { icon: RotateCw, label: "Different Style", prompt: "Create a different design style for this" },
   { icon: RefreshCw, label: "Simplify", prompt: "Make this design simpler and more minimalist" },
   { icon: Wand2, label: "Add Effects", prompt: "Add some visual effects or decorative elements" },
-  { icon: LayoutGrid, label: "Rebalance", prompt: "Rebalance the layout for better visual harmony" },
 ];
-
-// Add global styles for SVG preview
-const styles = `
-  .ai-svg-preview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    min-height: 300px;
-  }
-  
-  .ai-svg-preview svg {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-  }
-`;
 
 export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   // Get the router at the top level of the component
   const router = useRouter();
   
-  // State management with default values
+  // State management
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -118,28 +73,152 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const [showFullImage, setShowFullImage] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [workflowProgress, setWorkflowProgress] = useState(0);
-  const [workflowStages, setWorkflowStages] = useState<Record<string, WorkflowStage>>({});
+  const [isProcessingSvg, setIsProcessingSvg] = useState(false);
   
   // Chat management state
   const [activeChat, setActiveChat] = useState<Chat | null>(null);
   const [chats, setChats] = useState<Chat[]>([]);
   const [showChatSidebar, setShowChatSidebar] = useState(false);
-  const [selectedChatId, setSelectedChatId] = useState<string | null>(null);
-  const [messageInput, setMessageInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [quickActions] = useState<QuickAction[]>([
-    { label: "Make it bigger", icon: Maximize, prompt: "Make the design bigger" },
-    { label: "Make it smaller", icon: Minimize, prompt: "Make the design smaller" },
-    { label: "Change colors", icon: Palette, prompt: "Change the color scheme" },
-    { label: "Add text", icon: Type, prompt: "Add text to the design" },
-    { label: "Simplify", icon: RefreshCw, prompt: "Simplify the design" },
-    { label: "More details", icon: Wand2, prompt: "Add more details to the design" },
-  ]);
   
   // References
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const messageInputRef = useRef<HTMLTextAreaElement>(null);
+
+  // Function to extract SVG code from message content
+  const extractSvgCode = (message: string): string | null => {
+    const svgMatch = message.match(/```svg\s*([\s\S]*?)\s*```/);
+    return svgMatch ? svgMatch[1].trim() : null;
+  };
+
+  // Load chats from storage
+  useEffect(() => {
+    const loadChats = async () => {
+      try {
+        const loadedChats = await chatStorage.getChats();
+        setChats(loadedChats || []);
+      } catch (error) {
+        console.error('Error loading chats:', error);
+        setChats([]);
+      }
+    };
+    loadChats();
+  }, []);
+
+  // Listen for chat updates from other components
+  useEffect(() => {
+    const handleChatsUpdated = async () => {
+      try {
+        const updatedChats = await chatStorage.getChats();
+        setChats(updatedChats || []);
+      } catch (error) {
+        console.error('Error updating chats:', error);
+        setChats([]);
+      }
+    };
+    
+    window.addEventListener('ai-chats-updated', handleChatsUpdated);
+    return () => {
+      window.removeEventListener('ai-chats-updated', handleChatsUpdated);
+    };
+  }, []);
+  
+  // Load chat when activeChat changes
+  useEffect(() => {
+    if (activeChat) {
+      setMessages(activeChat.messages);
+      setSvgCode(activeChat.svgCode);
+    } else {
+      // Clear messages when starting a new chat
+        setMessages([]);
+        setSvgCode(null);
+    }
+  }, [activeChat]);
+
+  // Save chat when messages or SVG changes
+  useEffect(() => {
+    const saveChat = async () => {
+      if (messages.length > 0) {
+        try {
+          if (activeChat) {
+            // Update existing chat
+            const updatedChat = await chatStorage.updateChat(activeChat.id, { 
+              messages, 
+              svgCode,
+              title: chatStorage.generateChatTitle(messages)
+            });
+            if (updatedChat) {
+              setActiveChat(updatedChat);
+            }
+          } else {
+            // Create new chat when we have messages but no activeChat
+            const newChat = await chatStorage.saveChat({
+              title: chatStorage.generateChatTitle(messages),
+              messages,
+              svgCode
+            });
+            if (newChat) {
+              setActiveChat(newChat);
+              const allChats = await chatStorage.getChats();
+              setChats(allChats || []);
+            }
+          }
+        } catch (error) {
+          console.error('Error saving chat:', error);
+          toast.error('Failed to save chat. Please try again.');
+        }
+      }
+    };
+
+    // Debounce the save operation
+    const timeoutId = setTimeout(saveChat, 1000);
+    return () => clearTimeout(timeoutId);
+  }, [messages, svgCode, activeChat]);
+
+  // Function to create a new chat
+  const createNewChat = () => {
+    setActiveChat(null);
+    setMessages([]);
+    setSvgCode(null);
+        setShowChatSidebar(false);
+    setNewMessage(""); // Clear any message that was being composed
+    setIsSending(false); // Reset message sending state
+    setIsAddingToCanvas(false); // Reset canvas adding state
+    setShowQuickActions(false); // Hide quick actions
+    setShowFullImage(false); // Reset image view state
+    setIsSaving(false); // Reset saving state
+    setIsSaved(false); // Reset saved state
+  };
+  
+  // Function to delete a chat
+  const deleteChat = async (chatId: string) => {
+    try {
+      // If we're deleting the active chat, reset the view
+      if (activeChat?.id === chatId) {
+        setActiveChat(null);
+        setMessages([]);
+        setSvgCode(null);
+      }
+      
+      // Delete the chat from storage
+      await chatStorage.deleteChat(chatId);
+      
+      // Update the chats list
+      const updatedChats = await chatStorage.getChats();
+      setChats(updatedChats || []);
+      } catch (error) {
+      console.error('Error deleting chat:', error);
+      toast.error('Failed to delete chat');
+    }
+  };
+  
+  // Format date for display
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(undefined, {
+      month: 'short',
+      day: 'numeric',
+      year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
+    });
+  };
 
   // Chat Sidebar Component
   const ChatSidebar = () => {
@@ -242,193 +321,33 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     );
   };
 
-  // WorkflowProgress component
-  const WorkflowProgress = () => {
-    // Map stage names to friendly display names and icons
-    const stageInfo = {
-      vector_suitability: {
-        name: "Vector Compatibility Check",
-        icon: Image,
-        description: "Checking if the design is suitable for SVG"
-      },
-      design_plan: {
-        name: "Design Planning",
-        icon: LayoutGrid,
-        description: "Creating structured design approach"
-      },
-      design_knowledge: {
-        name: "Design Knowledge",
-        icon: Sparkles,
-        description: "Gathering design best practices"
-      },
-      pre_enhancement: {
-        name: "Initial Prompt Enhancement",
-        icon: Wand2,
-        description: "Refining design requirements"
-      },
-      prompt_enhancement: {
-        name: "Final Prompt Enhancement",
-        icon: Wand2,
-        description: "Optimizing design specifications"
-      },
-      image_generation: {
-        name: "Design Generation",
-        icon: Image,
-        description: "Creating the initial design"
-      },
-      svg_generation: {
-        name: "SVG Generation",
-        icon: Type,
-        description: "Converting to vector format"
-      }
-    };
-
-    return (
-      <div className="fixed bottom-4 right-4 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-4 max-w-md">
-        <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-blue-500" />
-          Design Progress
-        </h3>
-        <div className="space-y-3">
-          {Object.entries(workflowStages).map(([stage, info]) => {
-            const stageDetails = stageInfo[stage as keyof typeof stageInfo];
-            const StageIcon = stageDetails?.icon || Sparkles;
-            
-            return (
-              <div key={stage} className="space-y-1">
-                <div className="flex items-center gap-2">
-                  {info.completed ? (
-                    <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  ) : (
-                    <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
-                  )}
-                  <span className="text-sm font-medium">{stageDetails?.name || stage}</span>
-                </div>
-                {info.content && (
-                  <div className="ml-6 text-xs text-slate-500 dark:text-slate-400">
-                    {typeof info.content === 'string' 
-                      ? info.content.split('\n')[0] // Show first line only
-                      : stageDetails?.description
-                    }
-                  </div>
-                )}
-                {!info.completed && (
-                  <div className="ml-6 mt-1">
-                    <div className="h-1 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-blue-500 transition-all duration-300" 
-                        style={{ width: `${workflowProgress}%` }}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
-
-  // Load chats from storage
-  useEffect(() => {
-    const loadedChats = chatStorage.getChats();
-    setChats(loadedChats);
-  }, []);
-
-  // Listen for chat updates from other components
-  useEffect(() => {
-    const handleChatsUpdated = () => {
-      setChats(chatStorage.getChats());
-    };
-    
-    window.addEventListener('ai-chats-updated', handleChatsUpdated);
-    return () => {
-      window.removeEventListener('ai-chats-updated', handleChatsUpdated);
-    };
-  }, []);
-  
-  // Load chat when activeChat changes
-  useEffect(() => {
-    if (activeChat) {
-      setMessages(activeChat.messages);
-      setSvgCode(activeChat.svgCode);
-    } else {
-      // Clear messages when starting a new chat
-      setMessages([]);
-      setSvgCode(null);
-    }
-  }, [activeChat]);
-
-  // Save chat when messages or SVG changes
-  useEffect(() => {
-    if (messages && messages.length > 0) {
-      // Don't save empty chats
-      if (activeChat) {
-        // Update existing chat
-        chatStorage.updateChat(activeChat.id, { 
-          messages, 
-          svgCode,
-          title: chatStorage.generateChatTitle(messages)
-        });
-      } else {
-        // Create new chat when we have messages but no activeChat
-        const newChat = chatStorage.saveChat({
-          title: chatStorage.generateChatTitle(messages),
-          messages,
-          svgCode
-        });
-        setActiveChat(newChat);
-        setChats(chatStorage.getChats());
-      }
-    }
-  }, [messages, svgCode, activeChat]);
-
-  // Format date helper function
-  const formatDate = (dateString: string): string => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      year: date.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
-    });
-  };
-
-  // Function to create a new chat
-  const createNewChat = () => {
-    setActiveChat(null);
-    setMessages([]);
-    setSvgCode(null);
-    setShowChatSidebar(false);
-    setNewMessage(""); // Clear any message that was being composed
-    setIsSending(false); // Reset message sending state
-    setIsAddingToCanvas(false); // Reset canvas adding state
-    setShowQuickActions(false); // Hide quick actions
-    setShowFullImage(false); // Reset image view state
-    setIsSaving(false); // Reset saving state
-    setIsSaved(false); // Reset saved state
-  };
-  
-  // Function to delete a chat
-  const deleteChat = (chatId: string) => {
-    // If we're deleting the active chat, reset the view
-    if (activeChat?.id === chatId) {
-      setActiveChat(null);
-      setMessages([]);
-      setSvgCode(null);
-    }
-    
-    // Delete the chat from storage
-    chatStorage.deleteChat(chatId);
-    
-    // Update the chats list
-    setChats(chatStorage.getChats());
-  };
-
   // Update SVG code when messages change
   useEffect(() => {
-    // Remove this effect as we don't need to process messages for SVG anymore
-  }, [messages, svgCode]);
+    // Find the last assistant message that might contain SVG code
+    const lastSvgMessage = [...messages].reverse().find(msg => 
+      msg.role === "assistant" && msg.content.includes("```svg")
+    );
+    
+    if (lastSvgMessage) {
+      const newSvgCode = extractSvgCode(lastSvgMessage.content);
+      if (newSvgCode && newSvgCode !== svgCode) {
+        setIsProcessingSvg(true);
+        try {
+          // Process the SVG before setting it
+          const { processed } = svgNormalizer.fullyProcessSvg(newSvgCode);
+          setSvgCode(processed);
+          setShowQuickActions(false);
+          setShowFullImage(false);
+          setIsSaved(false);
+        } catch (error) {
+          console.error('Error processing SVG:', error);
+          toast.error('Failed to process SVG');
+        } finally {
+          setIsProcessingSvg(false);
+        }
+      }
+    }
+  }, [messages]);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -462,78 +381,97 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     try {
       setIsSending(true);
       
+      // Add user message to chat
       const userMessage: Message = {
         role: "user",
         content: messageContent
       };
       
-      const updatedMessages = messages ? [...messages, userMessage] : [userMessage];
+      // Update messages with the user's message
+      const updatedMessages = [...messages, userMessage];
       setMessages(updatedMessages);
       setNewMessage("");
       
-      const apiUrl = "http://127.0.0.1:5001/api/chat-assistant";
+      // Determine if we should request SVG generation
+      const shouldGenerateSvg = messageContent.toLowerCase().includes("create") || 
+                                messageContent.toLowerCase().includes("generate") || 
+                                messageContent.toLowerCase().includes("draw") ||
+                                messageContent.toLowerCase().includes("design") ||
+                                messageContent.toLowerCase().includes("make");
       
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messages: updatedMessages
-        }),
-      });
-      
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
+      // Try local API first, then fallback to remote
+      let response;
+      let error;
+
+      // Try local API first
+      try {
+        response = await fetch("http://127.0.0.1:5001/api/chat-assistant", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            messages: updatedMessages,
+            generate_svg: shouldGenerateSvg
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Local API request failed with status ${response.status}`);
+        }
+      } catch (localError) {
+        console.log("Local API failed, trying remote API...", localError);
+        error = localError;
+
+        // Try remote API as fallback
+        try {
+          response = await fetch("https://pppp-351z.onrender.com/api/chat-assistant", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              messages: updatedMessages,
+              generate_svg: shouldGenerateSvg
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`Remote API request failed with status ${response.status}`);
+          }
+        } catch (remoteError) {
+          console.error("Both APIs failed:", { localError, remoteError });
+          throw new Error("Failed to connect to both local and remote APIs");
+        }
       }
       
       const data = await response.json();
       
-      // Add the assistant's response to messages
-      const assistantMessage: Message = {
-        role: "assistant",
-        content: data.response
-      };
-      setMessages([...updatedMessages, assistantMessage]);
-      
-      // Get the actual SVG content from the server
-      if (data.svg_path) {
-        try {
-          const svgUrl = `http://127.0.0.1:5001/static/images/${data.svg_path}`;
-          const svgResponse = await fetch(svgUrl);
-          if (svgResponse.ok) {
-            const svgContent = await svgResponse.text();
-            setSvgCode(svgContent);
-            toast.success("🎨 Design created successfully!");
-          } else {
-            console.error("Failed to fetch SVG content");
-          }
-        } catch (error) {
-          console.error("Error fetching SVG:", error);
+      // Update messages with the assistant's response
+      if (data.messages && Array.isArray(data.messages)) {
+        setMessages(data.messages);
+        
+        // Check if SVG was generated
+        if (data.svg_code) {
+          setSvgCode(data.svg_code);
+          toast.success("🎨 Design created successfully!");
         }
-      }
-      
-      // Update workflow progress
-      if (data.progress) {
-        setWorkflowStages(prev => ({
-          ...prev,
-          [data.progress.stage]: {
-            completed: data.progress.progress === 100,
-            content: data.progress.message
-          }
-        }));
-        setWorkflowProgress(data.progress.progress || 100);
+      } else {
+        throw new Error("Invalid response format from API");
       }
       
     } catch (error) {
       console.error("Error communicating with AI Assistant:", error);
-      toast.error("Failed to get a response from the AI Assistant");
       
-      const currentMessages = messages || [];
-      setMessages([...currentMessages, {
+      // More specific error messages based on the error type
+      const errorMessage: Message = {
         role: "system",
         content: "Sorry, I encountered an error while processing your request. Please try again."
-      }]);
+      };
+      
+      setMessages([...messages, errorMessage]);
+      
+      toast.error("Failed to get a response from the AI Assistant");
     } finally {
       setIsSending(false);
     }
@@ -548,8 +486,9 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   };
 
   // Handle quick action clicks
-  const handleQuickAction = (action: QuickAction) => {
+  const handleQuickAction = (action: typeof quickActions[0]) => {
     sendMessage(action.prompt);
+    setShowQuickActions(false);
   };
 
   // Use SVG in editor (redirect to editor with this SVG)
@@ -559,14 +498,22 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     try {
       setIsAddingToCanvas(true);
       
+      // Process the SVG to ensure it's properly formatted
+      const { svgNormalizer } = await import("@/lib/svg-utils");
+      const { processed } = svgNormalizer.fullyProcessSvg(svgCode);
+      
+      // Create a new project with the SVG data
+      // Using the same structure as AI SVG Generator for compatibility with AI SVG Display
       const projectData = {
-        svg: svgCode,
+        svg: processed,
         prompt: "Generated by AI Assistant",
         enhancedPrompt: ""
       };
       
+      // Import storage from lib/storage to access saveProject
       const { storage } = await import("@/lib/storage");
       
+      // Create a new project with the SVG data
       const project = storage.saveProject({
         name: `AI Assistant Design`,
         json: JSON.stringify(projectData),
@@ -575,9 +522,13 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       });
       
       toast.success("New project created with AI design!");
+      
+      // Close the assistant before navigation to prevent any state issues
       onClose();
       
+      // Add a short delay before navigating to ensure the component unmounts properly
       setTimeout(() => {
+        // Navigate to the editor with the new project
         router.push(`/editor/${project.id}`);
       }, 100);
     } catch (error) {
@@ -621,15 +572,29 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
     try {
       setIsSaving(true);
       
-      const lastUserMessage = [...messages].reverse().find(msg => msg.role === "user");
+      // First, make sure we have a clean SVG by running it through our normalizer
+      const { processed, dataUrl } = svgNormalizer.fullyProcessSvg(svgCode);
+
+      // Get a name from the last user message or default name
+      const lastUserMessage = messages.length ? [...messages].reverse().find(msg => msg.role === "user") : null;
       const prompt = lastUserMessage?.content || "AI Assistant Design";
       const name = `AI: ${prompt.substring(0, 20)}${prompt.length > 20 ? '...' : ''}`;
 
-      // Create a data URL for the SVG preview
-      const dataUrl = `data:image/svg+xml;base64,${btoa(svgCode)}`;
+      // Test if the SVG can be loaded by Fabric.js before saving
+      const canLoad = await svgTester.testWithFabric(processed);
       
-      // Save to storage with the actual SVG content
-      svgStorage.saveSVG(svgCode, name, dataUrl);
+      if (!canLoad) {
+        console.warn("SVG failed fabric.js loading test, applying additional processing");
+        // Apply more aggressive cleaning if needed
+        const fallbackSvg = svgTester.getFallbackVersion(processed);
+        const { processed: finalProcessed, dataUrl: finalDataUrl } = svgNormalizer.fullyProcessSvg(fallbackSvg);
+        
+        // Save the fallback version to Supabase
+        await svgStorageSupabase.saveSVG(finalProcessed, name, finalDataUrl);
+      } else {
+        // Save to Supabase
+        await svgStorageSupabase.saveSVG(processed, name, dataUrl);
+      }
       
       setIsSaved(true);
       toast.success('SVG saved to your library!');
@@ -643,107 +608,28 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
   // Function to format message content with syntax highlighting for code blocks
   const formatMessageContent = (content: string) => {
-    if (!content) return null;
-    
     // Split by code blocks
     const parts = content.split(/(```svg[\s\S]*?```)/g);
     
     return parts.map((part, index) => {
       // Check if this part is a code block
       if (part.startsWith('```svg') && part.endsWith('```')) {
-        // Extract SVG code but don't display it in the message
-        // The SVG will be shown in the preview section
+        // Don't show SVG code in chat - we handle it separately
         return null;
       }
       
-      // Regular text, preserve line breaks and remove any remaining markdown code blocks
+      // Regular text, preserve line breaks
       return (
         <span key={index} style={{ whiteSpace: 'pre-wrap' }}>
-          {part.replace(/```[\s\S]*?```/g, '')}
+          {part}
         </span>
       );
-    }).filter(Boolean); // Remove null values
+    });
   };
-
-  // Simple SVG Preview component that renders the SVG content directly
-  const SvgPreview = () => {
-    const currentChat = chats.find((chat) => chat.id === selectedChatId);
-    const svgCode = currentChat?.svgCode;
-
-    if (!svgCode) {
-      return (
-        <div className="flex items-center justify-center h-full bg-slate-50 dark:bg-slate-900/50 rounded-lg">
-          <div className="text-center text-slate-500 dark:text-slate-400">
-            <Image className="h-12 w-12 mx-auto mb-2 opacity-20" />
-            <p className="text-sm">No SVG generated yet</p>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div className="relative flex flex-col h-full">
-        {/* Controls */}
-        <div className="absolute top-4 right-4 flex gap-2 z-10">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={copySvgCode}
-            className="bg-white/50 backdrop-blur-sm hover:bg-white/80"
-          >
-            <ClipboardIcon className="w-4 h-4 mr-2" />
-            Copy SVG
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={downloadSvg}
-            className="bg-white/50 backdrop-blur-sm hover:bg-white/80"
-          >
-            <DownloadIcon className="w-4 h-4 mr-2" />
-            Download
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={useThisSvg}
-            className="bg-white/50 backdrop-blur-sm hover:bg-white/80"
-          >
-            <CheckIcon className="w-4 h-4 mr-2" />
-            Use This
-          </Button>
-        </div>
-
-        {/* SVG Preview */}
-        <div className="flex-1 bg-white rounded-lg shadow-sm overflow-hidden">
-          <div className="w-full h-full flex items-center justify-center bg-[#f8f9fa] dark:bg-slate-900/50">
-            <div 
-              className="ai-svg-preview max-w-full max-h-full p-8"
-              dangerouslySetInnerHTML={{
-                __html: svgCode.replace(
-                  /<svg/,
-                  '<svg preserveAspectRatio="xMidYMid meet" class="w-full h-full" '
-                )
-              }}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // Add styles to head
-  useEffect(() => {
-    const styleElement = document.createElement('style');
-    styleElement.textContent = styles;
-    document.head.appendChild(styleElement);
-    return () => {
-      document.head.removeChild(styleElement);
-    };
-  }, []);
 
   return (
     <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+      {/* Chat Sidebar */}
       <ChatSidebar />
       
       {/* Modern Header */}
@@ -782,113 +668,245 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       {/* Chat container */}
       <ScrollArea className="flex-1 p-6">
         <div ref={chatContainerRef} className="space-y-6">
-          {/* Welcome message */}
-          {Array.isArray(messages) && messages.length === 0 && (
-            <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-blue-500 rounded-lg">
-                    <Wand2 className="h-4 w-4 text-white" />
-                  </div>
-                  <h4 className="font-semibold text-blue-700 dark:text-blue-300">
-                    {activeChat ? 'Continue Your Conversation' : 'Welcome to AI Design Studio!'}
-                  </h4>
-                </div>
-                <p className="text-slate-600 dark:text-slate-300 mb-4">
-                  {activeChat 
-                    ? 'Your previous conversation has been loaded. Continue where you left off or start a new chat from the sidebar.'
-                    : 'I can help you create amazing designs! Try saying:'}
-                </p>
-                {!activeChat && (
-                  <div className="grid grid-cols-1 gap-2">
-                    <Badge variant="secondary" className="justify-start py-2 px-3">
-                      &ldquo;Create an icon set for a fitness app&rdquo;
-                    </Badge>
-                    <Badge variant="secondary" className="justify-start py-2 px-3">
-                      &ldquo;Design an elegant logo with a mountain theme&rdquo;
-                    </Badge>
-                    <Badge variant="secondary" className="justify-start py-2 px-3">
-                      &ldquo;Make an infographic about renewable energy&rdquo;
-                    </Badge>
-                  </div>
-                )}
-                {activeChat && (
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={createNewChat}
-                    className="mt-2"
-                  >
-                    <PlusCircle className="h-4 w-4 mr-2" />
-                    Start New Chat
-                  </Button>
-                )}
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Messages */}
-          {Array.isArray(messages) && messages.filter(m => m.role !== "system").map((message, index) => (
-            <div 
-              key={index} 
-              className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <Card 
-                className={`max-w-[85%] ${
-                  message.role === "user" 
-                    ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white border-blue-500" 
-                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
-                }`}
-              >
-                <CardContent className="p-4">
-                  <div className={`text-sm ${message.role === "user" ? "text-blue-50" : "text-slate-700 dark:text-slate-300"}`}>
-                    {message.role === "assistant" 
-                      ? formatMessageContent(message.content)
-                      : <span style={{ whiteSpace: 'pre-wrap' }}>{message.content}</span>
-                    }
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-
-          {/* Loading indicator */}
-          {isSending && (
-            <div className="flex justify-start">
-              <Card className="bg-white dark:bg-slate-800">
-                <CardContent className="p-4 flex flex-col gap-3">
-                  <div className="flex items-center gap-3">
-                    <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
-                    <span className="text-sm text-slate-600 dark:text-slate-400">
-                      {workflowProgress > 0 && workflowProgress < 100 
-                        ? `Creating your design... ${workflowProgress}% complete` 
-                        : "Creating your design..."}
-                    </span>
-                  </div>
-                  
-                  {workflowProgress > 0 && (
-                    <div className="w-full">
-                      <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-gradient-to-r from-blue-500 to-indigo-600" 
-                          style={{ width: `${workflowProgress}%` }}
-                        />
+              {/* Welcome message */}
+          {messages.length === 0 && (
+                <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-2 bg-blue-500 rounded-lg">
+                        <Wand2 className="h-4 w-4 text-white" />
                       </div>
+                      <h4 className="font-semibold text-blue-700 dark:text-blue-300">
+                        {activeChat ? 'Continue Your Conversation' : 'Welcome to AI Design Studio!'}
+                      </h4>
                     </div>
-                  )}
+                    <p className="text-slate-600 dark:text-slate-300 mb-4">
+                      {activeChat 
+                        ? 'Your previous conversation has been loaded. Continue where you left off or start a new chat from the sidebar.'
+                        : 'I can help you create amazing designs! Try saying:'}
+                    </p>
+                    {!activeChat && (
+                      <div className="grid grid-cols-1 gap-2">
+                        <Badge variant="secondary" className="justify-start py-2 px-3">
+                      &ldquo;Create a coming soon poster for my clothing brand&rdquo;
+                        </Badge>
+                        <Badge variant="secondary" className="justify-start py-2 px-3">
+                      &ldquo;Design a testimonial card for my restaurant&rdquo;
+                        </Badge>
+                        <Badge variant="secondary" className="justify-start py-2 px-3">
+                      &ldquo;Make a logo for my tech startup&rdquo;
+                        </Badge>
+                      </div>
+                    )}
+                    {activeChat && (
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        onClick={createNewChat}
+                        className="mt-2"
+                      >
+                        <PlusCircle className="h-4 w-4 mr-2" />
+                        Start New Chat
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Messages */}
+          {messages.filter(m => m.role !== "system").map((message, index) => (
+                <div 
+                  key={index} 
+                  className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                >
+                  <Card 
+                    className={`max-w-[85%] ${
+                      message.role === "user" 
+                        ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white border-blue-500" 
+                        : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+                    }`}
+                  >
+                    <CardContent className="p-4">
+                      <div className={`text-sm ${message.role === "user" ? "text-blue-50" : "text-slate-700 dark:text-slate-300"}`}>
+                        {message.role === "assistant" 
+                          ? formatMessageContent(message.content)
+                          : <span style={{ whiteSpace: 'pre-wrap' }}>{message.content}</span>
+                        }
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+
+              {/* Loading indicator */}
+              {isSending && (
+                <div className="flex justify-start">
+                  <Card className="bg-white dark:bg-slate-800">
+                <CardContent className="p-4 flex items-center gap-3">
+                        <Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+                  <span className="text-sm text-slate-600 dark:text-slate-400">Creating your design...</span>
                 </CardContent>
               </Card>
-            </div>
+                      </div>
           )}
         </div>
       </ScrollArea>
 
-      {/* Workflow Progress */}
-      {workflowStages && Object.keys(workflowStages).length > 0 && <WorkflowProgress />}
-
       {/* SVG Preview and actions */}
       {svgCode && (
-        <SvgPreview />
+        <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
+          <div className="space-y-3">
+            {/* Preview Title */}
+            <div className="flex items-center justify-between">
+              <h4 className="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2 text-sm">
+                <Check className="h-3 w-3 text-green-500" />
+                Design Ready
+              </h4>
+              <Badge variant="outline" className="text-xs">
+                {showFullImage ? '180×180px' : '120×120px'} Preview
+              </Badge>
+            </div>
+
+            {/* Compact Design Preview */}
+            <div className="flex items-center gap-3">
+              <div 
+                className={`${showFullImage ? 'w-[180px] h-[180px]' : 'w-[120px] h-[120px]'} flex items-center justify-center bg-white/50 dark:bg-slate-800/50 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex-shrink-0 relative group`}
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="8" height="8" fill="#f8fafc"/><rect x="8" y="8" width="8" height="8" fill="#f8fafc"/></svg>')}")`,
+                  backgroundSize: '16px 16px'
+                }}
+              >
+                {isProcessingSvg ? (
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm">
+                    <Loader2 className="h-6 w-6 animate-spin text-blue-500" />
+                  </div>
+                ) : (
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center w-full h-full"
+                    key={`svg-preview-${Date.now()}`}
+                  >
+                    <div 
+                      className="w-full h-full flex items-center justify-center"
+                      dangerouslySetInnerHTML={{
+                        __html: svgCode.replace(
+                          /<svg/,
+                          '<svg preserveAspectRatio="xMidYMid meet" width="100%" height="100%" style="max-width: 100%; max-height: 100%;"'
+                        )
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Compact Action Buttons */}
+              <div className={`${showFullImage ? 'flex flex-col gap-2' : 'flex-1 grid grid-cols-3 gap-2'}`}>
+                <Button
+                  onClick={useThisSvg}
+                  disabled={isAddingToCanvas}
+                  size="sm"
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 h-8"
+                >
+                  {isAddingToCanvas ? (
+                    <Loader2 className="h-3 w-3 animate-spin" />
+                  ) : (
+                    <>
+                      <ExternalLink className="h-3 w-3 mr-1" />
+                      Use this SVG
+                    </>
+                  )}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={saveToLibrary}
+                  disabled={isSaving || isSaved}
+                  size="sm"
+                  className="hover:bg-green-50 hover:border-green-300 dark:hover:bg-green-950 h-8"
+                >
+                  {isSaving ? (
+                    <Loader2 className="h-3 w-3 animate-spin mr-1" />
+                  ) : isSaved ? (
+                    <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
+                  ) : (
+                    <Save className="h-3 w-3 mr-1" />
+                  )}
+                  {isSaving ? 'Saving...' : isSaved ? 'Saved' : 'Library'}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={() => setShowFullImage(!showFullImage)}
+                  size="sm"
+                  className="hover:bg-indigo-50 hover:border-indigo-300 dark:hover:bg-indigo-950 h-8"
+                >
+                  {showFullImage ? (
+                    <>
+                      <Minimize className="h-3 w-3 mr-1" />
+                      Compact
+                    </>
+                  ) : (
+                    <>
+                      <Expand className="h-3 w-3 mr-1" />
+                      Full View
+            </>
+          )}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={() => setShowQuickActions(!showQuickActions)}
+                  size="sm"
+                  className="hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-blue-950 h-8"
+                >
+                  <Wand2 className="h-3 w-3 mr-1" />
+                  {showQuickActions ? 'Less' : 'Edit'}
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={copySvgCode}
+                  size="sm"
+                  className="hover:bg-purple-50 hover:border-purple-300 dark:hover:bg-purple-950 h-8"
+                >
+                  <Copy className="h-3 w-3 mr-1" />
+                  Copy
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  onClick={downloadSvg}
+                  size="sm"
+                  className="hover:bg-amber-50 hover:border-amber-300 dark:hover:bg-amber-950 h-8"
+                >
+                  <Download className="h-3 w-3 mr-1" />
+                  Save
+                </Button>
+              </div>
+            </div>
+
+            {/* Collapsible Quick Actions */}
+            {showQuickActions && (
+              <div className="space-y-2 border-t border-slate-200 dark:border-slate-700 pt-3">
+                <h5 className="text-xs font-medium text-slate-600 dark:text-slate-400">Quick Edits:</h5>
+                <div className="grid grid-cols-3 gap-1">
+                  {quickActions.map((action, index) => (
+                    <Button
+                      key={index}
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleQuickAction(action)}
+                      disabled={isSending}
+                      className="h-7 px-2 flex items-center gap-1 text-xs hover:bg-slate-100 dark:hover:bg-slate-800"
+                    >
+                      <action.icon className="h-3 w-3" />
+                      {action.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       )}
 
       {/* Message input area */}
@@ -923,25 +941,25 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           </div>
           
           {/* Suggestion Pills */}
-          {messages && messages.length === 0 && !activeChat && (
+          {messages.length === 0 && !activeChat && (
             <div className="flex gap-2 flex-wrap">
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => sendMessage("Create an icon set for a fitness app")}
+                onClick={() => sendMessage("Create a coming soon poster")}
                 className="h-7 text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 dark:bg-blue-950 dark:hover:bg-blue-900 dark:text-blue-300"
                 disabled={isSending}
               >
-                Icon Design
+                Coming Soon Poster
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => sendMessage("Design an illustration")}
+                onClick={() => sendMessage("Design a testimonial card")}
                 className="h-7 text-xs bg-green-50 hover:bg-green-100 text-green-700 dark:bg-green-950 dark:hover:bg-green-900 dark:text-green-300"
                 disabled={isSending}
               >
-                Illustration
+                Testimonial Card
               </Button>
               <Button
                 variant="ghost"
@@ -956,7 +974,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           )}
           
           {/* Chat history indicator */}
-          {messages && messages.length === 0 && activeChat && (
+          {messages.length === 0 && activeChat && (
             <div className="flex items-center gap-2">
               <Button
                 variant="outline"
