@@ -1,21 +1,10 @@
-import { useSubscriptionModal } from "@/features/subscriptions/store/use-subscription-modal";
-import { useGetSubscription } from "@/features/subscriptions/api/use-get-subscription";
+// Mock version of the paywall hook
+// This is a temporary solution after removing subscription functionality
 
 export const usePaywall = () => {
-  const { 
-    isLoading: isLoadingSubscription,
-  } = useGetSubscription();
-
-  const subscriptionModal = useSubscriptionModal();
-
-  // Always return false for shouldBlock to bypass the paywall
-  const shouldBlock = false;
-
   return {
-    isLoading: false, // Also set isLoading to false to avoid any loading states
-    shouldBlock,
-    triggerPaywall: () => {
-      subscriptionModal.onOpen();
-    },
+    shouldBlock: false,
+    isLoading: false,
+    triggerPaywall: () => {},
   };
-};
+}; 
