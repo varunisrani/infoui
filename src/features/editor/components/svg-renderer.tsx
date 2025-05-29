@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, ReactNode } from 'react';
 import { svgNormalizer } from '@/lib/svg-utils';
 
 interface SvgRendererProps {
@@ -10,7 +10,7 @@ interface SvgRendererProps {
   preserveAspectRatio?: string;
   className?: string;
   onError?: (error: Error) => void;
-  fallback?: string;
+  fallback?: ReactNode;
 }
 
 /**
@@ -23,38 +23,12 @@ export const SvgRenderer: React.FC<SvgRendererProps> = ({
   preserveAspectRatio = 'xMidYMid meet',
   className = '',
   onError,
-  fallback = ''
+  fallback = null
 }) => {
   const [processedSvg, setProcessedSvg] = useState<string>('');
   const containerRef = useRef<HTMLDivElement>(null);
   
-  useEffect(() => {
-    if (!svgContent) {
-      setProcessedSvg('');
-      return;
-    }
-
-    try {
-      // Parse and clean the SVG
-      const parser = new DOMParser();
-      const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
-      
-      if (svgDoc.querySelector('parsererror')) {
-        console.error("SVG parse error, using fallback");
-        setProcessedSvg(fallback);
-        return;
-      }
-
-      // Process the SVG
-      const svgElement = svgDoc.documentElement;
-      processAndSetSvg(svgElement);
-    } catch (error) {
-      console.error("Error processing SVG:", error);
-      setProcessedSvg(fallback);
-    }
-  }, [svgContent, fallback]);
-  
-  const processAndSetSvg = (svgElement: Element) => {
+  const processAndSetSvg = useCallback((svgElement: Element) => {
     // Ensure basic attributes are set but preserve everything else
     if (!svgElement.hasAttribute('xmlns')) {
       svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
@@ -90,10 +64,50 @@ export const SvgRenderer: React.FC<SvgRendererProps> = ({
     
     // Try the minimal processing first
     setProcessedSvg(minimallyProcessedSvg);
-  };
+  }, [width, height, preserveAspectRatio]);
+  
+  useEffect(() => {
+    if (!svgContent) {
+      setProcessedSvg('');
+      return;
+    }
+
+    try {
+      // Parse and clean the SVG
+      const parser = new DOMParser();
+      const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
+      
+      if (svgDoc.querySelector('parsererror')) {
+        console.error("SVG parse error, using fallback");
+        setProcessedSvg('');
+        return;
+      }
+
+      // Process the SVG
+      const svgElement = svgDoc.documentElement;
+      processAndSetSvg(svgElement);
+    } catch (error) {
+      console.error("Error processing SVG:", error);
+      setProcessedSvg('');
+    }
+  }, [svgContent, processAndSetSvg]);
   
   if (!processedSvg) {
-    return fallback || null;
+    return (
+      <div 
+        ref={containerRef}
+        className={className}
+        style={{ 
+          width: typeof width === 'number' ? `${width}px` : width,
+          height: typeof height === 'number' ? `${height}px` : height,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        {fallback}
+      </div>
+    );
   }
   
   return (
