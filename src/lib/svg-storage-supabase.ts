@@ -1,10 +1,24 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+// Initialize Supabase client conditionally
+let supabase: SupabaseClient | null = null;
 
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Initialize Supabase only when environment variables are available
+function getSupabaseClient(): SupabaseClient {
+  if (supabase) {
+    return supabase;
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error('Supabase environment variables are not configured. Please check your .env.local file.');
+  }
+
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+  return supabase;
+}
 
 export interface SVGData {
   id: string;
@@ -18,6 +32,7 @@ export interface SVGData {
 export const svgStorageSupabase = {
   async saveSVG(content: string, name: string, dataUrl?: string): Promise<SVGData> {
     try {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('svg_storage')
         .insert([
@@ -44,6 +59,7 @@ export const svgStorageSupabase = {
 
   async getSVGs(): Promise<SVGData[]> {
     try {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('svg_storage')
         .select('*')
@@ -67,6 +83,7 @@ export const svgStorageSupabase = {
 
   async deleteSVG(id: string): Promise<void> {
     try {
+      const supabase = getSupabaseClient();
       const { error } = await supabase
         .from('svg_storage')
         .delete()
@@ -81,6 +98,7 @@ export const svgStorageSupabase = {
 
   async updateSVG(id: string, updates: Partial<SVGData>): Promise<SVGData> {
     try {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('svg_storage')
         .update({
