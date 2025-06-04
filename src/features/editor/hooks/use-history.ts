@@ -16,6 +16,7 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
   const [historyIndex, setHistoryIndex] = useState(0);
   const canvasHistory = useRef<string[]>([]);
   const skipSave = useRef(false);
+  const MAX_HISTORY = 50;
 
   const canUndo = useCallback(() => {
     return historyIndex > 0;
@@ -27,21 +28,24 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
 
   const save = useCallback((skip = false) => {
     if (!canvas) return;
-    
+
     try {
       const currentState = canvas.toJSON(JSON_KEYS);
       const json = JSON.stringify(currentState);
-  
+
       if (!skip && !skipSave.current) {
-        // If we're in the middle of the history stack, 
-        // remove everything after the current index
         if (historyIndex < canvasHistory.current.length - 1) {
           canvasHistory.current = canvasHistory.current.slice(0, historyIndex + 1);
         }
-        
-        // Add new state to history
-        canvasHistory.current.push(json);
-        setHistoryIndex(canvasHistory.current.length - 1);
+
+        const last = canvasHistory.current[canvasHistory.current.length - 1];
+        if (last !== json) {
+          canvasHistory.current.push(json);
+          if (canvasHistory.current.length > MAX_HISTORY) {
+            canvasHistory.current.shift();
+          }
+          setHistoryIndex(canvasHistory.current.length - 1);
+        }
       }
   
       const workspace = canvas
@@ -77,9 +81,14 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
           canvasHistory.current[previousIndex]
         );
 
-        // Load the previous state
         canvas?.loadFromJSON(previousState, () => {
-          // Make sure canvas correctly renders
+          const workspace = canvas
+            .getObjects()
+            .find((o) => (o as any).name === 'clip');
+          if (workspace) {
+            canvas.clipPath = workspace as unknown as fabric.Rect;
+          }
+
           canvas.renderAll();
           setHistoryIndex(previousIndex);
           skipSave.current = false;
@@ -104,9 +113,14 @@ export const useHistory = ({ canvas, saveCallback }: UseHistoryProps) => {
           canvasHistory.current[nextIndex]
         );
 
-        // Load the next state
         canvas?.loadFromJSON(nextState, () => {
-          // Make sure canvas correctly renders
+          const workspace = canvas
+            .getObjects()
+            .find((o) => (o as any).name === 'clip');
+          if (workspace) {
+            canvas.clipPath = workspace as unknown as fabric.Rect;
+          }
+
           canvas.renderAll();
           setHistoryIndex(nextIndex);
           skipSave.current = false;

@@ -249,6 +249,39 @@ export const svgNormalizer = {
     });
   },
 
+  // Convert percentage-based text positions to absolute numbers
+  normalizeTextPercentagePositions: (svgElement: SVGSVGElement): void => {
+    const viewBox = svgElement.getAttribute('viewBox');
+    let width = parseFloat(svgElement.getAttribute('width') || '0');
+    let height = parseFloat(svgElement.getAttribute('height') || '0');
+
+    if (viewBox) {
+      const parts = viewBox.split(/\s+/);
+      if (parts.length === 4) {
+        width = parseFloat(parts[2]) || width;
+        height = parseFloat(parts[3]) || height;
+      }
+    }
+
+    if (!width) width = 1080;
+    if (!height) height = 1080;
+
+    const texts = svgElement.querySelectorAll('text');
+    texts.forEach(text => {
+      const x = text.getAttribute('x');
+      if (x && x.includes('%')) {
+        const pct = parseFloat(x) / 100;
+        text.setAttribute('x', String(width * pct));
+      }
+
+      const y = text.getAttribute('y');
+      if (y && y.includes('%')) {
+        const pct = parseFloat(y) / 100;
+        text.setAttribute('y', String(height * pct));
+      }
+    });
+  },
+
   // Convert classes to inline styles
   convertClassesToInlineStyles: (svgContent: string): string => {
     let processedContent = svgContent;
@@ -326,6 +359,7 @@ export const svgNormalizer = {
       // Process and clean the SVG (more gently than before)
       svgNormalizer.removeProblematicElements(svgElement);
       svgNormalizer.ensureStyles(svgElement);
+      svgNormalizer.normalizeTextPercentagePositions(svgElement);
 
       // Make sure original transforms and grouping are preserved
       const groups = svgElement.querySelectorAll('g');
@@ -488,6 +522,7 @@ export const svgNormalizer = {
 
         // Ensure all shape elements have fill attributes
         svgNormalizer.ensureStyles(svgElement as unknown as SVGSVGElement);
+        svgNormalizer.normalizeTextPercentagePositions(svgElement as unknown as SVGSVGElement);
 
         // Preserve all groups and their transforms
         const groups = svgElement.querySelectorAll('g');
