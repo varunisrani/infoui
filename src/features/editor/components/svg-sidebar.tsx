@@ -409,7 +409,7 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
                       </div>
                     ) : (
                       <SvgRenderer
-                        svgContent={svg.content}
+                        svgContent={svgNormalizer.fullyProcessSvg(svg.content).processed}
                         className="w-full h-full"
                         onError={(error) => handleSvgError(svg.id, error)}
                         fallback={
@@ -521,7 +521,7 @@ export const SvgSidebar = ({ editor, activeTool, onChangeActiveTool }: SvgSideba
               >
                 <div className="relative w-full h-full flex items-center justify-center p-2">
                   <SvgRenderer
-                    svgContent={template.content}
+                    svgContent={svgNormalizer.fullyProcessSvg(template.content).processed}
                     width={80}
                     height={80}
                     preserveAspectRatio="xMidYMid meet"
