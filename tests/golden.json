@@ -1,0 +1,26 @@
+[
+  {
+    "name": "example1",
+    "prompt": "A simple red circle logo with the text 'TestOne'",
+    "expected_texts": 1,
+    "max_paths": 10,
+    "max_diff_pixels": 100,
+    "golden_image": "golden_images/example1.png"
+  },
+  {
+    "name": "example2",
+    "prompt": "A minimalist blue triangle icon with the text 'TriTest'",
+    "expected_texts": 1,
+    "max_paths": 10,
+    "max_diff_pixels": 100,
+    "golden_image": "golden_images/example2.png"
+  },
+  {
+    "name": "example3",
+    "prompt": "A black-and-white geometric pattern background with the word 'GeoArt' centered",
+    "expected_texts": 1,
+    "max_paths": 50,
+    "max_diff_pixels": 100,
+    "golden_image": "golden_images/example3.png"
+  }
+] 

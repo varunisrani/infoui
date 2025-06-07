@@ -8,7 +8,7 @@ import re
 import base64
 from io import BytesIO
 import cairosvg
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 import openai
 import uuid
 from datetime import datetime
@@ -18,29 +18,7 @@ import vtracer  # Add vtracer import
 # Load environment variables
 load_dotenv()
 
-# Configure OpenAI API
-OPENAI_CHAT_ENDPOINT = "https://api.openai.com/v1/chat/completions"
-OPENAI_API_KEY_ENHANCER = os.getenv('OPENAI_API_KEY')
-
-# Model configurations
-PLANNER_MODEL = "gpt-4.1-mini"
-DESIGN_KNOWLEDGE_MODEL = "gpt-4.1-mini"
-PRE_ENHANCER_MODEL = "gpt-4.1-mini"
-PROMPT_ENHANCER_MODEL = "gpt-4.1-mini"
-GPT_IMAGE_MODEL = "gpt-image-1"
-SVG_GENERATOR_MODEL = "gpt-4.1-mini"
-CHAT_ASSISTANT_MODEL = "gpt-4.1-mini"
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# Initialize Flask app
 app = Flask(__name__)
-
-# Configure paths
-IMAGES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'images')
-os.makedirs(IMAGES_DIR, exist_ok=True)
 
 # Configure CORS with specific settings
 CORS(app, 
@@ -74,6 +52,7 @@ IMAGES_DIR = os.path.join(STATIC_DIR, 'images')
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
 # API keys
+OPENAI_API_KEY_ENHANCER = os.getenv('OPENAI_API_KEY_ENHANCER')
 OPENAI_API_KEY_SVG = os.getenv('OPENAI_API_KEY_SVG')
 
 if not OPENAI_API_KEY_ENHANCER or not OPENAI_API_KEY_SVG:
@@ -85,6 +64,15 @@ openai.api_key = OPENAI_API_KEY_SVG
 # OpenAI API Endpoints
 OPENAI_API_BASE = "https://api.openai.com/v1"
 OPENAI_CHAT_ENDPOINT = f"{OPENAI_API_BASE}/chat/completions"
+
+# Model names - updated to use GPT-4.1 mini for logic/text and gpt-image for images
+PLANNER_MODEL = "gpt-4.1-mini"
+DESIGN_KNOWLEDGE_MODEL = "gpt-4.1-mini"
+PRE_ENHANCER_MODEL = "gpt-4.1-mini"
+PROMPT_ENHANCER_MODEL = "gpt-4.1-mini"
+GPT_IMAGE_MODEL = "gpt-image-1"
+SVG_GENERATOR_MODEL = "gpt-4.1-mini"
+CHAT_ASSISTANT_MODEL = "gpt-4.1-mini"
 
 def check_vector_suitability(user_input):
     """Check if the prompt is suitable for SVG vector graphics"""
@@ -440,837 +428,53 @@ def generate_image_with_gpt(enhanced_prompt):
         logger.error(f"Error generating image with GPT Image-1: {str(e)}")
         raise
 
-def combine_svg_elements(vectorized_svg, text_elements):
-    """Combine vectorized elements with text elements"""
-    logger.info("Combining SVG elements...")
-    
-    try:
-        # Extract the SVG viewBox and dimensions
-        viewbox_match = re.search(r'viewBox=[\'"]([^\'"]*)[\'"]', vectorized_svg)
-        width_match = re.search(r'width=[\'"]([^\'"]*)[\'"]', vectorized_svg)
-        height_match = re.search(r'height=[\'"]([^\'"]*)[\'"]', vectorized_svg)
-        
-        viewbox = viewbox_match.group(1) if viewbox_match else "0 0 1080 1080"
-        width = width_match.group(1) if width_match else "1080"
-        height = height_match.group(1) if height_match else "1080"
-        
-        # Extract the SVG content without the wrapper
-        svg_content = re.search(r'<svg[^>]*>(.*?)</svg>', vectorized_svg, re.DOTALL)
-        if not svg_content:
-            logger.warning("Could not extract SVG content, returning original")
-            return vectorized_svg
-            
-        inner_content = svg_content.group(1)
-        
-        # Create new SVG with precise positioning for both elements
-        combined_svg = f'<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n'
-        combined_svg += f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="{viewbox}" width="{width}" height="{height}" style="enable-background:new 0 0 {width} {height};">\n'
-        combined_svg += '  <defs>\n'
-        combined_svg += '    <style type="text/css">\n'
-        combined_svg += '      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");\n'
-        combined_svg += '      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");\n'
-        combined_svg += '      @import url("https://fonts.googleapis.com/css2?family=Georgia:ital@0;1&display=swap");\n'
-        combined_svg += '      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");\n'
-        combined_svg += '      @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");\n'
-        combined_svg += '      .text-content { font-family: inherit; }\n'
-        combined_svg += '    </style>\n'
-        combined_svg += '  </defs>\n'
-        combined_svg += '  <!-- Vectorized elements -->\n'
-        combined_svg += f'  <g id="vectorized-content">\n    {inner_content}\n  </g>\n'
-        combined_svg += '  <!-- Text elements with precise positioning -->\n'
-        combined_svg += f'  <g id="text-content" class="text-content">\n    {text_elements}\n  </g>\n'
-        combined_svg += '</svg>'
-        
-        # Verify the combined SVG contains both vectorized and text elements
-        has_vector = "vectorized-content" in combined_svg
-        has_text = "text-content" in combined_svg and "<text" in text_elements
-        
-        if has_vector and has_text:
-            logger.info("Successfully combined SVG elements with vectorized content and text elements")
-        elif has_vector:
-            logger.info("Combined SVG contains vectorized content but no text elements")
-        elif has_text:
-            logger.info("Combined SVG contains text elements but no vectorized content")
-        else:
-            logger.warning("Combined SVG may be missing both vectorized content and text elements")
-        
-        return combined_svg
-        
-    except Exception as e:
-        logger.error(f"Error combining SVG elements: {str(e)}")
-        logger.warning("Returning original vectorized SVG")
-        return vectorized_svg
-
-def extract_text_from_prompt(prompt):
-    """Extract text elements that need to be generated separately"""
-    logger.info("Extracting text elements from prompt...")
-    
-    url = OPENAI_CHAT_ENDPOINT
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {OPENAI_API_KEY_ENHANCER}"
-    }
-
-    payload = {
-        "model": PLANNER_MODEL,
-        "messages": [
-            {
-                "role": "system",
-                "content": """You are a design text analyzer. Your task is to:
-1. Identify all text elements that should be in the design
-2. For each text element, specify:
-   - The actual text content
-   - Suggested font style/family
-   - Approximate size (small, medium, large)
-   - Position (top, bottom, center, etc.)
-   - Any special styling (bold, italic, etc.)
-   - Color suggestions
-
-Return the analysis in a structured JSON format."""
-            },
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ],
-        "temperature": 0.7,
-        "max_tokens": 1000,
-        "response_format": { "type": "json_object" }
-    }
-
-    try:
-        response = requests.post(url, headers=headers, json=payload)
-        response_data = response.json()
-        return response_data["choices"][0]["message"]["content"]
-    except Exception as e:
-        logger.error(f"Error extracting text elements: {str(e)}")
-        return None
-
-def analyze_image_for_text(image_path):
-    """
-    Analyze the image to identify text regions and their properties.
-    Returns a list of text regions with their properties.
-    """
-    try:
-        messages = [
-            {"role": "system", "content": """You are an expert at analyzing images and identifying text elements. 
-            Your task is to extract all text elements from the image with extremely precise measurements and properties.
-            
-            For each text element you find, provide:
-            
-            1. The exact text content (transcribe it exactly as it appears)
-            2. Position (precise x, y coordinates of the top-left corner in pixels)
-            3. Width and height of the text region (exact dimensions in pixels)
-            4. Color (precise hex format, e.g. #000000 for black)
-            5. Font size (precise size in pixels)
-            6. Font weight (normal, bold, etc.)
-            7. Font style (regular, italic, etc.)
-            8. Alignment (left, center, right)
-            9. Font family (your best guess at the font family)
-            10. Text type (title, subtitle, body, quote, name, button, etc.)
-            
-            Be extremely precise with measurements and positioning - this is critical as text will be placed 
-            exactly according to these coordinates in an SVG. Pay attention to:
-            
-            - The exact x,y coordinates (should be pixel-perfect)
-            - The width and height (should be exact pixels)
-            - Differentiating between separate text elements (don't combine text that should be separate)
-            - The exact color of the text (provide accurate hex values)
-            
-            Return your analysis as a JSON array where each object represents one text element with all the properties above.
-            Format: [{"text": "...", "x": 123, "y": 45, "width": 100, "height": 30, "color": "#000000", "font_size": 16, "font_weight": "normal", "font_style": "normal", "alignment": "left", "font_family": "Arial", "text_type": "body"}, {...}]
-            """
-            },
-            {"role": "user", "content": f"Analyze this image and identify all text elements with their exact properties. Ensure measurements are extremely precise."}
-        ]
-        
-        # Use vision API to analyze the image
-        logger.info("Analyzing image for text using vision API...")
-        response_json_str = chat_with_vision(messages, image_path)
-        
-        try:
-            # The response is already a JSON string, so parse it directly
-            content = response_json_str
-            
-            # Extract JSON array from the response
-            json_match = re.search(r'\[\s*\{.*\}\s*\]', content, re.DOTALL)
-            if json_match:
-                json_str = json_match.group(0)
-                text_regions = json.loads(json_str)
-            else:
-                # Try to find any JSON object in the response
-                try:
-                    # Try to parse the entire content as JSON
-                    json_obj = json.loads(content)
-                    
-                    # Check if it's an array
-                    if isinstance(json_obj, list):
-                        text_regions = json_obj
-                    # Check if it's a wrapper object with regions field
-                    elif isinstance(json_obj, dict):
-                        if any(k for k in json_obj.keys() if 'text' in k.lower() or 'region' in k.lower()):
-                            text_regions = json_obj.get('regions', []) or json_obj.get('text_regions', []) or []
-                        elif 'results' in json_obj:
-                            text_regions = json_obj.get('results', [])
-                        else:
-                            # Single region
-                            text_regions = [json_obj]
-                    else:
-                        logger.warning("Unexpected JSON structure, using empty list")
-                        text_regions = []
-                except json.JSONDecodeError:
-                    logger.warning("Failed to parse JSON from response, attempting to extract structured data")
-                    
-                    # Try to extract structured data from text
-                    pattern = r'Text: "(.*?)"\s*Position: \((\d+),\s*(\d+)\)\s*Dimensions: (\d+)x(\d+)\s*Color: (#[0-9A-Fa-f]{6})'
-                    matches = re.findall(pattern, content, re.DOTALL)
-                    
-                    text_regions = []
-                    for match in matches:
-                        text_regions.append({
-                            "text": match[0],
-                            "x": int(match[1]),
-                            "y": int(match[2]),
-                            "width": int(match[3]),
-                            "height": int(match[4]),
-                            "color": match[5],
-                            "font_size": 16,  # Default
-                            "font_weight": "normal",
-                            "font_style": "normal",
-                            "alignment": "left",
-                            "font_family": "Arial",
-                            "text_type": "body"
-                        })
-                    
-                    if not text_regions:
-                        logger.error("Could not extract structured text data")
-                        text_regions = []
-        except Exception as e:
-            logger.error(f"Error parsing text regions: {str(e)}")
-            text_regions = []
-        
-        # Validate and clean up text regions
-        valid_regions = []
-        for region in text_regions:
-            # Ensure all required fields are present with appropriate types
-            if not isinstance(region, dict):
-                continue
-                
-            if "text" not in region or not region["text"]:
-                continue
-                
-            # Ensure numeric values are actually numbers
-            for field in ["x", "y", "width", "height", "font_size"]:
-                if field in region:
-                    try:
-                        region[field] = float(region[field])
-                    except (ValueError, TypeError):
-                        region[field] = 0
-                else:
-                    # Default values if missing
-                    if field == "font_size":
-                        region[field] = 16
-                    else:
-                        region[field] = 0
-            
-            # Ensure color is a valid hex code
-            if "color" not in region or not isinstance(region["color"], str) or not region["color"].startswith("#"):
-                region["color"] = "#000000"  # Default to black
-                
-            # Ensure other text properties are present
-            if "font_weight" not in region:
-                region["font_weight"] = "normal"
-            if "font_style" not in region:
-                region["font_style"] = "normal"
-            if "alignment" not in region:
-                region["alignment"] = "left"
-            if "font_family" not in region:
-                region["font_family"] = "Arial"
-            if "text_type" not in region:
-                region["text_type"] = "body"
-                
-            valid_regions.append(region)
-            
-        logger.info(f"Found {len(valid_regions)} valid text regions")
-        for i, region in enumerate(valid_regions):
-            logger.info(f"Text region {i+1}: '{region['text']}' at ({region['x']}, {region['y']}) with size {region['width']}x{region['height']}, color {region['color']}")
-        
-        return valid_regions
-        
-    except Exception as e:
-        logger.error(f"Error in analyze_image_for_text: {str(e)}")
-        return []
-
-def chat_with_vision(messages, image_path):
-    """
-    Call GPT-4.1-mini to analyze the image.
-    Returns a JSON string containing the analysis results.
-    """
-    try:
-        # Read and encode the image
-        with open(image_path, 'rb') as image_file:
-            image_data = image_file.read()
-            base64_image = base64.b64encode(image_data).decode('utf-8')
-        
-        # Prepare the messages with the image
-        messages_with_image = messages.copy()
-        messages_with_image[1]["content"] = [
-            {
-                "type": "text",
-                "text": messages[1]["content"]
-            },
-            {
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/png;base64,{base64_image}"
-                }
-            }
-        ]
-        
-        # Use the existing OpenAI configuration
-        url = OPENAI_CHAT_ENDPOINT
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {OPENAI_API_KEY_ENHANCER}"
-        }
-        
-        payload = {
-            "model": "gpt-4.1-mini",  # Use the mini model as specified
-            "messages": messages_with_image,
-            "temperature": 0.7,
-            "max_tokens": 4000,
-            "response_format": { "type": "json_object" }  # Request JSON response
-        }
-        
-        logger.info(f"Calling OpenAI API for vision analysis with model: gpt-4.1-mini")
-        response = requests.post(url, headers=headers, json=payload)
-        
-        if response.status_code == 200:
-            result = response.json()
-            # Extract content from the response
-            content = result["choices"][0]["message"]["content"]
-            
-            # Ensure the content is valid JSON
-            try:
-                # Try to parse it as JSON to validate
-                json_obj = json.loads(content)
-                
-                # Check if the JSON object already has text regions in the expected format
-                if isinstance(json_obj, list):
-                    # If it's already a list, return as is
-                    return json.dumps(json_obj)
-                elif isinstance(json_obj, dict):
-                    # If it's a dictionary, check for text regions
-                    if any(k for k in json_obj.keys() if 'text' in k.lower() or 'region' in k.lower() or 'result' in k.lower()):
-                        # It has a proper structure, return as is
-                        return content
-                    else:
-                        # It's a dictionary but doesn't have text regions, wrap it as a single region
-                        # This handles the case where the model returns a single text region instead of an array
-                        if "text" in json_obj:
-                            return json.dumps([json_obj])
-                        else:
-                            # No text found in the image
-                            return '{"text_regions": []}'
-                else:
-                    # Invalid JSON structure, return empty array
-                    logger.warning("Invalid JSON structure from vision API")
-                    return '{"text_regions": []}'
-            except json.JSONDecodeError:
-                # If not valid JSON, create a valid JSON structure
-                logger.warning("Response was not valid JSON, returning empty array")
-                return '{"text_regions": []}'
-        else:
-            logger.error(f"Error from OpenAI API: {response.text}")
-            return '{"text_regions": []}'
-            
-    except Exception as e:
-        logger.error(f"Error in vision analysis: {str(e)}")
-        return '{"text_regions": []}'
-
-def create_text_mask(image_path, text_regions):
-    """
-    Create a mask for text regions to exclude them from vectorization.
-    """
-    try:
-        # Open the original image
-        with Image.open(image_path) as img:
-            # Create a new mask image with the same size
-            mask = Image.new('L', img.size, 255)  # White background
-            
-            # For each text region, create a black rectangle with padding
-            for region in text_regions:
-                x = region.get('x', 0)
-                y = region.get('y', 0)
-                width = region.get('width', 100)  # Default width if not provided
-                height = region.get('height', 30)  # Default height if not provided
-                
-                # Add padding around text area
-                padding = 5
-                x_start = max(0, int(x - padding))
-                y_start = max(0, int(y - padding))
-                x_end = min(img.size[0], int(x + width + padding))
-                y_end = min(img.size[1], int(y + height + padding))
-                
-                # Draw black rectangle for text area
-                for i in range(x_start, x_end):
-                    for j in range(y_start, y_end):
-                        mask.putpixel((i, j), 0)
-            
-            # Save the mask
-            mask_path = image_path.replace('.png', '_mask.png')
-            mask.save(mask_path)
-            return mask_path
-            
-    except Exception as e:
-        logger.error(f"Error creating text mask: {str(e)}")
-        return None
-
-def prepare_image_for_vectorization(image_path, text_regions):
-    """
-    Prepare image for vectorization by masking text regions.
-    """
-    try:
-        # Open the original image
-        with Image.open(image_path) as img:
-            # Create a copy of the image for processing
-            prepared_img = img.copy()
-            draw = ImageDraw.Draw(prepared_img)
-            
-            # Get dominant background color around text areas for proper fill
-            background_colors = []
-            for region in text_regions:
-                x = float(region.get('x', 0))
-                y = float(region.get('y', 0))
-                width = float(region.get('width', 100))
-                height = float(region.get('height', 30))
-                
-                # Sample more points around the text region for better color estimation
-                border_points = []
-                padding = 2
-                
-                # Sample points above and below the text region
-                for i in range(max(0, int(x - padding)), min(img.width, int(x + width + padding)), 2):
-                    if y > padding:
-                        border_points.append((i, max(0, int(y - padding))))
-                    if y + height + padding < img.height:
-                        border_points.append((i, min(img.height - 1, int(y + height + padding))))
-                
-                # Sample points to the left and right of the text region
-                for j in range(max(0, int(y - padding)), min(img.height, int(y + height + padding)), 2):
-                    if x > padding:
-                        border_points.append((max(0, int(x - padding)), j))
-                    if x + width + padding < img.width:
-                        border_points.append((min(img.width - 1, int(x + width + padding)), j))
-                
-                # Sample colors
-                colors = []
-                for point in border_points:
-                    if 0 <= point[0] < img.width and 0 <= point[1] < img.height:
-                        colors.append(img.getpixel(point))
-                
-                # Get average color (simple average, could be improved)
-                if colors:
-                    if len(colors[0]) >= 3:  # Check if we have RGB or RGBA
-                        avg_r = sum(c[0] for c in colors) // len(colors)
-                        avg_g = sum(c[1] for c in colors) // len(colors)
-                        avg_b = sum(c[2] for c in colors) // len(colors)
-                        if len(colors[0]) == 4:  # RGBA
-                            avg_a = sum(c[3] for c in colors) // len(colors)
-                            background_colors.append((avg_r, avg_g, avg_b, avg_a))
-                        else:  # RGB
-                            background_colors.append((avg_r, avg_g, avg_b))
-            
-            # Use most common background color or white if none found
-            if background_colors:
-                # Count occurrences of each color
-                color_counts = {}
-                for color in background_colors:
-                    color_counts[color] = color_counts.get(color, 0) + 1
-                
-                # Find most common color
-                bg_color = max(color_counts.items(), key=lambda x: x[1])[0]
-            else:
-                bg_color = (255, 255, 255)  # Default to white
-            
-            # Fill text regions with background color with exact coordinates
-            for region in text_regions:
-                x = float(region.get('x', 0))
-                y = float(region.get('y', 0))
-                width = float(region.get('width', 100))
-                height = float(region.get('height', 30))
-                
-                # Use precise coordinates with minimal padding
-                padding = 2  # Minimal padding
-                x_start = max(0, int(x - padding))
-                y_start = max(0, int(y - padding))
-                x_end = min(img.width, int(x + width + padding))
-                y_end = min(img.height, int(y + height + padding))
-                
-                # Fill rectangle with background color - use exact coordinates
-                draw.rectangle([x_start, y_start, x_end, y_end], fill=bg_color)
-                
-                # Log the masked region with precise coordinates
-                logger.info(f"Masked text region: '{region.get('text', '')}' at ({x_start}, {y_start}, {x_end}, {y_end})")
-            
-            # Save the prepared image
-            prepared_image_path = image_path.replace('.png', '_prepared.png')
-            prepared_img.save(prepared_image_path)
-            return prepared_image_path
-            
-    except Exception as e:
-        logger.error(f"Error preparing image for vectorization: {str(e)}")
-        return image_path  # Return original path if preparation fails
-
-def remove_text_from_image(image_base64, text_regions):
-    """Remove text from an image using GPT Image-1 edit endpoint"""
-    try:
-        logger.info("Removing text from image using GPT Image-1 edit")
-        
-        # Decode base64 and create a temporary image
-        image_data = base64.b64decode(image_base64)
-        temp_image_path = os.path.join(IMAGES_DIR, f"temp_{uuid.uuid4()}.png")
-        with open(temp_image_path, 'wb') as f:
-            f.write(image_data)
-        
-        # Open the original image to get its dimensions
-        with Image.open(temp_image_path) as img:
-            img_width, img_height = img.size
-            
-            # Create mask image with RGBA mode - transparent background
-            # For OpenAI's edit endpoint, transparent areas (alpha=0) are NOT edited
-            # Opaque areas (alpha=255) ARE edited
-            mask = Image.new('RGBA', img.size, (0, 0, 0, 0))  # Fully transparent (areas NOT to edit)
-            draw = ImageDraw.Draw(mask)
-            
-            # Make text regions opaque in the mask (areas TO edit)
-            for region in text_regions:
-                x = float(region.get('x', 0))
-                y = float(region.get('y', 0))
-                width = float(region.get('width', 100))
-                height = float(region.get('height', 30))
-                
-                # Add minimal padding to ensure all text is covered
-                padding = 2
-                x_start = max(0, int(x - padding))
-                y_start = max(0, int(y - padding))
-                x_end = min(img_width, int(x + width + padding))
-                y_end = min(img_height, int(y + height + padding))
-                
-                # Draw black rectangle with full opacity (alpha=255) for areas to be edited
-                draw.rectangle([x_start, y_start, x_end, y_end], fill=(0, 0, 0, 255))
-                
-                logger.info(f"Masked text region in edit mask: '{region.get('text', '')}' at ({x_start}, {y_start}, {x_end}, {y_end})")
-            
-            # Save the mask image for debugging
-            mask_path = os.path.join(IMAGES_DIR, f"mask_{uuid.uuid4()}.png")
-            mask.save(mask_path)
-            logger.info(f"Created mask image at: {mask_path}")
-        
-        # Important: Craft a prompt that specifically instructs to remove text and leave the space empty
-        prompt = "Remove all text from this image. Do NOT fill in the text areas with background or any other content. Just make the text invisible while keeping the exact space where the text was completely empty and transparent. Do not add any new text or elements."
-        
-        # Open the image and mask files for the API
-        with open(temp_image_path, "rb") as image_file, open(mask_path, "rb") as mask_file:
-            try:
-                logger.info("Calling OpenAI edit API with mask")
-                response = openai.images.edit(
-                    model=GPT_IMAGE_MODEL,
-                    image=image_file,
-                    mask=mask_file,
-                    prompt=prompt,
-                    n=1,
-                    size="1024x1024"
-                )
-                
-                # Get edited image URL or base64
-                edited_image = response.data[0].b64_json if hasattr(response.data[0], 'b64_json') else response.data[0].url
-                
-                # If we got a URL instead of base64, download the image
-                if not hasattr(response.data[0], 'b64_json') and edited_image.startswith('http'):
-                    logger.info("Downloading image from URL")
-                    img_response = requests.get(edited_image)
-                    if img_response.status_code == 200:
-                        edited_image = base64.b64encode(img_response.content).decode('utf-8')
-                    else:
-                        logger.error(f"Failed to download image: {img_response.status_code}")
-                        return image_base64  # Return original if download fails
-                
-                logger.info("Successfully removed text from image using edit API")
-                
-                # Save the edited image for debugging
-                edited_image_path = os.path.join(IMAGES_DIR, f"text_removed_debug_{uuid.uuid4()}.png")
-                with open(edited_image_path, 'wb') as f:
-                    f.write(base64.b64decode(edited_image))
-                logger.info(f"Saved text-removed debug image to {edited_image_path}")
-                
-            except Exception as e:
-                logger.error(f"Error in OpenAI edit API call: {str(e)}")
-                logger.info("Falling back to original image")
-                edited_image = image_base64
-        
-        # Clean up temporary files
-        try:
-            os.remove(temp_image_path)
-            os.remove(mask_path)
-        except Exception as e:
-            logger.error(f"Error removing temporary files: {str(e)}")
-        
-        return edited_image
-        
-    except Exception as e:
-        logger.error(f"Error removing text from image: {str(e)}")
-        # Return original image if text removal fails
-        return image_base64
-
 def generate_svg_from_image(image_base64, enhanced_prompt):
-    """
-    Convert image to SVG using a comprehensive workflow:
-    
-    1. Generate image using GPT Image-1 (done in an earlier step)
-    2. Extract text from the image using GPT Vision API
-    3. Remove text from the image using GPT Image-1's edit functionality
-       (while keeping the text spaces empty)
-    4. Vectorize the text-free image using vtracer/Bitracer
-    5. Generate SVG text elements with the exact position, size, and styling 
-       from the extracted text
-    6. Combine the vectorized image and text SVG elements
-    
-    This workflow ensures that text is properly extracted and preserved while
-    the rest of the image is vectorized for crisp, scalable graphics.
-    """
-    logger.info("Converting image to SVG...")
+    """Generate SVG code using vtracer from image"""
+    logger.info("Starting SVG generation from image using vtracer")
     
     try:
-        # Decode base64 and save temporary image
-        image_data = base64.b64decode(image_base64)
-        temp_image_path = os.path.join(IMAGES_DIR, f"temp_{uuid.uuid4()}.png")
-        with open(temp_image_path, 'wb') as f:
-            f.write(image_data)
+        # Decode base64 image
+        image_bytes = base64.b64decode(image_base64)
+        image = Image.open(BytesIO(image_bytes))
         
-        # Step 1: Analyze image for text regions
-        logger.info("Step 1: Analyzing image to extract text regions...")
-        text_regions = analyze_image_for_text(temp_image_path)
-        logger.info(f"Found {len(text_regions)} text regions")
+        # Save temporary PNG file for vtracer
+        temp_png = os.path.join(IMAGES_DIR, f"temp_{uuid.uuid4()}.png")
+        image.save(temp_png, format="PNG")
         
-        # Debug: Save a copy of the image with text regions highlighted
-        if text_regions:
-            try:
-                with Image.open(temp_image_path) as img:
-                    debug_img = img.copy()
-                    draw = ImageDraw.Draw(debug_img)
-                    for region in text_regions:
-                        x = float(region.get('x', 0))
-                        y = float(region.get('y', 0))
-                        width = float(region.get('width', 100))
-                        height = float(region.get('height', 30))
-                        # Draw rectangle around text region
-                        draw.rectangle([x, y, x + width, y + height], outline=(255, 0, 0), width=2)
-                    debug_image_path = os.path.join(IMAGES_DIR, f"debug_text_regions_{uuid.uuid4()}.png")
-                    debug_img.save(debug_image_path)
-                    logger.info(f"Saved debug image with text regions highlighted: {debug_image_path}")
-            except Exception as e:
-                logger.error(f"Error creating debug image: {str(e)}")
+        # Generate output path for SVG
+        output_svg = os.path.join(IMAGES_DIR, f"output_{uuid.uuid4()}.svg")
         
-        # Get image dimensions for SVG viewport
-        try:
-            with Image.open(temp_image_path) as img:
-                img_width, img_height = img.size
-        except Exception as e:
-            logger.error(f"Error getting image dimensions: {str(e)}")
-            img_width, img_height = 1024, 1024  # Default size
+        # Convert image to SVG using vtracer with optimized settings
+        vtracer.convert_image_to_svg_py(
+            temp_png,
+            output_svg,
+            colormode='color',        # Use color mode for richer output
+            hierarchical='stacked',   # Use stacked mode for better layering
+            mode='spline',           # Use spline mode for smoother curves
+            filter_speckle=4,        # Remove small artifacts
+            color_precision=6,       # Good balance of color accuracy
+            layer_difference=16,     # Reasonable layer separation
+            corner_threshold=60,     # Balanced corner detection
+            length_threshold=4.0,    # Good detail preservation
+            max_iterations=10,       # Sufficient optimization
+            splice_threshold=45,     # Good path connection
+            path_precision=3         # Compact but accurate paths
+        )
         
-        try:
-            # Step 2: If text regions found, use GPT Image-1 to remove text
-            if text_regions:
-                logger.info("Step 2: Removing text from image using GPT Image-1 edit functionality...")
-                text_removed_image_base64 = remove_text_from_image(image_base64, text_regions)
-                
-                # Save the text-removed image temporarily
-                text_removed_image_data = base64.b64decode(text_removed_image_base64)
-                text_removed_image_path = os.path.join(IMAGES_DIR, f"text_removed_{uuid.uuid4()}.png")
-                with open(text_removed_image_path, 'wb') as f:
-                    f.write(text_removed_image_data)
-                logger.info(f"Saved text-removed image: {text_removed_image_path}")
-                
-                # Input image for vectorization is the text-removed image
-                input_image_path = text_removed_image_path
-            else:
-                # No text found, use original image
-                logger.info("No text regions found, using original image for vectorization")
-                input_image_path = temp_image_path
+        # Read the generated SVG
+        with open(output_svg, 'r') as f:
+            svg_code = f.read()
             
-            # Step 3: Create output path for SVG
-            temp_svg_path = os.path.join(IMAGES_DIR, f"temp_{uuid.uuid4()}.svg")
-            
-            # Step 4: Convert image to SVG using vtracer (Bitracer)
-            logger.info("Step 3: Vectorizing text-free image using vtracer (Bitracer)...")
-            try:
-                vtracer.convert_image_to_svg_py(
-                    input_image_path,
-                    temp_svg_path,
-                    colormode='color',
-                    hierarchical='stacked',
-                    mode='spline',
-                    corner_threshold=60,
-                    length_threshold=4.0,
-                    max_iterations=10,
-                    splice_threshold=45,
-                    filter_speckle=4,
-                    path_precision=8
-                )
-                logger.info(f"Successfully vectorized image to SVG: {temp_svg_path}")
-            except Exception as e:
-                logger.error(f"Error in vtracer vectorization: {str(e)}")
-                raise
-            
-            # Read the generated SVG for elements
-            with open(temp_svg_path, 'r') as f:
-                vectorized_svg = f.read()
-            
-            # Step 5: Generate SVG text elements using the analyzed text regions
-            if text_regions:
-                logger.info("Step 4: Generating SVG text elements preserving font size, position, and color...")
-                text_elements = generate_svg_text_elements_from_regions(text_regions)
-                
-                if text_elements:
-                    # Step 6: Combine vectorized image with text elements
-                    logger.info("Step 5: Combining vectorized image and text SVG elements...")
-                    final_svg = combine_svg_elements(vectorized_svg, text_elements)
-                    logger.info("Successfully combined vectorized SVG with text elements")
-                else:
-                    logger.warning("No text elements were generated, using vectorized SVG without text")
-                    final_svg = vectorized_svg
-            else:
-                logger.info("No text elements to add, using vectorized SVG as final result")
-                final_svg = vectorized_svg
-            
-            # Clean up temporary files
-            logger.info("Cleaning up temporary files...")
-            os.remove(temp_image_path)
-            if 'text_removed_image_path' in locals() and os.path.exists(text_removed_image_path):
-                os.remove(text_removed_image_path)
-            os.remove(temp_svg_path)
-            
-            return final_svg
-            
-        except Exception as e:
-            logger.error(f"Error in SVG generation: {str(e)}")
-            # Clean up temporary files in case of error
-            for path in [temp_image_path]:
-                if path and os.path.exists(path):
-                    os.remove(path)
-            if 'text_removed_image_path' in locals() and os.path.exists(text_removed_image_path):
-                os.remove(text_removed_image_path)
-            if 'temp_svg_path' in locals() and os.path.exists(temp_svg_path):
-                os.remove(temp_svg_path)
-            raise
-            
+        # Clean up temporary files
+        os.remove(temp_png)
+        os.remove(output_svg)
+        
+        logger.info("Successfully generated SVG using vtracer")
+        return svg_code
+        
     except Exception as e:
-        logger.error(f"Error in SVG generation process: {str(e)}")
+        logger.error(f"Error in SVG generation with vtracer: {str(e)}")
         raise
-
-def generate_svg_text_elements_from_regions(text_regions):
-    """
-    Generate SVG text elements from the analyzed text regions with precise positioning.
-    """
-    svg_elements = []
-    
-    # Default font families for different types of text
-    default_fonts = {
-        'title': "'Montserrat', sans-serif",
-        'subtitle': "'Montserrat', sans-serif",
-        'heading': "'Montserrat', sans-serif",
-        'body': "'Open Sans', sans-serif",
-        'name': "'Montserrat', sans-serif",
-        'job_title': "'Open Sans', sans-serif",
-        'quote': "'Georgia', serif",
-        'button': "'Open Sans', sans-serif",
-        'label': "'Open Sans', sans-serif"
-    }
-    
-    for i, region in enumerate(text_regions):
-        try:
-            text = region.get('text', '')
-            if not text:
-                continue
-                
-            # Get exact positioning attributes from the region
-            x = region.get('x', 0)
-            y = region.get('y', 0)
-            
-            # Determine text type based on position, size, or content
-            text_type = region.get('text_type', '')
-            if not text_type:
-                # Try to determine text type if not provided
-                if i == 0 and len(text) < 50:  # First short text might be a title or name
-                    text_type = 'title' if text.isupper() else 'name'
-                elif i == 1 and len(text) < 50:  # Second short text might be a subtitle or job title
-                    text_type = 'subtitle' if len(text) > 20 else 'job_title'
-                elif '"' in text or '"' in text or '"' in text:  # Text with quotes is likely a testimonial
-                    text_type = 'quote'
-                else:
-                    text_type = 'body'  # Default to body text
-            
-            # Get styling from the region or use defaults based on text type
-            font_size = region.get('font_size', 16)
-            font_weight = region.get('font_weight', 'normal')
-            font_style = region.get('font_style', 'normal')
-            font_family = region.get('font_family', default_fonts.get(text_type, default_fonts['body']))
-            color = region.get('color', '#000000')
-            
-            # Calculate precise y position based on font metrics
-            # For most fonts, the baseline is roughly 0.8 * font_size from the top
-            baseline_offset = font_size * 0.8
-            y_adjusted = y + baseline_offset
-            
-            # Determine text anchor based on alignment
-            alignment = region.get('alignment', 'left')
-            text_anchor = get_text_anchor(alignment)
-            
-            # For center or right alignment, adjust x position
-            if text_anchor == "middle":  # center alignment
-                x_adjusted = x + (float(region.get('width', 0)) / 2)
-            elif text_anchor == "end":  # right alignment
-                x_adjusted = x + float(region.get('width', 0))
-            else:  # left alignment
-                x_adjusted = x
-            
-            # Create the SVG text element with precise positioning
-            text_element = f"""<text
-                x="{x_adjusted}"
-                y="{y_adjusted}"
-                font-family="{font_family}"
-                font-size="{font_size}px"
-                font-weight="{font_weight}"
-                font-style="{font_style}"
-                fill="{color}"
-                text-anchor="{text_anchor}"
-                dominant-baseline="auto"
-                data-original-x="{x}"
-                data-original-y="{y}"
-                data-original-width="{region.get('width', 0)}"
-                data-original-height="{region.get('height', 0)}"
-                data-text-type="{text_type}">
-                {text}
-            </text>"""
-            
-            svg_elements.append(text_element)
-            logger.info(f"Created SVG text element for '{text[:20]}{'...' if len(text) > 20 else ''}' at position ({x_adjusted}, {y_adjusted})")
-            
-        except Exception as e:
-            logger.error(f"Error generating SVG text element: {str(e)}")
-            continue
-    
-    return '\n'.join(svg_elements)
-
-def get_text_anchor(alignment):
-    """Convert alignment to SVG text-anchor value"""
-    return {
-        'left': 'start',
-        'center': 'middle',
-        'right': 'end'
-    }.get(alignment.lower(), 'start')
 
 def clean_svg_code_original(svg_code):
     """Original clean and validate SVG code function"""
@@ -1311,30 +515,15 @@ def save_image(image_data, prefix="img", format="PNG"):
         filename = f"{prefix}_{timestamp}_{unique_id}.{format.lower()}"
         filepath = os.path.join(IMAGES_DIR, filename)
 
-        # Handle base64 string
-        if isinstance(image_data, str):
-            try:
-                # Try to decode base64
-                image_bytes = base64.b64decode(image_data)
-            except Exception as e:
-                logger.error(f"Error decoding base64: {str(e)}")
-                raise
-        else:
-            # Assume it's already bytes
-            image_bytes = image_data
-
-        # Convert bytes to image and save
-        try:
-            image = Image.open(BytesIO(image_bytes))
-            image.save(filepath, format=format)
-            logger.info(f"Image saved successfully: {filename}")
-            return filename
-        except Exception as e:
-            logger.error(f"Error saving image file: {str(e)}")
-            raise
-
+        # Convert base64 to image and save
+        image_bytes = base64.b64decode(image_data)
+        image = Image.open(BytesIO(image_bytes))
+        image.save(filepath, format=format)
+        
+        logger.info(f"Image saved successfully: {filename}")
+        return filename
     except Exception as e:
-        logger.error(f"Error in save_image: {str(e)}")
+        logger.error(f"Error saving image: {str(e)}")
         raise
 
 def save_svg(svg_code, prefix="svg"):
@@ -1481,22 +670,17 @@ Original Request:
             prompt_to_use = enhanced_prompt
 
         # Stage 6: Generate image using GPT Image-1
-        logger.info("\n[STAGE 6: Image Generation Phase]")
-        logger.info("-"*50)
-        logger.info("Generating initial image with GPT Image-1...")
+        logger.info("STAGE 6: Image Generation Phase")
         gpt_image_base64, gpt_image_filename = generate_image_with_gpt(prompt_to_use)
-        logger.info("Image successfully generated with GPT Image-1")
+        logger.info("Image generated with GPT Image-1")
 
-        # Stage 7: Process image to create SVG
-        logger.info("\n[STAGE 7: SVG Generation Phase]")
-        logger.info("-"*50)
-        logger.info("Processing image for SVG generation with text extraction and vectorization...")
+        # Stage 7: Generate SVG using vtracer
+        logger.info("STAGE 7: SVG Generation Phase")
         svg_code = generate_svg_from_image(gpt_image_base64, prompt_to_use)
-        logger.info("SVG code successfully generated")
+        logger.info("SVG code generated from image")
         
         # Save the SVG
         svg_filename = save_svg(svg_code, prefix="svg")
-        logger.info(f"SVG saved to {svg_filename}")
 
         return jsonify({
             "original_prompt": user_input,
@@ -1535,8 +719,7 @@ Original Request:
                 },
                 "svg_generation": {
                     "completed": True, 
-                    "svg_path": svg_filename,
-                    "process": "text extraction, text removal, vectorization, and text SVG generation"
+                    "svg_path": svg_filename
                 }
             },
             "progress": 100

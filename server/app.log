@@ -6977,3 +6977,681 @@ Explanation Generated:
 2025-06-05 23:15:18,060 - INFO -  * Debugger PIN: 300-948-049
 2025-06-05 23:15:35,347 - INFO -  * Detected change in '/Users/hi/infoui/server/app.py', reloading
 2025-06-05 23:15:35,454 - INFO -  * Restarting with stat
+2025-06-07 22:11:40,016 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-07 22:11:40,033 - WARNING -  * Debugger is active!
+2025-06-07 22:11:40,040 - INFO -  * Debugger PIN: 300-948-049
+2025-06-07 22:11:45,123 - INFO -  * Detected change in '/Users/hi/infoui/server/app.py', reloading
+2025-06-07 22:11:47,047 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-07 22:11:47,059 - WARNING -  * Debugger is active!
+2025-06-07 22:11:47,062 - INFO -  * Debugger PIN: 300-948-049
+2025-06-07 22:12:03,556 - INFO - 127.0.0.1 - - [07/Jun/2025 22:12:03] "OPTIONS /api/chat-assistant HTTP/1.1" 200 -
+2025-06-07 22:12:03,561 - INFO - Received chat request
+2025-06-07 22:12:03,562 - INFO - Chat history length: 1
+2025-06-07 22:12:03,562 - INFO - Last message: {'role': 'user', 'content': 'Create a coming soon poster'}
+2025-06-07 22:12:03,562 - INFO - Processing new design creation request
+2025-06-07 22:12:03,562 - INFO - Pre-enhancing prompt: create a coming soon poster...
+2025-06-07 22:12:03,562 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-07 22:12:10,563 - INFO - Successfully enhanced prompt. Result: - Design a vibrant coming soon poster with a bright yellow background, featuring centered text "COMI...
+2025-06-07 22:12:10,564 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-07 22:12:18,556 - INFO - Generating image with GPT Image-1
+2025-06-07 22:12:32,060 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-07 22:12:33,350 - INFO - Image saved successfully: gpt_image_20250607_221233_b7952a25.png
+2025-06-07 22:12:33,351 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-07 22:12:33,351 - INFO - Starting SVG generation from image
+2025-06-07 22:12:33,351 - INFO - Enhanced prompt length: 2178
+2025-06-07 22:12:33,351 - INFO - Generating SVG code with GPT-4.1
+2025-06-07 22:12:42,884 - INFO - Successfully generated SVG code. Length: 1298
+2025-06-07 22:12:42,885 - INFO - Successfully extracted SVG code from response
+2025-06-07 22:12:42,894 - INFO - SVG cleaned successfully
+2025-06-07 22:12:42,896 - INFO - SVG saved successfully: assistant_svg_20250607_221242_e27d5844.svg
+2025-06-07 22:12:42,896 - INFO - Starting conversational AI interaction
+2025-06-07 22:12:42,896 - INFO - Calling conversational AI with 3 messages
+2025-06-07 22:12:53,405 - INFO - AI response generated: Absolutely! Let’s take a closer look at your "Coming Soon" poster design. 
+
+### Overall Layout
+The p...
+2025-06-07 22:12:53,405 - INFO - Successfully generated new design with explanation
+2025-06-07 22:12:53,406 - INFO - 127.0.0.1 - - [07/Jun/2025 22:12:53] "POST /api/chat-assistant HTTP/1.1" 200 -
+2025-06-07 22:13:59,464 - INFO - 127.0.0.1 - - [07/Jun/2025 22:13:59] "OPTIONS /api/chat-assistant HTTP/1.1" 200 -
+2025-06-07 22:13:59,466 - INFO - Received chat request
+2025-06-07 22:13:59,466 - INFO - Chat history length: 1
+2025-06-07 22:13:59,466 - INFO - Last message: {'role': 'user', 'content': 'Design a testimonial card'}
+2025-06-07 22:13:59,466 - INFO - Processing new design creation request
+2025-06-07 22:13:59,466 - INFO - Pre-enhancing prompt: design a testimonial card...
+2025-06-07 22:13:59,467 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-07 22:14:01,331 - INFO - Successfully enhanced prompt. Result: - Design a testimonial card with a light gray background, featuring a centered title "CUSTOMER TESTI...
+2025-06-07 22:14:01,331 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-07 22:14:11,609 - INFO - Generating image with GPT Image-1
+2025-06-07 22:14:23,420 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-07 22:14:24,692 - INFO - Image saved successfully: gpt_image_20250607_221424_fe54c9b5.png
+2025-06-07 22:14:24,692 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-07 22:14:24,692 - INFO - Starting SVG generation from image
+2025-06-07 22:14:24,692 - INFO - Enhanced prompt length: 2808
+2025-06-07 22:14:24,692 - INFO - Generating SVG code with GPT-4.1
+2025-06-07 22:14:52,879 - INFO - Successfully generated SVG code. Length: 2656
+2025-06-07 22:14:52,880 - INFO - Successfully extracted SVG code from response
+2025-06-07 22:14:52,881 - INFO - SVG cleaned successfully
+2025-06-07 22:14:52,883 - INFO - SVG saved successfully: assistant_svg_20250607_221452_d9a9b7f7.svg
+2025-06-07 22:14:52,883 - INFO - Starting conversational AI interaction
+2025-06-07 22:14:52,883 - INFO - Calling conversational AI with 3 messages
+2025-06-07 22:15:03,572 - INFO - AI response generated: Sure! Let's dive into your testimonial card design. 
+
+### Overview
+This SVG design represents a test...
+2025-06-07 22:15:03,572 - INFO - Successfully generated new design with explanation
+2025-06-07 22:15:03,573 - INFO - 127.0.0.1 - - [07/Jun/2025 22:15:03] "POST /api/chat-assistant HTTP/1.1" 200 -
+2025-06-07 22:17:42,048 - INFO -  * Detected change in '/Users/hi/infoui/server/app.py', reloading
+2025-06-07 22:17:42,744 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-07 22:17:42,761 - WARNING -  * Debugger is active!
+2025-06-07 22:17:42,766 - INFO -  * Debugger PIN: 300-948-049
+2025-06-07 22:17:44,795 - INFO -  * Detected change in '/Users/hi/infoui/server/app.py', reloading
+2025-06-07 22:17:47,733 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-07 22:17:47,745 - WARNING -  * Debugger is active!
+2025-06-07 22:17:47,749 - INFO -  * Debugger PIN: 300-948-049
+2025-06-07 22:17:49,774 - INFO -  * Detected change in '/Users/hi/infoui/server/app.py', reloading
+2025-06-07 22:17:50,173 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-07 22:17:50,184 - WARNING -  * Debugger is active!
+2025-06-07 22:17:50,188 - INFO -  * Debugger PIN: 300-948-049
+2025-06-07 22:17:51,577 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-07 22:17:51,590 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5001
+2025-06-07 22:17:51,590 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-07 22:17:51,590 - INFO -  * Restarting with stat
+2025-06-07 22:17:51,924 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-07 22:17:51,934 - WARNING -  * Debugger is active!
+2025-06-07 22:17:51,938 - INFO -  * Debugger PIN: 300-948-049
+2025-06-07 22:18:02,664 - INFO - 127.0.0.1 - - [07/Jun/2025 22:18:02] "OPTIONS /api/chat-assistant HTTP/1.1" 200 -
+2025-06-07 22:18:02,667 - INFO - ================================================================================
+2025-06-07 22:18:02,667 - INFO - CHAT ASSISTANT REQUEST
+2025-06-07 22:18:02,667 - INFO - ================================================================================
+2025-06-07 22:18:02,667 - INFO - Chat history length: 1
+2025-06-07 22:18:02,667 - INFO - Last message: {'role': 'user', 'content': 'Create a coming soon poster'}
+2025-06-07 22:18:02,668 - INFO - 
+[Request Analysis]
+2025-06-07 22:18:02,668 - INFO - --------------------------------------------------
+2025-06-07 22:18:02,668 - INFO - Request type: Creation
+2025-06-07 22:18:02,668 - INFO - User message: create a coming soon poster
+2025-06-07 22:18:02,668 - INFO - 
+[Starting New Design Creation]
+2025-06-07 22:18:02,668 - INFO - --------------------------------------------------
+2025-06-07 22:18:02,668 - INFO - 
+[STAGE 1: Planning Phase]
+2025-06-07 22:18:02,668 - INFO - --------------------------------------------------
+2025-06-07 22:18:02,668 - INFO - Creating structured design plan...
+2025-06-07 22:18:02,668 - INFO - Using model: gpt-4.1-mini
+2025-06-07 22:18:02,668 - INFO - Planning design for: create a coming soon poster...
+2025-06-07 22:18:16,611 - INFO - 
+Design Plan Generated:
+2025-06-07 22:18:16,611 - INFO -   1. Design Goals
+2025-06-07 22:18:16,611 - INFO -      - Main purpose: Announce an upcoming event, product launch, or service with clear anticipation.
+2025-06-07 22:18:16,611 - INFO -      - Target audience: General public or specific demographic relevant to the launch (e.g., tech enthusiasts, fashion lovers).
+2025-06-07 22:18:16,612 - INFO -      - Key message/emotion: Build excitement and curiosity; convey professionalism and trustworthiness.
+2025-06-07 22:18:16,612 - INFO -   
+2025-06-07 22:18:16,612 - INFO -   2. Design Elements
+2025-06-07 22:18:16,612 - INFO -      - Layout structure: Vertical poster format with a balanced composition; headline at top, central visual, supporting text below, and call-to-action or social media/contact info at the bottom.
+2025-06-07 22:18:16,612 - INFO -      - Key components: 
+2025-06-07 22:18:16,612 - INFO -        • Bold “Coming Soon” headline
+2025-06-07 22:18:16,612 - INFO -        • Date or timeline indication
+2025-06-07 22:18:16,612 - INFO -   ...
+2025-06-07 22:18:16,612 - INFO - 
+[STAGE 2: Design Knowledge Generation]
+2025-06-07 22:18:16,612 - INFO - --------------------------------------------------
+2025-06-07 22:18:16,612 - INFO - Gathering design knowledge and best practices...
+2025-06-07 22:18:16,612 - INFO - Using model: gpt-4.1-mini
+2025-06-07 22:18:16,612 - INFO - Generating design knowledge...
+2025-06-07 22:18:36,138 - INFO - 
+Design Knowledge Generated:
+2025-06-07 22:18:36,138 - INFO -   Certainly! Below are detailed design knowledge and best practices tailored to your "Coming Soon" poster plan:
+2025-06-07 22:18:36,138 - INFO -   
+2025-06-07 22:18:36,138 - INFO -   ---
+2025-06-07 22:18:36,138 - INFO -   
+2025-06-07 22:18:36,138 - INFO -   ### 1. Typography
+2025-06-07 22:18:36,139 - INFO -   
+2025-06-07 22:18:36,139 - INFO -   **Font Recommendations:**
+2025-06-07 22:18:36,139 - INFO -   - **Headline:** Use a bold, modern sans-serif font such as **Montserrat Bold**, **Poppins Bold**, or **Roboto Condensed Bold** for strong visual impact.
+2025-06-07 22:18:36,139 - INFO -   - **Supporting Text:** Choose clean, readable fonts like **Open Sans**, **Lora**, or **Merriweather** (serif) for body or tagline text to create contrast and maintain professionalism.
+2025-06-07 22:18:36,139 - INFO -   - **Logo Text:** Use brand-specific fonts if applicable, or match the supporting text style for consistency.
+2025-06-07 22:18:36,139 - INFO -   ...
+2025-06-07 22:18:36,139 - INFO - 
+[STAGE 3: Pre-enhancement Phase]
+2025-06-07 22:18:36,139 - INFO - --------------------------------------------------
+2025-06-07 22:18:36,139 - INFO - Pre-enhancing prompt with design context...
+2025-06-07 22:18:36,139 - INFO - Using model: gpt-4.1-mini
+2025-06-07 22:18:36,139 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose: Announce an upcoming event, product launch, or servi...
+2025-06-07 22:18:36,139 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-07 22:19:03,059 - INFO - Successfully enhanced prompt. Result: Design Specification for a “Coming Soon” Vertical Poster SVG
+
+---
+
+### 1. Layout and Composition
+
+- ...
+2025-06-07 22:19:03,060 - INFO - 
+Pre-enhanced Prompt:
+2025-06-07 22:19:03,061 - INFO -   Design Specification for a “Coming Soon” Vertical Poster SVG
+2025-06-07 22:19:03,061 - INFO -   
+2025-06-07 22:19:03,061 - INFO -   ---
+2025-06-07 22:19:03,061 - INFO -   
+2025-06-07 22:19:03,061 - INFO -   ### 1. Layout and Composition
+2025-06-07 22:19:03,061 - INFO -   
+2025-06-07 22:19:03,061 - INFO -   - **Overall Structure:**  
+2025-06-07 22:19:03,061 - INFO -     Vertical poster with an aspect ratio approximately 9:16 (e.g., 1080px width × 1920px height) suitable for digital and print use.
+2025-06-07 22:19:03,061 - INFO -   
+2025-06-07 22:19:03,061 - INFO -   - **Grid System:**  
+2025-06-07 22:19:03,061 - INFO -   ...
+2025-06-07 22:19:03,061 - INFO - 
+[STAGE 4: Final Enhancement Phase]
+2025-06-07 22:19:03,061 - INFO - --------------------------------------------------
+2025-06-07 22:19:03,061 - INFO - Enhancing prompt with technical specifications...
+2025-06-07 22:19:03,061 - INFO - Using model: gpt-4.1-mini
+2025-06-07 22:19:03,061 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-07 22:19:32,877 - INFO - 
+Enhanced Prompt Generated:
+2025-06-07 22:19:32,878 - INFO -   Design Specification for a “Coming Soon” Vertical Poster SVG – Optimized for Vector Precision, Technical Accuracy, Performance, and Accessibility
+2025-06-07 22:19:32,878 - INFO -   
+2025-06-07 22:19:32,878 - INFO -   ---
+2025-06-07 22:19:32,878 - INFO -   
+2025-06-07 22:19:32,878 - INFO -   ### 1. Layout and Composition
+2025-06-07 22:19:32,878 - INFO -   
+2025-06-07 22:19:32,878 - INFO -   - **Canvas & Viewport:**
+2025-06-07 22:19:32,878 - INFO -     - SVG root element with `width="1080"`, `height="1920"`, and `viewBox="0 0 1080 1920"`.
+2025-06-07 22:19:32,878 - INFO -     - Use `preserveAspectRatio="xMidYMid meet"` to center-align and maintain aspect ratio responsively.
+2025-06-07 22:19:32,878 - INFO -     - All elements centered horizontally within the 1080px width.
+2025-06-07 22:19:32,878 - INFO -   ...
+2025-06-07 22:19:32,879 - INFO - 
+[STAGE 5: Image Generation]
+2025-06-07 22:19:32,879 - INFO - --------------------------------------------------
+2025-06-07 22:19:32,879 - INFO - Generating initial design image...
+2025-06-07 22:19:32,879 - INFO - Using model: gpt-image-1
+2025-06-07 22:19:32,879 - INFO - Generating image with GPT Image-1
+2025-06-07 22:19:46,260 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-07 22:19:47,567 - INFO - Image saved successfully: gpt_image_20250607_221947_8e8f00ba.png
+2025-06-07 22:19:47,567 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-07 22:19:47,567 - INFO - Image generated and saved as: gpt_image_20250607_221947_8e8f00ba.png
+2025-06-07 22:19:47,567 - INFO - 
+[STAGE 6: SVG Generation]
+2025-06-07 22:19:47,567 - INFO - --------------------------------------------------
+2025-06-07 22:19:47,567 - INFO - Converting design to SVG format...
+2025-06-07 22:19:47,567 - INFO - Using model: gpt-4.1-mini
+2025-06-07 22:19:47,567 - INFO - Starting SVG generation from image using vtracer
+2025-06-07 22:19:47,803 - INFO - Successfully generated SVG using vtracer
+2025-06-07 22:19:47,803 - INFO - SVG saved successfully: assistant_svg_20250607_221947_d99b324d.svg
+2025-06-07 22:19:47,804 - INFO - SVG generated and saved as: assistant_svg_20250607_221947_d99b324d.svg
+2025-06-07 22:19:47,804 - INFO - 
+[STAGE 7: Design Explanation]
+2025-06-07 22:19:47,804 - INFO - --------------------------------------------------
+2025-06-07 22:19:47,804 - INFO - Generating design explanation...
+2025-06-07 22:19:47,804 - INFO - Using model: gpt-4.1-mini
+2025-06-07 22:19:47,804 - INFO - Starting conversational AI interaction
+2025-06-07 22:20:27,414 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-07 22:20:27,434 - INFO - AI response generated: Hi! I’ve reviewed the design you created, and I’d be happy to walk you through it.
+
+### Overall Layo...
+2025-06-07 22:20:27,434 - INFO - 
+Explanation Generated:
+2025-06-07 22:20:27,434 - INFO -   Hi! I’ve reviewed the design you created, and I’d be happy to walk you through it.
+2025-06-07 22:20:27,434 - INFO -   
+2025-06-07 22:20:27,434 - INFO -   ### Overall Layout
+2025-06-07 22:20:27,434 - INFO -   - The SVG is a large 1024x1024 canvas, which gives a nice square format to work with—perfect for a poster.
+2025-06-07 22:20:27,434 - INFO -   - The background is a solid very dark color (#111011), providing a strong contrast base.
+2025-06-07 22:20:27,434 - INFO -   ...
+2025-06-07 22:20:27,434 - INFO - 
+[Design Creation Complete]
+2025-06-07 22:20:27,435 - INFO - ================================================================================
+2025-06-07 22:20:27,435 - INFO - Summary:
+2025-06-07 22:20:27,435 - INFO - - Design plan created
+2025-06-07 22:20:27,435 - INFO - - Design knowledge gathered
+2025-06-07 22:20:27,435 - INFO - - Prompt enhanced and refined
+2025-06-07 22:20:27,435 - INFO - - Image generated: gpt_image_20250607_221947_8e8f00ba.png
+2025-06-07 22:20:27,435 - INFO - - SVG created: assistant_svg_20250607_221947_d99b324d.svg
+2025-06-07 22:20:27,435 - INFO - - Explanation provided
+2025-06-07 22:20:27,435 - INFO - ================================================================================
+2025-06-07 22:20:27,439 - INFO - 127.0.0.1 - - [07/Jun/2025 22:20:27] "POST /api/chat-assistant HTTP/1.1" 200 -
+2025-06-08 00:20:07,444 - INFO - 127.0.0.1 - - [08/Jun/2025 00:20:07] "OPTIONS /api/chat-assistant HTTP/1.1" 200 -
+2025-06-08 00:20:07,448 - INFO - ================================================================================
+2025-06-08 00:20:07,448 - INFO - CHAT ASSISTANT REQUEST
+2025-06-08 00:20:07,448 - INFO - ================================================================================
+2025-06-08 00:20:07,448 - INFO - Chat history length: 1
+2025-06-08 00:20:07,448 - INFO - Last message: {'role': 'user', 'content': 'Create a coming soon poster'}
+2025-06-08 00:20:07,448 - INFO - 
+[Request Analysis]
+2025-06-08 00:20:07,448 - INFO - --------------------------------------------------
+2025-06-08 00:20:07,448 - INFO - Request type: Creation
+2025-06-08 00:20:07,448 - INFO - User message: create a coming soon poster
+2025-06-08 00:20:07,448 - INFO - 
+[Starting New Design Creation]
+2025-06-08 00:20:07,448 - INFO - --------------------------------------------------
+2025-06-08 00:20:07,448 - INFO - 
+[STAGE 1: Planning Phase]
+2025-06-08 00:20:07,448 - INFO - --------------------------------------------------
+2025-06-08 00:20:07,449 - INFO - Creating structured design plan...
+2025-06-08 00:20:07,449 - INFO - Using model: gpt-4.1-mini
+2025-06-08 00:20:07,449 - INFO - Planning design for: create a coming soon poster...
+2025-06-08 00:20:28,032 - INFO - 
+Design Plan Generated:
+2025-06-08 00:20:28,032 - INFO -   1. Design Goals
+2025-06-08 00:20:28,033 - INFO -      - Main purpose: Announce an upcoming event, product launch, or service with anticipation and excitement.
+2025-06-08 00:20:28,033 - INFO -      - Target audience: General public or specific customer base interested in the upcoming release.
+2025-06-08 00:20:28,033 - INFO -      - Key message/emotion: Build curiosity and excitement, convey professionalism and reliability.
+2025-06-08 00:20:28,033 - INFO -   
+2025-06-08 00:20:28,033 - INFO -   2. Design Elements
+2025-06-08 00:20:28,033 - INFO -      - Layout structure: Central focal point with "Coming Soon" headline, supporting text below, and a call-to-action or teaser image.
+2025-06-08 00:20:28,033 - INFO -      - Key components: 
+2025-06-08 00:20:28,033 - INFO -        • Bold "Coming Soon" headline
+2025-06-08 00:20:28,033 - INFO -        • Brief teaser or tagline
+2025-06-08 00:20:28,033 - INFO -   ...
+2025-06-08 00:20:28,033 - INFO - 
+[STAGE 2: Design Knowledge Generation]
+2025-06-08 00:20:28,033 - INFO - --------------------------------------------------
+2025-06-08 00:20:28,033 - INFO - Gathering design knowledge and best practices...
+2025-06-08 00:20:28,033 - INFO - Using model: gpt-4.1-mini
+2025-06-08 00:20:28,033 - INFO - Generating design knowledge...
+2025-06-08 00:21:05,199 - INFO - 
+Design Knowledge Generated:
+2025-06-08 00:21:05,200 - INFO -   Certainly! Below are detailed design knowledge and best practices tailored to your "Coming Soon" poster plan and user request.
+2025-06-08 00:21:05,200 - INFO -   
+2025-06-08 00:21:05,200 - INFO -   ---
+2025-06-08 00:21:05,200 - INFO -   
+2025-06-08 00:21:05,200 - INFO -   ### 1. Typography
+2025-06-08 00:21:05,200 - INFO -   
+2025-06-08 00:21:05,200 - INFO -   **Font Recommendations:**
+2025-06-08 00:21:05,200 - INFO -   - **Headline:** Use a bold, modern sans-serif font such as Montserrat, Poppins, or Helvetica Neue. These fonts provide strong readability and impact.
+2025-06-08 00:21:05,200 - INFO -   - **Supporting Text:** Choose a clean, simple sans-serif like Open Sans, Roboto, or Lato to complement the headline without competing for attention.
+2025-06-08 00:21:05,200 - INFO -   - **Fallbacks:** Always specify web-safe fallbacks like Arial, Helvetica, or sans-serif for browsers that don’t support custom fonts.
+2025-06-08 00:21:05,200 - INFO -   ...
+2025-06-08 00:21:05,200 - INFO - 
+[STAGE 3: Pre-enhancement Phase]
+2025-06-08 00:21:05,200 - INFO - --------------------------------------------------
+2025-06-08 00:21:05,200 - INFO - Pre-enhancing prompt with design context...
+2025-06-08 00:21:05,200 - INFO - Using model: gpt-4.1-mini
+2025-06-08 00:21:05,200 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose: Announce an upcoming event, product launch, or servi...
+2025-06-08 00:21:05,201 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 00:21:28,965 - INFO - Successfully enhanced prompt. Result: Design Specification for “Coming Soon” Poster SVG
+
+---
+
+### 1. Layout and Composition
+
+- **Overall S...
+2025-06-08 00:21:28,966 - INFO - 
+Pre-enhanced Prompt:
+2025-06-08 00:21:28,966 - INFO -   Design Specification for “Coming Soon” Poster SVG
+2025-06-08 00:21:28,967 - INFO -   
+2025-06-08 00:21:28,967 - INFO -   ---
+2025-06-08 00:21:28,967 - INFO -   
+2025-06-08 00:21:28,967 - INFO -   ### 1. Layout and Composition
+2025-06-08 00:21:28,967 - INFO -   
+2025-06-08 00:21:28,967 - INFO -   - **Overall Structure:**  
+2025-06-08 00:21:28,967 - INFO -     Use a vertically oriented poster layout with a central focal area. The poster should be divided into three main vertical sections:  
+2025-06-08 00:21:28,967 - INFO -     1. Top/middle: Large, bold “Coming Soon” headline centered horizontally and vertically within this section.  
+2025-06-08 00:21:28,967 - INFO -     2. Middle/lower: Supporting teaser/tagline text aligned left below the headline with ample spacing.  
+2025-06-08 00:21:28,967 - INFO -   ...
+2025-06-08 00:21:28,967 - INFO - 
+[STAGE 4: Final Enhancement Phase]
+2025-06-08 00:21:28,967 - INFO - --------------------------------------------------
+2025-06-08 00:21:28,967 - INFO - Enhancing prompt with technical specifications...
+2025-06-08 00:21:28,967 - INFO - Using model: gpt-4.1-mini
+2025-06-08 00:21:28,967 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 00:22:04,051 - INFO - 
+Enhanced Prompt Generated:
+2025-06-08 00:22:04,052 - INFO -   Optimized SVG Design Prompt for “Coming Soon” Poster
+2025-06-08 00:22:04,052 - INFO -   
+2025-06-08 00:22:04,052 - INFO -   ---
+2025-06-08 00:22:04,052 - INFO -   
+2025-06-08 00:22:04,052 - INFO -   ### 1. Layout and Composition (Vector & Technical Precision)
+2025-06-08 00:22:04,052 - INFO -   
+2025-06-08 00:22:04,052 - INFO -   - **Canvas & Viewport:**  
+2025-06-08 00:22:04,052 - INFO -     - SVG viewport sized at 600px width × 900px height (portrait poster ratio), with `viewBox="0 0 600 900"` for scalable vector rendering.  
+2025-06-08 00:22:04,052 - INFO -     - Maintain 40px padding (min) all around within viewBox coordinates for whitespace.  
+2025-06-08 00:22:04,052 - INFO -   
+2025-06-08 00:22:04,052 - INFO -   ...
+2025-06-08 00:22:04,052 - INFO - 
+[STAGE 5: Image Generation]
+2025-06-08 00:22:04,052 - INFO - --------------------------------------------------
+2025-06-08 00:22:04,052 - INFO - Generating initial design image...
+2025-06-08 00:22:04,052 - INFO - Using model: gpt-image-1
+2025-06-08 00:22:04,052 - INFO - Generating image with GPT Image-1
+2025-06-08 00:22:19,157 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 00:22:20,652 - INFO - Image saved successfully: gpt_image_20250608_002220_6d9aa326.png
+2025-06-08 00:22:20,653 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 00:22:20,653 - INFO - Image generated and saved as: gpt_image_20250608_002220_6d9aa326.png
+2025-06-08 00:22:20,653 - INFO - 
+[STAGE 6: SVG Generation]
+2025-06-08 00:22:20,653 - INFO - --------------------------------------------------
+2025-06-08 00:22:20,653 - INFO - Converting design to SVG format...
+2025-06-08 00:22:20,653 - INFO - Using model: gpt-4.1-mini
+2025-06-08 00:22:20,653 - INFO - Starting SVG generation from image using vtracer
+2025-06-08 00:22:20,999 - INFO - Successfully generated SVG using vtracer
+2025-06-08 00:22:21,000 - INFO - SVG saved successfully: assistant_svg_20250608_002220_4374b92b.svg
+2025-06-08 00:22:21,000 - INFO - SVG generated and saved as: assistant_svg_20250608_002220_4374b92b.svg
+2025-06-08 00:22:21,000 - INFO - 
+[STAGE 7: Design Explanation]
+2025-06-08 00:22:21,000 - INFO - --------------------------------------------------
+2025-06-08 00:22:21,000 - INFO - Generating design explanation...
+2025-06-08 00:22:21,000 - INFO - Using model: gpt-4.1-mini
+2025-06-08 00:22:21,000 - INFO - Starting conversational AI interaction
+2025-06-08 00:22:54,479 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 00:22:54,487 - INFO - AI response generated: Hi! I’ve taken a close look at the SVG design you shared. It’s a complex and intricate piece featuri...
+2025-06-08 00:22:54,487 - INFO - 
+Explanation Generated:
+2025-06-08 00:22:54,487 - INFO -   Hi! I’ve taken a close look at the SVG design you shared. It’s a complex and intricate piece featuring a rich array of blue shades, flowing organic shapes, and subtle gradients.
+2025-06-08 00:22:54,488 - INFO -   
+2025-06-08 00:22:54,488 - INFO -   Here’s a friendly breakdown of what’s going on:
+2025-06-08 00:22:54,488 - INFO -   
+2025-06-08 00:22:54,488 - INFO -   ### Elements & Shapes
+2025-06-08 00:22:54,488 - INFO -   ...
+2025-06-08 00:22:54,488 - INFO - 
+[Design Creation Complete]
+2025-06-08 00:22:54,489 - INFO - ================================================================================
+2025-06-08 00:22:54,489 - INFO - Summary:
+2025-06-08 00:22:54,489 - INFO - - Design plan created
+2025-06-08 00:22:54,489 - INFO - - Design knowledge gathered
+2025-06-08 00:22:54,489 - INFO - - Prompt enhanced and refined
+2025-06-08 00:22:54,489 - INFO - - Image generated: gpt_image_20250608_002220_6d9aa326.png
+2025-06-08 00:22:54,489 - INFO - - SVG created: assistant_svg_20250608_002220_4374b92b.svg
+2025-06-08 00:22:54,489 - INFO - - Explanation provided
+2025-06-08 00:22:54,489 - INFO - ================================================================================
+2025-06-08 00:22:54,506 - INFO - 127.0.0.1 - - [08/Jun/2025 00:22:54] "POST /api/chat-assistant HTTP/1.1" 200 -
+2025-06-08 00:24:20,995 - INFO -  * Detected change in '/Users/hi/infoui/server/app_image.py', reloading
+2025-06-08 00:24:21,111 - INFO -  * Restarting with stat
+2025-06-08 00:24:21,699 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-08 00:24:21,716 - WARNING -  * Debugger is active!
+2025-06-08 00:24:21,723 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 00:30:21,742 - INFO -  * Detected change in '/Users/hi/infoui/server/api_stage1_to_6.py', reloading
+2025-06-08 00:30:21,832 - INFO -  * Restarting with stat
+2025-06-08 00:30:22,378 - INFO - Starting Flask application on 127.0.0.1:5001 (debug=True)
+2025-06-08 00:30:22,395 - WARNING -  * Debugger is active!
+2025-06-08 00:30:22,400 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 00:30:32,533 - INFO -  * Detected change in '/Users/hi/infoui/server/app.py', reloading
+2025-06-08 00:30:32,603 - INFO -  * Restarting with stat
+2025-06-08 00:36:49,766 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5002
+2025-06-08 00:36:49,767 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 00:36:49,768 - INFO -  * Restarting with stat
+2025-06-08 00:36:50,132 - WARNING -  * Debugger is active!
+2025-06-08 00:36:50,136 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 00:40:55,172 - INFO - ===== IMAGE-ONLY PIPELINE: Starting request =====
+2025-06-08 00:40:55,172 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 00:40:55,172 - INFO - Checking vector suitability for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 00:40:58,275 - INFO - Stage 2: Design Planning
+2025-06-08 00:40:58,276 - INFO - Planning design for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 00:41:06,671 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 00:41:06,672 - INFO - Generating design knowledge...
+2025-06-08 00:41:44,918 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 00:41:44,919 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose: Create a memorable, professional logo representing t...
+2025-06-08 00:41:44,919 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 00:42:10,082 - INFO - Successfully enhanced prompt. Result: Detailed SVG Design Specification for “Summit Adventures” Logo
+
+---
+
+### 1. Layout and Composition
+
+...
+2025-06-08 00:42:10,083 - INFO - Stage 5: Technical Enhancement
+2025-06-08 00:42:10,083 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 00:42:36,079 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 00:42:36,080 - INFO - Generating image with GPT Image-1
+2025-06-08 00:43:21,613 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 00:43:23,105 - INFO - Image saved successfully: gpt_image_20250608_004322_a8a63290.png
+2025-06-08 00:43:23,105 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 00:43:23,111 - INFO - 127.0.0.1 - - [08/Jun/2025 00:43:23] "POST /api/generate-image HTTP/1.1" 200 -
+2025-06-08 00:46:48,486 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 00:46:48,610 - INFO -  * Restarting with stat
+2025-06-08 00:46:49,188 - WARNING -  * Debugger is active!
+2025-06-08 00:46:49,196 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 00:47:09,518 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 00:47:09,591 - INFO -  * Restarting with stat
+2025-06-08 00:47:10,087 - WARNING -  * Debugger is active!
+2025-06-08 00:47:10,091 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 00:47:30,894 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5003
+2025-06-08 00:47:30,894 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 00:47:30,895 - INFO -  * Restarting with stat
+2025-06-08 00:47:31,251 - WARNING -  * Debugger is active!
+2025-06-08 00:47:31,257 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 00:47:40,565 - INFO - 127.0.0.1 - - [08/Jun/2025 00:47:40] "[33mPOST /api/generate-image HTTP/1.1[0m" 404 -
+2025-06-08 00:50:02,549 - INFO - === IMAGE→TEXT→SVG PIPELINE START ===
+2025-06-08 00:50:02,549 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 00:50:02,550 - INFO - Checking vector suitability for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 00:50:04,753 - INFO - Stage 2: Design Planning
+2025-06-08 00:50:04,753 - INFO - Planning design for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 00:50:14,317 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 00:50:14,317 - INFO - Generating design knowledge...
+2025-06-08 00:50:30,998 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 00:50:30,999 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose: Create a memorable, professional logo representing a...
+2025-06-08 00:50:30,999 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 00:50:54,602 - INFO - Successfully enhanced prompt. Result: Design Specification for “Summit Adventures” Mountain-Tour Company Logo (SVG-Optimized)
+
+---
+
+### 1....
+2025-06-08 00:50:54,606 - INFO - Stage 5: Technical Enhancement
+2025-06-08 00:50:54,606 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 00:51:25,024 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 00:51:25,024 - INFO - Generating image with GPT Image-1
+2025-06-08 00:51:37,056 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 00:51:38,485 - INFO - Image saved successfully: gpt_image_20250608_005138_627fe572.png
+2025-06-08 00:51:38,485 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 00:51:38,485 - INFO - Stage 7: OCR and SVG Generation
+2025-06-08 00:51:38,500 - INFO - 127.0.0.1 - - [08/Jun/2025 00:51:38] "[35m[1mPOST /api/generate-text-svg HTTP/1.1[0m" 500 -
+2025-06-08 00:56:41,932 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5003
+2025-06-08 00:56:41,932 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 00:56:41,933 - INFO -  * Restarting with stat
+2025-06-08 00:56:42,282 - WARNING -  * Debugger is active!
+2025-06-08 00:56:42,287 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 00:56:46,090 - INFO - === IMAGE→TEXT→SVG PIPELINE START ===
+2025-06-08 00:56:46,090 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 00:56:46,090 - INFO - Checking vector suitability for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 00:56:49,568 - INFO - Stage 2: Design Planning
+2025-06-08 00:56:49,568 - INFO - Planning design for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 00:57:06,348 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 00:57:06,348 - INFO - Generating design knowledge...
+2025-06-08 00:57:24,885 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 00:57:24,887 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals  
+   - Main purpose: Create a memorable, professional logo representing...
+2025-06-08 00:57:24,887 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 00:57:43,599 - INFO - Successfully enhanced prompt. Result: Design Specification for “Summit Adventures” Mountain-Tour Logo (SVG-Optimized)
+
+---
+
+### 1. Layout ...
+2025-06-08 00:57:43,601 - INFO - Stage 5: Technical Enhancement
+2025-06-08 00:57:43,601 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 00:58:12,584 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 00:58:12,585 - INFO - Generating image with GPT Image-1
+2025-06-08 00:58:24,916 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 00:58:26,355 - INFO - Image saved successfully: gpt_image_20250608_005826_62b06488.png
+2025-06-08 00:58:26,356 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 00:58:26,356 - INFO - Stage 7: OCR and SVG Generation
+2025-06-08 00:58:28,976 - INFO - 127.0.0.1 - - [08/Jun/2025 00:58:28] "[35m[1mPOST /api/generate-text-svg HTTP/1.1[0m" 500 -
+2025-06-08 00:59:53,692 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5003
+2025-06-08 00:59:53,693 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 00:59:53,693 - INFO -  * Restarting with stat
+2025-06-08 00:59:54,033 - WARNING -  * Debugger is active!
+2025-06-08 00:59:54,037 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 00:59:58,730 - INFO - === IMAGE→TEXT→SVG PIPELINE START ===
+2025-06-08 00:59:58,730 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 00:59:58,730 - INFO - Checking vector suitability for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 01:00:00,355 - INFO - Stage 2: Design Planning
+2025-06-08 01:00:00,356 - INFO - Planning design for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 01:00:09,373 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 01:00:09,374 - INFO - Generating design knowledge...
+2025-06-08 01:00:28,502 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 01:00:28,502 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose: Create a memorable, clean, and professional logo rep...
+2025-06-08 01:00:28,502 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:00:50,908 - INFO - Successfully enhanced prompt. Result: Detailed Design Specification for “Summit Adventures” Logo (SVG-Optimized)
+
+---
+
+### 1. Layout and C...
+2025-06-08 01:00:50,908 - INFO - Stage 5: Technical Enhancement
+2025-06-08 01:00:50,909 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:01:25,672 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 01:01:25,672 - INFO - Generating image with GPT Image-1
+2025-06-08 01:01:37,754 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 01:01:39,128 - INFO - Image saved successfully: gpt_image_20250608_010138_786e0cd3.png
+2025-06-08 01:01:39,128 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 01:01:39,128 - INFO - Stage 7: OCR and SVG Generation
+2025-06-08 01:01:39,386 - INFO - SVG saved successfully: text_svg_20250608_010139_7aca7660.svg
+2025-06-08 01:01:39,387 - INFO - 127.0.0.1 - - [08/Jun/2025 01:01:39] "POST /api/generate-text-svg HTTP/1.1" 200 -
+2025-06-08 01:04:08,233 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 01:04:08,337 - INFO -  * Restarting with stat
+2025-06-08 01:04:08,907 - WARNING -  * Debugger is active!
+2025-06-08 01:04:08,913 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 01:04:35,419 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 01:04:35,507 - INFO -  * Restarting with stat
+2025-06-08 01:04:35,998 - WARNING -  * Debugger is active!
+2025-06-08 01:04:36,002 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 01:04:37,907 - INFO - === IMAGE→TEXT→SVG PIPELINE START ===
+2025-06-08 01:04:37,908 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 01:04:37,908 - INFO - Checking vector suitability for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 01:04:39,750 - INFO - Stage 2: Design Planning
+2025-06-08 01:04:39,750 - INFO - Planning design for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 01:04:47,514 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 01:04:47,514 - INFO - Generating design knowledge...
+2025-06-08 01:05:05,940 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 01:05:05,941 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose: Create a memorable and professional logo representin...
+2025-06-08 01:05:05,941 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:05:30,218 - INFO - Successfully enhanced prompt. Result: **Enhanced Design Specification for “Summit Adventures” Logo (SVG-Optimized)**
+
+---
+
+### 1. Layout a...
+2025-06-08 01:05:30,219 - INFO - Stage 5: Technical Enhancement
+2025-06-08 01:05:30,219 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:05:53,948 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 01:05:53,948 - INFO - Generating image with GPT Image-1
+2025-06-08 01:06:07,099 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 01:06:08,623 - INFO - Image saved successfully: gpt_image_20250608_010608_ed8bae18.png
+2025-06-08 01:06:08,623 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 01:06:08,623 - INFO - Stage 7: GPT-4.1-mini-based SVG generation
+2025-06-08 01:06:12,663 - ERROR - SVG generation via GPT error: {'error': {'message': "This model's maximum context length is 1047576 tokens. However, your messages resulted in 1331263 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+2025-06-08 01:06:12,666 - INFO - 127.0.0.1 - - [08/Jun/2025 01:06:12] "[35m[1mPOST /api/generate-text-svg HTTP/1.1[0m" 500 -
+2025-06-08 01:07:13,129 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 01:07:13,213 - INFO -  * Restarting with stat
+2025-06-08 01:07:13,743 - WARNING -  * Debugger is active!
+2025-06-08 01:07:13,747 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 01:07:19,848 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 01:07:19,916 - INFO -  * Restarting with stat
+2025-06-08 01:07:20,314 - WARNING -  * Debugger is active!
+2025-06-08 01:07:20,319 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 01:07:24,013 - INFO - === IMAGE→TEXT→SVG PIPELINE START ===
+2025-06-08 01:07:24,013 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 01:07:24,013 - INFO - Checking vector suitability for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 01:07:25,976 - INFO - Stage 2: Design Planning
+2025-06-08 01:07:25,976 - INFO - Planning design for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 01:07:35,107 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 01:07:35,107 - INFO - Generating design knowledge...
+2025-06-08 01:07:55,003 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 01:07:55,003 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose:
+     Create a clean, memorable logo representing a m...
+2025-06-08 01:07:55,003 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:08:14,327 - INFO - Successfully enhanced prompt. Result: **Enhanced SVG Design Specification for “Summit Adventures” Logo**
+
+---
+
+### 1. Layout and Compositi...
+2025-06-08 01:08:14,329 - INFO - Stage 5: Technical Enhancement
+2025-06-08 01:08:14,329 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:08:41,905 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 01:08:41,905 - INFO - Generating image with GPT Image-1
+2025-06-08 01:08:52,654 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 01:08:54,162 - INFO - Image saved successfully: gpt_image_20250608_010853_22f2d806.png
+2025-06-08 01:08:54,163 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 01:08:54,163 - INFO - Stage 7: GPT-4.1-mini-based SVG generation
+2025-06-08 01:08:55,727 - INFO - SVG saved successfully: text_svg_20250608_010855_58b49e27.svg
+2025-06-08 01:08:55,729 - INFO - 127.0.0.1 - - [08/Jun/2025 01:08:55] "POST /api/generate-text-svg HTTP/1.1" 200 -
+2025-06-08 01:10:34,271 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 01:10:34,372 - INFO -  * Restarting with stat
+2025-06-08 01:12:01,147 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5003
+2025-06-08 01:12:01,147 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 01:12:01,148 - INFO -  * Restarting with stat
+2025-06-08 01:12:01,506 - WARNING -  * Debugger is active!
+2025-06-08 01:12:01,510 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 01:12:03,228 - INFO - === IMAGE→TEXT→SVG PIPELINE START ===
+2025-06-08 01:12:03,228 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 01:12:03,228 - INFO - Checking vector suitability for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 01:12:05,783 - INFO - Stage 2: Design Planning
+2025-06-08 01:12:05,783 - INFO - Planning design for: Design a flat-style logo for a mountain-tour company: a simple, geometric mountain silhouette with a...
+2025-06-08 01:12:16,895 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 01:12:16,896 - INFO - Generating design knowledge...
+2025-06-08 01:12:33,913 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 01:12:33,914 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose:
+     Create a clean, memorable logo that represents ...
+2025-06-08 01:12:33,914 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:12:55,244 - INFO - Successfully enhanced prompt. Result: Design Specification for “Summit Adventures” Mountain-Tour Company Logo (SVG-Optimized)
+
+---
+
+### 1....
+2025-06-08 01:12:55,246 - INFO - Stage 5: Technical Enhancement
+2025-06-08 01:12:55,246 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:13:25,799 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 01:13:25,800 - INFO - Generating image with GPT Image-1
+2025-06-08 01:13:37,590 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 01:13:39,087 - INFO - Image saved successfully: gpt_image_20250608_011338_cf977469.png
+2025-06-08 01:13:39,088 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 01:13:39,088 - INFO - Stage 7: GPT-4.1-mini-based SVG generation
+2025-06-08 01:13:41,225 - INFO - SVG saved successfully: text_svg_20250608_011341_62211bd4.svg
+2025-06-08 01:13:41,227 - INFO - 127.0.0.1 - - [08/Jun/2025 01:13:41] "POST /api/generate-text-svg HTTP/1.1" 200 -
+2025-06-08 01:14:40,707 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 01:14:40,809 - INFO -  * Restarting with stat
+2025-06-08 01:14:41,351 - WARNING -  * Debugger is active!
+2025-06-08 01:14:41,356 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 01:14:53,328 - INFO - === IMAGE→TEXT→SVG PIPELINE START ===
+2025-06-08 01:14:53,329 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 01:14:53,329 - INFO - Checking vector suitability for: Create coming soon poster...
+2025-06-08 01:14:55,464 - INFO - Stage 2: Design Planning
+2025-06-08 01:14:55,464 - INFO - Planning design for: Create coming soon poster...
+2025-06-08 01:15:00,991 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 01:15:00,992 - INFO - Generating design knowledge...
+2025-06-08 01:15:20,652 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 01:15:20,652 - INFO - Pre-enhancing prompt: Design Plan:
+1. Design Goals
+   - Main purpose: Announce an upcoming event/product/website launch wi...
+2025-06-08 01:15:20,652 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:15:39,578 - INFO - Successfully enhanced prompt. Result: Design Specification for “Coming Soon” Poster SVG
+
+---
+
+### 1. Layout and Composition
+
+- **Overall S...
+2025-06-08 01:15:39,579 - INFO - Stage 5: Technical Enhancement
+2025-06-08 01:15:39,579 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-mini
+2025-06-08 01:16:08,576 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 01:16:08,576 - INFO - Generating image with GPT Image-1
+2025-06-08 01:16:21,593 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 01:16:23,065 - INFO - Image saved successfully: gpt_image_20250608_011622_d694c327.png
+2025-06-08 01:16:23,065 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 01:16:23,065 - INFO - Stage 7: OCR and SVG Generation
+2025-06-08 01:16:23,318 - INFO - SVG saved successfully: text_svg_20250608_011623_b492f45d.svg
+2025-06-08 01:16:23,319 - INFO - 127.0.0.1 - - [08/Jun/2025 01:16:23] "POST /api/generate-text-svg HTTP/1.1" 200 -
+2025-06-08 01:17:01,140 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 01:17:01,232 - INFO -  * Restarting with stat
+2025-06-08 01:17:01,825 - WARNING -  * Debugger is active!
+2025-06-08 01:17:01,829 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 01:17:16,083 - INFO -  * Detected change in '/Users/hi/infoui/server/image_to_text_svg_pipeline.py', reloading
+2025-06-08 01:17:16,156 - INFO -  * Restarting with stat
+2025-06-08 01:17:16,720 - WARNING -  * Debugger is active!
+2025-06-08 01:17:16,724 - INFO -  * Debugger PIN: 300-948-049
