@@ -124,7 +124,7 @@ def process_clean_svg(image_data):
     return clean_svg_code, output_svg_path, edited_png_path
 
 def combine_svgs(text_svg_code, traced_svg_code):
-    """Combine text SVG and traced SVG using GPT-4 for intelligent merging"""
+    """Combine text SVG and traced SVG using direct method"""
     
     logger.info('Stage 8.1: Starting SVG combination process')
     start_time = datetime.now()
@@ -134,78 +134,54 @@ def combine_svgs(text_svg_code, traced_svg_code):
     traced_svg_size = len(traced_svg_code)
     logger.info(f'Stage 8.2: Input sizes - Text SVG: {text_svg_size} bytes, Traced SVG: {traced_svg_size} bytes')
     
-    system_msg = (
-        "You are an SVG expert that combines two SVGs into one cohesive SVG. "
-        "The first SVG contains text elements, and the second SVG contains traced paths. "
-        "Combine them while:\n"
-        "1. Preserving all paths from the traced SVG\n"
-        "2. Adding all text elements from the text SVG\n"
-        "3. Using the larger of the two viewBox/dimensions\n"
-        "4. Maintaining proper SVG structure and namespaces\n"
-        "Output only the combined SVG code with no explanation."
-    )
-    
-    user_msg = (
-        f"Text SVG:\n{text_svg_code}\n\n"
-        f"Traced SVG:\n{traced_svg_code}\n\n"
-        "Please combine these SVGs into one, maintaining all visual elements from both."
-    )
-    
-    logger.info('Stage 8.3: Preparing OpenAI API request')
-    gpt_start_time = datetime.now()
-    
     try:
-        # Configure request parameters
-        request_params = {
-            'model': 'gpt-4.1-nano',
-            'messages': [
-                {'role': 'system', 'content': system_msg},
-                {'role': 'user', 'content': user_msg}
-            ],
-            'temperature': 1,
-            'max_tokens': 23000,  # Ensure enough tokens for SVG response
-            'n': 1,  # Number of completions
-            'stream': False,  # Don't stream the response
-            'presence_penalty': 0,
-            'frequency_penalty': 0
-        }
+        # Extract viewBox from both SVGs
+        import re
         
-        logger.info('Stage 8.4: Sending request to OpenAI API')
-        response = chat_client.chat.completions.create(**request_params)
-        
-        gpt_duration = (datetime.now() - gpt_start_time).total_seconds()
-        logger.info(f'Stage 8.5: OpenAI API response received in {gpt_duration:.2f} seconds')
-        
-        # Extract and validate response
-        if not response.choices or len(response.choices) == 0:
-            raise ValueError("No completion choices returned from OpenAI")
+        def extract_viewbox(svg):
+            viewbox_match = re.search(r'viewBox=["\']([\d\s.-]+)["\']', svg)
+            if viewbox_match:
+                return [float(x) for x in viewbox_match.group(1).split()]
+            return None
             
-        combined_svg = response.choices[0].message.content.strip()
+        text_viewbox = extract_viewbox(text_svg_code)
+        traced_viewbox = extract_viewbox(traced_svg_code)
+        
+        # Use traced SVG viewBox if available, otherwise text SVG viewBox
+        viewbox = traced_viewbox or text_viewbox or [0, 0, 800, 600]
+        viewbox_str = f"{viewbox[0]} {viewbox[1]} {viewbox[2]} {viewbox[3]}"
+        
+        # Extract content from text SVG
+        text_content = ""
+        if "<text" in text_svg_code:
+            text_matches = re.findall(r'(<text.*?</text>)', text_svg_code, re.DOTALL)
+            text_content = "\n    ".join(text_matches)
+            
+        # Extract content from traced SVG
+        path_content = ""
+        if "<path" in traced_svg_code:
+            path_matches = re.findall(r'(<path.*?/>)', traced_svg_code, re.DOTALL)
+            path_content = "\n    ".join(path_matches)
+            
+        # Combine into new SVG
+        combined_svg = f'''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="{viewbox_str}" width="100%" height="100%">
+    {path_content}
+    {text_content}
+</svg>'''
+        
         combined_size = len(combined_svg)
         logger.info(f'Stage 8.6: Combined SVG size: {combined_size} bytes')
         
-        # Validate SVG structure
-        if not combined_svg.startswith('<?xml') and not combined_svg.startswith('<svg'):
-            logger.warning('Stage 8.7: Warning - Combined SVG may not have proper XML/SVG header')
-            
-        # Check for minimum content
-        if combined_size < (text_svg_size + traced_svg_size) * 0.5:
-            logger.warning(f'Stage 8.8: Warning - Combined SVG size ({combined_size}) is unusually small compared to inputs')
-        
         total_duration = (datetime.now() - start_time).total_seconds()
-        logger.info(f'Stage 8.9: SVG combination completed in {total_duration:.2f} seconds total')
+        logger.info(f'Stage 8.9: SVG combination completed in {total_duration:.2f} seconds')
         
         return combined_svg
         
     except Exception as e:
         error_msg = str(e)
         logger.error(f'Stage 8.X: Error during SVG combination: {error_msg}')
-        if 'rate_limit' in error_msg.lower():
-            logger.error('Stage 8.X: Rate limit exceeded - Consider implementing retry logic')
-        elif 'token' in error_msg.lower():
-            logger.error('Stage 8.X: Token-related error - Check API key or token limits')
-        elif 'timeout' in error_msg.lower():
-            logger.error('Stage 8.X: Request timed out - Consider increasing timeout or reducing input size')
         raise
 
 @app.route('/api/generate-parallel-svg', methods=['POST'])
@@ -267,7 +243,7 @@ def generate_parallel_svg():
         clean_svg_code, clean_svg_path, edited_png_path = clean_future.result()
 
     # Stage 8: Combine SVGs
-    logger.info('Stage 8: Combining SVGs with GPT-4')
+    logger.info('Stage 8: Combining SVGs with direct method')
     combined_svg_code = combine_svgs(text_svg_code, clean_svg_code)
     combined_svg_filename = f"combined_svg_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.svg"
     combined_svg_path = os.path.join(IMAGES_DIR, combined_svg_filename)
