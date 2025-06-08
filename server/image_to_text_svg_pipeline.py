@@ -85,8 +85,10 @@ def generate_image_text_svg():
     # Prepare prompt
     messages = [
         {"role": "system", "content": (
-            "You are an expert at extracting text from images and producing SVG code that exactly matches the text's "
-            "position, font family (sans-serif), size, and color. Only output valid SVG code, no explanation."
+            "You are a precise SVG code generator. "
+            "Given image dimensions and a list of text elements with their positions (x, y), font sizes, and fill colors, "
+            "output only a valid SVG string with the correct <svg> wrapper and one <text> tag per element, "
+            "using each 'text' value exactly as provided (no changes). Do not include explanations or markup extras."
         )},
         {"role": "user", "content": (
             f"Here is an image at URL: {image_url}. The image width is {width}px and height is {height}px. "

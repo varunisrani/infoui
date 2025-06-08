@@ -21,7 +21,7 @@ from app import (
     IMAGES_DIR
 )
 import numpy as np
-import remove_text_combined
+import remove_text_simple
 import png_to_svg_converter
 from openai import OpenAI
 
@@ -38,9 +38,21 @@ def process_ocr_svg(image_data):
     img = Image.open(BytesIO(image_data))
     ocr_data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DICT)
     elements = []
+    # Filter settings
+    MIN_CONFIDENCE = 60  # ignore any OCR result below this confidence
     for i, txt in enumerate(ocr_data.get('text', [])):
+        # Skip low-confidence or empty results
+        try:
+            conf = float(ocr_data['conf'][i])
+        except:
+            conf = 0.0
+        if conf < MIN_CONFIDENCE:
+            continue
         text = txt.strip()
         if not text:
+            continue
+        # Filter out stray single-character results
+        if len(text) < 2:
             continue
         x, y, w, h = (
             ocr_data['left'][i],
@@ -67,9 +79,11 @@ def process_ocr_svg(image_data):
     # Build prompt for GPT
     import json
     system_msg = (
-        "You are an expert at generating SVG text overlays. "
-        "Given canvas dimensions and a list of text elements with their positions, font sizes, and fill colors, "
-        "produce a valid SVG string with <text> tags that exactly match these elements. Only return the SVG code."
+        "You are a precise SVG code generator. "
+        "Given canvas width, height, viewBox, and a JSON array of text elements "
+        "(with fields 'text', 'x', 'y', 'font_size', and 'fill'), output only a valid SVG string starting with the correct <svg> tag "
+        "and one <text> element per item, using each 'text' value exactly as provided (no changes). "
+        "Do not include explanations, comments, or extra markup."
     )
     user_msg = (
         f"Canvas width={width}, height={height}, viewBox={view_box}. "
@@ -85,28 +99,6 @@ def process_ocr_svg(image_data):
     svg_filename = save_svg(svg_code, prefix='text_svg')
     return svg_code, svg_filename
 
-def create_mask(image_data):
-    """Create an alpha mask from white text in the input image"""
-    # Load and convert to grayscale
-    img = Image.open(BytesIO(image_data)).convert("RGB")
-    gray = img.convert("L")
-    
-    # Threshold to create binary mask - higher threshold for white text
-    thr = 240  # Adjusted for white text
-    mask_arr = np.array(gray)
-    mask_binary = (mask_arr > thr).astype(np.uint8) * 255
-    mask = Image.fromarray(mask_binary, mode="L")
-    
-    # Convert to RGBA with alpha channel
-    mask_rgba = mask.convert("RGBA")
-    mask_rgba.putalpha(mask)
-    
-    # Save mask to BytesIO
-    mask_bytes = BytesIO()
-    mask_rgba.save(mask_bytes, format='PNG')
-    mask_bytes.seek(0)
-    return mask_bytes
-
 def process_clean_svg(image_data):
     """Process text removal and convert to clean SVG"""
     # Save the original image bytes to a temporary PNG file
@@ -115,11 +107,8 @@ def process_clean_svg(image_data):
     with open(temp_input_path, "wb") as f:
         f.write(image_data)
 
-    # Create a mask for text removal using remove_text_combined
-    mask_path = remove_text_combined.create_mask(temp_input_path)
-
-    # Remove text from the image using remove_text_combined
-    edited_png_path = remove_text_combined.remove_text(temp_input_path, mask_path)
+    # Remove text from the image using remove_text_simple
+    edited_png_path = remove_text_simple.remove_text(temp_input_path)
 
     # Convert the edited PNG to SVG using png_to_svg_converter
     output_svg_path = png_to_svg_converter.convert_png_to_svg(edited_png_path)
@@ -128,11 +117,96 @@ def process_clean_svg(image_data):
     with open(output_svg_path, 'r') as f:
         clean_svg_code = f.read()
 
-    # Cleanup only the temporary input file
+    # Cleanup the temporary input file
     os.remove(temp_input_path)
 
-    # Return clean SVG code and paths for mask and edited PNG
-    return clean_svg_code, output_svg_path, mask_path, edited_png_path
+    # Return clean SVG code and paths
+    return clean_svg_code, output_svg_path, edited_png_path
+
+def combine_svgs(text_svg_code, traced_svg_code):
+    """Combine text SVG and traced SVG using GPT-4 for intelligent merging"""
+    
+    logger.info('Stage 8.1: Starting SVG combination process')
+    start_time = datetime.now()
+    
+    # Log sizes for debugging
+    text_svg_size = len(text_svg_code)
+    traced_svg_size = len(traced_svg_code)
+    logger.info(f'Stage 8.2: Input sizes - Text SVG: {text_svg_size} bytes, Traced SVG: {traced_svg_size} bytes')
+    
+    system_msg = (
+        "You are an SVG expert that combines two SVGs into one cohesive SVG. "
+        "The first SVG contains text elements, and the second SVG contains traced paths. "
+        "Combine them while:\n"
+        "1. Preserving all paths from the traced SVG\n"
+        "2. Adding all text elements from the text SVG\n"
+        "3. Using the larger of the two viewBox/dimensions\n"
+        "4. Maintaining proper SVG structure and namespaces\n"
+        "Output only the combined SVG code with no explanation."
+    )
+    
+    user_msg = (
+        f"Text SVG:\n{text_svg_code}\n\n"
+        f"Traced SVG:\n{traced_svg_code}\n\n"
+        "Please combine these SVGs into one, maintaining all visual elements from both."
+    )
+    
+    logger.info('Stage 8.3: Preparing OpenAI API request')
+    gpt_start_time = datetime.now()
+    
+    try:
+        # Configure request parameters
+        request_params = {
+            'model': 'gpt-4.1-nano',
+            'messages': [
+                {'role': 'system', 'content': system_msg},
+                {'role': 'user', 'content': user_msg}
+            ],
+            'temperature': 1,
+            'max_tokens': 23000,  # Ensure enough tokens for SVG response
+            'n': 1,  # Number of completions
+            'stream': False,  # Don't stream the response
+            'presence_penalty': 0,
+            'frequency_penalty': 0
+        }
+        
+        logger.info('Stage 8.4: Sending request to OpenAI API')
+        response = chat_client.chat.completions.create(**request_params)
+        
+        gpt_duration = (datetime.now() - gpt_start_time).total_seconds()
+        logger.info(f'Stage 8.5: OpenAI API response received in {gpt_duration:.2f} seconds')
+        
+        # Extract and validate response
+        if not response.choices or len(response.choices) == 0:
+            raise ValueError("No completion choices returned from OpenAI")
+            
+        combined_svg = response.choices[0].message.content.strip()
+        combined_size = len(combined_svg)
+        logger.info(f'Stage 8.6: Combined SVG size: {combined_size} bytes')
+        
+        # Validate SVG structure
+        if not combined_svg.startswith('<?xml') and not combined_svg.startswith('<svg'):
+            logger.warning('Stage 8.7: Warning - Combined SVG may not have proper XML/SVG header')
+            
+        # Check for minimum content
+        if combined_size < (text_svg_size + traced_svg_size) * 0.5:
+            logger.warning(f'Stage 8.8: Warning - Combined SVG size ({combined_size}) is unusually small compared to inputs')
+        
+        total_duration = (datetime.now() - start_time).total_seconds()
+        logger.info(f'Stage 8.9: SVG combination completed in {total_duration:.2f} seconds total')
+        
+        return combined_svg
+        
+    except Exception as e:
+        error_msg = str(e)
+        logger.error(f'Stage 8.X: Error during SVG combination: {error_msg}')
+        if 'rate_limit' in error_msg.lower():
+            logger.error('Stage 8.X: Rate limit exceeded - Consider implementing retry logic')
+        elif 'token' in error_msg.lower():
+            logger.error('Stage 8.X: Token-related error - Check API key or token limits')
+        elif 'timeout' in error_msg.lower():
+            logger.error('Stage 8.X: Request timed out - Consider increasing timeout or reducing input size')
+        raise
 
 @app.route('/api/generate-parallel-svg', methods=['POST'])
 def generate_parallel_svg():
@@ -190,12 +264,23 @@ def generate_parallel_svg():
         
         # Get results
         text_svg_code, text_svg_path = ocr_future.result()
-        clean_svg_code, clean_svg_path, mask_path, edited_png_path = clean_future.result()
+        clean_svg_code, clean_svg_path, edited_png_path = clean_future.result()
+
+    # Stage 8: Combine SVGs
+    logger.info('Stage 8: Combining SVGs with GPT-4')
+    combined_svg_code = combine_svgs(text_svg_code, clean_svg_code)
+    combined_svg_filename = f"combined_svg_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.svg"
+    combined_svg_path = os.path.join(IMAGES_DIR, combined_svg_filename)
+    with open(combined_svg_path, 'w') as f:
+        f.write(combined_svg_code)
 
     # Create a session subfolder and move outputs there
     session_folder = f"{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
     output_folder = os.path.join(PARALLEL_OUTPUTS_DIR, session_folder)
     os.makedirs(output_folder, exist_ok=True)
+
+    # Base URL for parallel outputs
+    base_url = '/static/images/parallel'
 
     # Move generated image into session folder
     src_image = os.path.join(IMAGES_DIR, image_filename)
@@ -215,13 +300,10 @@ def generate_parallel_svg():
     dst_clean_svg = os.path.join(output_folder, os.path.basename(clean_svg_path))
     os.rename(src_clean_svg, dst_clean_svg)
 
-    # Move mask image into session folder
-    src_mask = mask_path if os.path.isabs(mask_path) else mask_path
-    dst_mask = os.path.join(output_folder, os.path.basename(mask_path))
-    os.rename(src_mask, dst_mask)
-    # Base URL for parallel outputs
-    base_url = '/static/images/parallel'
-    mask_url = f"{base_url}/{session_folder}/{os.path.basename(mask_path)}"
+    # Move combined SVG into session folder
+    src_combined_svg = combined_svg_path
+    dst_combined_svg = os.path.join(output_folder, combined_svg_filename)
+    os.rename(src_combined_svg, dst_combined_svg)
 
     # Move cleaned PNG (converter input) into session folder
     src_edited_png = edited_png_path if os.path.isabs(edited_png_path) else edited_png_path
@@ -233,14 +315,11 @@ def generate_parallel_svg():
     image_url = f"{base_url}/{session_folder}/{image_filename}"
     text_svg_url = f"{base_url}/{session_folder}/{text_svg_path}"
     clean_svg_url = f"{base_url}/{session_folder}/{os.path.basename(clean_svg_path)}"
+    combined_svg_url = f"{base_url}/{session_folder}/{combined_svg_filename}"
 
     return jsonify({
         'original_prompt': user_input,
         'image_url': image_url,
-        'mask': {
-            'path': f"parallel/{session_folder}/{os.path.basename(mask_path)}",
-            'url': mask_url
-        },
         'edited_png': {
             'path': f"parallel/{session_folder}/{os.path.basename(edited_png_path)}",
             'url': edited_png_url
@@ -253,7 +332,12 @@ def generate_parallel_svg():
             'code': clean_svg_code,
             'path': f"parallel/{session_folder}/{os.path.basename(clean_svg_path)}"
         },
-        'stage': 7
+        'combined_svg': {
+            'code': combined_svg_code,
+            'path': f"parallel/{session_folder}/{combined_svg_filename}",
+            'url': combined_svg_url
+        },
+        'stage': 8
     })
 
 if __name__ == '__main__':

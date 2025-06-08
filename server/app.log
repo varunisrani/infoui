@@ -8481,3 +8481,574 @@ Certainly! Here's a comprehensive structured plan for designing a "Coming Soon" 
 2025-06-08 16:42:32,172 - INFO - SVG saved successfully: text_svg_20250608_164232_7100b38a.svg
 2025-06-08 16:42:40,321 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
 2025-06-08 16:42:41,584 - INFO - 127.0.0.1 - - [08/Jun/2025 16:42:41] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 16:52:10,078 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-06-08 16:52:10,078 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 16:52:10,079 - INFO -  * Restarting with stat
+2025-06-08 16:52:10,774 - WARNING -  * Debugger is active!
+2025-06-08 16:52:10,783 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 16:52:12,332 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 16:52:12,332 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 16:52:12,332 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 16:52:14,870 - INFO - Stage 2: Design Planning
+2025-06-08 16:52:14,870 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 16:52:27,767 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 16:52:27,768 - INFO - Generating design knowledge...
+2025-06-08 16:52:41,537 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 16:52:41,538 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a comprehensive, structured plan for designing a "Coming Soon" poster...
+2025-06-08 16:52:41,538 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 16:52:57,725 - INFO - Successfully enhanced prompt. Result: Certainly! Building on your comprehensive plan, here's a detailed, technical SVG design specificatio...
+2025-06-08 16:52:57,727 - INFO - Stage 5: Technical Enhancement
+2025-06-08 16:52:57,727 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 16:53:20,580 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 16:53:20,583 - INFO - Generating image with GPT Image-1
+2025-06-08 16:53:31,522 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 16:53:33,150 - INFO - Image saved successfully: gpt_image_20250608_165332_e0709e74.png
+2025-06-08 16:53:33,150 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 16:53:33,156 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 16:53:40,212 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 16:53:40,217 - INFO - SVG saved successfully: text_svg_20250608_165340_f3127ab1.svg
+2025-06-08 16:53:48,898 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 16:53:50,120 - INFO - 127.0.0.1 - - [08/Jun/2025 16:53:50] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 16:56:53,666 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-06-08 16:56:53,666 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 16:56:53,667 - INFO -  * Restarting with stat
+2025-06-08 16:56:54,335 - WARNING -  * Debugger is active!
+2025-06-08 16:56:54,349 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 16:56:57,438 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 16:56:57,439 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 16:56:57,439 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 16:56:59,577 - INFO - Stage 2: Design Planning
+2025-06-08 16:56:59,578 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 16:57:10,727 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 16:57:10,727 - INFO - Generating design knowledge...
+2025-06-08 16:57:25,863 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 16:57:25,865 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, structured plan for designing a "Coming Soon" poster:
+
+--...
+2025-06-08 16:57:25,865 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 16:57:42,588 - INFO - Successfully enhanced prompt. Result: Certainly! Here's an enhanced, detailed technical design specification for your "Coming Soon" poster...
+2025-06-08 16:57:42,590 - INFO - Stage 5: Technical Enhancement
+2025-06-08 16:57:42,590 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 16:58:04,595 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 16:58:04,597 - INFO - Generating image with GPT Image-1
+2025-06-08 16:58:17,391 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 16:58:18,685 - INFO - Image saved successfully: gpt_image_20250608_165818_b592fa63.png
+2025-06-08 16:58:18,685 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 16:58:18,690 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 16:58:21,515 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 16:58:21,524 - INFO - SVG saved successfully: text_svg_20250608_165821_7cf345cf.svg
+2025-06-08 16:58:36,026 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 16:58:37,289 - INFO - 127.0.0.1 - - [08/Jun/2025 16:58:37] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 16:59:08,608 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 16:59:08,609 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 16:59:08,609 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 16:59:11,250 - INFO - Stage 2: Design Planning
+2025-06-08 16:59:11,251 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 16:59:22,567 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 16:59:22,569 - INFO - Generating design knowledge...
+2025-06-08 16:59:37,238 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 16:59:37,239 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a structured plan for designing a "Coming Soon" poster.
+
+---
+
+### 1. ...
+2025-06-08 16:59:37,240 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 16:59:56,306 - INFO - Successfully enhanced prompt. Result: Certainly! Here's a comprehensive, detailed design specification for your "Coming Soon" poster, inco...
+2025-06-08 16:59:56,307 - INFO - Stage 5: Technical Enhancement
+2025-06-08 16:59:56,307 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 17:00:11,984 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 17:00:11,986 - INFO - Generating image with GPT Image-1
+2025-06-08 17:00:29,277 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 17:00:30,799 - INFO - Image saved successfully: gpt_image_20250608_170030_6b16f8e9.png
+2025-06-08 17:00:30,800 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 17:00:30,806 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 17:00:36,444 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 17:00:36,451 - INFO - SVG saved successfully: text_svg_20250608_170036_3bbc688c.svg
+2025-06-08 17:00:45,349 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 17:00:46,606 - INFO - 127.0.0.1 - - [08/Jun/2025 17:00:46] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 17:08:48,202 - INFO -  * Detected change in '/Users/hi/infoui/server/remove_text_combined.py', reloading
+2025-06-08 17:08:48,377 - INFO -  * Restarting with stat
+2025-06-08 17:08:49,422 - WARNING -  * Debugger is active!
+2025-06-08 17:08:49,431 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 17:08:50,473 - INFO -  * Detected change in '/Users/hi/infoui/server/remove_text_combined.py', reloading
+2025-06-08 17:08:50,560 - INFO -  * Restarting with stat
+2025-06-08 17:08:51,251 - WARNING -  * Debugger is active!
+2025-06-08 17:08:51,257 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 17:09:09,576 - INFO -  * Detected change in '/Users/hi/infoui/server/remove_text_combined.py', reloading
+2025-06-08 17:09:09,669 - INFO -  * Restarting with stat
+2025-06-08 17:09:10,544 - WARNING -  * Debugger is active!
+2025-06-08 17:09:10,552 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:21:08,193 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-06-08 18:21:08,194 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 18:21:08,194 - INFO -  * Restarting with stat
+2025-06-08 18:21:09,157 - WARNING -  * Debugger is active!
+2025-06-08 18:21:09,169 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:21:13,524 - INFO - 127.0.0.1 - - [08/Jun/2025 18:21:13] "GET /static/images/parallel/20250608_170046_c791ae74/mask_temp_input_20250608_170030_931096d5-154d-433e-98c3-36c57f396a62.png HTTP/1.1" 200 -
+2025-06-08 18:21:25,159 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:21:25,160 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:21:25,160 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:21:27,954 - INFO - Stage 2: Design Planning
+2025-06-08 18:21:27,954 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:21:36,816 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:21:36,817 - INFO - Generating design knowledge...
+2025-06-08 18:21:49,287 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:21:49,287 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a structured plan for creating a "Coming Soon" poster:
+
+---
+
+### 1. D...
+2025-06-08 18:21:49,287 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:22:07,967 - INFO - Successfully enhanced prompt. Result: Certainly! Here's an enhanced, detailed SVG design specification for your "Coming Soon" poster, inco...
+2025-06-08 18:22:07,970 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:22:07,970 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:22:28,296 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:22:28,296 - INFO - Generating image with GPT Image-1
+2025-06-08 18:22:43,087 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:22:44,086 - INFO - Image saved successfully: gpt_image_20250608_182243_820e8bf0.png
+2025-06-08 18:22:44,087 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:22:44,092 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:22:49,721 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:22:49,730 - INFO - SVG saved successfully: text_svg_20250608_182249_1d5547f1.svg
+2025-06-08 18:23:00,482 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:23:01,810 - INFO - 127.0.0.1 - - [08/Jun/2025 18:23:01] "[35m[1mPOST /api/generate-parallel-svg HTTP/1.1[0m" 500 -
+2025-06-08 18:23:35,394 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-06-08 18:23:35,394 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 18:23:35,395 - INFO -  * Restarting with stat
+2025-06-08 18:23:36,078 - WARNING -  * Debugger is active!
+2025-06-08 18:23:36,090 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:23:37,919 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:23:37,919 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:23:37,919 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:23:40,265 - INFO - Stage 2: Design Planning
+2025-06-08 18:23:40,265 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:23:49,717 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:23:49,718 - INFO - Generating design knowledge...
+2025-06-08 18:24:02,143 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:24:02,143 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, structured plan for designing a "Coming Soon" poster:
+
+--...
+2025-06-08 18:24:02,143 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:24:24,159 - INFO - Successfully enhanced prompt. Result: Certainly! Based on your structured plan, here's an enhanced, detailed SVG design specification for ...
+2025-06-08 18:24:24,161 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:24:24,161 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:24:42,791 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:24:42,793 - INFO - Generating image with GPT Image-1
+2025-06-08 18:24:53,446 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:24:54,665 - INFO - Image saved successfully: gpt_image_20250608_182454_2aba3c42.png
+2025-06-08 18:24:54,665 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:24:54,670 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:24:59,435 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:24:59,445 - INFO - SVG saved successfully: text_svg_20250608_182459_7b28b9d5.svg
+2025-06-08 18:25:06,825 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:25:08,111 - INFO - 127.0.0.1 - - [08/Jun/2025 18:25:08] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 18:29:42,114 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:29:42,115 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:29:42,115 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:29:44,544 - INFO - Stage 2: Design Planning
+2025-06-08 18:29:44,545 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:29:56,529 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:29:56,529 - INFO - Generating design knowledge...
+2025-06-08 18:30:09,636 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:30:09,637 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a structured plan for designing a "Coming Soon" poster:
+
+---
+
+### 1. ...
+2025-06-08 18:30:09,637 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:30:24,298 - INFO - Successfully enhanced prompt. Result: Certainly! Here's an enhanced, detailed technical design specification for your "Coming Soon" poster...
+2025-06-08 18:30:24,300 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:30:24,300 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:30:43,347 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:30:43,349 - INFO - Generating image with GPT Image-1
+2025-06-08 18:30:57,133 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:30:58,514 - INFO - Image saved successfully: gpt_image_20250608_183058_f2eccfea.png
+2025-06-08 18:30:58,515 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:30:58,522 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:31:05,803 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:31:05,808 - INFO - SVG saved successfully: text_svg_20250608_183105_70b53130.svg
+2025-06-08 18:31:13,942 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:31:15,229 - INFO - 127.0.0.1 - - [08/Jun/2025 18:31:15] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 18:33:24,434 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:33:24,630 - INFO -  * Restarting with stat
+2025-06-08 18:33:25,640 - WARNING -  * Debugger is active!
+2025-06-08 18:33:25,655 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:33:31,752 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:33:32,113 - INFO -  * Restarting with stat
+2025-06-08 18:33:33,023 - WARNING -  * Debugger is active!
+2025-06-08 18:33:33,030 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:33:35,152 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:33:35,152 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:33:35,152 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:33:37,130 - INFO - Stage 2: Design Planning
+2025-06-08 18:33:37,130 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:33:45,096 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:33:45,097 - INFO - Generating design knowledge...
+2025-06-08 18:33:55,898 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:33:55,899 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a structured plan for designing a "Coming Soon" poster:
+
+1. Design Go...
+2025-06-08 18:33:55,899 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:34:11,676 - INFO - Successfully enhanced prompt. Result: Certainly! Here's an enhanced, detailed technical design specification for your "Coming Soon" poster...
+2025-06-08 18:34:11,678 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:34:11,679 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:34:20,436 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:34:20,437 - INFO - Generating image with GPT Image-1
+2025-06-08 18:34:34,409 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:34:35,988 - INFO - Image saved successfully: gpt_image_20250608_183435_1a2620ff.png
+2025-06-08 18:34:35,989 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:34:35,995 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:34:35,995 - INFO - Processing text extraction and SVG generation with GPT-4.1-mini
+2025-06-08 18:34:41,601 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2025-06-08 18:34:41,602 - ERROR - Error in text extraction and SVG generation: Error code: 400 - {'error': {'message': "This model's maximum context length is 1047576 tokens. However, your messages resulted in 1306625 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+2025-06-08 18:34:50,374 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:34:51,477 - INFO - 127.0.0.1 - - [08/Jun/2025 18:34:51] "[35m[1mPOST /api/generate-parallel-svg HTTP/1.1[0m" 500 -
+2025-06-08 18:36:20,724 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:36:20,866 - INFO -  * Restarting with stat
+2025-06-08 18:36:21,770 - WARNING -  * Debugger is active!
+2025-06-08 18:36:21,777 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:36:25,859 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:36:25,958 - INFO -  * Restarting with stat
+2025-06-08 18:36:26,700 - WARNING -  * Debugger is active!
+2025-06-08 18:36:26,707 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:36:30,233 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:36:30,233 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:36:30,233 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:36:37,040 - INFO - Stage 2: Design Planning
+2025-06-08 18:36:37,041 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:36:45,931 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:36:45,932 - INFO - Generating design knowledge...
+2025-06-08 18:36:56,279 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:36:56,280 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed structured plan for designing a "Coming Soon" poster:
+
+---...
+2025-06-08 18:36:56,280 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:37:13,801 - INFO - Successfully enhanced prompt. Result: Certainly! Based on your comprehensive plan, here is a detailed, SVG-specific design specification f...
+2025-06-08 18:37:13,802 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:37:13,803 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:37:24,375 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:37:24,375 - INFO - Generating image with GPT Image-1
+2025-06-08 18:37:34,863 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:37:36,181 - INFO - Image saved successfully: gpt_image_20250608_183735_25eb452c.png
+2025-06-08 18:37:36,182 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:37:36,186 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:37:36,186 - INFO - Processing text extraction and SVG generation with GPT-4.1-mini
+2025-06-08 18:37:49,155 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:37:50,399 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:37:50,402 - INFO - SVG saved successfully: text_svg_20250608_183750_1ac38633.svg
+2025-06-08 18:37:50,402 - INFO - Successfully generated text SVG: text_svg_20250608_183750_1ac38633.svg
+2025-06-08 18:37:50,404 - INFO - 127.0.0.1 - - [08/Jun/2025 18:37:50] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 18:38:37,742 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:38:37,906 - INFO -  * Restarting with stat
+2025-06-08 18:38:39,459 - WARNING -  * Debugger is active!
+2025-06-08 18:38:39,472 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:40:17,312 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:40:17,418 - INFO -  * Restarting with stat
+2025-06-08 18:40:18,316 - WARNING -  * Debugger is active!
+2025-06-08 18:40:18,329 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:40:29,525 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:40:29,668 - INFO -  * Restarting with stat
+2025-06-08 18:40:30,716 - WARNING -  * Debugger is active!
+2025-06-08 18:40:30,722 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:40:32,058 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:40:32,058 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:40:32,058 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:40:34,209 - INFO - Stage 2: Design Planning
+2025-06-08 18:40:34,209 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:40:42,797 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:40:42,798 - INFO - Generating design knowledge...
+2025-06-08 18:40:51,809 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:40:51,809 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for designing a "Coming Soon" poster:
+
+--...
+2025-06-08 18:40:51,809 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:41:04,405 - INFO - Successfully enhanced prompt. Result: Certainly! Here's a comprehensive, detailed SVG design specification for your "Coming Soon" poster, ...
+2025-06-08 18:41:04,406 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:41:04,406 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:41:18,228 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:41:18,228 - INFO - Generating image with GPT Image-1
+2025-06-08 18:41:33,291 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:41:34,865 - INFO - Image saved successfully: gpt_image_20250608_184134_d6a9b917.png
+2025-06-08 18:41:34,866 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:41:34,872 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:41:42,204 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:41:42,212 - INFO - SVG saved successfully: text_svg_20250608_184142_40a30af1.svg
+2025-06-08 18:41:49,461 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:41:50,754 - INFO - Stage 8: Combining SVGs with GPT-4.1-mini
+2025-06-08 18:44:02,204 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-06-08 18:44:02,204 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 18:44:02,205 - INFO -  * Restarting with stat
+2025-06-08 18:44:02,914 - WARNING -  * Debugger is active!
+2025-06-08 18:44:02,922 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:44:08,170 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:44:08,171 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:44:08,171 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:44:10,158 - INFO - Stage 2: Design Planning
+2025-06-08 18:44:10,158 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:44:19,534 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:44:19,535 - INFO - Generating design knowledge...
+2025-06-08 18:44:31,455 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:44:31,455 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, structured plan for designing a "Coming Soon" poster:
+
+--...
+2025-06-08 18:44:31,455 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:44:43,276 - INFO - Successfully enhanced prompt. Result: Certainly! Here's a comprehensive, detailed design specification for your "Coming Soon" poster, tail...
+2025-06-08 18:44:43,278 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:44:43,279 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:44:53,829 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:44:53,829 - INFO - Generating image with GPT Image-1
+2025-06-08 18:45:07,286 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:45:08,867 - INFO - Image saved successfully: gpt_image_20250608_184508_3f9a00e1.png
+2025-06-08 18:45:08,867 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:45:08,873 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:45:13,304 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:45:13,311 - INFO - SVG saved successfully: text_svg_20250608_184513_7ba7ec43.svg
+2025-06-08 18:45:21,942 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:45:23,143 - INFO - Stage 8: Combining SVGs with GPT-4
+2025-06-08 18:45:30,897 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:45:30,909 - INFO - 127.0.0.1 - - [08/Jun/2025 18:45:30] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 18:46:25,815 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-06-08 18:46:25,815 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 18:46:25,816 - INFO -  * Restarting with stat
+2025-06-08 18:46:26,514 - WARNING -  * Debugger is active!
+2025-06-08 18:46:26,525 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:46:36,835 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:46:36,835 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:46:36,836 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:46:39,149 - INFO - Stage 2: Design Planning
+2025-06-08 18:46:39,150 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:46:48,822 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:46:48,823 - INFO - Generating design knowledge...
+2025-06-08 18:47:05,641 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:47:05,642 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a structured plan for creating a "Coming Soon" poster design:
+
+---
+
+*...
+2025-06-08 18:47:05,642 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:47:21,644 - INFO - Successfully enhanced prompt. Result: Certainly! Here's a detailed, SVG-friendly design specification for your "Coming Soon" poster, incor...
+2025-06-08 18:47:21,645 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:47:21,645 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:47:32,294 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:47:32,294 - INFO - Generating image with GPT Image-1
+2025-06-08 18:47:44,891 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:47:46,430 - INFO - Image saved successfully: gpt_image_20250608_184746_4c6189be.png
+2025-06-08 18:47:46,430 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:47:46,437 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:47:49,737 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:47:49,746 - INFO - SVG saved successfully: text_svg_20250608_184749_a5c55d60.svg
+2025-06-08 18:48:07,340 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:48:08,739 - INFO - Stage 8: Combining SVGs with GPT-4
+2025-06-08 18:50:14,899 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:50:15,119 - INFO - 127.0.0.1 - - [08/Jun/2025 18:50:15] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 18:50:16,724 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:50:16,864 - INFO -  * Restarting with stat
+2025-06-08 18:50:17,838 - WARNING -  * Debugger is active!
+2025-06-08 18:50:17,849 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:50:43,298 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:50:43,397 - INFO -  * Restarting with stat
+2025-06-08 18:50:44,296 - WARNING -  * Debugger is active!
+2025-06-08 18:50:44,303 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:51:07,867 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2025-06-08 18:51:07,867 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-08 18:51:07,868 - INFO -  * Restarting with stat
+2025-06-08 18:51:08,540 - WARNING -  * Debugger is active!
+2025-06-08 18:51:08,546 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:51:11,027 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:51:11,027 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:51:11,027 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:51:13,378 - INFO - Stage 2: Design Planning
+2025-06-08 18:51:13,378 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:51:24,573 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:51:24,574 - INFO - Generating design knowledge...
+2025-06-08 18:51:39,569 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:51:39,569 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, structured plan for designing a "Coming Soon" poster:
+
+--...
+2025-06-08 18:51:39,569 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:52:03,422 - INFO - Successfully enhanced prompt. Result: Certainly! Here's an enhanced, detailed SVG design specification for your "Coming Soon" poster, inco...
+2025-06-08 18:52:03,423 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:52:03,423 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:52:19,527 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:52:19,528 - INFO - Generating image with GPT Image-1
+2025-06-08 18:52:33,763 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:52:35,283 - INFO - Image saved successfully: gpt_image_20250608_185235_cd8fc714.png
+2025-06-08 18:52:35,284 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:52:35,290 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:52:36,947 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:52:36,956 - INFO - SVG saved successfully: text_svg_20250608_185236_ebc093c2.svg
+2025-06-08 18:52:47,513 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:52:48,735 - INFO - Stage 8: Combining SVGs with GPT-4
+2025-06-08 18:54:20,017 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:54:20,181 - INFO -  * Restarting with stat
+2025-06-08 18:54:21,365 - WARNING -  * Debugger is active!
+2025-06-08 18:54:21,372 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:54:28,527 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:54:28,622 - INFO -  * Restarting with stat
+2025-06-08 18:54:29,661 - WARNING -  * Debugger is active!
+2025-06-08 18:54:29,669 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:54:41,125 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:54:41,126 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:54:41,130 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:54:42,853 - INFO - Stage 2: Design Planning
+2025-06-08 18:54:42,854 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:54:54,192 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:54:54,193 - INFO - Generating design knowledge...
+2025-06-08 18:55:06,838 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 18:55:06,839 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a comprehensive, structured plan for designing a "Coming Soon" poster...
+2025-06-08 18:55:06,839 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:55:25,998 - INFO - Successfully enhanced prompt. Result: Certainly! Here's an enhanced, detailed design specification for your "Coming Soon" poster, incorpor...
+2025-06-08 18:55:26,000 - INFO - Stage 5: Technical Enhancement
+2025-06-08 18:55:26,000 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 18:55:42,958 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 18:55:42,959 - INFO - Generating image with GPT Image-1
+2025-06-08 18:55:58,049 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 18:55:59,578 - INFO - Image saved successfully: gpt_image_20250608_185559_c32afbbf.png
+2025-06-08 18:55:59,578 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 18:55:59,585 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 18:56:03,843 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 18:56:03,854 - INFO - SVG saved successfully: text_svg_20250608_185603_e759a1a1.svg
+2025-06-08 18:56:14,840 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 18:56:15,956 - INFO - Stage 8: Combining SVGs with GPT-4
+2025-06-08 18:56:15,956 - INFO - Stage 8.1: Starting SVG combination process
+2025-06-08 18:56:15,956 - INFO - Stage 8.2: Input sizes - Text SVG: 441 bytes, Traced SVG: 115303 bytes
+2025-06-08 18:56:15,957 - INFO - Stage 8.3: Sending request to GPT-4 for SVG combination
+2025-06-08 18:59:02,107 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:59:02,281 - INFO -  * Restarting with stat
+2025-06-08 18:59:03,350 - WARNING -  * Debugger is active!
+2025-06-08 18:59:03,357 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:59:27,831 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:59:27,928 - INFO -  * Restarting with stat
+2025-06-08 18:59:28,791 - WARNING -  * Debugger is active!
+2025-06-08 18:59:28,797 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:59:33,908 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 18:59:33,989 - INFO -  * Restarting with stat
+2025-06-08 18:59:34,823 - WARNING -  * Debugger is active!
+2025-06-08 18:59:34,830 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 18:59:38,067 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 18:59:38,068 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 18:59:38,068 - INFO - Checking vector suitability for: Create the coming soon poster...
+2025-06-08 18:59:40,414 - INFO - Stage 2: Design Planning
+2025-06-08 18:59:40,415 - INFO - Planning design for: Create the coming soon poster...
+2025-06-08 18:59:51,216 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 18:59:51,217 - INFO - Generating design knowledge...
+2025-06-08 19:00:04,839 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 19:00:04,840 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a structured plan for designing a "Coming Soon" poster:
+
+---
+
+### 1. ...
+2025-06-08 19:00:04,840 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 19:00:22,960 - INFO - Successfully enhanced prompt. Result: Certainly! Based on your detailed design plan, here's an enhanced, technically precise SVG design sp...
+2025-06-08 19:00:22,962 - INFO - Stage 5: Technical Enhancement
+2025-06-08 19:00:22,962 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 19:00:39,313 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 19:00:39,314 - INFO - Generating image with GPT Image-1
+2025-06-08 19:00:53,214 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 19:00:54,787 - INFO - Image saved successfully: gpt_image_20250608_190054_41192d60.png
+2025-06-08 19:00:54,787 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 19:00:54,793 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 19:01:05,250 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 19:01:05,259 - INFO - SVG saved successfully: text_svg_20250608_190105_3a95c7d8.svg
+2025-06-08 19:01:06,581 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 19:01:07,234 - INFO - Stage 8: Combining SVGs with GPT-4
+2025-06-08 19:01:07,234 - INFO - Stage 8.1: Starting SVG combination process
+2025-06-08 19:01:07,234 - INFO - Stage 8.2: Input sizes - Text SVG: 707 bytes, Traced SVG: 1894 bytes
+2025-06-08 19:01:07,234 - INFO - Stage 8.3: Preparing OpenAI API request
+2025-06-08 19:01:07,235 - INFO - Stage 8.4: Sending request to OpenAI API
+2025-06-08 19:01:20,817 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 19:01:20,821 - INFO - Stage 8.5: OpenAI API response received in 13.59 seconds
+2025-06-08 19:01:20,821 - INFO - Stage 8.6: Combined SVG size: 2491 bytes
+2025-06-08 19:01:20,821 - INFO - Stage 8.9: SVG combination completed in 13.59 seconds total
+2025-06-08 19:01:20,827 - INFO - 127.0.0.1 - - [08/Jun/2025 19:01:20] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 19:02:16,073 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 19:02:16,074 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 19:02:16,074 - INFO - Checking vector suitability for: Create the coming soon poster with very good looking poster with calander icon...
+2025-06-08 19:02:18,782 - INFO - Stage 2: Design Planning
+2025-06-08 19:02:18,782 - INFO - Planning design for: Create the coming soon poster with very good looking poster with calander icon...
+2025-06-08 19:02:29,941 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 19:02:29,943 - INFO - Generating design knowledge...
+2025-06-08 19:02:41,816 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 19:02:41,817 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed structured plan for creating an attractive "Coming Soon" p...
+2025-06-08 19:02:41,817 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 19:02:58,407 - INFO - Successfully enhanced prompt. Result: Certainly! Based on your goal to create a very attractive "Coming Soon" poster featuring a calendar ...
+2025-06-08 19:02:58,409 - INFO - Stage 5: Technical Enhancement
+2025-06-08 19:02:58,410 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 19:03:11,470 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 19:03:11,470 - INFO - Generating image with GPT Image-1
+2025-06-08 19:03:27,178 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 19:03:28,414 - INFO - Image saved successfully: gpt_image_20250608_190328_a8b1506e.png
+2025-06-08 19:03:28,414 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 19:03:28,419 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 19:03:31,327 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 19:03:31,336 - INFO - SVG saved successfully: text_svg_20250608_190331_72370ea0.svg
+2025-06-08 19:03:42,745 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 19:03:43,979 - INFO - Stage 8: Combining SVGs with GPT-4
+2025-06-08 19:03:43,979 - INFO - Stage 8.1: Starting SVG combination process
+2025-06-08 19:03:43,979 - INFO - Stage 8.2: Input sizes - Text SVG: 232 bytes, Traced SVG: 52848 bytes
+2025-06-08 19:03:43,979 - INFO - Stage 8.3: Preparing OpenAI API request
+2025-06-08 19:03:43,979 - INFO - Stage 8.4: Sending request to OpenAI API
+2025-06-08 19:04:40,908 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 19:04:40,914 - INFO - Stage 8.5: OpenAI API response received in 56.93 seconds
+2025-06-08 19:04:40,914 - INFO - Stage 8.6: Combined SVG size: 7916 bytes
+2025-06-08 19:04:40,914 - WARNING - Stage 8.8: Warning - Combined SVG size (7916) is unusually small compared to inputs
+2025-06-08 19:04:40,914 - INFO - Stage 8.9: SVG combination completed in 56.94 seconds total
+2025-06-08 19:04:40,921 - INFO - 127.0.0.1 - - [08/Jun/2025 19:04:40] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-08 19:05:25,817 - INFO -  * Detected change in '/Users/hi/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-08 19:05:25,999 - INFO -  * Restarting with stat
+2025-06-08 19:05:27,027 - WARNING -  * Debugger is active!
+2025-06-08 19:05:27,034 - INFO -  * Debugger PIN: 300-948-049
+2025-06-08 19:05:29,652 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-08 19:05:29,653 - INFO - Stage 1: Vector Suitability Check
+2025-06-08 19:05:29,654 - INFO - Checking vector suitability for: Create the coming soon poster with very good looking poster with calander icon...
+2025-06-08 19:05:32,455 - INFO - Stage 2: Design Planning
+2025-06-08 19:05:32,456 - INFO - Planning design for: Create the coming soon poster with very good looking poster with calander icon...
+2025-06-08 19:05:42,759 - INFO - Stage 3: Design Knowledge Generation
+2025-06-08 19:05:42,760 - INFO - Generating design knowledge...
+2025-06-08 19:05:56,706 - INFO - Stage 4: Pre-Enhancement
+2025-06-08 19:05:56,707 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here is a structured plan to create a visually appealing "Coming Soon" poste...
+2025-06-08 19:05:56,707 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-08 19:06:10,323 - INFO - Successfully enhanced prompt. Result: Certainly! Here's an enhanced, detailed design specification for your "Coming Soon" poster featuring...
+2025-06-08 19:06:10,324 - INFO - Stage 5: Technical Enhancement
+2025-06-08 19:06:10,324 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-08 19:06:32,834 - INFO - Stage 6: Image Generation via GPT-Image
+2025-06-08 19:06:32,834 - INFO - Generating image with GPT Image-1
+2025-06-08 19:06:46,960 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-08 19:06:48,535 - INFO - Image saved successfully: gpt_image_20250608_190648_cfbb5de0.png
+2025-06-08 19:06:48,535 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-08 19:06:48,545 - INFO - Stage 7: Parallel Processing - OCR+SVG and Clean SVG
+2025-06-08 19:06:58,189 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 19:06:58,198 - INFO - SVG saved successfully: text_svg_20250608_190658_6c031968.svg
+2025-06-08 19:07:03,809 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-08 19:07:05,075 - INFO - Stage 8: Combining SVGs with GPT-4
+2025-06-08 19:07:05,075 - INFO - Stage 8.1: Starting SVG combination process
+2025-06-08 19:07:05,076 - INFO - Stage 8.2: Input sizes - Text SVG: 370 bytes, Traced SVG: 48015 bytes
+2025-06-08 19:07:05,076 - INFO - Stage 8.3: Preparing OpenAI API request
+2025-06-08 19:07:05,076 - INFO - Stage 8.4: Sending request to OpenAI API
+2025-06-08 19:10:32,773 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-08 19:10:32,851 - INFO - Stage 8.5: OpenAI API response received in 207.78 seconds
+2025-06-08 19:10:32,851 - INFO - Stage 8.6: Combined SVG size: 25693 bytes
+2025-06-08 19:10:32,851 - INFO - Stage 8.9: SVG combination completed in 207.78 seconds total
+2025-06-08 19:10:32,856 - INFO - 127.0.0.1 - - [08/Jun/2025 19:10:32] "POST /api/generate-parallel-svg HTTP/1.1" 200 -

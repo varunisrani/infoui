@@ -5,6 +5,13 @@ from io import BytesIO
 import numpy as np
 from PIL import Image
 from openai import OpenAI
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Initialize OpenAI client with API key from .env
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 def create_mask(input_image_path):
     """Create an alpha mask from white text in the input image"""
@@ -36,16 +43,13 @@ def remove_text(input_image_path, mask_path):
     """Use OpenAI to remove text and fill background"""
     print("Removing text with OpenAI API...")
     
-    client = OpenAI()
-    
     try:
         response = client.images.edit(
             model="gpt-image-1",
             image=open(input_image_path, "rb"),
             mask=open(mask_path, "rb"),
             prompt=(
-                "Fill the masked area to match the surrounding background exactly, keeping the background color the same. "
-                "Remove all text from this image while preserving all other visual elements exactly as they are."
+               "remove all text from this image and other thing remain same"
             ),  
             n=1,
             size="1024x1024"
@@ -68,7 +72,7 @@ def remove_text(input_image_path, mask_path):
 
 def main():
     # Use the provided image path
-    input_image = "ChatGPT Image Jun 8, 2025, 04_35_06 AM.png"
+    input_image = "gpt_image_20250608_170030_6b16f8e9.png"
     
     if not os.path.exists(input_image):
         print(f"❌ Error: Image not found at {input_image}")
