@@ -14,6 +14,13 @@ import base64
 from io import BytesIO
 from PIL import Image
 import pytesseract
+import os
+import uuid
+from datetime import datetime
+from openai import OpenAI
+
+# GPT client for text extraction
+chat_client = OpenAI()
 
 @app.route('/api/generate-text-svg', methods=['POST'])
 def generate_image_text_svg():
@@ -61,40 +68,43 @@ def generate_image_text_svg():
     logger.info('Stage 6: Image Generation via GPT-Image')
     image_base64, image_filename = generate_image_with_gpt(enhanced_prompt)
 
-    # Stage 7: OCR and SVG generation
-    logger.info('Stage 7: OCR and SVG Generation')
+    # Stage 7: OCR and SVG generation via GPT-4.1-mini
+    logger.info('Stage 7: OCR and SVG Generation via GPT-4.1-mini')
+    # Decode and save the image to disk
     image_data = base64.b64decode(image_base64)
-    image = Image.open(BytesIO(image_data))
-    # Extract text bounding boxes
-    ocr_data = pytesseract.image_to_data(image, output_type=pytesseract.Output.DICT)
-    elements = []
-    for i, txt in enumerate(ocr_data.get('text', [])):
-        text = txt.strip()
-        if not text:
-            continue
-        x = ocr_data['left'][i]
-        y = ocr_data['top'][i]
-        w = ocr_data['width'][i]
-        h = ocr_data['height'][i]
-        # sample color at center
-        cx = x + w // 2
-        cy = y + h // 2
-        color_pixel = image.getpixel((cx, cy))
-        color = ('#%02x%02x%02x' % color_pixel) if isinstance(color_pixel, tuple) else '#000000'
-        font_size = h
-        # y+h to adjust baseline
-        elements.append(
-            f'<text x="{x}" y="{y + h}" fill="{color}" '
-            f'font-size="{font_size}" font-family="sans-serif">{text}</text>'
-        )
-    width, height = image.size
-    svg_code = (
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
-        f'viewBox="0 0 {width} {height}">{"".join(elements)}</svg>'
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    input_filename = f"text_input_{timestamp}_{uuid.uuid4().hex[:8]}.png"
+    input_filepath = os.path.join(IMAGES_DIR, input_filename)
+    with open(input_filepath, "wb") as f:
+        f.write(image_data)
+    # Determine dimensions
+    img = Image.open(input_filepath)
+    width, height = img.size
+    view_box = f"0 0 {width} {height}"
+    image_url = f"/static/images/{input_filename}"
+    # Prepare prompt
+    messages = [
+        {"role": "system", "content": (
+            "You are an expert at extracting text from images and producing SVG code that exactly matches the text's "
+            "position, font family (sans-serif), size, and color. Only output valid SVG code, no explanation."
+        )},
+        {"role": "user", "content": (
+            f"Here is an image at URL: {image_url}. The image width is {width}px and height is {height}px. "
+            "Generate a valid SVG that begins with:\n"
+            f"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{width}\" height=\"{height}\" viewBox=\"{view_box}\">\n"
+            "Then include one <text> element per visible text string, each with appropriate x, y coordinates, "
+            "font-family=\"sans-serif\", font-size matching the original, and fill color in hex. Close the SVG at the end. "
+            "Return only the complete SVG code."
+        )}
+    ]
+    response = chat_client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=messages,
+        temperature=1
     )
-    # Save SVG
+    svg_code = response.choices[0].message.content.strip()
+    # Save and return
     svg_filename = save_svg(svg_code, prefix='text_svg')
-
     return jsonify({
         'original_prompt': user_input,
         'image_url': f'/static/images/{image_filename}',

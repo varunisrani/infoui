@@ -58,7 +58,7 @@ OPENAI_API_KEY_SVG = os.getenv('OPENAI_API_KEY_SVG')
 if not OPENAI_API_KEY_ENHANCER or not OPENAI_API_KEY_SVG:
     raise ValueError("OpenAI API keys must be set in environment variables")
 
-# OpenAI client setup
+# OpenAI client setupkk
 openai.api_key = OPENAI_API_KEY_SVG
 
 # OpenAI API Endpoints
@@ -66,13 +66,13 @@ OPENAI_API_BASE = "https://api.openai.com/v1"
 OPENAI_CHAT_ENDPOINT = f"{OPENAI_API_BASE}/chat/completions"
 
 # Model names - updated to use GPT-4.1 mini for logic/text and gpt-image for images
-PLANNER_MODEL = "gpt-4.1-mini"
-DESIGN_KNOWLEDGE_MODEL = "gpt-4.1-mini"
-PRE_ENHANCER_MODEL = "gpt-4.1-mini"
-PROMPT_ENHANCER_MODEL = "gpt-4.1-mini"
+PLANNER_MODEL = "gpt-4.1-nano"
+DESIGN_KNOWLEDGE_MODEL = "gpt-4.1-nano"
+PRE_ENHANCER_MODEL = "gpt-4.1-nano"
+PROMPT_ENHANCER_MODEL = "gpt-4.1-nano"
 GPT_IMAGE_MODEL = "gpt-image-1"
-SVG_GENERATOR_MODEL = "gpt-4.1-mini"
-CHAT_ASSISTANT_MODEL = "gpt-4.1-mini"
+SVG_GENERATOR_MODEL = "gpt-4.1-nano"
+CHAT_ASSISTANT_MODEL = "gpt-4.1-nano"
 
 def check_vector_suitability(user_input):
     """Check if the prompt is suitable for SVG vector graphics"""
