@@ -421,6 +421,42 @@ def generate_image_with_gpt(enhanced_prompt):
         logger.error(f"Error generating image with GPT Image-1: {str(e)}")
         raise
 
+def generate_svg_text_elements(prompt):
+    """Generate SVG <text> elements from the design description using GPT"""
+    logger.info("Generating SVG text elements with ChatGPT")
+
+    url = OPENAI_CHAT_ENDPOINT
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {OPENAI_API_KEY_ENHANCER}"
+    }
+
+    payload = {
+        "model": SVG_GENERATOR_MODEL,
+        "messages": [
+            {
+                "role": "system",
+                "content": (
+                    "You create SVG <text> elements based on a design description. "
+                    "Return only the <text> tags without wrapping <svg> tags. "
+                    "Keep coordinates within a 1024x1024 viewBox and include typical "
+                    "attributes such as x, y, font-size, font-family, fill and text-anchor."
+                ),
+            },
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.7,
+        "max_tokens": 1000,
+    }
+
+    response = requests.post(url, headers=headers, json=payload)
+    data = response.json()
+    if response.status_code != 200:
+        logger.error(f"Text SVG generation error: {data}")
+        return ""
+
+    return data["choices"][0]["message"]["content"]
+
 def generate_svg_from_image(image_base64, enhanced_prompt):
     """Generate SVG code using vtracer from image"""
     logger.info("Starting SVG generation from image using vtracer")
@@ -457,7 +493,14 @@ def generate_svg_from_image(image_base64, enhanced_prompt):
         # Read the generated SVG
         with open(output_svg, 'r') as f:
             svg_code = f.read()
-            
+
+        # Generate text elements separately using GPT
+        text_elements = generate_svg_text_elements(enhanced_prompt)
+
+        # Insert text elements before closing tag
+        if "</svg>" in svg_code and text_elements:
+            svg_code = svg_code.replace("</svg>", f"{text_elements}\n</svg>")
+
         # Clean up temporary files
         os.remove(temp_png)
         os.remove(output_svg)
