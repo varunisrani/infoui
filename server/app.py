@@ -146,34 +146,39 @@ def plan_design(user_input):
         "messages": [
             {
                 "role": "system",
-                "content": """You are a design planner. Create a structured plan for the design request.
+                "content": """You are a design planner specializing in high-quality posters, logos, and branding materials. Create a structured plan for the user's request that focuses on visual impact, cohesive color themes, and professional composition.
 
 Your plan should include:
 1. Design Goals
-   - Main purpose
-   - Target audience
-   - Key message/emotion
+   - Main purpose and intended use (e.g., poster, logo)
+   - Target audience and mood
+   - Key message and visual emotion
 
-2. Design Elements
-   - Layout structure
-   - Key components
-   - Typography needs
-   - Color scheme approach
-   - Visual hierarchy
+2. Visual Composition
+   - Overall layout structure and focal points
+   - Background elements (colors, gradients, textures)
+   - Visual hierarchy and balance
 
-3. Technical Considerations
-   - SVG optimization requirements
-   - Responsive design needs
-   - Browser compatibility
-   - Performance considerations
+3. Typography and Style
+   - Font choices, sizes, and pairings
+   - Spacing, alignment, and hierarchy
 
-4. Implementation Strategy
-   - Component breakdown
-   - Order of creation
-   - Special effects/animations
-   - Testing requirements
+4. Color and Branding
+   - Suggested color palette with hex/RGB codes
+   - Background and accent color recommendations
+   - Mood or theme descriptors (e.g., vibrant, minimal, elegant)
 
-Be specific and practical. Focus on actionable details."""
+5. Technical and Production Considerations
+   - SVG optimization requirements and file size targets
+   - Responsive design and browser compatibility
+   - Logo integration and branding guidelines
+
+6. Implementation Strategy
+   - Component breakdown and creation order
+   - Special effects or patterns (shadows, overlays)
+   - Testing and validation steps
+
+Be specific, practical, and focus on creating a visually compelling poster or logo that aligns with the user's request."""
             },
             {
                 "role": "user",
@@ -208,35 +213,35 @@ def generate_design_knowledge(design_plan, user_input):
         "messages": [
             {
                 "role": "system",
-                "content": """You are a design knowledge expert. Based on the design plan and user request, provide specific design knowledge and best practices.
+                "content": """You are a design knowledge expert specializing in professional poster and logo creation. Based on the design plan and user request, provide detailed insights, best practices, and actionable recommendations to enhance visual quality and impact.
 
 Include:
-1. Typography
-   - Font recommendations
-   - Size hierarchies
-   - Spacing guidelines
+1. Typography and Branding
+   - Font recommendations with pairing suggestions
+   - Hierarchy and spacing for emphasis
+   - Logo integration tips
 
-2. Color Theory
-   - Color palette suggestions
-   - Contrast requirements
-   - Accessibility considerations
+2. Color and Mood
+   - Cohesive color palette suggestions with hex/RGB values
+   - Contrast, accessibility, and readability guidance
+   - Background color and texture ideas for mood
 
-3. Layout Principles
-   - Grid systems
-   - Alignment rules
-   - White space usage
+3. Layout and Composition
+   - Effective grid systems and alignment techniques
+   - Focal point emphasis and visual flow strategies
+   - Balanced use of whitespace and dynamic elements
 
-4. SVG Best Practices
-   - Element organization
-   - Optimization techniques
-   - Animation possibilities
+4. SVG and Graphic Techniques
+   - Path and shape optimization for crisp visuals
+   - Use of overlays, shadows, gradients, and textures
+   - Grouping and layer organization for clarity
 
-5. Technical Guidelines
-   - Viewport settings
-   - Responsive design approaches
-   - Browser compatibility considerations
+5. Technical and Production
+   - Responsive design tips for multiple screen sizes
+   - SVG file size optimization and performance
+   - Cross-browser compatibility considerations
 
-Be specific and provide actionable insights."""
+Provide clear, practical recommendations to elevate the design quality for posters, logos, and branding materials."""
             },
             {
                 "role": "user",
@@ -271,42 +276,40 @@ def pre_enhance_prompt(user_input):
         "messages": [
             {
                 "role": "system",
-                "content": """You are an expert design prompt enhancer. Your task is to take a user's design request and enhance it with specific details about:
+                "content": """You are an expert design prompt enhancer. Enhance the user's design request into a highly detailed, technical specification optimized for creating professional-quality posters, logos, and branding materials.
 
+Your enhanced prompt should include:
 1. Layout and Composition
-   - Overall structure
-   - Element positioning
-   - Balance and hierarchy
-   - Whitespace usage
+   - Overall structure and visual flow
+   - Focal points and visual hierarchy
+   - Balance, symmetry, and use of whitespace
 
 2. Typography
-   - Font styles and families
-   - Text sizes and weights
-   - Text alignment and spacing
-   - Font combinations
+   - Font styles and families with pairing recommendations
+   - Font sizes with emphasis hierarchy
+   - Text alignment and letter spacing
 
-3. Colors
-   - Color scheme
-   - Background colors
-   - Text colors
-   - Element colors
-   - Color relationships
+3. Color and Atmosphere
+   - Cohesive color palette suggestions with hex/RGB codes
+   - Background colors, gradients, and texture ideas
+   - Mood and style descriptors (e.g., vibrant, elegant, minimalist)
 
-4. Visual Elements
-   - Shapes and forms
-   - Lines and borders
-   - Icons and symbols
-   - Decorative elements
+4. Visual Elements and Branding
+   - Background graphics, patterns, or images
+   - Icons, symbols, and decorative shapes
+   - Logo placement and integration tips
 
 5. Technical Requirements
-   - SVG-specific considerations
-   - Responsive design needs
-   - Browser compatibility
-   - Accessibility requirements
+   - SVG-specific considerations and optimization techniques
+   - Responsive design and scaling guidelines
+   - Browser compatibility and performance optimizations
 
-Convert the user's request into a detailed, technical design specification that maintains their original intent while adding necessary details for SVG creation.
+6. Poster and Logo Aesthetics
+   - Recommendations for cohesion between elements
+   - Suggestions for lighting, shadow, and depth
+   - Tips for making the design stand out visually
 
-Focus on vector-friendly design elements and avoid non-SVG compatible features."""
+Convert the user's brief into a complete, actionable prompt that maintains their original intent while adding all necessary details to produce a visually compelling and professional SVG design."""
             },
             {
                 "role": "user",
@@ -344,46 +347,36 @@ def enhance_prompt_with_chat(user_input):
         "messages": [
             {
                 "role": "system",
-                "content": """You are an advanced SVG design prompt optimizer. Your role is to take a pre-enhanced design prompt and optimize it for SVG generation by ensuring:
+                "content": """You are an advanced SVG design prompt optimizer specializing in high-impact posters and logo creation. Enhance the pre-enhanced design prompt to ensure the resulting SVG is visually stunning, cohesive, and technically precise.
 
-1. Vector Optimization
-   - Emphasize vector-friendly elements
-   - Specify paths and shapes clearly
-   - Define gradients and patterns appropriately
-   - Optimize for SVG capabilities
+Your optimization should address:
+1. Vector and Visual Optimization
+   - Emphasize vector-friendly shapes, paths, and curves
+   - Define gradients, patterns, and textures for backgrounds
+   - Recommend shadows, overlays, and depth for visual appeal
 
 2. Technical Precision
-   - Exact dimensions and positions
-   - Precise color values (HEX/RGB)
-   - Font specifications with fallbacks
-   - SVG viewport settings
+   - Exact dimensions, positions, and aspect ratios
+   - Precise color values (HEX/RGB) with contrast considerations
+   - Font specifications, including web-safe fallbacks and loading strategies
 
-3. Component Organization
-   - Layering structure
-   - Group definitions
-   - Element IDs and classes
-   - Reusable components
+3. Component and Layer Organization
+   - Grouping of elements for reuse and clarity
+   - IDs and classes for styling and interactivity
+   - Organized layering to control visual stacking and effects
 
-4. Performance Considerations
-   - Optimize paths
-   - Minimize complexity
-   - Efficient use of groups
-   - Browser compatibility
+4. Performance and Accessibility
+   - Optimize paths to minimize file size and complexity
+   - Ensure responsive scaling and cross-browser performance
+   - Add ARIA labels and semantic structure for accessibility
 
-5. Accessibility and Responsiveness
-   - ARIA labels
-   - Semantic structure
-   - Responsive scaling
-   - Cross-browser support
+5. Poster and Branding Details
+   - Specify background elements (colors, gradients, patterns)
+   - Suggest lighting, shadow, and texture to create depth
+   - Recommend cohesive color themes and mood descriptors
+   - Integrate logo placement and branding cues
 
-Add these requirements to ensure proper SVG generation:
-- Center alignment for all SVG elements
-- Meaningful and clean SVG code
-- Proper color contrast and visibility
-- Font loading via both link and @font-face
-- Proper alignment and visual balance
-
-The final prompt should be highly detailed and technically precise while maintaining the original design intent."""
+Ensure the final prompt guides the SVG generator to produce a complete, eye-catching poster or logo design with a well-defined background, color theme, and professional quality."""
             },
             {
                 "role": "user",
@@ -637,37 +630,12 @@ Original Request:
 {user_input}"""
         logger.info("Design context preparation complete")
         
-        if skip_enhancement:
-            logger.info("\n[STAGES 4-5: Enhancement Phases SKIPPED]")
-            logger.info("-"*50)
-            logger.info("Using original prompt without enhancement")
-            prompt_to_use = user_input
-            pre_enhanced_prompt = user_input
-            enhanced_prompt = user_input
-        else:
-            # Stage 4: Pre-enhance the prompt with AI planning and design knowledge
-            logger.info("\n[STAGE 4: Pre-enhancement Phase]")
-            logger.info("-"*50)
-            logger.info("Pre-enhancing prompt with design context...")
-            logger.info(f"Using model: {PRE_ENHANCER_MODEL}")
-            pre_enhanced_prompt = pre_enhance_prompt(design_context)
-            logger.info("\nPre-enhanced Prompt Generated:")
-            for line in pre_enhanced_prompt.split('\n')[:10]:
-                logger.info(f"  {line}")
-            logger.info("  ...")
-
-            # Stage 5: Further enhance the prompt with technical specifications
-            logger.info("\n[STAGE 5: Prompt Enhancement Phase]")
-            logger.info("-"*50)
-            logger.info("Enhancing prompt with technical specifications...")
-            logger.info(f"Using model: {PROMPT_ENHANCER_MODEL}")
-            enhanced_prompt = enhance_prompt_with_chat(pre_enhanced_prompt)
-            logger.info("\nFinal Enhanced Prompt:")
-            for line in enhanced_prompt.split('\n')[:10]:
-                logger.info(f"  {line}")
-            logger.info("  ...")
-            
-            prompt_to_use = enhanced_prompt
+        # Stages 4-5: Enhancement Phases Skipped
+        logger.info("\n[STAGES 4-5: Enhancement Phases SKIPPED]")
+        logger.info("-"*50)
+        prompt_to_use = user_input
+        pre_enhanced_prompt = user_input
+        enhanced_prompt = user_input
 
         # Stage 6: Generate image using GPT Image-1
         logger.info("STAGE 6: Image Generation Phase")

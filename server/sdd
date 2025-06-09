@@ -80,7 +80,7 @@ try:
         n=1,
         size="1024x1024",
         response_format="b64_json",
-    )
+    
     logger.info("Successfully received API response")
 except Exception as e:
     logger.error(f"Error calling OpenAI API: {str(e)}")
