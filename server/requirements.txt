@@ -6,4 +6,7 @@ pillow
 openai
 python-dotenv
 gunicorn
-vtracer
+opencv-python-headless
+numpy
+pytesseract
+vtracer==0.6.11

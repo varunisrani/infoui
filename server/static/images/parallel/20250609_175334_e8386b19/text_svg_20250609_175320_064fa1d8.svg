@@ -1,7 +1,0 @@
-```svg
-<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-  <text x="70" y="220" font-family="sans-serif" font-size="110" fill="#000000">Absolutely you are</text>
-  <text x="70" y="400" font-family="sans-serif" font-size="110" fill="#000000">the brightest of all</text>
-  <text x="70" y="580" font-family="sans-serif" font-size="110" fill="#000000">and I am <tspan font-weight="bold">lion kings</tspan></text>
-</svg>
-```

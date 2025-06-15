@@ -399,65 +399,64 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                                 messageContent.toLowerCase().includes("design") ||
                                 messageContent.toLowerCase().includes("make");
       
-      // Try local API first, then fallback to remote
+      // Try local parallel SVG API first, then remote parallel SVG API
       let response;
-      let error;
-
-      // Try local API first
+      
       try {
-        response = await fetch("http://localhost:5001/api/chat-assistant", {
+        // Try local parallel SVG endpoint first
+        response = await fetch("http://127.0.0.1:5001/api/generate-parallel-svg", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            messages: updatedMessages,
-            generate_svg: shouldGenerateSvg
+            prompt: messageContent,
+            skip_enhancement: false
           }),
         });
-      
+
         if (!response.ok) {
-          throw new Error(`Local API request failed with status ${response.status}`);
+          throw new Error(`Local Parallel SVG API failed with status ${response.status}`);
         }
       } catch (localError) {
-        console.log("Local API failed, trying remote API...", localError);
-        error = localError;
-
-        // Try remote API as fallback
+        console.log("Local Parallel SVG API failed, trying remote...", localError);
+        
+        // Try remote parallel SVG endpoint as fallback
         try {
-          response = await fetch("https://pppp-351z.onrender.com/api/chat-assistant", {
+          response = await fetch("https://pppp-351z.onrender.com/api/generate-parallel-svg", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              messages: updatedMessages,
-              generate_svg: shouldGenerateSvg
+              prompt: messageContent,
+              skip_enhancement: false
             }),
           });
 
           if (!response.ok) {
-            throw new Error(`Remote API request failed with status ${response.status}`);
+            throw new Error(`Remote Parallel SVG API failed with status ${response.status}`);
           }
         } catch (remoteError) {
-          console.error("Both APIs failed:", { localError, remoteError });
-          throw new Error("Failed to connect to both local and remote APIs");
+          console.error("Both local and remote Parallel SVG APIs failed:", { localError, remoteError });
+          throw new Error("Failed to connect to both local and remote Parallel SVG APIs");
         }
       }
       
       const data = await response.json();
-      
-      // Update messages with the assistant's response
-      if (data.messages && Array.isArray(data.messages)) {
-        setMessages(data.messages);
-        
-        // Check if SVG was generated
-        if (data.svg_code) {
-          setSvgCode(data.svg_code);
-          toast.success("🎨 Design created successfully!");
-        }
+
+      // Handle parallel SVG pipeline response only
+      if (data.combined_svg && data.combined_svg.code) {
+        const assistantMessage: Message = {
+          role: "assistant",
+          content: `I've created your design! Here's what I generated:\n\n\`\`\`svg\n${data.combined_svg.code}\n\`\`\``
+        };
+
+        setMessages([...updatedMessages, assistantMessage]);
+        setSvgCode(data.combined_svg.code);
+        toast.success("🎨 Design created successfully with parallel processing!");
       } else {
-        throw new Error("Invalid response format from API");
+        throw new Error("Invalid response format from Parallel SVG API");
       }
       
     } catch (error) {
