@@ -1,0 +1,33 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .main-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 160px;
+      fill: #e6b87a;
+      stroke: #5c3b1f;
+      stroke-width: 2;
+      filter: drop-shadow(0 4px 2px rgba(0,0,0,0.7));
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+    .url-text {
+      font-family: Arial, sans-serif;
+      font-weight: 400;
+      font-size: 28px;
+      fill: #ffffff;
+      text-anchor: middle;
+    }
+    .small-text {
+      font-family: Arial, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      fill: #ffffff;
+      text-anchor: middle;
+    }
+  </style>
+  <text x="540" y="420" class="main-text">COMING</text>
+  <text x="540" y="600" class="main-text">SOON</text>
+  <text x="540" y="1010" class="url-text">www.wneline.com</text>
+  <text x="540" y="1040" class="small-text">| Trademark © Slinea & Sfinema</text>
+</svg>

@@ -10332,3 +10332,1429 @@ Design Plan Generated:
 2025-06-16 00:36:14,378 - INFO - === PARALLEL SVG PIPELINE START ===
 2025-06-16 00:36:14,378 - INFO - Stage 2: Design Planning
 2025-06-16 00:36:14,378 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 14:05:40,152 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:05:40,196 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-25 14:05:40,196 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-25 14:05:40,197 - INFO -  * Restarting with stat
+2025-06-25 14:05:40,958 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:05:40,984 - WARNING -  * Debugger is active!
+2025-06-25 14:05:40,989 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:07:55,422 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:07:55,548 - INFO -  * Restarting with stat
+2025-06-25 14:07:56,986 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:07:57,009 - WARNING -  * Debugger is active!
+2025-06-25 14:07:57,016 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:08:07,398 - INFO - 127.0.0.1 - - [25/Jun/2025 14:08:07] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 14:08:07,404 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 14:08:07,405 - INFO - Stage 2: Design Planning
+2025-06-25 14:08:07,405 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 14:08:15,807 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 14:08:15,807 - INFO - Generating design knowledge...
+2025-06-25 14:08:21,743 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 14:08:21,744 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 14:08:21,744 - INFO - Using model: gpt-4.1-nano
+2025-06-25 14:08:21,744 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for creating an effective "Coming Soon" p...
+2025-06-25 14:08:21,744 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:08:25,539 - INFO - Successfully enhanced prompt. Result: Create a "Coming Soon" poster with a #F5F5F5 light neutral background featuring a clean, centered la...
+2025-06-25 14:08:25,540 - INFO - Pre-enhanced prompt generated
+2025-06-25 14:08:25,540 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 14:08:25,541 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 14:08:25,541 - INFO - Using model: gpt-4.1-nano
+2025-06-25 14:08:25,541 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:08:37,178 - INFO - Enhanced prompt generated
+2025-06-25 14:08:37,179 - INFO - Building advanced image prompt: ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- SVG Specification for "Coming Soo...
+2025-06-25 14:08:37,179 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 14:08:40,185 - INFO - Successfully built advanced image prompt: Create a HIGHLY IMPACTFUL, VIRAL "Coming Soon" poster image optimized for social media sharing. The ...
+2025-06-25 14:08:40,186 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 14:08:40,186 - INFO - Generating image with GPT Image-1
+2025-06-25 14:08:40,186 - INFO - Enhancing prompt for GPT Image-1: Create a HIGHLY IMPACTFUL, VIRAL "Coming Soon" poster image optimized for social media sharing. The ...
+2025-06-25 14:08:40,186 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:08:43,368 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a vibrant, explosive background featuring dynamic burst visuals in ri...
+2025-06-25 14:08:43,371 - INFO - Optimized prompt: Create a coming soon page with a vibrant, explosive background featuring dynamic burst visuals in rich reds (#FF0000), fiery oranges (#FF7F00), and electric blues (#00FFFF). The layout includes a larg...
+2025-06-25 14:08:57,350 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 14:09:01,550 - INFO - Image saved successfully: gpt_image_20250625_140901_b59614b0.png
+2025-06-25 14:09:01,550 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 14:09:01,556 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 14:09:01,561 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 14:09:01,565 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 14:09:12,235 - INFO - Background analysis: The background of the image features a dynamic, cosmic-like design with a strong sense of motion and energy. It is divided into two primary color zones: the left side is dominated by deep, fiery reds ...
+2025-06-25 14:09:12,236 - INFO - Generating background with GPT Image-1...
+2025-06-25 14:09:12,530 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-06-25 14:09:12,533 - ERROR - Error in background extraction: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-25 14:09:12,541 - WARNING - Using original image as background fallback
+2025-06-25 14:09:16,494 - INFO - SVG saved successfully: text_svg_20250625_140916_a8a37cba.svg
+2025-06-25 14:09:21,745 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 14:09:23,070 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 14:09:23,459 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 14:09:23,459 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 14:09:23,459 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 14:09:52,178 - INFO - AI response length: 6655
+2025-06-25 14:09:52,178 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 14:09:52,178 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 14:09:52,179 - INFO - Combined SVG saved successfully: combined_svg_20250625_140952_3cf7c990.svg
+2025-06-25 14:09:52,194 - INFO - 127.0.0.1 - - [25/Jun/2025 14:09:52] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 14:27:06,750 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:27:06,923 - INFO -  * Restarting with stat
+2025-06-25 14:27:08,128 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:27:08,150 - WARNING -  * Debugger is active!
+2025-06-25 14:27:08,157 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:27:48,904 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:27:49,009 - INFO -  * Restarting with stat
+2025-06-25 14:27:49,973 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:27:49,995 - WARNING -  * Debugger is active!
+2025-06-25 14:27:50,001 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:28:05,270 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:28:05,350 - INFO -  * Restarting with stat
+2025-06-25 14:28:06,293 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:28:06,313 - WARNING -  * Debugger is active!
+2025-06-25 14:28:06,321 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:28:23,635 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:28:23,721 - INFO -  * Restarting with stat
+2025-06-25 14:28:24,699 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:28:24,719 - WARNING -  * Debugger is active!
+2025-06-25 14:28:24,727 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:28:57,314 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:28:57,392 - INFO -  * Restarting with stat
+2025-06-25 14:28:58,382 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:28:58,402 - WARNING -  * Debugger is active!
+2025-06-25 14:28:58,408 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:29:10,632 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:29:10,706 - INFO -  * Restarting with stat
+2025-06-25 14:29:11,639 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:29:11,658 - WARNING -  * Debugger is active!
+2025-06-25 14:29:11,663 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:30:58,047 - INFO - 127.0.0.1 - - [25/Jun/2025 14:30:58] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 14:30:58,052 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 14:30:58,053 - INFO - Stage 2: Design Planning
+2025-06-25 14:30:58,053 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 14:31:06,464 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 14:31:06,465 - INFO - Generating design knowledge...
+2025-06-25 14:31:13,489 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 14:31:13,490 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 14:31:13,490 - INFO - Using model: gpt-4.1-nano
+2025-06-25 14:31:13,490 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for creating an effective "Coming Soon" p...
+2025-06-25 14:31:13,490 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:31:17,015 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a deep navy blue background (#0D1B2A), featuring a centered, symmetri...
+2025-06-25 14:31:17,016 - INFO - Pre-enhanced prompt generated
+2025-06-25 14:31:17,016 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 14:31:17,016 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 14:31:17,017 - INFO - Using model: gpt-4.1-nano
+2025-06-25 14:31:17,017 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:31:34,214 - INFO - Enhanced prompt generated
+2025-06-25 14:31:34,215 - INFO - Building advanced image prompt: Certainly! Below is a comprehensive, detailed SVG specification that fulfills your design descriptio...
+2025-06-25 14:31:34,215 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 14:31:38,372 - INFO - Successfully built advanced image prompt: Certainly! Here's the ultimate viral "Coming Soon" image prompt optimized for maximum impact, sharea...
+2025-06-25 14:31:38,373 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 14:31:38,373 - INFO - Generating image with GPT Image-1
+2025-06-25 14:31:38,373 - INFO - Enhancing prompt for GPT Image-1: Certainly! Here's the ultimate viral "Coming Soon" image prompt optimized for maximum impact, sharea...
+2025-06-25 14:31:38,373 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:31:40,770 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a vibrant, dynamic explosion-themed background featuring radiant ligh...
+2025-06-25 14:31:40,771 - INFO - Optimized prompt: Create a coming soon page with a vibrant, dynamic explosion-themed background featuring radiant light rays emanating outward, layered with abstract geometric shards and particles for texture. The layo...
+2025-06-25 14:31:55,431 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 14:31:57,191 - INFO - Image saved successfully: gpt_image_20250625_143157_5374c410.png
+2025-06-25 14:31:57,191 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 14:31:57,197 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 14:31:57,203 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 14:31:57,217 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 14:32:05,451 - INFO - Background analysis: The background of the image features a dynamic, explosive design with a strong sense of motion radiating outward from the center. The primary colors are deep black and dark blue, which form the base o...
+2025-06-25 14:32:05,453 - INFO - Generating background with GPT Image-1...
+2025-06-25 14:32:06,310 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-06-25 14:32:06,311 - ERROR - Error in background extraction: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-25 14:32:06,315 - WARNING - Using original image as background fallback
+2025-06-25 14:32:11,243 - INFO - SVG saved successfully: text_svg_20250625_143211_ebcd2516.svg
+2025-06-25 14:32:13,197 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 14:32:14,545 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 14:32:14,853 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 14:32:14,853 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 14:32:14,853 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 14:33:01,506 - INFO - AI response length: 5829
+2025-06-25 14:33:01,507 - INFO - AI response starts with: '<svg xmlns="http://www.w3.org/2000/svg" width="108'
+2025-06-25 14:33:01,507 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 14:33:01,509 - INFO - Combined SVG saved successfully: combined_svg_20250625_143301_74dc6902.svg
+2025-06-25 14:33:01,522 - INFO - 127.0.0.1 - - [25/Jun/2025 14:33:01] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 14:42:04,196 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:42:04,374 - INFO -  * Restarting with stat
+2025-06-25 14:42:05,479 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:42:05,502 - WARNING -  * Debugger is active!
+2025-06-25 14:42:05,509 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:42:21,872 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:42:21,970 - INFO -  * Restarting with stat
+2025-06-25 14:42:22,896 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:42:22,914 - WARNING -  * Debugger is active!
+2025-06-25 14:42:22,920 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:42:48,420 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:42:48,514 - INFO -  * Restarting with stat
+2025-06-25 14:42:49,468 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:42:49,490 - WARNING -  * Debugger is active!
+2025-06-25 14:42:49,499 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:43:30,373 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:43:30,459 - INFO -  * Restarting with stat
+2025-06-25 14:43:31,417 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:43:31,437 - WARNING -  * Debugger is active!
+2025-06-25 14:43:31,444 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:43:37,591 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:43:37,667 - INFO -  * Restarting with stat
+2025-06-25 14:43:38,447 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:43:38,462 - WARNING -  * Debugger is active!
+2025-06-25 14:43:38,468 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:43:55,826 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:43:55,898 - INFO -  * Restarting with stat
+2025-06-25 14:43:56,821 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:43:56,841 - WARNING -  * Debugger is active!
+2025-06-25 14:43:56,854 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:44:05,038 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:44:05,139 - INFO -  * Restarting with stat
+2025-06-25 14:44:06,085 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:44:06,106 - WARNING -  * Debugger is active!
+2025-06-25 14:44:06,116 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:44:17,381 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:44:17,490 - INFO -  * Restarting with stat
+2025-06-25 14:44:18,434 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:44:18,454 - WARNING -  * Debugger is active!
+2025-06-25 14:44:18,460 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:44:36,847 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:44:36,944 - INFO -  * Restarting with stat
+2025-06-25 14:44:37,879 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:44:37,898 - WARNING -  * Debugger is active!
+2025-06-25 14:44:37,903 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:45:11,610 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:45:11,708 - INFO -  * Restarting with stat
+2025-06-25 14:45:12,692 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:45:12,712 - WARNING -  * Debugger is active!
+2025-06-25 14:45:12,718 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:46:01,946 - INFO - 127.0.0.1 - - [25/Jun/2025 14:46:01] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 14:46:01,949 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 14:46:01,949 - INFO - Stage 2: Design Planning
+2025-06-25 14:46:01,949 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 14:46:10,344 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 14:46:10,345 - INFO - Generating design knowledge...
+2025-06-25 14:46:20,652 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 14:46:20,653 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 14:46:20,653 - INFO - Using model: gpt-4.1-nano
+2025-06-25 14:46:20,653 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a practical, detailed plan to create an engaging "Coming Soon" poster...
+2025-06-25 14:46:20,653 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:46:24,851 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a subtle linear-gradient background transitioning from #f5f5f5 to #e0...
+2025-06-25 14:46:24,853 - INFO - Pre-enhanced prompt generated
+2025-06-25 14:46:24,853 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 14:46:24,853 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 14:46:24,853 - INFO - Using model: gpt-4.1-nano
+2025-06-25 14:46:24,853 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:46:40,620 - INFO - Enhanced prompt generated
+2025-06-25 14:46:40,621 - INFO - Building advanced image prompt: Certainly! Below is an exhaustive SVG specification for your "Coming Soon" page, following all your ...
+2025-06-25 14:46:40,621 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 14:46:42,691 - INFO - Successfully built advanced image prompt: Create a visually explosive, highly attention-grabbing "Coming Soon" viral poster image. Use a dynam...
+2025-06-25 14:46:42,693 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 14:46:42,693 - INFO - Generating image with GPT Image-1
+2025-06-25 14:46:42,693 - INFO - Enhancing prompt for GPT Image-1: Create a visually explosive, highly attention-grabbing "Coming Soon" viral poster image. Use a dynam...
+2025-06-25 14:46:42,693 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:46:46,243 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a vibrant, explosive background featuring a fiery red and electric bl...
+2025-06-25 14:46:46,244 - INFO - Optimized prompt: Create a coming soon page with a vibrant, explosive background featuring a fiery red and electric blue gradient with subtle radial streaks for dynamic motion. The layout includes a large, central head...
+2025-06-25 14:46:59,562 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 14:47:01,227 - INFO - Image saved successfully: gpt_image_20250625_144701_0f1e7115.png in folder svg_20250625_144701_133932c3
+2025-06-25 14:47:01,227 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 14:47:01,232 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 14:47:01,245 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 14:47:01,249 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 14:47:12,975 - INFO - Background analysis: The background of the image features a dynamic, radiant burst effect emanating from the center behind the text. The left side of the background is dominated by intense red hues, with sharp, angular li...
+2025-06-25 14:47:12,978 - INFO - Generating background with GPT Image-1...
+2025-06-25 14:47:13,311 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-06-25 14:47:13,314 - ERROR - Error in background extraction: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-25 14:47:13,324 - WARNING - Using original image as background fallback
+2025-06-25 14:47:17,483 - INFO - SVG saved successfully: text_svg_20250625_144717_acea2d4c.svg in folder 20250625
+2025-06-25 14:47:18,689 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 14:47:20,174 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 14:47:20,564 - WARNING - Error moving files to session folder: [Errno 2] No such file or directory: '/Users/varunisrani/infoui/server/static/images/svg/svg_20250625_144701_133932c3/gpt_image_20250625_144701_0f1e7115.png' -> '/Users/varunisrani/infoui/server/static/images/parallel/20250625_144720_d14a9889/svg/svg_20250625_144701_133932c3/gpt_image_20250625_144701_0f1e7115.png'
+2025-06-25 14:47:20,564 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 14:47:20,564 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 14:47:20,564 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 14:47:51,672 - INFO - AI response length: 7649
+2025-06-25 14:47:51,674 - INFO - AI response starts with: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0'
+2025-06-25 14:47:51,674 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 14:47:51,676 - INFO - Combined SVG saved successfully: combined_svg_20250625_144751_26077ac3.svg
+2025-06-25 14:47:51,694 - INFO - 127.0.0.1 - - [25/Jun/2025 14:47:51] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 14:49:44,456 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:49:44,568 - INFO -  * Restarting with stat
+2025-06-25 14:49:45,588 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:49:45,611 - WARNING -  * Debugger is active!
+2025-06-25 14:49:45,618 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:50:08,028 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:50:08,126 - INFO -  * Restarting with stat
+2025-06-25 14:50:09,061 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:50:09,080 - WARNING -  * Debugger is active!
+2025-06-25 14:50:09,087 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:50:32,505 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:50:32,589 - INFO -  * Restarting with stat
+2025-06-25 14:50:33,669 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:50:33,697 - WARNING -  * Debugger is active!
+2025-06-25 14:50:33,703 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:50:42,883 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:50:42,962 - INFO -  * Restarting with stat
+2025-06-25 14:50:43,909 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:50:43,929 - WARNING -  * Debugger is active!
+2025-06-25 14:50:43,934 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:51:13,430 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:51:13,525 - INFO -  * Restarting with stat
+2025-06-25 14:51:14,559 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:51:14,583 - WARNING -  * Debugger is active!
+2025-06-25 14:51:14,592 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:51:28,862 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:51:28,942 - INFO -  * Restarting with stat
+2025-06-25 14:51:29,891 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:51:29,912 - WARNING -  * Debugger is active!
+2025-06-25 14:51:29,919 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:51:50,281 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:51:50,381 - INFO -  * Restarting with stat
+2025-06-25 14:51:51,380 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:51:51,407 - WARNING -  * Debugger is active!
+2025-06-25 14:51:51,413 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:51:59,587 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:51:59,666 - INFO -  * Restarting with stat
+2025-06-25 14:52:00,590 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:52:00,609 - WARNING -  * Debugger is active!
+2025-06-25 14:52:00,616 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:52:08,786 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 14:52:08,883 - INFO -  * Restarting with stat
+2025-06-25 14:52:09,818 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 14:52:09,837 - WARNING -  * Debugger is active!
+2025-06-25 14:52:09,843 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 14:52:52,208 - INFO - 127.0.0.1 - - [25/Jun/2025 14:52:52] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 14:52:52,212 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 14:52:52,212 - INFO - Stage 2: Design Planning
+2025-06-25 14:52:52,212 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 14:53:05,890 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 14:53:05,891 - INFO - Generating design knowledge...
+2025-06-25 14:53:15,455 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 14:53:15,456 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 14:53:15,457 - INFO - Using model: gpt-4.1-nano
+2025-06-25 14:53:15,457 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for designing an effective "Coming Soon" ...
+2025-06-25 14:53:15,457 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:53:18,613 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a #FAFAFA (off-white) background featuring a centered, vertical layou...
+2025-06-25 14:53:18,614 - INFO - Pre-enhanced prompt generated
+2025-06-25 14:53:18,614 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 14:53:18,615 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 14:53:18,615 - INFO - Using model: gpt-4.1-nano
+2025-06-25 14:53:18,615 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:53:30,999 - INFO - Enhanced prompt generated
+2025-06-25 14:53:31,001 - INFO - Building advanced image prompt: ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG ...
+2025-06-25 14:53:31,001 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 14:53:35,660 - INFO - Successfully built advanced image prompt: Create a high-impact, viral "Coming Soon" visual prompt optimized for AI image generation. The image...
+2025-06-25 14:53:35,661 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 14:53:35,661 - INFO - Generating image with GPT Image-1
+2025-06-25 14:53:35,661 - INFO - Enhancing prompt for GPT Image-1: Create a high-impact, viral "Coming Soon" visual prompt optimized for AI image generation. The image...
+2025-06-25 14:53:35,661 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 14:53:40,225 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a dynamic, high-energy background featuring an abstract cosmic gradie...
+2025-06-25 14:53:40,226 - INFO - Optimized prompt: Create a coming soon page with a dynamic, high-energy background featuring an abstract cosmic gradient with vibrant purples, blues, and pinks (hex codes #4B0082, #1E90FF, #FF69B4). The layout includes...
+2025-06-25 14:53:51,655 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 14:53:53,161 - INFO - Image saved successfully: gpt_image_20250625_145352_fb538361.png in session svg_20250625_145352_66d608c7
+2025-06-25 14:53:53,161 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 14:53:53,167 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 14:53:53,171 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 14:53:53,182 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 14:54:03,071 - INFO - Background analysis: The background of the image features a cosmic, space-themed design with a rich blend of deep purples, blues, and pinks. The colors transition smoothly, creating a gradient effect that moves from dark ...
+2025-06-25 14:54:03,073 - INFO - Generating background with GPT Image-1...
+2025-06-25 14:54:03,813 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-06-25 14:54:03,815 - ERROR - Error in background extraction: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-25 14:54:03,997 - INFO - Image saved successfully: background_fallback_20250625_145403_381e6440.png in session bgfb_20250625_145403_acc74b62
+2025-06-25 14:54:03,997 - WARNING - Using original image as background fallback
+2025-06-25 14:54:08,975 - INFO - SVG saved successfully: text_svg_20250625_145408_84cbb8aa.svg in session session_20250625_145408_bed5ccd1
+2025-06-25 14:54:11,129 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 14:54:12,699 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 14:54:13,023 - INFO - Image saved successfully: parallel_input_20250625_145412_97c4a364.png in session parallel_20250625_145412_2d82984a
+2025-06-25 14:54:13,197 - INFO - Image saved successfully: background_20250625_145413_f715055e.png in session parallel_20250625_145412_2d82984a
+2025-06-25 14:54:13,198 - INFO - SVG saved successfully: text_svg_20250625_145413_803c7224.svg in session parallel_20250625_145412_2d82984a
+2025-06-25 14:54:13,201 - INFO - SVG saved successfully: elements_svg_20250625_145413_02fefbbf.svg in session parallel_20250625_145412_2d82984a
+2025-06-25 14:54:13,381 - INFO - Image saved successfully: elements_png_20250625_145413_238073c8.png in session parallel_20250625_145412_2d82984a
+2025-06-25 14:54:13,382 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 14:54:13,382 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 14:54:13,382 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 14:54:48,664 - INFO - AI response length: 7659
+2025-06-25 14:54:48,665 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 14:54:48,665 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 14:54:48,666 - INFO - SVG saved successfully: combined_svg_20250625_145448_b275cd3e.svg in session parallel_20250625_145412_2d82984a
+2025-06-25 14:54:48,666 - INFO - Combined SVG saved successfully: combined_svg_20250625_145448_b275cd3e.svg
+2025-06-25 14:54:48,675 - INFO - 127.0.0.1 - - [25/Jun/2025 14:54:48] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:00:29,440 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:00:29,657 - INFO -  * Restarting with stat
+2025-06-25 15:00:30,790 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:00:30,817 - WARNING -  * Debugger is active!
+2025-06-25 15:00:30,822 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:00:42,026 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:00:42,114 - INFO -  * Restarting with stat
+2025-06-25 15:00:43,051 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:00:43,072 - WARNING -  * Debugger is active!
+2025-06-25 15:00:43,079 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:00:55,311 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:00:55,506 - INFO -  * Restarting with stat
+2025-06-25 15:00:56,452 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:00:56,474 - WARNING -  * Debugger is active!
+2025-06-25 15:00:56,482 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:01:56,720 - INFO - 127.0.0.1 - - [25/Jun/2025 15:01:56] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:01:56,722 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:01:56,722 - INFO - Stage 2: Design Planning
+2025-06-25 15:01:56,722 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:02:04,647 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:02:04,647 - INFO - Generating design knowledge...
+2025-06-25 15:02:13,099 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:02:13,099 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:02:13,099 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:02:13,099 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for designing a "Coming Soon" poster:
+
+--...
+2025-06-25 15:02:13,099 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:02:17,746 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a #F5F5F5 (light gray) background featuring a clean, centered layout ...
+2025-06-25 15:02:17,747 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:02:17,747 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:02:17,747 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:02:17,747 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:02:17,747 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:02:36,920 - INFO - Enhanced prompt generated
+2025-06-25 15:02:36,920 - INFO - Created parallel session: parallel_20250625_150236_00d6f23c
+2025-06-25 15:02:36,920 - INFO - Building advanced image prompt: Certainly! Below is a comprehensive, well-structured SVG specification that renders a professional "...
+2025-06-25 15:02:36,920 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:02:38,802 - INFO - Successfully built advanced image prompt: Create a stunning, viral-ready "Coming Soon" visual with maximum impact: a bold, explosive compositi...
+2025-06-25 15:02:38,803 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 15:02:38,804 - INFO - Generating image with GPT Image-1
+2025-06-25 15:02:38,804 - INFO - Enhancing prompt for GPT Image-1: Create a stunning, viral-ready "Coming Soon" visual with maximum impact: a bold, explosive compositi...
+2025-06-25 15:02:38,804 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:02:41,392 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a dynamic, explosive background featuring vibrant fiery reds, electri...
+2025-06-25 15:02:41,392 - INFO - Optimized prompt: Create a coming soon page with a dynamic, explosive background featuring vibrant fiery reds, electric blues, and luminous golds with a high-contrast lighting effect and textured gradient overlays. The...
+2025-06-25 15:02:56,345 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:02:57,589 - INFO - Image saved successfully: gpt_image_20250625_150257_45bd2e32.png in session svg_20250625_150257_a3b1df7e
+2025-06-25 15:02:57,590 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:02:57,595 - INFO - Saving initial generated image to unified storage session: parallel_20250625_150236_00d6f23c
+2025-06-25 15:02:57,762 - INFO - Image saved successfully: initial_generated_20250625_150257_281e5ecf.png in session parallel_20250625_150236_00d6f23c
+2025-06-25 15:02:57,762 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:02:57,776 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:02:57,780 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:03:03,765 - INFO - Background analysis: The background of the image features a dynamic, cosmic-like design with vibrant colors and light streaks. The left side predominantly showcases intense shades of red and orange, creating a fiery, ener...
+2025-06-25 15:03:03,765 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:03:04,074 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-06-25 15:03:04,077 - ERROR - Error in background extraction: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-25 15:03:04,259 - INFO - Image saved successfully: background_fallback_20250625_150304_aa3e346c.png in session bgfb_20250625_150304_96c30752
+2025-06-25 15:03:04,260 - WARNING - Using original image as background fallback
+2025-06-25 15:03:08,506 - INFO - SVG saved successfully: text_svg_20250625_150308_4cd3af66.svg in session session_20250625_150308_5cd2d2d0
+2025-06-25 15:03:17,116 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:03:18,484 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:03:18,921 - INFO - Image saved successfully: background_20250625_150318_79f825e1.png in session parallel_20250625_150236_00d6f23c
+2025-06-25 15:03:18,922 - INFO - SVG saved successfully: text_svg_20250625_150318_bd801c98.svg in session parallel_20250625_150236_00d6f23c
+2025-06-25 15:03:18,922 - INFO - SVG saved successfully: elements_svg_20250625_150318_95e06a51.svg in session parallel_20250625_150236_00d6f23c
+2025-06-25 15:03:19,095 - INFO - Image saved successfully: elements_png_20250625_150318_f49971c0.png in session parallel_20250625_150236_00d6f23c
+2025-06-25 15:03:19,096 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:03:19,096 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:03:19,096 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:04:57,755 - INFO - AI response length: 19345
+2025-06-25 15:04:57,757 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 15:04:57,757 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 15:04:57,758 - INFO - SVG saved successfully: combined_svg_20250625_150457_e128ecc8.svg in session parallel_20250625_150236_00d6f23c
+2025-06-25 15:04:57,758 - INFO - Combined SVG saved successfully: combined_svg_20250625_150457_e128ecc8.svg
+2025-06-25 15:04:57,770 - INFO - 127.0.0.1 - - [25/Jun/2025 15:04:57] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:07:23,167 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:07:23,342 - INFO -  * Restarting with stat
+2025-06-25 15:07:25,554 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:07:25,578 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-25 15:07:25,578 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-25 15:07:25,578 - INFO -  * Restarting with stat
+2025-06-25 15:07:26,330 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:07:26,345 - WARNING -  * Debugger is active!
+2025-06-25 15:07:26,352 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:07:33,538 - INFO - 127.0.0.1 - - [25/Jun/2025 15:07:33] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:07:33,540 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:07:33,540 - INFO - Stage 2: Design Planning
+2025-06-25 15:07:33,540 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:07:41,118 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:07:41,118 - INFO - Generating design knowledge...
+2025-06-25 15:07:50,718 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:07:50,719 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:07:50,719 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:07:50,719 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for designing an effective "Coming Soon" ...
+2025-06-25 15:07:50,719 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:07:54,010 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a soft #F5F5F5 background featuring a modern, clean layout with cente...
+2025-06-25 15:07:54,011 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:07:54,011 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:07:54,011 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:07:54,011 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:07:54,011 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:08:11,132 - INFO - Enhanced prompt generated
+2025-06-25 15:08:11,132 - INFO - Created parallel session: parallel_20250625_150811_7fa322a0
+2025-06-25 15:08:11,132 - INFO - Building advanced image prompt: Certainly! Below is a comprehensive and detailed SVG specification that creates a polished "Coming S...
+2025-06-25 15:08:11,132 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:08:13,630 - INFO - Successfully built advanced image prompt: Create a high-impact, viral "Coming Soon" promotional image optimized for social media sharing. Gene...
+2025-06-25 15:08:13,631 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 15:08:13,631 - INFO - Generating image with GPT Image-1
+2025-06-25 15:08:13,631 - INFO - Enhancing prompt for GPT Image-1: Create a high-impact, viral "Coming Soon" promotional image optimized for social media sharing. Gene...
+2025-06-25 15:08:13,631 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:08:16,619 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a vibrant, explosive background featuring a dynamic blend of fiery re...
+2025-06-25 15:08:16,621 - INFO - Optimized prompt: Create a coming soon page with a vibrant, explosive background featuring a dynamic blend of fiery reds, electric blues, and luminous golds (#FF4500, #00CED1, #FFD700), creating an energetic cinematic ...
+2025-06-25 15:08:28,297 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:08:29,935 - INFO - Image saved successfully: gpt_image_20250625_150829_05577787.png in session svg_20250625_150829_b1d9145a
+2025-06-25 15:08:29,936 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:08:29,941 - INFO - Saving initial generated image to unified storage session: parallel_20250625_150811_7fa322a0
+2025-06-25 15:08:30,166 - INFO - Image saved successfully: initial_generated_20250625_150829_f5a089b0.png in session parallel_20250625_150811_7fa322a0
+2025-06-25 15:08:30,166 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:08:30,171 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:08:30,181 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:08:38,834 - INFO - SVG saved successfully: text_svg_20250625_150838_2b703f2b.svg in session session_20250625_150838_94cc518e
+2025-06-25 15:08:39,993 - INFO - Background analysis: The background of the image features a dynamic cosmic or nebula-like scene divided into two contrasting color zones. On the left side, there is a fiery, intense red and orange area that resembles glow...
+2025-06-25 15:08:39,993 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:08:48,806 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:08:50,204 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:08:53,647 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:08:55,173 - INFO - Image saved successfully: background_20250625_150854_405c446f.png in session bg_20250625_150854_668f224e
+2025-06-25 15:08:55,174 - INFO - Background extracted and saved: background_20250625_150854_405c446f.png
+2025-06-25 15:08:55,352 - INFO - Image saved successfully: background_20250625_150855_ff18f43c.png in session parallel_20250625_150811_7fa322a0
+2025-06-25 15:08:55,353 - INFO - SVG saved successfully: text_svg_20250625_150855_9c85f0b0.svg in session parallel_20250625_150811_7fa322a0
+2025-06-25 15:08:55,353 - INFO - SVG saved successfully: elements_svg_20250625_150855_fb8eed00.svg in session parallel_20250625_150811_7fa322a0
+2025-06-25 15:08:55,535 - INFO - Image saved successfully: elements_png_20250625_150855_0d6d7227.png in session parallel_20250625_150811_7fa322a0
+2025-06-25 15:08:55,535 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:08:55,535 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:08:55,536 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:08:57,697 - ERROR - OpenAI API error for 3-layer SVG combination: {'error': {'message': "This model's maximum context length is 300000 tokens. However, you requested 317378 tokens (297378 in the messages, 20000 in the completion). Please reduce the length of the messages or completion.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+2025-06-25 15:08:57,698 - INFO - Using fallback 3-layer SVG combination method
+2025-06-25 15:08:57,710 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-25 15:08:57,712 - INFO - SVG saved successfully: combined_svg_20250625_150857_a38f58c1.svg in session parallel_20250625_150811_7fa322a0
+2025-06-25 15:08:57,712 - INFO - Combined SVG saved successfully: combined_svg_20250625_150857_a38f58c1.svg
+2025-06-25 15:08:57,728 - INFO - 127.0.0.1 - - [25/Jun/2025 15:08:57] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:20:01,694 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:20:01,880 - INFO -  * Restarting with stat
+2025-06-25 15:20:02,999 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:20:03,021 - WARNING -  * Debugger is active!
+2025-06-25 15:20:03,029 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:20:20,360 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:20:20,436 - INFO -  * Restarting with stat
+2025-06-25 15:20:21,366 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:20:21,387 - WARNING -  * Debugger is active!
+2025-06-25 15:20:21,394 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:20:31,621 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:20:31,701 - INFO -  * Restarting with stat
+2025-06-25 15:20:32,633 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:20:32,653 - WARNING -  * Debugger is active!
+2025-06-25 15:20:32,660 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:20:39,804 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:20:39,878 - INFO -  * Restarting with stat
+2025-06-25 15:20:40,861 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:20:40,880 - WARNING -  * Debugger is active!
+2025-06-25 15:20:40,885 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:22:25,266 - INFO - 127.0.0.1 - - [25/Jun/2025 15:22:25] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:22:25,269 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:22:25,269 - INFO - Stage 2: Design Planning
+2025-06-25 15:22:25,269 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:22:33,686 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:22:33,687 - INFO - Generating design knowledge...
+2025-06-25 15:22:41,187 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:22:41,189 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:22:41,189 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:22:41,189 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a practical, detailed plan for designing a "Coming Soon" poster:
+
+---...
+2025-06-25 15:22:41,189 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:22:45,317 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a #F0F4F8 (light blue-gray) background featuring a clean, centered la...
+2025-06-25 15:22:45,317 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:22:45,317 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:22:45,317 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:22:45,317 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:22:45,317 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:23:01,063 - INFO - Enhanced prompt generated
+2025-06-25 15:23:01,064 - INFO - Created parallel session: parallel_20250625_152301_449a747a
+2025-06-25 15:23:01,064 - INFO - Building advanced image prompt: Certainly! Below is a comprehensive, professional SVG specification for your "Coming Soon" page. It ...
+2025-06-25 15:23:01,064 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:23:07,371 - INFO - Successfully built advanced image prompt: Create a stunning, viral "Coming Soon" promotional poster with maximum visual impact: a bold, explos...
+2025-06-25 15:23:07,371 - INFO - Stage 6A: Generating initial reference image
+2025-06-25 15:23:07,371 - INFO - Generating image with GPT Image-1
+2025-06-25 15:23:07,371 - INFO - Enhancing prompt for GPT Image-1: Create a stunning, viral "Coming Soon" promotional poster with maximum visual impact: a bold, explos...
+2025-06-25 15:23:07,373 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:23:11,245 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a sleek dark gradient background transitioning from deep navy (#0D0D1...
+2025-06-25 15:23:11,246 - INFO - Optimized prompt: Create a coming soon page with a sleek dark gradient background transitioning from deep navy (#0D0D1A) to black (#000000), featuring subtle textured overlays for depth. The layout includes a large, ce...
+2025-06-25 15:23:23,140 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:23:24,641 - INFO - Image saved successfully: gpt_image_20250625_152324_8dd4b5f3.png in session svg_20250625_152324_39ffdd72
+2025-06-25 15:23:24,642 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:23:24,642 - INFO - Saving initial reference image to unified storage session: parallel_20250625_152301_449a747a
+2025-06-25 15:23:24,827 - INFO - Image saved successfully: initial_reference_20250625_152324_a0907da7.png in session parallel_20250625_152301_449a747a
+2025-06-25 15:23:24,828 - INFO - Stage 6B: Generating specialized V-Tracer input image (elements only)
+2025-06-25 15:23:24,828 - INFO - Generating elements-only image for V-Tracer processing
+2025-06-25 15:23:24,828 - INFO - V-Tracer elements prompt: Create a clean vector-style image with ONLY graphic elements and shapes on a transparent/white background. 
+        
+Based on this design: Create a stunning, viral "Coming Soon" promotional poster wit...
+2025-06-25 15:23:25,615 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-06-25 15:23:25,618 - ERROR - Error generating V-Tracer elements image: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-25 15:23:25,618 - ERROR - Error in generate_parallel_svg: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-25 15:23:25,620 - INFO - 127.0.0.1 - - [25/Jun/2025 15:23:25] "[35m[1mPOST /api/generate-parallel-svg HTTP/1.1[0m" 500 -
+2025-06-25 15:23:58,659 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:23:58,686 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-25 15:23:58,686 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-25 15:23:58,687 - INFO -  * Restarting with stat
+2025-06-25 15:23:59,560 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:23:59,588 - WARNING -  * Debugger is active!
+2025-06-25 15:23:59,600 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:24:07,917 - INFO - 127.0.0.1 - - [25/Jun/2025 15:24:07] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:24:07,919 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:24:07,919 - INFO - Stage 2: Design Planning
+2025-06-25 15:24:07,919 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:24:18,018 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:24:18,018 - INFO - Generating design knowledge...
+2025-06-25 15:24:27,428 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:24:27,429 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:24:27,429 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:24:27,429 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a clear, actionable plan for designing an eye-catching "Coming Soon" ...
+2025-06-25 15:24:27,429 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:24:30,720 - INFO - Successfully enhanced prompt. Result: Create a coming soon poster with a deep navy blue background (#0D1B2A) featuring a centered layout w...
+2025-06-25 15:24:30,720 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:24:30,720 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:24:30,720 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:24:30,720 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:24:30,720 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:24:40,990 - INFO - Enhanced prompt generated
+2025-06-25 15:24:40,991 - INFO - Created parallel session: parallel_20250625_152440_2da990f0
+2025-06-25 15:24:40,991 - INFO - Building advanced image prompt: {
+  "viewBox": "0 0 1080 1920",
+  "width": "1080",
+  "height": "1920",
+  "xmlns": "http://www.w3.org...
+2025-06-25 15:24:40,991 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:24:46,431 - INFO - Successfully built advanced image prompt: Create a HIGHLY IMPACTFUL, VIRAL "Coming Soon" social media poster with the following specifications...
+2025-06-25 15:24:46,431 - INFO - Stage 6A: Generating initial reference image
+2025-06-25 15:24:46,431 - INFO - Generating image with GPT Image-1
+2025-06-25 15:24:46,431 - INFO - Enhancing prompt for GPT Image-1: Create a HIGHLY IMPACTFUL, VIRAL "Coming Soon" social media poster with the following specifications...
+2025-06-25 15:24:46,431 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:24:50,199 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a dark, intense background (#0D1B2A) featuring an explosive and dynam...
+2025-06-25 15:24:50,200 - INFO - Optimized prompt: Create a coming soon page with a dark, intense background (#0D1B2A) featuring an explosive and dynamic layout. The design includes layered large semi-transparent circles and burst elements near the ce...
+2025-06-25 15:25:02,033 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:25:03,596 - INFO - Image saved successfully: gpt_image_20250625_152503_d73ad5ac.png in session svg_20250625_152503_d96c6d3f
+2025-06-25 15:25:03,596 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:25:03,596 - INFO - Saving initial reference image to unified storage session: parallel_20250625_152440_2da990f0
+2025-06-25 15:25:03,775 - INFO - Image saved successfully: initial_reference_20250625_152503_12d083f0.png in session parallel_20250625_152440_2da990f0
+2025-06-25 15:25:03,775 - INFO - Stage 6B: Generating specialized V-Tracer input image (elements only)
+2025-06-25 15:25:03,775 - INFO - Generating elements-only image for V-Tracer processing
+2025-06-25 15:25:03,775 - INFO - V-Tracer elements prompt: Create a clean vector-style image with ONLY graphic elements and shapes on a transparent/white background. 
+        
+Based on this design: Create a HIGHLY IMPACTFUL, VIRAL "Coming Soon" social media p...
+2025-06-25 15:25:17,107 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:25:19,604 - INFO - Image saved successfully: vtracer_input_20250625_152519_8fff87c0.png in session parallel_20250625_152440_2da990f0
+2025-06-25 15:25:19,604 - INFO - V-Tracer elements image generated and saved: vtracer_input_20250625_152519_8fff87c0.png
+2025-06-25 15:25:19,610 - INFO - V-Tracer input image saved: vtracer_input_20250625_152519_8fff87c0.png
+2025-06-25 15:25:19,610 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:25:19,619 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:25:19,629 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:25:28,024 - INFO - Background analysis: The background of the image features a dark, nearly black base color, creating a deep and intense atmosphere. Over this dark backdrop, there are multiple glowing, semi-transparent circular shapes in v...
+2025-06-25 15:25:28,025 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:25:29,949 - INFO - SVG saved successfully: text_svg_20250625_152529_a155b2e9.svg in session session_20250625_152529_f917fce2
+2025-06-25 15:25:38,476 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:25:39,844 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:25:41,370 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:25:42,902 - INFO - Image saved successfully: background_20250625_152542_86d15b85.png in session bg_20250625_152542_7d9ac6c9
+2025-06-25 15:25:42,902 - INFO - Background extracted and saved: background_20250625_152542_86d15b85.png
+2025-06-25 15:25:43,094 - INFO - Image saved successfully: background_20250625_152542_7faef671.png in session parallel_20250625_152440_2da990f0
+2025-06-25 15:25:43,095 - INFO - SVG saved successfully: text_svg_20250625_152543_ef4e5b5e.svg in session parallel_20250625_152440_2da990f0
+2025-06-25 15:25:43,095 - INFO - SVG saved successfully: elements_svg_20250625_152543_c8381db6.svg in session parallel_20250625_152440_2da990f0
+2025-06-25 15:25:43,238 - INFO - Image saved successfully: elements_png_20250625_152543_218f03d3.png in session parallel_20250625_152440_2da990f0
+2025-06-25 15:25:43,238 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:25:43,238 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:25:43,238 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:27:50,515 - INFO - AI response length: 25865
+2025-06-25 15:27:50,516 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 15:27:50,516 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 15:27:50,517 - INFO - SVG saved successfully: combined_svg_20250625_152750_7651c4fe.svg in session parallel_20250625_152440_2da990f0
+2025-06-25 15:27:50,517 - INFO - Combined SVG saved successfully: combined_svg_20250625_152750_7651c4fe.svg
+2025-06-25 15:27:50,527 - INFO - 127.0.0.1 - - [25/Jun/2025 15:27:50] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:32:07,231 - INFO - 127.0.0.1 - - [25/Jun/2025 15:32:07] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:32:07,235 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:32:07,235 - INFO - Stage 2: Design Planning
+2025-06-25 15:32:07,235 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:32:15,924 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:32:15,925 - INFO - Generating design knowledge...
+2025-06-25 15:32:22,544 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:32:22,545 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:32:22,545 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:32:22,545 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for designing a "Coming Soon" poster:
+
+--...
+2025-06-25 15:32:22,545 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:32:25,473 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a soft #F5F5F5 background featuring a clean, centered layout divided ...
+2025-06-25 15:32:25,474 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:32:25,474 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:32:25,474 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:32:25,474 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:32:25,474 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:32:38,197 - INFO - Enhanced prompt generated
+2025-06-25 15:32:38,199 - INFO - Created parallel session: parallel_20250625_153238_c2359550
+2025-06-25 15:32:38,199 - INFO - Building advanced image prompt: Certainly! Based on your detailed description, here is a comprehensive, well-structured SVG specific...
+2025-06-25 15:32:38,199 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:32:41,215 - INFO - Successfully built advanced image prompt: Create a mind-blowing "Coming Soon" viral image prompt optimized for maximum impact, social sharing,...
+2025-06-25 15:32:41,216 - INFO - Stage 6A: Generating initial reference image
+2025-06-25 15:32:41,216 - INFO - Generating image with GPT Image-1
+2025-06-25 15:32:41,216 - INFO - Enhancing prompt for GPT Image-1: Create a mind-blowing "Coming Soon" viral image prompt optimized for maximum impact, social sharing,...
+2025-06-25 15:32:41,216 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:32:43,823 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a cosmic-inspired background featuring swirling nebulae, radiant ligh...
+2025-06-25 15:32:43,823 - INFO - Optimized prompt: Create a coming soon page with a cosmic-inspired background featuring swirling nebulae, radiant light rays piercing through dark space, and shimmering star clusters. The layout includes a large, cente...
+2025-06-25 15:32:54,905 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:32:56,635 - INFO - Image saved successfully: gpt_image_20250625_153256_a6ed0d48.png in session svg_20250625_153256_9bdc5c21
+2025-06-25 15:32:56,635 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:32:56,635 - INFO - Saving initial reference image to unified storage session: parallel_20250625_153238_c2359550
+2025-06-25 15:32:56,798 - INFO - Image saved successfully: initial_reference_20250625_153256_565e8718.png in session parallel_20250625_153238_c2359550
+2025-06-25 15:32:56,799 - INFO - Stage 6B: Generating specialized V-Tracer input image (elements only)
+2025-06-25 15:32:56,799 - INFO - Generating elements-only image for V-Tracer processing
+2025-06-25 15:32:56,799 - INFO - V-Tracer elements prompt: Create a clean vector-style image with ONLY graphic elements and shapes on a transparent/white background. 
+        
+Based on this design: Create a mind-blowing "Coming Soon" viral image prompt optimi...
+2025-06-25 15:33:10,144 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:33:11,920 - INFO - Image saved successfully: vtracer_input_20250625_153311_5d5dc2f4.png in session parallel_20250625_153238_c2359550
+2025-06-25 15:33:11,920 - INFO - V-Tracer elements image generated and saved: vtracer_input_20250625_153311_5d5dc2f4.png
+2025-06-25 15:33:11,927 - INFO - V-Tracer input image saved: vtracer_input_20250625_153311_5d5dc2f4.png
+2025-06-25 15:33:11,927 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:33:11,938 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:33:11,942 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:33:19,201 - INFO - SVG saved successfully: text_svg_20250625_153319_58dae4a3.svg in session session_20250625_153319_dce8a05d
+2025-06-25 15:33:19,685 - INFO - Background analysis: The background of the image features a cosmic or outer space theme with a deep, dark blue and black base color that creates a vast, infinite space effect. There are vibrant bursts of orange and red ne...
+2025-06-25 15:33:19,685 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:33:31,038 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:33:31,963 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:33:32,356 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:33:33,509 - INFO - Image saved successfully: background_20250625_153333_25b9f4ef.png in session bg_20250625_153333_599a08c1
+2025-06-25 15:33:33,509 - INFO - Background extracted and saved: background_20250625_153333_25b9f4ef.png
+2025-06-25 15:33:33,694 - INFO - Image saved successfully: background_20250625_153333_e44efd98.png in session parallel_20250625_153238_c2359550
+2025-06-25 15:33:33,694 - INFO - SVG saved successfully: text_svg_20250625_153333_ea7c68e6.svg in session parallel_20250625_153238_c2359550
+2025-06-25 15:33:33,695 - INFO - SVG saved successfully: elements_svg_20250625_153333_301f7fa3.svg in session parallel_20250625_153238_c2359550
+2025-06-25 15:33:33,888 - INFO - Image saved successfully: elements_png_20250625_153333_b18c68bc.png in session parallel_20250625_153238_c2359550
+2025-06-25 15:33:33,888 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:33:33,888 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:33:33,888 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:34:28,958 - INFO - AI response length: 11865
+2025-06-25 15:34:28,960 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 15:34:28,960 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 15:34:28,962 - INFO - SVG saved successfully: combined_svg_20250625_153428_203f5608.svg in session parallel_20250625_153238_c2359550
+2025-06-25 15:34:28,962 - INFO - Combined SVG saved successfully: combined_svg_20250625_153428_203f5608.svg
+2025-06-25 15:34:28,975 - INFO - 127.0.0.1 - - [25/Jun/2025 15:34:28] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:36:26,684 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:36:26,882 - INFO -  * Restarting with stat
+2025-06-25 15:36:28,046 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:36:28,070 - WARNING -  * Debugger is active!
+2025-06-25 15:36:28,076 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:36:35,214 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:36:35,497 - INFO -  * Restarting with stat
+2025-06-25 15:36:36,501 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:36:36,523 - WARNING -  * Debugger is active!
+2025-06-25 15:36:36,529 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:36:42,851 - INFO - 127.0.0.1 - - [25/Jun/2025 15:36:42] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:36:42,855 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:36:42,855 - INFO - Stage 2: Design Planning
+2025-06-25 15:36:42,855 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:36:50,069 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:36:50,069 - INFO - Generating design knowledge...
+2025-06-25 15:36:57,674 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:36:57,674 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:36:57,674 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:36:57,674 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for creating a "Coming Soon" poster:
+
+---...
+2025-06-25 15:36:57,674 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:37:01,815 - INFO - Successfully enhanced prompt. Result: Create a coming soon poster with a deep navy blue (#0D1B2A) background featuring a balanced, centere...
+2025-06-25 15:37:01,816 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:37:01,816 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:37:01,816 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:37:01,816 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:37:01,816 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:37:14,774 - INFO - Enhanced prompt generated
+2025-06-25 15:37:14,774 - INFO - Created parallel session: parallel_20250625_153714_03a8bed0
+2025-06-25 15:37:14,775 - INFO - Building advanced image prompt: ```xml
+<!-- SVG Specification for "Coming Soon" Poster -->
+
+<!-- Note: SVG does not directly support...
+2025-06-25 15:37:14,775 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:37:21,244 - INFO - Successfully built advanced image prompt: **Ultimate Viral "Coming Soon" Image Generation Prompt for GPT Image-1**
+
+Create a high-impact, visu...
+2025-06-25 15:37:21,245 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 15:37:21,245 - INFO - Generating image with GPT Image-1
+2025-06-25 15:37:21,245 - INFO - Enhancing prompt for GPT Image-1: **Ultimate Viral "Coming Soon" Image Generation Prompt for GPT Image-1**
+
+Create a high-impact, visu...
+2025-06-25 15:37:21,245 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:37:24,445 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a deep gradient background blending midnight blue (#0D1B2A) fading in...
+2025-06-25 15:37:24,446 - INFO - Optimized prompt: Create a coming soon page with a deep gradient background blending midnight blue (#0D1B2A) fading into electric violet (#8A00FF) for a sense of mystery and excitement. Overlay faint, glowing radial pa...
+2025-06-25 15:37:37,055 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:37:38,861 - INFO - Image saved successfully: gpt_image_20250625_153738_07f4c3ec.png in session svg_20250625_153738_3ceb2c3d
+2025-06-25 15:37:38,862 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:37:38,867 - INFO - Saving initial generated image to unified storage session: parallel_20250625_153714_03a8bed0
+2025-06-25 15:37:39,056 - INFO - Image saved successfully: initial_generated_20250625_153738_40a037d1.png in session parallel_20250625_153714_03a8bed0
+2025-06-25 15:37:39,056 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:37:39,060 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:37:39,070 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:37:47,903 - INFO - Background analysis: The background of the image features a deep gradient transitioning smoothly from a rich navy blue on the left side to a dark purple on the right side. This gradient creates a subtle yet dynamic backdr...
+2025-06-25 15:37:47,904 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:37:50,430 - INFO - SVG saved successfully: text_svg_20250625_153750_eedd48a0.svg in session session_20250625_153750_1f023205
+2025-06-25 15:37:54,618 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:37:56,043 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:37:59,250 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:38:00,809 - INFO - Image saved successfully: background_20250625_153800_519538e2.png in session bg_20250625_153800_e56e36bc
+2025-06-25 15:38:00,809 - INFO - Background extracted and saved: background_20250625_153800_519538e2.png
+2025-06-25 15:38:00,999 - INFO - Image saved successfully: background_20250625_153800_41261e25.png in session parallel_20250625_153714_03a8bed0
+2025-06-25 15:38:01,000 - INFO - SVG saved successfully: text_svg_20250625_153801_8b5c5a84.svg in session parallel_20250625_153714_03a8bed0
+2025-06-25 15:38:01,000 - INFO - SVG saved successfully: elements_svg_20250625_153801_5fa164b5.svg in session parallel_20250625_153714_03a8bed0
+2025-06-25 15:38:01,187 - INFO - Image saved successfully: elements_png_20250625_153801_0ed88db4.png in session parallel_20250625_153714_03a8bed0
+2025-06-25 15:38:01,188 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:38:01,188 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:38:01,188 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:38:39,823 - INFO - AI response length: 7981
+2025-06-25 15:38:39,824 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 15:38:39,824 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 15:38:39,825 - INFO - SVG saved successfully: combined_svg_20250625_153839_1ceb5517.svg in session parallel_20250625_153714_03a8bed0
+2025-06-25 15:38:39,825 - INFO - Combined SVG saved successfully: combined_svg_20250625_153839_1ceb5517.svg
+2025-06-25 15:38:39,833 - INFO - 127.0.0.1 - - [25/Jun/2025 15:38:39] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:43:11,715 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:43:11,925 - INFO -  * Restarting with stat
+2025-06-25 15:43:13,052 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:43:13,080 - WARNING -  * Debugger is active!
+2025-06-25 15:43:13,087 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:43:28,413 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:43:28,507 - INFO -  * Restarting with stat
+2025-06-25 15:43:29,468 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:43:29,490 - WARNING -  * Debugger is active!
+2025-06-25 15:43:29,497 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:43:41,708 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:43:41,797 - INFO -  * Restarting with stat
+2025-06-25 15:43:42,757 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:43:42,780 - WARNING -  * Debugger is active!
+2025-06-25 15:43:42,786 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:43:47,896 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:43:47,974 - INFO -  * Restarting with stat
+2025-06-25 15:43:48,911 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:43:48,928 - WARNING -  * Debugger is active!
+2025-06-25 15:43:48,933 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:43:58,106 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:43:58,191 - INFO -  * Restarting with stat
+2025-06-25 15:44:52,022 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:44:52,049 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-25 15:44:52,049 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-25 15:44:52,050 - INFO -  * Restarting with stat
+2025-06-25 15:44:52,814 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:44:52,828 - WARNING -  * Debugger is active!
+2025-06-25 15:44:52,834 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:45:01,694 - INFO - 127.0.0.1 - - [25/Jun/2025 15:45:01] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:45:01,699 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:45:01,699 - INFO - Stage 2: Design Planning
+2025-06-25 15:45:01,699 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:45:14,027 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:45:14,029 - INFO - Generating design knowledge...
+2025-06-25 15:45:24,261 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:45:24,262 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:45:24,262 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:45:24,262 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a clear, actionable plan for designing a professional "Coming Soon" p...
+2025-06-25 15:45:24,262 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:45:27,658 - INFO - Successfully enhanced prompt. Result: Create a "Coming Soon" poster with a dark charcoal (#1E1E1E) background featuring a clean, centered ...
+2025-06-25 15:45:27,658 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:45:27,658 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:45:27,659 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:45:27,659 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:45:27,659 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:45:44,093 - INFO - Enhanced prompt generated
+2025-06-25 15:45:44,094 - INFO - Created parallel session: parallel_20250625_154544_7033b4b1
+2025-06-25 15:45:44,095 - INFO - Building advanced image prompt: Certainly! Below is a comprehensive, detailed SVG technical specification for creating a professiona...
+2025-06-25 15:45:44,095 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:45:47,818 - INFO - Successfully built advanced image prompt: Create a jaw-dropping, viral "Coming Soon" poster design prompt optimized for maximum impact:  
+
+"Cr...
+2025-06-25 15:45:47,818 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 15:45:47,818 - INFO - Generating image with GPT Image-1
+2025-06-25 15:45:47,818 - INFO - Enhancing prompt for GPT Image-1: Create a jaw-dropping, viral "Coming Soon" poster design prompt optimized for maximum impact:  
+
+"Cr...
+2025-06-25 15:45:47,818 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:45:50,857 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a deep, dark background (#1E1E1E) featuring a sleek, modern layout. T...
+2025-06-25 15:45:50,859 - INFO - Optimized prompt: Create a coming soon page with a deep, dark background (#1E1E1E) featuring a sleek, modern layout. The layout includes a large, bold "COMING SOON" headline styled in Poppins Bold font at 72pt, centere...
+2025-06-25 15:46:03,494 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:46:05,061 - INFO - Image saved successfully: gpt_image_20250625_154604_7122c86b.png in session svg_20250625_154604_974033aa
+2025-06-25 15:46:05,062 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:46:05,067 - INFO - Saving initial generated image to unified storage session: parallel_20250625_154544_7033b4b1
+2025-06-25 15:46:05,259 - INFO - Image saved successfully: initial_generated_20250625_154605_75359101.png in session parallel_20250625_154544_7033b4b1
+2025-06-25 15:46:05,260 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:46:05,266 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:46:05,277 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:46:12,255 - INFO - Background analysis: The background of the image features a dark, almost black base color, creating a deep and sleek atmosphere. This dark background is overlaid with a subtle gradient that softly transitions from a very ...
+2025-06-25 15:46:12,256 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:46:14,540 - INFO - SVG saved successfully: text_svg_20250625_154614_617eb089.svg in session session_20250625_154614_b59ea2e8
+2025-06-25 15:46:21,791 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:46:23,114 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:46:23,638 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:46:24,076 - INFO - Image saved successfully: background_20250625_154623_d87713b5.png in session bg_20250625_154623_7add4ef4
+2025-06-25 15:46:24,076 - INFO - Background extracted and saved: background_20250625_154623_d87713b5.png
+2025-06-25 15:46:24,268 - INFO - Image saved successfully: background_20250625_154624_13f95410.png in session parallel_20250625_154544_7033b4b1
+2025-06-25 15:46:24,269 - INFO - SVG saved successfully: text_svg_20250625_154624_8b165a68.svg in session parallel_20250625_154544_7033b4b1
+2025-06-25 15:46:24,269 - INFO - SVG saved successfully: elements_svg_20250625_154624_6705fb2c.svg in session parallel_20250625_154544_7033b4b1
+2025-06-25 15:46:24,465 - INFO - Image saved successfully: elements_png_20250625_154624_3273e871.png in session parallel_20250625_154544_7033b4b1
+2025-06-25 15:46:24,466 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:46:24,466 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:46:24,470 - INFO - Filtering out background path: d='M0 0 C337.92 0 675.84 0 1024 0 C1024 337.92 1024 6...', fill='#080A10'
+2025-06-25 15:46:24,470 - INFO - Filtering out background path: d='M0 0 C50.16 0 100.32 0 152 0 C152 337.92 152 675.8...', fill='#000C14'
+2025-06-25 15:46:24,470 - INFO - Filtering out background path: d='M0 0 C51.48 0 102.96 0 156 0 C150 7 150 7 147.625 ...', fill='#0F0509'
+2025-06-25 15:46:24,470 - INFO - Filtering out background path: d='M0 0 C2.375 0.25 2.375 0.25 5 1 C6.839 3.834 7.247...', fill='#050F14'
+2025-06-25 15:46:24,471 - INFO - Filtering out background path: d='M0 0 C0.33 0 0.66 0 1 0 C1.051 49.625 1.099 99.249...', fill='#003F44'
+2025-06-25 15:46:24,471 - INFO - Filtering out background path: d='M0 0 C0.33 0 0.66 0 1 0 C0.928 0.911 0.856 1.823 0...', fill='#643200'
+2025-06-25 15:46:24,471 - INFO - Filtering out background path: d='M0 0 C0.66 0 1.32 0 2 0 C2.131 21.35 2.261 42.7 2....', fill='#420C00'
+2025-06-25 15:46:24,471 - INFO - Filtering out background path: d='M0 0 C1.65 0 3.3 0 5 0 C8.503 8.131 10.578 15.176 ...', fill='#004B50'
+2025-06-25 15:46:24,472 - INFO - Filtering out background path: d='M0 0 C-2.305 2.633 -4.35 3.7 -7.625 4.875 C-12.089...', fill='#FDDB69'
+2025-06-25 15:46:24,472 - INFO - Filtering out background path: d='M0 0 C1 2 1 2 0.312 5.375 C-1.039 9.107 -2.232 10....', fill='#E95D00'
+2025-06-25 15:46:24,472 - INFO - Filtering out background path: d='M0 0 C4.969 0.514 9.29 1.234 14 3 C14 3.33 14 3.66...', fill='#B15A00'
+2025-06-25 15:46:24,472 - INFO - Filtering out background path: d='M0 0 C1.77 -0.081 3.541 -0.139 5.312 -0.188 C6.299...', fill='#0F3342'
+2025-06-25 15:46:24,472 - WARNING - Error filtering background paths: invalid predicate, returning original elements SVG
+2025-06-25 15:46:24,472 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:47:00,178 - INFO - AI response length: 5120
+2025-06-25 15:47:00,180 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 15:47:00,180 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 15:47:00,182 - INFO - SVG saved successfully: combined_svg_20250625_154700_47573da6.svg in session parallel_20250625_154544_7033b4b1
+2025-06-25 15:47:00,183 - INFO - Combined SVG saved successfully: combined_svg_20250625_154700_47573da6.svg
+2025-06-25 15:47:00,194 - INFO - 127.0.0.1 - - [25/Jun/2025 15:47:00] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:48:18,617 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:48:18,726 - INFO -  * Restarting with stat
+2025-06-25 15:48:19,749 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:48:19,772 - WARNING -  * Debugger is active!
+2025-06-25 15:48:19,780 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:48:29,399 - INFO - 127.0.0.1 - - [25/Jun/2025 15:48:29] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:48:29,403 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:48:29,403 - INFO - Stage 2: Design Planning
+2025-06-25 15:48:29,403 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:48:36,147 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:48:36,147 - INFO - Generating design knowledge...
+2025-06-25 15:48:51,188 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:48:51,188 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:48:51,188 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:48:51,188 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for designing a professional and eye-catc...
+2025-06-25 15:48:51,188 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:48:54,197 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a deep navy blue background (#0D1B2A) featuring a clean, centered lay...
+2025-06-25 15:48:54,199 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:48:54,199 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:48:54,199 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:48:54,199 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:48:54,199 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:49:04,964 - INFO - Enhanced prompt generated
+2025-06-25 15:49:04,964 - INFO - Created parallel session: parallel_20250625_154904_98f2ac44
+2025-06-25 15:49:04,964 - INFO - Building advanced image prompt: ```svg
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG ...
+2025-06-25 15:49:04,964 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:49:10,103 - INFO - Successfully built advanced image prompt: Create a high-impact, viral "Coming Soon" social media poster prompt optimized for GPT Image-1, comb...
+2025-06-25 15:49:10,104 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 15:49:10,104 - INFO - Generating image with GPT Image-1
+2025-06-25 15:49:10,104 - INFO - Enhancing prompt for GPT Image-1: Create a high-impact, viral "Coming Soon" social media poster prompt optimized for GPT Image-1, comb...
+2025-06-25 15:49:10,104 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:49:13,479 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a vibrant abstract background featuring explosive reds, electric blue...
+2025-06-25 15:49:13,480 - INFO - Optimized prompt: Create a coming soon page with a vibrant abstract background featuring explosive reds, electric blues, and luminous golds blending in dynamic gradients, accented with glowing effects and lens flares. ...
+2025-06-25 15:49:27,133 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:49:28,800 - INFO - Image saved successfully: gpt_image_20250625_154928_2ebfb944.png in session svg_20250625_154928_2470a7a0
+2025-06-25 15:49:28,800 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:49:28,807 - INFO - Saving initial generated image to unified storage session: parallel_20250625_154904_98f2ac44
+2025-06-25 15:49:28,983 - INFO - Image saved successfully: initial_generated_20250625_154928_67c2e5f6.png in session parallel_20250625_154904_98f2ac44
+2025-06-25 15:49:28,984 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:49:28,989 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:49:29,001 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:49:36,001 - INFO - Background analysis: The background of the image features a dynamic and vibrant gradient with a rich blend of deep blues and intense reds. The colors transition smoothly, creating a sense of depth and energy. There are st...
+2025-06-25 15:49:36,002 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:49:42,970 - INFO - SVG saved successfully: text_svg_20250625_154942_30e78368.svg in session session_20250625_154942_50d852ed
+2025-06-25 15:49:45,156 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:49:46,566 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:49:47,614 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:49:48,157 - INFO - Image saved successfully: background_20250625_154947_fd299b5e.png in session bg_20250625_154947_40f77879
+2025-06-25 15:49:48,158 - INFO - Background extracted and saved: background_20250625_154947_fd299b5e.png
+2025-06-25 15:49:48,351 - INFO - Image saved successfully: background_20250625_154948_5bd35e72.png in session parallel_20250625_154904_98f2ac44
+2025-06-25 15:49:48,352 - INFO - SVG saved successfully: text_svg_20250625_154948_1db00bd3.svg in session parallel_20250625_154904_98f2ac44
+2025-06-25 15:49:48,352 - INFO - SVG saved successfully: elements_svg_20250625_154948_0ced56f7.svg in session parallel_20250625_154904_98f2ac44
+2025-06-25 15:49:48,530 - INFO - Image saved successfully: elements_png_20250625_154948_535f35c5.png in session parallel_20250625_154904_98f2ac44
+2025-06-25 15:49:48,531 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:49:48,531 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:49:48,533 - INFO - Filtering out background path: d='M0 0 C337.92 0 675.84 0 1024 0 C1024 337.92 1024 6...', fill='#35082F'
+2025-06-25 15:49:48,533 - INFO - Filtering out background path: d='M0 0 C0.99 0 1.98 0 3 0 C3.402 1.454 3.402 1.454 3...', fill='#4D0025'
+2025-06-25 15:49:48,533 - INFO - Filtering out background path: d='M0 0 C0.495 1.485 0.495 1.485 1 3 C2.32 2.67 3.64 ...', fill='#770024'
+2025-06-25 15:49:48,533 - INFO - Filtering out background path: d='M0 0 C0.33 0.66 0.66 1.32 1 2 C-0.155 4.609 -1.367...', fill='#970108'
+2025-06-25 15:49:48,534 - INFO - Filtering out background path: d='M0 0 C0.99 0 1.98 0 3 0 C3.268 0.969 3.536 1.939 3...', fill='#68001A'
+2025-06-25 15:49:48,534 - INFO - Filtering out background path: d='M0 0 C1 3 1 3 -0.512 6.293 C-1.227 7.597 -1.953 8....', fill='#4E011F'
+2025-06-25 15:49:48,534 - INFO - Filtering out background path: d='M0 0 C0.715 1.578 0.715 1.578 1 4 C-0.057 6.385 -1...', fill='#2C0A43'
+2025-06-25 15:49:48,534 - WARNING - Error filtering background paths: invalid predicate, returning original elements SVG
+2025-06-25 15:49:48,534 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:50:18,854 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:50:18,957 - INFO -  * Restarting with stat
+2025-06-25 15:50:19,979 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:50:20,000 - WARNING -  * Debugger is active!
+2025-06-25 15:50:20,005 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:50:22,054 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:50:22,140 - INFO -  * Restarting with stat
+2025-06-25 15:50:23,206 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:50:23,223 - WARNING -  * Debugger is active!
+2025-06-25 15:50:23,230 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:50:32,928 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:50:32,952 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-25 15:50:32,952 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-25 15:50:32,952 - INFO -  * Restarting with stat
+2025-06-25 15:50:33,860 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:50:33,886 - WARNING -  * Debugger is active!
+2025-06-25 15:50:33,896 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:50:40,186 - INFO - 127.0.0.1 - - [25/Jun/2025 15:50:40] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:50:40,188 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:50:40,188 - INFO - Stage 2: Design Planning
+2025-06-25 15:50:40,188 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:50:49,225 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:50:49,225 - INFO - Generating design knowledge...
+2025-06-25 15:50:58,419 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:50:58,419 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:50:58,419 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:50:58,420 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a practical, detailed plan for creating a "Coming Soon" poster that i...
+2025-06-25 15:50:58,420 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:51:02,112 - INFO - Successfully enhanced prompt. Result: Create a coming soon poster with a deep navy blue (#0D1B2A) background featuring a vertically center...
+2025-06-25 15:51:02,113 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:51:02,113 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:51:02,113 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:51:02,114 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:51:02,114 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:51:12,675 - INFO - Enhanced prompt generated
+2025-06-25 15:51:12,675 - INFO - Created parallel session: parallel_20250625_155112_16351f39
+2025-06-25 15:51:12,675 - INFO - Building advanced image prompt: ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG ...
+2025-06-25 15:51:12,676 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:51:14,641 - INFO - Successfully built advanced image prompt: Create a highly impactful, social media-ready "Coming Soon" poster with maximum visual engagement. U...
+2025-06-25 15:51:14,641 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 15:51:14,641 - INFO - Generating image with GPT Image-1
+2025-06-25 15:51:14,641 - INFO - Enhancing prompt for GPT Image-1: Create a highly impactful, social media-ready "Coming Soon" poster with maximum visual engagement. U...
+2025-06-25 15:51:14,642 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:51:18,349 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a deep navy (#0D1B2A) background, featuring a sleek, modern layout wi...
+2025-06-25 15:51:18,350 - INFO - Optimized prompt: Create a coming soon page with a deep navy (#0D1B2A) background, featuring a sleek, modern layout with dynamic, semi-transparent geometric accents in the corners for subtle sophistication. The layout ...
+2025-06-25 15:51:32,258 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:51:33,786 - INFO - Image saved successfully: gpt_image_20250625_155133_f18dd1ca.png in session svg_20250625_155133_7c510efd
+2025-06-25 15:51:33,786 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:51:33,791 - INFO - Saving initial generated image to unified storage session: parallel_20250625_155112_16351f39
+2025-06-25 15:51:33,973 - INFO - Image saved successfully: initial_generated_20250625_155133_9b8d01fa.png in session parallel_20250625_155112_16351f39
+2025-06-25 15:51:33,973 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:51:33,983 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:51:33,986 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:51:41,481 - INFO - Background analysis: The background of the image features a deep navy blue color as the primary base, creating a dark and elegant atmosphere. There is a subtle gradient effect that transitions from a slightly lighter blue...
+2025-06-25 15:51:41,481 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:51:41,483 - INFO - SVG saved successfully: text_svg_20250625_155141_ae221865.svg in session session_20250625_155141_32ea9f74
+2025-06-25 15:51:54,381 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:51:54,686 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:52:00,975 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:52:01,720 - INFO - Image saved successfully: background_20250625_155201_4e6a913a.png in session bg_20250625_155201_9a5b6591
+2025-06-25 15:52:01,720 - INFO - Background extracted and saved: background_20250625_155201_4e6a913a.png
+2025-06-25 15:52:01,914 - INFO - Image saved successfully: background_20250625_155201_cbb6ac34.png in session parallel_20250625_155112_16351f39
+2025-06-25 15:52:01,914 - INFO - SVG saved successfully: text_svg_20250625_155201_45b2d1db.svg in session parallel_20250625_155112_16351f39
+2025-06-25 15:52:01,915 - INFO - SVG saved successfully: elements_svg_20250625_155201_f52ea395.svg in session parallel_20250625_155112_16351f39
+2025-06-25 15:52:02,098 - INFO - Image saved successfully: elements_png_20250625_155201_0a2cb13f.png in session parallel_20250625_155112_16351f39
+2025-06-25 15:52:02,099 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:52:02,099 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:52:02,099 - INFO - Filtering out background path: d='M0 0 C337.92 0 675.84 0 1024 0 C1024 337.92 1024 6...', fill='#000C25'
+2025-06-25 15:52:02,100 - WARNING - Error filtering background paths: invalid predicate, returning original elements SVG
+2025-06-25 15:52:02,100 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:52:55,441 - INFO - AI response length: 9832
+2025-06-25 15:52:55,443 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 15:52:55,443 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 15:52:55,444 - INFO - SVG saved successfully: combined_svg_20250625_155255_ebb14bd5.svg in session parallel_20250625_155112_16351f39
+2025-06-25 15:52:55,444 - INFO - Combined SVG saved successfully: combined_svg_20250625_155255_ebb14bd5.svg
+2025-06-25 15:52:55,452 - INFO - 127.0.0.1 - - [25/Jun/2025 15:52:55] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:55:20,955 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:55:21,103 - INFO -  * Restarting with stat
+2025-06-25 15:55:22,124 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:55:22,147 - WARNING -  * Debugger is active!
+2025-06-25 15:55:22,157 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:55:37,433 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:55:37,571 - INFO -  * Restarting with stat
+2025-06-25 15:55:38,814 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:55:38,836 - WARNING -  * Debugger is active!
+2025-06-25 15:55:38,843 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:55:56,121 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:55:56,214 - INFO -  * Restarting with stat
+2025-06-25 15:55:57,190 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:55:57,214 - WARNING -  * Debugger is active!
+2025-06-25 15:55:57,222 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:56:06,341 - INFO - 127.0.0.1 - - [25/Jun/2025 15:56:06] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:56:06,342 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:56:06,342 - INFO - Stage 2: Design Planning
+2025-06-25 15:56:06,342 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:56:14,012 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:56:14,013 - INFO - Generating design knowledge...
+2025-06-25 15:56:23,623 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:56:23,623 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:56:23,623 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:56:23,623 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for designing a compelling "Coming Soon" ...
+2025-06-25 15:56:23,623 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:56:26,949 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a #F5F5F5 (light gray) background featuring a centered, vertical layo...
+2025-06-25 15:56:26,951 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:56:26,951 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:56:26,951 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:56:26,951 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:56:26,951 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:56:41,754 - INFO - Enhanced prompt generated
+2025-06-25 15:56:41,755 - INFO - Created parallel session: parallel_20250625_155641_3ca4702b
+2025-06-25 15:56:41,755 - INFO - Building advanced image prompt: Certainly! Based on the detailed design description, here is a comprehensive and well-structured SVG...
+2025-06-25 15:56:41,755 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:56:46,946 - INFO - Successfully built advanced image prompt: Create a jaw-dropping, viral-ready "Coming Soon" poster with MAXIMUM visual impact: a bold, explosiv...
+2025-06-25 15:56:46,947 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 15:56:46,947 - INFO - Generating image with GPT Image-1
+2025-06-25 15:56:46,947 - INFO - Enhancing prompt for GPT Image-1: Create a jaw-dropping, viral-ready "Coming Soon" poster with MAXIMUM visual impact: a bold, explosiv...
+2025-06-25 15:56:46,947 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:56:50,922 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a vibrant, explosive background featuring a high-contrast color palet...
+2025-06-25 15:56:50,923 - INFO - Optimized prompt: Create a coming soon page with a vibrant, explosive background featuring a high-contrast color palette of electric blues, fiery reds, and vibrant oranges, with radiant gradients and dynamic lighting e...
+2025-06-25 15:57:03,545 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:57:05,496 - INFO - Image saved successfully: gpt_image_20250625_155705_adfa0563.png in session svg_20250625_155705_1ed13d6a
+2025-06-25 15:57:05,497 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:57:05,502 - INFO - Saving initial generated image to unified storage session: parallel_20250625_155641_3ca4702b
+2025-06-25 15:57:05,676 - INFO - Image saved successfully: initial_generated_20250625_155705_db594793.png in session parallel_20250625_155641_3ca4702b
+2025-06-25 15:57:05,676 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:57:05,681 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:57:05,691 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:57:05,700 - INFO - ✅ VTRACER INPUT IMAGE STORED AS: vtracer_input_original.png
+2025-06-25 15:57:05,700 - INFO - 📂 SESSION FOLDER: parallel_20250625_155641_3ca4702b
+2025-06-25 15:57:05,700 - INFO - 🔗 FULL PATH: /Users/varunisrani/infoui/server/static/images/sessions/parallel_20250625_155641_3ca4702b/vtracer_input_original.png
+2025-06-25 15:57:13,752 - INFO - Background analysis: The background of the image features a dynamic and intense visual composition dominated by deep, dark blue and black tones. These dark hues create a night-like or cosmic atmosphere. Radiating from the...
+2025-06-25 15:57:13,753 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:57:14,885 - INFO - SVG saved successfully: text_svg_20250625_155714_3b4f7086.svg in session session_20250625_155714_0d5f4ea7
+2025-06-25 15:57:23,762 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:57:25,205 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 15:57:25,911 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:57:27,441 - INFO - Image saved successfully: background_20250625_155727_1407fa0d.png in session bg_20250625_155727_2f2107f3
+2025-06-25 15:57:27,441 - INFO - Background extracted and saved: background_20250625_155727_1407fa0d.png
+2025-06-25 15:57:27,612 - INFO - Image saved successfully: background_20250625_155727_87b0b66e.png in session parallel_20250625_155641_3ca4702b
+2025-06-25 15:57:27,613 - INFO - SVG saved successfully: text_svg_20250625_155727_15172870.svg in session parallel_20250625_155641_3ca4702b
+2025-06-25 15:57:27,613 - INFO - SVG saved successfully: elements_svg_20250625_155727_8781e599.svg in session parallel_20250625_155641_3ca4702b
+2025-06-25 15:57:27,773 - INFO - Image saved successfully: elements_png_20250625_155727_5f459623.png in session parallel_20250625_155641_3ca4702b
+2025-06-25 15:57:27,773 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 15:57:27,773 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 15:57:27,786 - INFO - Filtering out background path: d='M0 0 C337.92 0 675.84 0 1024 0 C1024 337.92 1024 6...', fill='#1F051E'
+2025-06-25 15:57:27,787 - INFO - Filtering out background path: d='M0 0 C0.671 1.456 1.337 2.915 2 4.375 C2.371 5.187...', fill='#FE5805'
+2025-06-25 15:57:27,787 - INFO - Filtering out background path: d='M0 0 C3.358 1.119 4.106 2.024 6.312 4.688 C8.524 7...', fill='#FE9005'
+2025-06-25 15:57:27,788 - INFO - Filtering out background path: d='M0 0 C1.98 0 3.96 0 6 0 C6 0.66 6 1.32 6 2 C6.66 2...', fill='#550016'
+2025-06-25 15:57:27,788 - INFO - Filtering out background path: d='M0 0 C1.238 0.464 1.238 0.464 2.5 0.938 C7.512 2.4...', fill='#C5131A'
+2025-06-25 15:57:27,788 - INFO - Filtering out background path: d='M0 0 C-1.556 3.819 -3.956 6.26 -7 9 C-7.66 9 -8.32...', fill='#73011D'
+2025-06-25 15:57:27,788 - INFO - Filtering out background path: d='M0 0 C-1.003 5.874 -4.146 8.066 -8.711 11.387 C-9....', fill='#FEFDAD'
+2025-06-25 15:57:27,788 - INFO - Filtering out background path: d='M0 0 C1.321 3.665 0.657 5.965 -0.512 9.621 C-0.858...', fill='#42011B'
+2025-06-25 15:57:27,789 - INFO - Filtering out background path: d='M0 0 C0.99 0.33 1.98 0.66 3 1 C3.793 2.685 4.574 4...', fill='#FD8806'
+2025-06-25 15:57:27,789 - INFO - Filtering out background path: d='M0 0 C0 4.092 -2.16 5.789 -4.75 8.688 C-10.467 15....', fill='#DE2914'
+2025-06-25 15:57:27,789 - INFO - Filtering out background path: d='M0 0 C0.897 0.309 0.897 0.309 1.812 0.625 C2.142 1...', fill='#B2091F'
+2025-06-25 15:57:27,790 - INFO - Filtering out background path: d='M0 0 C1.653 0.017 1.653 0.017 3.34 0.035 C4.997 0....', fill='#10001E'
+2025-06-25 15:57:27,790 - INFO - Filtering out background path: d='M0 0 C-1.418 4.472 -3.113 8.711 -5 13 C-5.33 13 -5...', fill='#E32F13'
+2025-06-25 15:57:27,790 - INFO - Filtering out background path: d='M0 0 C2 0 2 0 4.125 1.875 C6 4 6 4 6 6 C4.082 5.84...', fill='#92011B'
+2025-06-25 15:57:27,790 - INFO - Filtering out background path: d='M0 0 C0.99 0.33 1.98 0.66 3 1 C1.714 2.173 0.421 3...', fill='#FE6006'
+2025-06-25 15:57:27,790 - INFO - Filtering out background path: d='M0 0 C0.66 0.33 1.32 0.66 2 1 C1 4 1 4 -0.5 5.938 ...', fill='#0C001B'
+2025-06-25 15:57:27,790 - INFO - Filtering out background path: d='M0 0 C3.914 1.269 5.791 2.512 8 6 C2.338 4.523 2.3...', fill='#FEE612'
+2025-06-25 15:57:27,790 - WARNING - Error filtering background paths: invalid predicate, returning original elements SVG
+2025-06-25 15:57:27,791 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 15:57:54,576 - INFO - AI response length: 10064
+2025-06-25 15:57:54,578 - INFO - AI response starts with: '<svg width="1080" height="1080" viewBox="0 0 1080 '
+2025-06-25 15:57:54,578 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 15:57:54,579 - INFO - SVG saved successfully: combined_svg_20250625_155754_9dbd4a22.svg in session parallel_20250625_155641_3ca4702b
+2025-06-25 15:57:54,579 - INFO - Combined SVG saved successfully: combined_svg_20250625_155754_9dbd4a22.svg
+2025-06-25 15:57:54,592 - INFO - 127.0.0.1 - - [25/Jun/2025 15:57:54] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:58:24,176 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:58:24,291 - INFO -  * Restarting with stat
+2025-06-25 15:58:25,395 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:58:25,424 - WARNING -  * Debugger is active!
+2025-06-25 15:58:25,431 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:58:27,483 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:58:27,570 - INFO -  * Restarting with stat
+2025-06-25 15:58:28,743 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:58:28,764 - WARNING -  * Debugger is active!
+2025-06-25 15:58:28,773 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:58:31,837 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:58:31,960 - INFO -  * Restarting with stat
+2025-06-25 15:58:32,876 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:58:32,896 - WARNING -  * Debugger is active!
+2025-06-25 15:58:32,904 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:58:37,988 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 15:58:38,065 - INFO -  * Restarting with stat
+2025-06-25 15:58:38,848 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 15:58:38,865 - WARNING -  * Debugger is active!
+2025-06-25 15:58:38,871 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 15:58:46,631 - INFO - 127.0.0.1 - - [25/Jun/2025 15:58:46] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 15:58:46,634 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 15:58:46,634 - INFO - Stage 2: Design Planning
+2025-06-25 15:58:46,634 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 15:58:54,924 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 15:58:54,925 - INFO - Generating design knowledge...
+2025-06-25 15:59:05,134 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 15:59:05,134 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 15:59:05,134 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:59:05,134 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, step-by-step plan for creating a visually appealing "Comi...
+2025-06-25 15:59:05,134 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:59:08,744 - INFO - Successfully enhanced prompt. Result: Create a coming soon page with a **dark navy blue background (#0D1B2A)** featuring a **centered vert...
+2025-06-25 15:59:08,744 - INFO - Pre-enhanced prompt generated
+2025-06-25 15:59:08,744 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 15:59:08,744 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 15:59:08,744 - INFO - Using model: gpt-4.1-nano
+2025-06-25 15:59:08,744 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:59:18,904 - INFO - Enhanced prompt generated
+2025-06-25 15:59:18,905 - INFO - Created parallel session: parallel_20250625_155918_9d0a2d70
+2025-06-25 15:59:18,905 - INFO - Building advanced image prompt: {
+  "svg_type": "structured SVG specification",
+  "description": "A professional, minimalistic Comin...
+2025-06-25 15:59:18,905 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 15:59:21,771 - INFO - Successfully built advanced image prompt: Create a visually explosive, attention-grabbing "Coming Soon" graphic designed to go viral on social...
+2025-06-25 15:59:21,771 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 15:59:21,771 - INFO - Generating image with GPT Image-1
+2025-06-25 15:59:21,771 - INFO - Enhancing prompt for GPT Image-1: Create a visually explosive, attention-grabbing "Coming Soon" graphic designed to go viral on social...
+2025-06-25 15:59:21,772 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 15:59:25,480 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a high-contrast, dramatic background featuring a deep navy color (#0D...
+2025-06-25 15:59:25,481 - INFO - Optimized prompt: Create a coming soon page with a high-contrast, dramatic background featuring a deep navy color (#0D1B2A) combined with dynamic light flare effects and layered explosion visuals. The layout includes a...
+2025-06-25 15:59:38,257 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 15:59:39,787 - INFO - Image saved successfully: gpt_image_20250625_155939_67b81aa2.png in session svg_20250625_155939_b7d484ae
+2025-06-25 15:59:39,787 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 15:59:39,792 - INFO - Saving initial generated image to unified storage session: parallel_20250625_155918_9d0a2d70
+2025-06-25 15:59:39,999 - INFO - Image saved successfully: initial_generated_20250625_155939_fb2fcc35.png in session parallel_20250625_155918_9d0a2d70
+2025-06-25 15:59:40,000 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 15:59:40,006 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 15:59:40,018 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 15:59:47,061 - INFO - SVG saved successfully: text_svg_20250625_155947_d9d0fdad.svg in session session_20250625_155947_2bd92561
+2025-06-25 15:59:50,463 - INFO - Background analysis: The background of the image features a dark, almost black, deep space-like backdrop that creates a strong contrast with the bright elements in the foreground. There are two prominent bursts of light a...
+2025-06-25 15:59:50,463 - INFO - Generating background with GPT Image-1...
+2025-06-25 15:59:57,196 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 15:59:58,540 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 16:00:01,541 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 16:00:03,196 - INFO - Image saved successfully: background_20250625_160003_6a73a916.png in session bg_20250625_160003_e4a5772c
+2025-06-25 16:00:03,196 - INFO - Background extracted and saved: background_20250625_160003_6a73a916.png
+2025-06-25 16:00:03,386 - INFO - Image saved successfully: background_20250625_160003_57884edc.png in session parallel_20250625_155918_9d0a2d70
+2025-06-25 16:00:03,387 - INFO - SVG saved successfully: text_svg_20250625_160003_db79d359.svg in session parallel_20250625_155918_9d0a2d70
+2025-06-25 16:00:03,389 - INFO - SVG saved successfully: elements_svg_20250625_160003_bebd6533.svg in session parallel_20250625_155918_9d0a2d70
+2025-06-25 16:00:03,577 - INFO - Image saved successfully: elements_png_20250625_160003_011a03f3.png in session parallel_20250625_155918_9d0a2d70
+2025-06-25 16:00:03,578 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 16:00:03,578 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 16:00:03,578 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 16:00:25,731 - INFO - AI response length: 7736
+2025-06-25 16:00:25,731 - INFO - AI response starts with: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0'
+2025-06-25 16:00:25,731 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 16:00:25,732 - INFO - SVG saved successfully: combined_svg_20250625_160025_95572ecd.svg in session parallel_20250625_155918_9d0a2d70
+2025-06-25 16:00:25,732 - INFO - Combined SVG saved successfully: combined_svg_20250625_160025_95572ecd.svg
+2025-06-25 16:00:25,744 - INFO - 127.0.0.1 - - [25/Jun/2025 16:00:25] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 16:10:31,548 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:10:31,731 - INFO -  * Restarting with stat
+2025-06-25 16:10:32,947 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:10:32,973 - WARNING -  * Debugger is active!
+2025-06-25 16:10:32,980 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:11:17,956 - INFO - 127.0.0.1 - - [25/Jun/2025 16:11:17] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 16:11:17,960 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 16:11:17,960 - INFO - Stage 2: Design Planning
+2025-06-25 16:11:17,960 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 16:11:25,919 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 16:11:25,919 - INFO - Generating design knowledge...
+2025-06-25 16:11:32,927 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 16:11:32,927 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 16:11:32,927 - INFO - Using model: gpt-4.1-nano
+2025-06-25 16:11:32,927 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a detailed, actionable plan for creating a "Coming Soon" poster that ...
+2025-06-25 16:11:32,927 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 16:11:35,711 - INFO - Successfully enhanced prompt. Result: Create a coming soon poster with a #F5F5F5 light neutral background featuring a centered vertical la...
+2025-06-25 16:11:35,712 - INFO - Pre-enhanced prompt generated
+2025-06-25 16:11:35,712 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 16:11:35,712 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 16:11:35,712 - INFO - Using model: gpt-4.1-nano
+2025-06-25 16:11:35,712 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 16:11:47,351 - INFO - Enhanced prompt generated
+2025-06-25 16:11:47,352 - INFO - Created parallel session: parallel_20250625_161147_cb4ec55f
+2025-06-25 16:11:47,352 - INFO - Building advanced image prompt: Certainly! Below is a comprehensive SVG technical specification for a professional "Coming Soon" pos...
+2025-06-25 16:11:47,353 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 16:11:49,991 - INFO - Successfully built advanced image prompt: Create a stunning, high-impact "Coming Soon" announcement image optimized for virality. Generate a 1...
+2025-06-25 16:11:49,993 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 16:11:49,993 - INFO - Generating image with GPT Image-1
+2025-06-25 16:11:49,993 - INFO - Enhancing prompt for GPT Image-1: Create a stunning, high-impact "Coming Soon" announcement image optimized for virality. Generate a 1...
+2025-06-25 16:11:49,993 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 16:11:52,537 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a vivid, explosive background featuring fiery orange, electric blue, ...
+2025-06-25 16:11:52,537 - INFO - Optimized prompt: Create a coming soon page with a vivid, explosive background featuring fiery orange, electric blue, and metallic gold colors blended with dynamic textures. The layout includes a prominent, centered "C...
+2025-06-25 16:12:05,643 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 16:12:07,346 - INFO - Image saved successfully: gpt_image_20250625_161207_95405b09.png in session svg_20250625_161207_71d49efc
+2025-06-25 16:12:07,347 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 16:12:07,353 - INFO - Saving initial generated image to unified storage session: parallel_20250625_161147_cb4ec55f
+2025-06-25 16:12:07,532 - INFO - Image saved successfully: initial_generated_20250625_161207_ce9e87fc.png in session parallel_20250625_161147_cb4ec55f
+2025-06-25 16:12:07,533 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 16:12:07,538 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 16:12:07,549 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 16:12:16,279 - INFO - Background analysis: The background of the image features a dramatic cosmic or space-themed design. It is dominated by a blend of deep, rich colors primarily in dark blue and fiery orange tones. The left side of the backg...
+2025-06-25 16:12:16,280 - INFO - Generating background with GPT Image-1...
+2025-06-25 16:12:18,590 - INFO - SVG saved successfully: text_svg_20250625_161218_06ce3cac.svg in session session_20250625_161218_f7686604
+2025-06-25 16:12:21,852 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 16:12:23,207 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 16:12:29,534 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 16:12:31,104 - INFO - Image saved successfully: background_20250625_161230_a5d65eaa.png in session bg_20250625_161230_99bb199a
+2025-06-25 16:12:31,104 - INFO - Background extracted and saved: background_20250625_161230_a5d65eaa.png
+2025-06-25 16:12:31,281 - INFO - Image saved successfully: background_20250625_161231_2d7e0a62.png in session parallel_20250625_161147_cb4ec55f
+2025-06-25 16:12:31,282 - INFO - SVG saved successfully: text_svg_20250625_161231_3c1da38f.svg in session parallel_20250625_161147_cb4ec55f
+2025-06-25 16:12:31,282 - INFO - SVG saved successfully: elements_svg_20250625_161231_1101a5d4.svg in session parallel_20250625_161147_cb4ec55f
+2025-06-25 16:12:31,455 - INFO - Image saved successfully: elements_png_20250625_161231_7a515a49.png in session parallel_20250625_161147_cb4ec55f
+2025-06-25 16:12:31,456 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano
+2025-06-25 16:12:31,456 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 16:12:31,456 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 16:13:01,834 - INFO - AI response length: 6998
+2025-06-25 16:13:01,836 - INFO - AI response starts with: '<svg xmlns="http://www.w3.org/2000/svg" width="108'
+2025-06-25 16:13:01,836 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 16:13:01,837 - INFO - SVG saved successfully: combined_svg_20250625_161301_57c971bc.svg in session parallel_20250625_161147_cb4ec55f
+2025-06-25 16:13:01,837 - INFO - Combined SVG saved successfully: combined_svg_20250625_161301_57c971bc.svg
+2025-06-25 16:13:01,850 - INFO - 127.0.0.1 - - [25/Jun/2025 16:13:01] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 16:21:46,149 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:21:46,504 - INFO -  * Restarting with stat
+2025-06-25 16:21:47,642 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:21:47,676 - WARNING -  * Debugger is active!
+2025-06-25 16:21:47,692 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:21:56,900 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:21:57,048 - INFO -  * Restarting with stat
+2025-06-25 16:21:58,207 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:21:58,238 - WARNING -  * Debugger is active!
+2025-06-25 16:21:58,244 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:22:09,420 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:22:09,569 - INFO -  * Restarting with stat
+2025-06-25 16:22:10,620 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:22:10,640 - WARNING -  * Debugger is active!
+2025-06-25 16:22:10,647 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:22:21,896 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:22:22,051 - INFO -  * Restarting with stat
+2025-06-25 16:22:23,312 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:22:23,339 - WARNING -  * Debugger is active!
+2025-06-25 16:22:23,347 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:22:24,386 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:22:24,487 - INFO -  * Restarting with stat
+2025-06-25 16:22:25,271 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:22:25,294 - WARNING -  * Debugger is active!
+2025-06-25 16:22:25,301 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:22:30,420 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:22:30,510 - INFO -  * Restarting with stat
+2025-06-25 16:22:31,335 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:22:31,352 - WARNING -  * Debugger is active!
+2025-06-25 16:22:31,359 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:22:49,602 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:22:49,702 - INFO -  * Restarting with stat
+2025-06-25 16:22:50,689 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:22:50,715 - WARNING -  * Debugger is active!
+2025-06-25 16:22:50,723 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:23:38,602 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:23:38,701 - INFO -  * Restarting with stat
+2025-06-25 16:23:39,715 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:23:39,737 - WARNING -  * Debugger is active!
+2025-06-25 16:23:39,745 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:24:47,953 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:24:48,036 - INFO -  * Restarting with stat
+2025-06-25 16:24:49,159 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:24:49,187 - WARNING -  * Debugger is active!
+2025-06-25 16:24:49,192 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:25:07,585 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:25:07,712 - INFO -  * Restarting with stat
+2025-06-25 16:25:08,747 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:25:08,775 - WARNING -  * Debugger is active!
+2025-06-25 16:25:08,783 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:25:23,070 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:25:23,179 - INFO -  * Restarting with stat
+2025-06-25 16:25:24,158 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:25:24,183 - WARNING -  * Debugger is active!
+2025-06-25 16:25:24,190 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:25:46,556 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:25:46,705 - INFO -  * Restarting with stat
+2025-06-25 16:25:47,743 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:25:47,768 - WARNING -  * Debugger is active!
+2025-06-25 16:25:47,774 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:26:39,490 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:26:39,521 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-25 16:26:39,521 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-25 16:26:39,522 - INFO -  * Restarting with stat
+2025-06-25 16:26:40,307 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:26:40,328 - WARNING -  * Debugger is active!
+2025-06-25 16:26:40,335 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:26:53,395 - INFO - 127.0.0.1 - - [25/Jun/2025 16:26:53] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 16:26:53,399 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 16:26:53,399 - INFO - Stage 2: Design Planning
+2025-06-25 16:26:53,399 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 16:27:01,839 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 16:27:01,840 - INFO - Generating design knowledge...
+2025-06-25 16:27:02,763 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-25 16:27:02,835 - INFO -  * Restarting with stat
+2025-06-25 16:27:04,069 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-25 16:27:04,195 - WARNING -  * Debugger is active!
+2025-06-25 16:27:04,212 - INFO -  * Debugger PIN: 185-150-251
+2025-06-25 16:27:15,481 - INFO - 127.0.0.1 - - [25/Jun/2025 16:27:15] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 16:27:15,485 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-25 16:27:15,485 - INFO - Stage 2: Design Planning
+2025-06-25 16:27:15,485 - INFO - Planning design for: Create a coming soon poster...
+2025-06-25 16:27:23,072 - INFO - Stage 3: Design Knowledge Generation
+2025-06-25 16:27:23,073 - INFO - Generating design knowledge...
+2025-06-25 16:27:33,065 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-25 16:27:33,066 - INFO - Pre-enhancing prompt with design context...
+2025-06-25 16:27:33,066 - INFO - Using model: gpt-4.1-nano
+2025-06-25 16:27:33,066 - INFO - Pre-enhancing prompt: Design Plan:
+Certainly! Here's a practical, detailed plan for creating an effective "Coming Soon" po...
+2025-06-25 16:27:33,067 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4.1-nano
+2025-06-25 16:27:36,737 - INFO - Successfully enhanced prompt. Result: Create a coming soon poster with a deep charcoal (#1E1E1E) background featuring a centered, vertical...
+2025-06-25 16:27:36,738 - INFO - Pre-enhanced prompt generated
+2025-06-25 16:27:36,738 - INFO - Stage 5: Final Enhancement Phase
+2025-06-25 16:27:36,738 - INFO - Enhancing prompt with technical specifications...
+2025-06-25 16:27:36,738 - INFO - Using model: gpt-4.1-nano
+2025-06-25 16:27:36,738 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4.1-nano
+2025-06-25 16:27:52,516 - INFO - Enhanced prompt generated
+2025-06-25 16:27:52,516 - INFO - Created parallel session: parallel_20250625_162752_c00a332b
+2025-06-25 16:27:52,517 - INFO - Building advanced image prompt: Certainly! Based on your detailed design description, here is a comprehensive, well-structured SVG s...
+2025-06-25 16:27:52,517 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-25 16:27:54,775 - INFO - Successfully built advanced image prompt: Create a visually explosive, highly attention-grabbing "Coming Soon" social media poster. Use a dram...
+2025-06-25 16:27:54,775 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-25 16:27:54,775 - INFO - Generating image with GPT Image-1
+2025-06-25 16:27:54,775 - INFO - Enhancing prompt for GPT Image-1: Create a visually explosive, highly attention-grabbing "Coming Soon" social media poster. Use a dram...
+2025-06-25 16:27:54,775 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4.1-nano
+2025-06-25 16:27:59,767 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a deep charcoal (#1E1E1E) background featuring a smooth radial gradie...
+2025-06-25 16:27:59,767 - INFO - Optimized prompt: Create a coming soon page with a deep charcoal (#1E1E1E) background featuring a smooth radial gradient from the center outward to add depth. The layout includes a large, centered main text "COMING SOO...
+2025-06-25 16:28:12,619 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 16:28:14,238 - INFO - Image saved successfully: gpt_image_20250625_162814_4bfda1a3.png in session svg_20250625_162814_b53c7efa
+2025-06-25 16:28:14,240 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-25 16:28:14,240 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250625_162814_b53c7efa/gpt_image_20250625_162814_4bfda1a3.png
+2025-06-25 16:28:14,250 - INFO - Saving initial generated image to unified storage session: parallel_20250625_162752_c00a332b
+2025-06-25 16:28:14,493 - INFO - Image saved successfully: initial_generated_20250625_162814_cdd07d17.png in session parallel_20250625_162752_c00a332b
+2025-06-25 16:28:14,493 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-25 16:28:14,499 - INFO - Starting background extraction using GPT-4.1-mini vision...
+2025-06-25 16:28:14,509 - INFO - Analyzing background with GPT-4.1-mini vision...
+2025-06-25 16:28:21,911 - INFO - SVG saved successfully: text_svg_20250625_162821_a64332be.svg in session session_20250625_162821_05c42d4f
+2025-06-25 16:28:22,492 - INFO - Background analysis: The background of the image is a solid, very dark color, close to black or a deep charcoal gray, providing a strong contrast to the foreground elements. Radiating outward from the center, there are mu...
+2025-06-25 16:28:22,493 - INFO - Generating background with GPT Image-1...
+2025-06-25 16:28:31,682 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-25 16:28:33,049 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-25 16:28:34,104 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-25 16:28:35,836 - INFO - Image saved successfully: background_20250625_162835_a8011624.png in session bg_20250625_162835_cfa3d1f6
+2025-06-25 16:28:35,837 - INFO - Background extracted and saved: background_20250625_162835_a8011624.png
+2025-06-25 16:28:35,840 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png
+2025-06-25 16:28:36,026 - INFO - Image saved successfully: background_20250625_162835_2f7dd16d.png in session parallel_20250625_162752_c00a332b
+2025-06-25 16:28:36,026 - INFO - SVG saved successfully: text_svg_20250625_162836_f211b4c8.svg in session parallel_20250625_162752_c00a332b
+2025-06-25 16:28:36,027 - INFO - SVG saved successfully: elements_svg_20250625_162836_caf3a14e.svg in session parallel_20250625_162752_c00a332b
+2025-06-25 16:28:36,221 - INFO - Image saved successfully: elements_png_20250625_162836_472d7bf0.png in session parallel_20250625_162752_c00a332b
+2025-06-25 16:28:36,221 - INFO - Generated public URLs:
+2025-06-25 16:28:36,221 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250625_162752_c00a332b/initial_generated_20250625_162814_cdd07d17.png
+2025-06-25 16:28:36,221 - INFO -   Background: http://localhost:5000/static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png
+2025-06-25 16:28:36,221 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250625_162752_c00a332b/text_svg_20250625_162836_f211b4c8.svg
+2025-06-25 16:28:36,221 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250625_162752_c00a332b/elements_svg_20250625_162836_caf3a14e.svg
+2025-06-25 16:28:36,221 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250625_162752_c00a332b/elements_png_20250625_162836_472d7bf0.png
+2025-06-25 16:28:36,221 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano with PUBLIC background URL
+2025-06-25 16:28:36,221 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png
+2025-06-25 16:28:36,222 - INFO - Using AI to intelligently combine 3-layer SVG (background + elements + text)...
+2025-06-25 16:28:36,222 - INFO - Calling OpenAI for intelligent 3-layer SVG combination...
+2025-06-25 16:30:16,054 - INFO - AI response length: 20644
+2025-06-25 16:30:16,055 - INFO - AI response starts with: '<svg xmlns="http://www.w3.org/2000/svg" width="108'
+2025-06-25 16:30:16,055 - INFO - AI successfully combined 3-layer SVG - returning direct response
+2025-06-25 16:30:16,056 - INFO - SVG saved successfully: combined_svg_20250625_163016_f113c2fc.svg in session parallel_20250625_162752_c00a332b
+2025-06-25 16:30:16,056 - INFO - Combined SVG saved successfully: combined_svg_20250625_163016_f113c2fc.svg
+2025-06-25 16:30:16,067 - INFO - 127.0.0.1 - - [25/Jun/2025 16:30:16] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-25 16:30:16,168 - INFO - 127.0.0.1 - - [25/Jun/2025 16:30:16] "GET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1" 200 -
+2025-06-25 16:30:52,536 - INFO - 127.0.0.1 - - [25/Jun/2025 16:30:52] "OPTIONS /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1" 200 -
+2025-06-25 16:30:52,539 - INFO - 127.0.0.1 - - [25/Jun/2025 16:30:52] "GET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1" 200 -
+2025-06-25 16:35:10,815 - INFO - 127.0.0.1 - - [25/Jun/2025 16:35:10] "OPTIONS /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png?t=1750849510790 HTTP/1.1" 200 -
+2025-06-25 16:35:10,817 - INFO - 127.0.0.1 - - [25/Jun/2025 16:35:10] "OPTIONS /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png?t=1750849510815 HTTP/1.1" 200 -
+2025-06-25 16:35:10,821 - INFO - 127.0.0.1 - - [25/Jun/2025 16:35:10] "GET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png?t=1750849510790 HTTP/1.1" 200 -
+2025-06-25 16:35:10,822 - INFO - 127.0.0.1 - - [25/Jun/2025 16:35:10] "GET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png?t=1750849510815 HTTP/1.1" 200 -

@@ -1,0 +1,21 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .title {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 160px;
+      fill: white;
+      filter: drop-shadow(0 0 8px #ff4500);
+      letter-spacing: 5px;
+    }
+    .subtitle {
+      font-family: Georgia, serif;
+      font-size: 36px;
+      fill: white;
+      filter: drop-shadow(0 0 5px #aaa);
+    }
+  </style>
+  <text x="540" y="460" text-anchor="middle" class="title">COMING</text>
+  <text x="540" y="630" text-anchor="middle" class="title">SOON</text>
+  <text x="540" y="730" text-anchor="middle" class="subtitle">Stay lunited for Inorunitaid</text>
+</svg>

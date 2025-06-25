@@ -1,0 +1,32 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" >
+  <style>
+    .large-text {
+      fill: #d3f0ff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      font-size: 122px;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+    .medium-text {
+      fill: #a3d4ff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 500;
+      font-size: 42px;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+    .small-text {
+      fill: #8bc6ff;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 400;
+      font-size: 32px;
+      letter-spacing: 0.05em;
+      text-anchor: middle;
+    }
+  </style>
+  <text class="large-text" x="540" y="620">COMING</text>
+  <text class="large-text" x="540" y="760">SOON</text>
+  <text class="medium-text" x="540" y="840">June 15 2023</text>
+  <text class="small-text" x="540" y="880">www.lanccia.com</text>
+</svg>

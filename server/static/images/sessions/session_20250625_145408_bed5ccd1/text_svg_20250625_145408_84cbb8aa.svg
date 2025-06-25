@@ -1,0 +1,37 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" >
+  <defs>
+    <style>
+      .title {
+        font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+        font-weight: bold;
+        font-size: 90px;
+        fill: #a4d9ff;
+        filter: url(#glow);
+        letter-spacing: 4px;
+      }
+      .subtitle {
+        font-family: Arial, sans-serif;
+        font-size: 36px;
+        fill: #9acdff;
+      }
+      .button-text {
+        font-family: Arial, sans-serif;
+        font-size: 36px;
+        fill: #ffffff;
+        filter: url(#white-glow);
+      }
+    </style>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%" >
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#9fe0ff"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#c3e5ff"/>
+    </filter>
+    <filter id="white-glow" x="-50%" y="-50%" width="200%" height="200%" >
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="white"/>
+    </filter>
+  </defs>
+
+  <text x="50%" y="370" class="title" text-anchor="middle" dominant-baseline="middle">COMING</text>
+  <text x="50%" y="470" class="title" text-anchor="middle" dominant-baseline="middle">SOON</text>
+  <text x="50%" y="580" class="subtitle" text-anchor="middle" dominant-baseline="middle">Get Ready for the Lauren</text>
+  <text x="50%" y="700" class="button-text" text-anchor="middle" dominant-baseline="middle">Join the Lauren</text>
+</svg>

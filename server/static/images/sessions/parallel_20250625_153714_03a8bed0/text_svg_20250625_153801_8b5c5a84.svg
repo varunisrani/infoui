@@ -1,0 +1,29 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .bold-text {
+      fill: #ffffff;
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 140px;
+      text-anchor: middle;
+    }
+    .script-text {
+      fill: #eaeaff;
+      font-family: 'Brush Script MT', cursive, serif;
+      font-size: 48px;
+      font-style: normal;
+      text-anchor: middle;
+    }
+    .url-text {
+      fill: #ffffff;
+      font-family: Arial, sans-serif;
+      font-size: 42px;
+      text-anchor: middle;
+    }
+  </style>
+  <text x="540" y="470" class="bold-text" dominant-baseline="middle">COMING</text>
+  <text x="540" y="610" class="bold-text" dominant-baseline="middle">SOON</text>
+  <text x="540" y="730" class="script-text" dominant-baseline="middle">Sheg scond fuw oorrecltmq</text>
+  <text x="540" y="780" class="script-text" dominant-baseline="middle">maingphy</text>
+  <text x="540" y="880" class="url-text" dominant-baseline="middle">www.anample.com</text>
+</svg>

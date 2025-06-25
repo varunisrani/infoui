@@ -51,31 +51,6 @@ STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 IMAGES_DIR = os.path.join(STATIC_DIR, 'images')
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
-# Public URL configuration for deployed environment
-def get_public_base_url():
-    """Get the public base URL for serving images"""
-    # Check if we're in production (Render deployment)
-    if os.getenv('PORT'):
-        # Production environment - use the deployed URL
-        return 'https://pppp-351z.onrender.com'
-    else:
-        # Local development environment
-        return 'http://localhost:5000'
-
-def get_public_image_url(relative_path):
-    """Convert relative image path to public URL"""
-    base_url = get_public_base_url()
-    # Ensure the path starts with /static/images/
-    if not relative_path.startswith('/static/images/'):
-        if relative_path.startswith('static/images/'):
-            relative_path = '/' + relative_path
-        elif relative_path.startswith('sessions/'):
-            relative_path = '/static/images/' + relative_path
-        else:
-            relative_path = '/static/images/' + relative_path
-    
-    return f"{base_url}{relative_path}"
-
 # API keys
 OPENAI_API_KEY_ENHANCER = os.getenv('OPENAI_API_KEY_ENHANCER')
 OPENAI_API_KEY_SVG = os.getenv('OPENAI_API_KEY_SVG')
@@ -670,15 +645,53 @@ def generate_image_with_gpt(enhanced_prompt, design_context=None):
         
         # Save the generated image
         filename, relative_path, _ = save_image(image_base64, prefix="gpt_image", session_id=session_id)
-        
-        # Create public URL for the image
-        public_url = get_public_image_url(relative_path)
 
         logger.info("Image generated and saved successfully with GPT Image-1")
-        logger.info(f"Public URL created: {public_url}")
-        return image_base64, relative_path, public_url
+        return image_base64, relative_path
     except Exception as e:
         logger.error(f"Error generating image with GPT Image-1: {str(e)}")
+        raise
+
+def generate_vtracer_elements_image(enhanced_prompt, design_context=None, session_id=None):
+    """Generate elements-only image specifically for V-Tracer (no background, no text)"""
+    try:
+        logger.info("Generating elements-only image for V-Tracer processing")
+
+        # Create specialized prompt for elements-only image
+        vtracer_prompt = f"""Create a clean vector-style image with ONLY graphic elements and shapes on a transparent/white background. 
+        
+Based on this design: {enhanced_prompt}
+        
+IMPORTANT REQUIREMENTS:
+        - NO text or typography whatsoever
+        - NO background patterns, textures, or colors - use pure white/transparent background
+        - ONLY include graphic elements: shapes, icons, illustrations, decorative elements
+        - Make elements bold and clear for vector tracing
+        - High contrast elements that will trace well
+        - Simple, clean vector-friendly designs
+        - Focus on the core visual elements only
+        
+This image will be processed by a vector tracer, so elements should be clear and well-defined."""
+        
+        logger.info(f"V-Tracer elements prompt: {vtracer_prompt[:200]}...")
+
+        response = openai.images.generate(
+            model=GPT_IMAGE_MODEL,
+            prompt=vtracer_prompt,
+            size="1024x1024",
+            quality="low"  # Higher quality for better V-Tracer results
+        )
+
+        # Get base64 image data from the response
+        image_base64 = response.data[0].b64_json if hasattr(response.data[0], 'b64_json') else response.data[0].url
+
+        # Save the V-Tracer input image with clear naming
+        vtracer_filename, vtracer_relative_path, _ = save_image(image_base64, prefix="vtracer_input", session_id=session_id)
+
+        logger.info(f"V-Tracer elements image generated and saved: {vtracer_filename}")
+        return image_base64, vtracer_relative_path, vtracer_filename
+    except Exception as e:
+        logger.error(f"Error generating V-Tracer elements image: {str(e)}")
         raise
 
 def generate_svg_from_image(image_base64, enhanced_prompt):
@@ -1644,12 +1657,8 @@ Provide a detailed description that could be used to recreate just the backgroun
         background_filename, background_relative_path, _ = save_image(background_base64, prefix="background", session_id=session_id)
         background_full_path = os.path.join(IMAGES_DIR, background_relative_path)
         
-        # Create public URL for the background
-        background_public_url = get_public_image_url(background_relative_path)
-        
         logger.info(f"Background extracted and saved: {background_filename}")
-        logger.info(f"Background public URL: {background_public_url}")
-        return background_base64, background_filename, background_full_path, background_public_url
+        return background_base64, background_filename, background_full_path
         
     except Exception as e:
         logger.error(f"Error in background extraction: {str(e)}")
@@ -1659,12 +1668,8 @@ Provide a detailed description that could be used to recreate just the backgroun
         fallback_filename, fallback_relative_path, _ = save_image(image_base64, prefix="background_fallback", session_id=session_id)
         fallback_full_path = os.path.join(IMAGES_DIR, fallback_relative_path)
         
-        # Create public URL for fallback
-        fallback_public_url = get_public_image_url(fallback_relative_path)
-        
         logger.warning("Using original image as background fallback")
-        logger.info(f"Fallback background public URL: {fallback_public_url}")
-        return image_base64, fallback_filename, fallback_full_path, fallback_public_url
+        return image_base64, fallback_filename, fallback_full_path
 
 def process_clean_svg(image_data):
     """Process text AND background removal and convert to clean SVG (elements only)"""
@@ -1928,27 +1933,36 @@ def generate_parallel_svg():
         # Build advanced image prompt optimized for parallel SVG processing
         image_prompt = build_advanced_image_prompt(enhanced_prompt, design_context)
 
-        # Stage 6: Image Generation via GPT-Image using enhanced prompt
-        logger.info('Stage 6: Image Generation via GPT-Image with enhanced prompt')
+        # Stage 6A: Generate initial reference image
+        logger.info('Stage 6A: Generating initial reference image')
         logger.debug(f'Image prompt: {image_prompt[:200]}...')
-        image_base64, temp_image_filename, initial_public_url = generate_image_with_gpt(image_prompt, design_context)
-        image_data = base64.b64decode(image_base64)
+        initial_image_base64, temp_image_filename = generate_image_with_gpt(image_prompt, design_context)
         
-        # Save the initial generated image to unified storage immediately
-        logger.info(f'Saving initial generated image to unified storage session: {parallel_session_id}')
-        initial_image_filename, initial_image_relative_path, _ = save_image(image_base64, prefix="initial_generated", session_id=parallel_session_id)
+        # Save the initial reference image to unified storage
+        logger.info(f'Saving initial reference image to unified storage session: {parallel_session_id}')
+        initial_image_filename, initial_image_relative_path, _ = save_image(initial_image_base64, prefix="initial_reference", session_id=parallel_session_id)
+        
+        # Stage 6B: Generate specialized V-Tracer input image (elements only, no background, no text)
+        logger.info('Stage 6B: Generating specialized V-Tracer input image (elements only)')
+        vtracer_image_base64, vtracer_image_relative_path, vtracer_image_filename = generate_vtracer_elements_image(image_prompt, design_context, session_id=parallel_session_id)
+        vtracer_image_data = base64.b64decode(vtracer_image_base64)
+        
+        logger.info(f'V-Tracer input image saved: {vtracer_image_filename}')
 
-        # Stage 7: Triple Parallel Processing
+        # Stage 7: Triple Parallel Processing using different images for different purposes
         logger.info('Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG')
         with ThreadPoolExecutor(max_workers=3) as executor:
-            # Submit all three tasks
-            ocr_future = executor.submit(process_ocr_svg, image_data)
-            background_future = executor.submit(process_background_extraction, image_data)
-            elements_future = executor.submit(process_clean_svg, image_data)
+            # Submit all three tasks with appropriate images
+            # Use initial reference image for text extraction and background extraction
+            initial_image_data = base64.b64decode(initial_image_base64)
+            ocr_future = executor.submit(process_ocr_svg, initial_image_data)  # Use reference image for text
+            background_future = executor.submit(process_background_extraction, initial_image_data)  # Use reference image for background
+            # Use specialized V-Tracer image for elements processing
+            elements_future = executor.submit(process_clean_svg, vtracer_image_data)  # Use V-Tracer image for elements
             
             # Get results
             text_svg_code, text_svg_path = ocr_future.result()
-            background_base64, background_filename, background_path, background_public_url = background_future.result()
+            background_base64, background_filename, background_path = background_future.result()
             elements_svg_code, elements_svg_path, edited_png_path = elements_future.result()
 
         # Session already created above
@@ -1984,42 +1998,27 @@ def generate_parallel_svg():
             elements_svg_relative_path = elements_svg_path
             edited_png_relative_path = os.path.basename(edited_png_path)
 
-        # Construct PUBLIC URLs for serving using unified storage paths  
-        initial_image_public_url = get_public_image_url(f"sessions/{parallel_session_id}/{initial_image_filename}")
-        text_svg_public_url = get_public_image_url(f"sessions/{parallel_session_id}/{os.path.basename(text_svg_relative_path)}")
-        # Use the background_public_url we already have from the background extraction
-        elements_svg_public_url = get_public_image_url(f"sessions/{parallel_session_id}/{os.path.basename(elements_svg_relative_path)}")
-        edited_png_public_url = get_public_image_url(f"sessions/{parallel_session_id}/{os.path.basename(edited_png_relative_path)}")
-
-        # Log all public URLs for debugging
-        logger.info(f"Generated public URLs:")
-        logger.info(f"  Initial image: {initial_image_public_url}")
-        logger.info(f"  Background: {background_public_url}")
-        logger.info(f"  Text SVG: {text_svg_public_url}")
-        logger.info(f"  Elements SVG: {elements_svg_public_url}")
-        logger.info(f"  Elements PNG: {edited_png_public_url}")
-
-        # Also create relative URLs for backward compatibility in response
+        # Construct URLs for serving using unified storage paths
         initial_image_url = f"{base_url}/{parallel_session_id}/{initial_image_filename}"
+        vtracer_input_url = f"{base_url}/{parallel_session_id}/{vtracer_image_filename}"
         text_svg_url = f"{base_url}/{parallel_session_id}/{os.path.basename(text_svg_relative_path)}"
         background_url = f"{base_url}/{parallel_session_id}/{os.path.basename(background_relative_path)}"
         elements_svg_url = f"{base_url}/{parallel_session_id}/{os.path.basename(elements_svg_relative_path)}"
         edited_png_url = f"{base_url}/{parallel_session_id}/{os.path.basename(edited_png_relative_path)}"
 
-        # Stage 8: AI-Powered 3-Layer SVG Combination using PUBLIC URLs for proper embedding
-        logger.info('Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano with PUBLIC background URL')
-        logger.info(f'Using public background URL for SVG combination: {background_public_url}')
-        combined_svg_code = ai_combine_svgs(text_svg_code, elements_svg_code, background_public_url)
+        # Stage 8: AI-Powered 3-Layer SVG Combination using served URLs
+        logger.info('Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano')
+        combined_svg_code = ai_combine_svgs(text_svg_code, elements_svg_code, background_url)
         
         # Validate the combined SVG
         if not combined_svg_code or not combined_svg_code.strip():
-            logger.error("Combined SVG is empty, using fallback with public URL")
-            combined_svg_code = simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_public_url)
+            logger.error("Combined SVG is empty, using fallback")
+            combined_svg_code = simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_url)
         
         # Ensure the SVG is well-formed
         if not combined_svg_code.strip().startswith('<svg'):
-            logger.warning("Combined SVG doesn't start with <svg, using fallback with public URL")
-            combined_svg_code = simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_public_url)
+            logger.warning("Combined SVG doesn't start with <svg, using fallback")
+            combined_svg_code = simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_url)
         
         # Save combined SVG to unified storage
         combined_svg_filename, combined_svg_relative_path, _ = save_svg(combined_svg_code, prefix="combined_svg", session_id=parallel_session_id)
@@ -2031,260 +2030,48 @@ def generate_parallel_svg():
 
         return jsonify({
             'original_prompt': user_input,
-            'initial_image': {
+            'initial_reference_image': {
                 'url': initial_image_url,
-                'public_url': initial_image_public_url,
                 'path': initial_image_relative_path,
-                'filename': initial_image_filename
+                'filename': initial_image_filename,
+                'description': 'Initial reference image with full design'
+            },
+            'vtracer_input_image': {
+                'url': vtracer_input_url,
+                'path': vtracer_image_relative_path,
+                'filename': vtracer_image_filename,
+                'description': 'Elements-only image for V-Tracer processing (no background, no text)'
             },
             'background': {
                 'base64': background_base64,
                 'path': f"sessions/{parallel_session_id}/{os.path.basename(background_relative_path)}",
-                'url': background_url,
-                'public_url': background_public_url
+                'url': background_url
             },
             'elements_png': {
                 'path': f"sessions/{parallel_session_id}/{os.path.basename(edited_png_relative_path)}",
-                'url': edited_png_url,
-                'public_url': edited_png_public_url
+                'url': edited_png_url
             },
             'text_svg': {
                 'code': text_svg_code,
                 'path': f"sessions/{parallel_session_id}/{os.path.basename(text_svg_relative_path)}",
-                'url': text_svg_url,
-                'public_url': text_svg_public_url
+                'url': text_svg_url
             },
             'elements_svg': {
                 'code': elements_svg_code,
                 'path': f"sessions/{parallel_session_id}/{os.path.basename(elements_svg_relative_path)}",
-                'url': elements_svg_url,
-                'public_url': elements_svg_public_url
+                'url': elements_svg_url
             },
             'combined_svg': {
                 'code': combined_svg_code,
                 'path': combined_svg_relative_path,
-                'url': combined_svg_url,
-                'public_url': get_public_image_url(combined_svg_relative_path)
+                'url': combined_svg_url
             },
             'session_id': parallel_session_id,
-            'stage': 8,
-            'note': 'SVG now uses public URLs for proper image embedding'
+            'stage': 8
         })
 
     except Exception as e:
         logger.error(f"Error in generate_parallel_svg: {str(e)}")
-        return jsonify({"error": str(e)}), 500
-
-def process_image_with_gpt_image(image_url, session_id):
-    """Process main image through GPT Image-1 to remove text and background"""
-    try:
-        # Create prompt to remove text and background, keeping only elements
-        removal_prompt = """Remove ALL text and background from this image completely. 
-        Keep only the main visual elements/objects/graphics. 
-        Make the background completely transparent or white. 
-        Remove any text, labels, watermarks, or written content entirely. 
-        The result should show only the pure visual elements without any text or background patterns."""
-        
-        logger.info(f"Processing image with GPT Image-1: {image_url}")
-        logger.info(f"Removal prompt: {removal_prompt}")
-        
-        # Make request to GPT Image-1 API
-        headers = {
-            "Authorization": f"Bearer {OPENAI_API_KEY_SVG}",
-            "Content-Type": "application/json"
-        }
-        
-        payload = {
-            "model": GPT_IMAGE_MODEL,
-            "prompt": removal_prompt,
-            "image": image_url,
-            "size": "1024x1024",
-            "quality": "standard",
-            "n": 1
-        }
-        
-        response = requests.post(
-            "https://api.openai.com/v1/images/edits",
-            headers=headers,
-            json=payload,
-            timeout=60
-        )
-        
-        if response.status_code != 200:
-            logger.error(f"GPT Image-1 API error: {response.status_code} - {response.text}")
-            return {
-                "success": False,
-                "error": f"GPT Image-1 API error: {response.status_code}"
-            }
-        
-        result = response.json()
-        
-        if not result.get('data') or len(result['data']) == 0:
-            return {
-                "success": False,
-                "error": "No image generated by GPT Image-1"
-            }
-        
-        # Download the generated clean image
-        clean_image_url = result['data'][0]['url']
-        
-        # Save the clean image locally
-        image_response = requests.get(clean_image_url, timeout=30)
-        if image_response.status_code != 200:
-            return {
-                "success": False,
-                "error": "Failed to download clean image"
-            }
-        
-        # Save to session directory
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        image_filename = f"clean_meat_ratio_{timestamp}_{uuid.uuid4().hex[:8]}.png"
-        session_dir = os.path.join(UNIFIED_STORAGE_DIR, session_id)
-        image_path = os.path.join(session_dir, image_filename)
-        
-        with open(image_path, 'wb') as f:
-            f.write(image_response.content)
-        
-        logger.info(f"Clean image saved: {image_path}")
-        
-        return {
-            "success": True,
-            "image_path": image_path,
-            "image_url": clean_image_url
-        }
-        
-    except Exception as e:
-        logger.error(f"Error processing image with GPT Image-1: {str(e)}")
-        return {
-            "success": False,
-            "error": str(e)
-        }
-
-def convert_clean_image_to_svg(image_path, session_id):
-    """Convert clean image to SVG using vtracer"""
-    try:
-        if not PARALLEL_FEATURES_AVAILABLE:
-            return {
-                "success": False,
-                "error": "vtracer not available"
-            }
-        
-        logger.info(f"Converting image to SVG: {image_path}")
-        
-        # Use vtracer to convert PNG to SVG
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        svg_filename = f"meat_ratio_svg_{timestamp}_{uuid.uuid4().hex[:8]}.svg"
-        session_dir = os.path.join(UNIFIED_STORAGE_DIR, session_id)
-        svg_path = os.path.join(session_dir, svg_filename)
-        
-        # vtracer conversion
-        vtracer.convert_image_to_svg_py(
-            input_path=image_path,
-            output_path=svg_path,
-            colormode='color',
-            hierarchical='stacked',
-            mode='spline',
-            filter_speckle=4,
-            color_precision=6,
-            layer_difference=16,
-            corner_threshold=60,
-            length_threshold=4.0,
-            max_iterations=10,
-            splice_threshold=45,
-            path_precision=3
-        )
-        
-        if not os.path.exists(svg_path):
-            return {
-                "success": False,
-                "error": "SVG file was not created"
-            }
-        
-        logger.info(f"SVG generated: {svg_path}")
-        
-        return {
-            "success": True,
-            "svg_path": svg_path
-        }
-        
-    except Exception as e:
-        logger.error(f"Error converting image to SVG: {str(e)}")
-        return {
-            "success": False,
-            "error": str(e)
-        }
-
-@app.route('/api/generate-meat-ratio-svg', methods=['POST'])
-def generate_meat_ratio_svg():
-    """Generate SVG from meat ratio by processing main image through GPT Image-1 to remove text/background"""
-    try:
-        data = request.json
-        main_image_url = data.get('main_image_url', '')
-        
-        if not main_image_url:
-            return jsonify({"error": "No main image URL provided"}), 400
-        
-        logger.info("="*80)
-        logger.info(f"Starting meat ratio SVG generation from image: {main_image_url}")
-        logger.info("="*80)
-        
-        # Create session ID for this generation
-        session_id = f"meat_ratio_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}"
-        session_dir = os.path.join(UNIFIED_STORAGE_DIR, session_id)
-        os.makedirs(session_dir, exist_ok=True)
-        
-        logger.info(f"Created session directory: {session_dir}")
-        
-        # Step 1: Process main image through GPT Image-1 to remove text and background
-        logger.info("\n[STEP 1: Processing main image through GPT Image-1]")
-        logger.info("-"*50)
-        
-        clean_image_response = process_image_with_gpt_image(main_image_url, session_id)
-        
-        if not clean_image_response.get('success'):
-            return jsonify({
-                "error": "Failed to process image through GPT Image-1",
-                "details": clean_image_response.get('error', 'Unknown error')
-            }), 500
-        
-        clean_image_path = clean_image_response['image_path']
-        logger.info(f"Clean image generated: {clean_image_path}")
-        
-        # Step 2: Convert clean image to SVG
-        logger.info("\n[STEP 2: Converting clean image to SVG]")
-        logger.info("-"*50)
-        
-        if not PARALLEL_FEATURES_AVAILABLE:
-            logger.warning("vtracer not available, cannot convert to SVG")
-            return jsonify({
-                "warning": "SVG conversion not available",
-                "clean_image_url": f"/static/images/sessions/{session_id}/{os.path.basename(clean_image_path)}"
-            }), 200
-        
-        svg_response = convert_clean_image_to_svg(clean_image_path, session_id)
-        
-        if not svg_response.get('success'):
-            logger.warning(f"SVG conversion failed: {svg_response.get('error')}")
-            return jsonify({
-                "warning": "SVG conversion failed, returning clean image only",
-                "clean_image_url": f"/static/images/sessions/{session_id}/{os.path.basename(clean_image_path)}",
-                "error": svg_response.get('error')
-            }), 200
-        
-        svg_path = svg_response['svg_path']
-        logger.info(f"SVG generated: {svg_path}")
-        
-        # Return successful response
-        return jsonify({
-            "success": True,
-            "session_id": session_id,
-            "clean_image_url": f"/static/images/sessions/{session_id}/{os.path.basename(clean_image_path)}",
-            "svg_url": f"/static/images/sessions/{session_id}/{os.path.basename(svg_path)}",
-            "message": "Meat ratio SVG generated successfully"
-        })
-        
-    except Exception as e:
-        logger.error(f"Meat ratio SVG generation error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/test-enhancement', methods=['POST'])

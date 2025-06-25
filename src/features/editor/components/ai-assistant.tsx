@@ -404,7 +404,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       
       try {
         // Try local parallel SVG endpoint first
-        response = await fetch("http://127.0.0.1:5001/api/generate-parallel-svg", {
+        response = await fetch("http://127.0.0.1:5000/api/generate-parallel-svg", {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

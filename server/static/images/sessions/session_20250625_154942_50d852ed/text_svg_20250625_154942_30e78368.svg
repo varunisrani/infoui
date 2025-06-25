@@ -1,0 +1,30 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .main-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 140px;
+      fill: #FFF8E7;
+      filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.4));
+      letter-spacing: 10px;
+    }
+    .sub-text {
+      font-family: 'Arial', sans-serif;
+      font-weight: 600;
+      font-size: 40px;
+      fill: #F0EEE9;
+      letter-spacing: 5px;
+    }
+    .bottom-text {
+      font-family: 'Arial', sans-serif;
+      font-weight: 400;
+      font-size: 30px;
+      fill: #F0EEE9;
+      letter-spacing: 4px;
+    }
+  </style>
+  <text class="main-text" x="50%" y="40%" dominant-baseline="middle" text-anchor="middle">COMING</text>
+  <text class="main-text" x="50%" y="55%" dominant-baseline="middle" text-anchor="middle">SOON</text>
+  <text class="sub-text" x="50%" y="70%" dominant-baseline="middle" text-anchor="middle">LAUNCHING ON MAY 13</text>
+  <text class="bottom-text" x="50%" y="80%" dominant-baseline="middle" text-anchor="middle">© © TLSOKREAPH</text>
+</svg>

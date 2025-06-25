@@ -1,0 +1,24 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .title {
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 96px;
+      fill: #d0eaff;
+      filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5));
+    }
+    .subtitle {
+      font-family: 'Arial', sans-serif;
+      font-weight: normal;
+      font-size: 48px;
+      fill: #e1ebf7;
+    }
+  </style>
+  <text x="540" y="540" class="title" text-anchor="middle" dominant-baseline="middle">Coming Soon</text>
+  <text x="540" y="640" class="subtitle" text-anchor="middle" dominant-baseline="middle">
+    Stay juneid for our
+  </text>
+  <text x="540" y="700" class="subtitle" text-anchor="middle" dominant-baseline="middle" >
+    eacking new laünch!
+  </text>
+</svg>

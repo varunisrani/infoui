@@ -1,0 +1,16 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 140px;
+      fill: #66E3FF;
+      stroke: #33C1E5;
+      stroke-width: 1.2px;
+      filter: drop-shadow(0 0 6px #66E3FF);
+      letter-spacing: 0.1em;
+    }
+  </style>
+  <text x="50%" y="450" text-anchor="middle" class="text">COMING</text>
+  <text x="50%" y="620" text-anchor="middle" class="text">SOON</text>
+</svg>

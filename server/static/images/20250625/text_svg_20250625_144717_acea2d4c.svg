@@ -1,0 +1,36 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .title {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 130px;
+      fill: url(#grad1);
+      stroke: #2a2f3a;
+      stroke-width: 2;
+      filter: url(#shadow);
+      text-anchor: middle;
+    }
+    .subtitle {
+      font-family: 'Arial', sans-serif;
+      font-size: 42px;
+      fill: url(#grad2);
+      text-anchor: middle;
+    }
+  </style>
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e0f3ff"/>
+      <stop offset="100%" stop-color="#7aaedc"/>
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff9cce"/>
+      <stop offset="100%" stop-color="#ffcc96"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%" >
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.7"/>
+    </filter>
+  </defs>
+  <text class="title" x="50%" y="45%">COMING</text>
+  <text class="title" x="50%" y="65%">SOON</text>
+  <text class="subtitle" x="50%" y="82%">L.uinching in Jure 2024</text>
+</svg>
