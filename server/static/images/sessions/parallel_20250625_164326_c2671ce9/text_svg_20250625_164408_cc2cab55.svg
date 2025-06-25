@@ -1,0 +1,29 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .blue-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 180px;
+      fill: #20CBFF;
+      filter: drop-shadow(0 0 10px #20CBFF);
+    }
+    .orange-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 180px;
+      fill: #FF8700;
+      filter: drop-shadow(0 0 10px #FF8700);
+    }
+    .small-text {
+      font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 50px;
+      fill: #D4D4D4;
+    }
+  </style>
+  <text x="170" y="420" class="blue-text">COM</text>
+  <text x="630" y="420" class="orange-text">ING</text>
+  <text x="170" y="620" class="blue-text">SO</text>
+  <text x="540" y="620" class="orange-text">ON</text>
+  <text x="370" y="750" class="small-text">Lounching Scon</text>
+</svg>

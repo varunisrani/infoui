@@ -1,0 +1,21 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .large-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 180px;
+      fill: #ffffff;
+      letter-spacing: 0.05em;
+    }
+    .small-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 40px;
+      fill: #ffffff;
+      letter-spacing: 0.05em;
+    }
+  </style>
+  <text x="50%" y="45%" class="large-text" text-anchor="middle" dominant-baseline="middle">COMING</text>
+  <text x="50%" y="65%" class="large-text" text-anchor="middle" dominant-baseline="middle">SOON</text>
+  <text x="50%" y="80%" class="small-text" text-anchor="middle" dominant-baseline="middle">www.risingus.com</text>
+</svg>

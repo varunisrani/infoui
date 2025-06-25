@@ -1,0 +1,32 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .gold-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 150px;
+      fill: url(#gold-gradient);
+      stroke: #5b4a17;
+      stroke-width: 3px;
+      paint-order: stroke;
+      letter-spacing: 2px;
+    }
+    .launch-text {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 50px;
+      fill: #b5d4ff;
+      letter-spacing: 4px;
+    }
+  </style>
+  <defs>
+    <linearGradient id="gold-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffefbd"/>
+      <stop offset="40%" stop-color="#d79d18"/>
+      <stop offset="60%" stop-color="#c98206"/>
+      <stop offset="100%" stop-color="#5f4200"/>
+    </linearGradient>
+  </defs>
+  <text class="gold-text" x="50%" y="45%" dominant-baseline="middle" text-anchor="middle">COMING</text>
+  <text class="gold-text" x="50%" y="63%" dominant-baseline="middle" text-anchor="middle">SOON</text>
+  <text class="launch-text" x="50%" y="81%" dominant-baseline="middle" text-anchor="middle">LAUNCHING SOON</text>
+</svg>

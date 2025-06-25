@@ -1,0 +1,42 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .quote-part {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      fill: #205983;
+      font-size: 80px;
+      white-space: pre-wrap;
+      text-anchor: middle;
+    }
+    .quote-double {
+      font-family: Georgia, serif;
+      font-weight: 700;
+      fill: #515eaa;
+      font-size: 80px;
+      white-space: pre-wrap;
+      text-anchor: middle;
+    }
+    .author {
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      fill: #7f7f7f;
+      font-size: 35px;
+      white-space: pre;
+      text-anchor: middle;
+      filter: url(#authorBlur);
+    }
+  </style>
+  <defs>
+    <filter id="authorBlur" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="1" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+  <text x="540" y="540" class="quote-part" dy="-60" >
+    <tspan x="540" dy="0">Thie is a</tspan>
+    <tspan x="540" dy="90">wonderful</tspan>
+    <tspan x="540" dy="90">prodlict.</tspan>
+  </text>
+  <text x="408" y="470" class="quote-double">“</text>
+  <text x="700" y="730" class="quote-double">”</text>
+  <text x="540" y="820" class="author">— MUZE 201, Bye &amp; Sereppy</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .largeText {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 140px;
+      fill: #FBFAF5;
+      text-anchor: middle;
+      filter: drop-shadow(0 0 4px #44556680);
+    }
+    .smallText {
+      font-family: 'Arial', sans-serif;
+      font-weight: 400;
+      font-size: 36px;
+      fill: #AABCD8;
+      text-anchor: middle;
+    }
+  </style>
+  <text x="540" y="460" class="largeText">COMING</text>
+  <text x="540" y="620" class="largeText">SOON</text>
+  <text x="540" y="740" class="smallText">Launching Fall 2024</text>
+</svg>

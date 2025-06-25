@@ -1,0 +1,13 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .text {
+      fill: #f1f1f1;
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 200px;
+      letter-spacing: -5px;
+    }
+  </style>
+  <text x="50%" y="40%" class="text" dominant-baseline="middle" text-anchor="middle">COMING</text>
+  <text x="50%" y="65%" class="text" dominant-baseline="middle" text-anchor="middle">SOON</text>
+</svg>

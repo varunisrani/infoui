@@ -1,0 +1,29 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .title {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 180px;
+      fill: #ffffff;
+      filter: drop-shadow(0 0 10px #ff66ff);
+      letter-spacing: 3px;
+    }
+    .timer {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 80px;
+      fill: #ffffff;
+      filter: drop-shadow(0 0 6px #ff66ff);
+      letter-spacing: 5px;
+    }
+  </style>
+  <text x="50%" y="45%" class="title" dominant-baseline="middle" text-anchor="middle">
+    COMING
+  </text>
+  <text x="50%" y="65%" class="title" dominant-baseline="middle" text-anchor="middle">
+    SOON
+  </text>
+  <text x="50%" y="85%" class="timer" dominant-baseline="middle" text-anchor="middle">
+    09 :: 23 | 59 : 43
+  </text>
+</svg>

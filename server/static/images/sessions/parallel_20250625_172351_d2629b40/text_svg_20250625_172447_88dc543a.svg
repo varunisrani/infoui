@@ -1,0 +1,14 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+    .text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      fill: #FFFFFF;
+      text-anchor: middle;
+      filter: drop-shadow(0 0 10px #A9DCF9);
+    }
+  </style>
+  <text class="text" x="540" y="480" font-size="120" letter-spacing="0.1em">COMING</text>
+  <text class="text" x="540" y="620" font-size="120" letter-spacing="0.1em">SOON</text>
+</svg>

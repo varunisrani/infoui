@@ -1,0 +1,24 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .small-text {
+      font-family: Arial, sans-serif;
+      font-weight: 700;
+      font-size: 36px;
+      fill: white;
+      text-anchor: middle;
+      letter-spacing: 2.7px;
+    }
+    .large-text {
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      font-size: 180px;
+      fill: white;
+      text-anchor: middle;
+      letter-spacing: -6px;
+    }
+  </style>
+  <text class="small-text" x="540" y="120">O</text>
+  <text class="large-text" x="540" y="550">COMING</text>
+  <text class="large-text" x="540" y="740">SOON</text>
+  <text class="small-text" x="540" y="870">LAUNCHING SOON</text>
+</svg>

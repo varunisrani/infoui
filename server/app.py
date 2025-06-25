@@ -91,13 +91,13 @@ OPENAI_API_BASE = "https://api.openai.com/v1"
 OPENAI_CHAT_ENDPOINT = f"{OPENAI_API_BASE}/chat/completions"
 
 # Model names - updated to use GPT-4.1 mini for logic/text and gpt-image for images
-PLANNER_MODEL = "gpt-4.1-nano"
-DESIGN_KNOWLEDGE_MODEL = "gpt-4.1-nano"
-PRE_ENHANCER_MODEL = "gpt-4.1-nano"
-PROMPT_ENHANCER_MODEL = "gpt-4.1-nano"
+PLANNER_MODEL = "gpt-4.1-mini"
+DESIGN_KNOWLEDGE_MODEL = "gpt-4.1-mini"
+PRE_ENHANCER_MODEL = "gpt-4.1-mini"
+PROMPT_ENHANCER_MODEL = "gpt-4.1-mini"
 GPT_IMAGE_MODEL = "gpt-image-1"
-SVG_GENERATOR_MODEL = "gpt-4.1-nano"
-CHAT_ASSISTANT_MODEL = "gpt-4.1-nano"
+SVG_GENERATOR_MODEL = "gpt-4.1-mini"
+CHAT_ASSISTANT_MODEL = "gpt-4.1-mini"
 
 # Add parallel SVG processing imports
 from concurrent.futures import ThreadPoolExecutor
@@ -161,7 +161,7 @@ Provide guidance if the request isn't suitable."""
             }
         ],
         "temperature": 0.7,
-        "max_tokens": 500
+        "max_tokens": 5000
     }
 
     response = requests.post(url, headers=headers, json=payload)
@@ -235,7 +235,7 @@ Focus on creating a practical, implementable plan with specific details that can
             }
         ],
         "temperature": 0.8,
-        "max_tokens": 1200
+        "max_tokens":  6000
     }
 
     response = requests.post(url, headers=headers, json=payload)
@@ -307,7 +307,7 @@ Focus on providing concrete, implementable advice that will directly improve des
             }
         ],
         "temperature": 0.8,
-        "max_tokens": 1800
+        "max_tokens": 18000
     }
 
     response = requests.post(url, headers=headers, json=payload)
@@ -391,7 +391,7 @@ Transform the user's request into this comprehensive format while maintaining de
             }
         ],
         "temperature": 1,
-        "max_tokens": 4000
+        "max_tokens":  6000
     }
 
     logger.info(f"Calling OpenAI Chat API for initial prompt enhancement with model: {PRE_ENHANCER_MODEL}")
@@ -468,7 +468,7 @@ Transform the design description into a comprehensive SVG specification that wil
             }
         ],
         "temperature": 1,
-        "max_tokens": 4000
+        "max_tokens": 20000
     }
 
     logger.info(f"Calling OpenAI Chat API for prompt enhancement with model: {PROMPT_ENHANCER_MODEL}")
@@ -618,7 +618,7 @@ Return ONLY the enhanced prompt optimized for GPT Image-1, no explanations."""
             }
         ],
         "temperature": 0.8,
-        "max_tokens": 800
+        "max_tokens": 20000
     }
 
     try:
@@ -1067,7 +1067,7 @@ Current context: You are helping a user with their design project."""
             model=CHAT_ASSISTANT_MODEL,
             messages=ai_messages,
             temperature=0.7,
-            max_tokens=1000
+            max_tokens=20000
         )
         
         # Extract the response content safely
@@ -1117,8 +1117,8 @@ The SVG should be production-ready and properly formatted."""
                 "content": f"Original SVG:\n```svg\n{original_svg}\n```\n\nModification request: {modification_request}\n\nPlease provide the modified SVG:"
             }
         ],
-        "temperature": 0.3,
-        "max_tokens": 2000
+        "temperature": 1,
+        "max_tokens": 20000
     }
 
     logger.info("Calling AI for SVG modification")
@@ -1469,7 +1469,7 @@ Create a final prompt that will generate exceptional professional visuals."""
             }
         ],
         "temperature": 0.7,
-        "max_tokens": 1000
+        "max_tokens": 20000
     }
 
     try:
@@ -1533,7 +1533,7 @@ Return ONLY the SVG code without any explanations or comments."""
             {"role": "user", "content": user_content}
         ],
         "temperature": 1,
-        "max_tokens": 2000
+        "max_tokens": 20000
     }
     
     url = "https://api.openai.com/v1/chat/completions"
@@ -1592,8 +1592,8 @@ Provide a detailed description that could be used to recreate just the backgroun
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_content}
             ],
-            "temperature": 0.3,
-            "max_tokens": 1000
+            "temperature": 1,
+            "max_tokens":  6000
         }
         
         url = "https://api.openai.com/v1/chat/completions"
@@ -1713,8 +1713,76 @@ def process_clean_svg(image_data):
             if os.path.exists(temp_file):
                 os.remove(temp_file)
 
+def post_process_svg_remove_first_path(svg_code):
+    """Post-process the combined SVG using OpenAI gpt-4.1-mini to remove the first path tag after elements-layer"""
+    logger.info("Post-processing SVG to remove first path in elements-layer using OpenAI...")
+    
+    url = OPENAI_CHAT_ENDPOINT
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {OPENAI_API_KEY_SVG}"
+    }
+
+    system_prompt = """You are an expert SVG editor. Your task is to modify SVG code by removing ONLY the first <path> tag that appears after the <g id="elements-layer"> tag.
+
+Instructions:
+1. Find the <g id="elements-layer"> tag in the SVG
+2. Remove ONLY the FIRST <path> tag that appears inside this elements-layer group
+3. Keep all other path tags and all other elements unchanged
+4. Maintain the exact same SVG structure, formatting, and all other content
+5. Do not modify any other parts of the SVG
+
+CRITICAL: Your response must contain ONLY the complete modified SVG code. Start immediately with <svg and end with </svg>. Do not include any explanations, comments, markdown formatting, or any other text whatsoever. The response must be purely valid SVG code that can be directly used."""
+
+    user_prompt = f"""Remove ONLY the first <path> tag inside the <g id="elements-layer"> group from this SVG:
+
+{svg_code}
+
+Return the complete SVG with only that first path removed, keeping everything else exactly the same."""
+
+    payload = {
+        "model": "gpt-4.1-mini",
+        "messages": [
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user", 
+                "content": user_prompt
+            }
+        ],
+        "temperature": 1,
+        "max_tokens": 20000
+    }
+
+    try:
+        logger.info("Calling OpenAI to remove first path in elements-layer...")
+        response = requests.post(url, headers=headers, json=payload)
+        response_data = response.json()
+
+        if response.status_code != 200:
+            logger.error(f"OpenAI API error for SVG post-processing: {response_data}")
+            # Return original SVG if API call fails
+            return svg_code
+
+        ai_response = response_data["choices"][0]["message"]["content"]
+        
+        # Log the response for debugging
+        logger.info(f"AI post-processing response length: {len(ai_response)}")
+        logger.info("AI successfully post-processed SVG - first path removed from elements-layer")
+        
+        # Return the AI response directly
+        processed_svg = ai_response.strip()
+        return processed_svg
+            
+    except Exception as e:
+        logger.error(f"Error in SVG post-processing: {str(e)}")
+        # Return original SVG if processing fails
+        return svg_code
+
 def ai_combine_svgs(text_svg_code, elements_svg_code, background_image_url=None):
-    """AI-powered combination of text, elements SVGs and background image using OpenAI GPT-4.1-nano"""
+    """AI-powered combination of text, elements SVGs and background image using OpenAI gpt-4.1-mini"""
     logger.info("Using AI to intelligently combine 3-layer SVG (background + elements + text)...")
     
     url = OPENAI_CHAT_ENDPOINT
@@ -1732,6 +1800,8 @@ Your goal is to create a single, perfectly combined SVG with proper 3-layer stru
 - LAYER 1 (bottom): Background image element using href URL
 - LAYER 2 (middle): Visual elements/graphics SVG paths
 - LAYER 3 (top): Text elements SVG
+
+
 
 Requirements:
 - Maintains proper layering with correct z-index ordering
@@ -1778,7 +1848,7 @@ Create a 3-layer SVG structure:
 Return only the combined SVG code with proper layering."""
 
     payload = {
-        "model": "gpt-4.1-nano",
+        "model": "gpt-4.1-mini",
         "messages": [
             {
                 "role": "system",
@@ -1793,31 +1863,49 @@ Return only the combined SVG code with proper layering."""
         "max_tokens": 20000
     }
 
-    try:
-        logger.info("Calling OpenAI for intelligent 3-layer SVG combination...")
-        response = requests.post(url, headers=headers, json=payload)
-        response_data = response.json()
-
-        if response.status_code != 200:
-            logger.error(f"OpenAI API error for 3-layer SVG combination: {response_data}")
-            # Fallback to simple combination
-            return simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_image_url)
-
-        ai_response = response_data["choices"][0]["message"]["content"]
-        
-        # Log the response for debugging
-        logger.info(f"AI response length: {len(ai_response)}")
-        logger.info(f"AI response starts with: {repr(ai_response[:50])}")
-        
-        # Return the AI response directly without any extraction logic
-        combined_svg = ai_response.strip()
-        logger.info("AI successfully combined 3-layer SVG - returning direct response")
-        return combined_svg
+    # Retry logic with timeout
+    max_retries = 2
+    timeout_seconds = 60
+    
+    for attempt in range(max_retries + 1):  # +1 to include initial attempt
+        try:
+            if attempt > 0:
+                logger.info(f"Retrying OpenAI call for intelligent 3-layer SVG combination (attempt {attempt + 1}/{max_retries + 1})...")
+            else:
+                logger.info("Calling OpenAI for intelligent 3-layer SVG combination...")
             
-    except Exception as e:
-        logger.error(f"Error in AI 3-layer SVG combination: {str(e)}")
-        # Fallback to simple combination
-        return simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_image_url)
+            response = requests.post(url, headers=headers, json=payload, timeout=timeout_seconds)
+            response_data = response.json()
+
+            if response.status_code != 200:
+                logger.error(f"OpenAI API error for 3-layer SVG combination (attempt {attempt + 1}): {response_data}")
+                if attempt == max_retries:
+                    # Final attempt failed, fallback to simple combination
+                    logger.error("All retry attempts failed, using fallback method")
+                    return simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_image_url)
+                continue  # Try again if not the final attempt
+
+            ai_response = response_data["choices"][0]["message"]["content"]
+            
+            # Log the response for debugging
+            logger.info(f"AI response length: {len(ai_response)}")
+            logger.info(f"AI response starts with: {repr(ai_response[:50])}")
+            
+            # Return the AI response directly without any extraction logic
+            combined_svg = ai_response.strip()
+            logger.info("AI successfully combined 3-layer SVG - returning direct response")
+            return combined_svg
+                
+        except requests.exceptions.Timeout as e:
+            logger.error(f"Timeout error in AI 3-layer SVG combination (attempt {attempt + 1}): {str(e)}")
+            if attempt == max_retries:
+                logger.error(f"Final timeout after {max_retries} retries, using fallback method")
+                return simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_image_url)
+        except Exception as e:
+            logger.error(f"Error in AI 3-layer SVG combination (attempt {attempt + 1}): {str(e)}")
+            if attempt == max_retries:
+                logger.error(f"Final error after {max_retries} retries, using fallback method")
+                return simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_image_url)
 
 def simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_image_url=None):
     """Fallback simple combination method with improved error handling for 3 layers"""
@@ -2007,7 +2095,7 @@ def generate_parallel_svg():
         edited_png_url = f"{base_url}/{parallel_session_id}/{os.path.basename(edited_png_relative_path)}"
 
         # Stage 8: AI-Powered 3-Layer SVG Combination using PUBLIC URLs for proper embedding
-        logger.info('Stage 8: AI-Powered 3-Layer SVG Combination using GPT-4.1-nano with PUBLIC background URL')
+        logger.info('Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4.1-mini with PUBLIC background URL')
         logger.info(f'Using public background URL for SVG combination: {background_public_url}')
         combined_svg_code = ai_combine_svgs(text_svg_code, elements_svg_code, background_public_url)
         
@@ -2020,6 +2108,10 @@ def generate_parallel_svg():
         if not combined_svg_code.strip().startswith('<svg'):
             logger.warning("Combined SVG doesn't start with <svg, using fallback with public URL")
             combined_svg_code = simple_combine_svgs_fallback(text_svg_code, elements_svg_code, background_public_url)
+        
+        # Stage 9: Post-process SVG with OpenAI to remove first path in elements-layer
+        logger.info('Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4.1-mini')
+        combined_svg_code = post_process_svg_remove_first_path(combined_svg_code)
         
         # Save combined SVG to unified storage
         combined_svg_filename, combined_svg_relative_path, _ = save_svg(combined_svg_code, prefix="combined_svg", session_id=parallel_session_id)

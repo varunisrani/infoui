@@ -1,0 +1,40 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+      .glow {
+        font-family: 'Anton', sans-serif;
+        font-weight: 900;
+        font-size: 180px;
+        fill: #fffcf5;
+        filter: drop-shadow(0 0 12px #ff2400) drop-shadow(0 0 18px #ff2400) drop-shadow(0 0 24px #ff2400);
+        letter-spacing: 0.03em;
+        text-anchor: middle;
+      }
+      .underline {
+        stroke: #ff2400;
+        stroke-width: 6;
+        filter: drop-shadow(0 0 12px #ff2400);
+        stroke-linecap: round;
+      }
+      .small-text {
+        font-family: 'Arial', sans-serif;
+        font-weight: 700;
+        font-size: 48px;
+        fill: #c3c3c6;
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+  <g id="background-layer">
+    <image href="http://localhost:5000/static/images/sessions/bg_20250625_174600_e1cf92ce/background_20250625_174600_d732f17a.png" x="0" y="0" width="1080" height="1080" preserveAspectRatio="xMidYMid slice" />
+  </g>
+  <g id="elements-layer" opacity="0.85" transform="scale(1.0546875) translate(0,26)">
+  </g>
+  <g id="text-layer">
+    <text class="glow" x="540" y="440">COMING</text>
+    <text class="glow" x="540" y="660">SOON</text>
+    <line class="underline" x1="350" y1="730" x2="730" y2="730" />
+    <text class="small-text" x="540" y="820">STAY TURED</text>
+  </g>
+</svg>

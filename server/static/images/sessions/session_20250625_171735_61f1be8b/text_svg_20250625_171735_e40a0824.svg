@@ -1,0 +1,26 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <style>
+      .blue {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 180px;
+        fill: none;
+        stroke: #00cfff;
+        stroke-width: 3;
+        filter: drop-shadow(0 0 6px #00cfff);
+      }
+      .orange {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 180px;
+        fill: none;
+        stroke: #ff5a00;
+        stroke-width: 3;
+        filter: drop-shadow(0 0 6px #ff5a00);
+      }
+    </style>
+  </defs>
+  <text x="50%" y="45%" class="blue" dominant-baseline="middle" text-anchor="middle">COMING</text>
+  <text x="50%" y="65%" class="orange" dominant-baseline="middle" text-anchor="middle">SOON</text>
+</svg>

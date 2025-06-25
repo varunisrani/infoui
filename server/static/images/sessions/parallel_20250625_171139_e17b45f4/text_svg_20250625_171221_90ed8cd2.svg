@@ -1,0 +1,23 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .title {
+      fill: #eaf0ff;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      font-size: 140px;
+      letter-spacing: 10px;
+      text-anchor: middle;
+    }
+    .subtitle {
+      fill: #eaf0ff;
+      font-family: Arial, sans-serif;
+      font-weight: normal;
+      font-size: 48px;
+      letter-spacing: 0;
+      text-anchor: middle;
+    }
+  </style>
+  <text x="540" y="360" class="title">COMING</text>
+  <text x="540" y="520" class="title">SOON</text>
+  <text x="540" y="900" class="subtitle">Launching Summer 2924</text>
+</svg>
