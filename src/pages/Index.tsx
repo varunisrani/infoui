@@ -30,7 +30,7 @@ const Index = () => {
           Build the Future with Wrecked Labs
         </h1>
         <p className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl">
-          We are a team of passionate developers and designers dedicated to building innovative and high-quality software solutions. Let's create something amazing together.
+          We are a team of passionate developers and designers dedicated to building innovative and high-quality software solutions. Let&apos;s create something amazing together.
         </p>
         <div className="space-x-4">
           <Button asChild>
