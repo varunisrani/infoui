@@ -1,0 +1,32 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#003366;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff6600;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#gradient)" />
+  
+  <text x="50%" y="200" text-anchor="middle" font-family="Arial" font-weight="bold" font-size="100" fill="#ffffff">
+    COMING SOON
+  </text>
+  
+  <text x="50%" y="400" text-anchor="middle" font-family="Arial" font-size="50" fill="#e0e0e0">
+    Get Ready for
+  </text>
+  
+  <text x="50%" y="500" text-anchor="middle" font-family="Arial" font-size="50" fill="#e0e0e0">
+    Something
+  </text>
+  
+  <text x="50%" y="600" text-anchor="middle" font-family="Arial" font-size="50" fill="#e0e0e0">
+    incredible!
+  </text>
+
+  <text x="50%" y="800" text-anchor="middle" font-family="Arial" font-size="30" fill="#ffffff">
+    www.yourwebsite.com
+  </text>
+  
+  <polygon points="50,400 70,420 30,420" fill="#ffffff" />
+  <polygon points="50,500 70,520 30,520" fill="#ffffff" />
+</svg>

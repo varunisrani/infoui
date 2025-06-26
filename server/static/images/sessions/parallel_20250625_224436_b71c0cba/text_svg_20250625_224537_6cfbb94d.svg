@@ -1,0 +1,32 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .title {
+      font-family: 'Arial Black', Arial, sans-serif;
+      font-weight: 900;
+      font-size: 140px;
+      fill: #073136;
+      text-anchor: middle;
+      letter-spacing: 2.5px;
+    }
+    .subtitle {
+      font-family: 'Bradley Hand', cursive;
+      font-size: 60px;
+      fill: #0b3a41;
+      text-anchor: middle;
+      font-style: italic;
+      letter-spacing: 0.5px;
+    }
+    .button-text {
+      font-family: 'Arial Narrow', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 46px;
+      fill: #c6eeff;
+      text-anchor: middle;
+      letter-spacing: 1.5px;
+    }
+  </style>
+  <text class="title" x="540" y="450">COMING</text>
+  <text class="title" x="540" y="630">SOON</text>
+  <text class="subtitle" x="540" y="735">Len wolang Beave</text>
+  <text class="button-text" x="540" y="860">ARURE M011</text>
+</svg>

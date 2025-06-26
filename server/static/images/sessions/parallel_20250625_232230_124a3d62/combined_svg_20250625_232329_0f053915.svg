@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <!-- Include any definitions from original SVGs -->
+  </defs>
+  <g id="background-layer">
+    <image href="http://localhost:5000/static/images/sessions/bg_20250625_232320_4c1b144d/background_20250625_232320_9a1da166.png" x="0" y="0" width="1080" height="1080" preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="elements-layer" opacity="0.9">
+    
+  </g>
+  <g id="text-layer">
+    <rect width="1080" height="1080" fill="url(#bgGradient)" />
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E3C72;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2A5298;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <text x="50%" y="40%" text-anchor="middle" font-size="120" fill="#FFFFFF" font-family="Serif">COMING</text>
+  <text x="50%" y="60%" text-anchor="middle" font-size="120" fill="#FFFFFF" font-family="Serif">SOON</text>
+  <text x="50%" y="75%" text-anchor="middle" font-size="36" fill="#FFFFFF" font-family="Serif">Get Beady for</text>
+  <text x="50%" y="85%" text-anchor="middle" font-size="36" fill="#FFFFFF" font-family="Serif">the New Collection!</text>
+  </g>
+</svg>

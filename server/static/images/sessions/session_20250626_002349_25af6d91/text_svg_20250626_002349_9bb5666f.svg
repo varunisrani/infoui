@@ -1,0 +1,19 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: 'Arial', sans-serif; font-size: 100px; fill: #F6D03A; font-weight: bold; }
+      .subtitle { font-family: 'Arial', sans-serif; font-size: 40px; fill: #FFFFFF; }
+      .social { font-family: 'Arial', sans-serif; font-size: 40px; fill: #FFFFFF; }
+    </style>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#gradient)" />
+  <text class="title" x="540" y="400" text-anchor="middle" dominant-baseline="middle">Salsa</text>
+  <text class="title" x="540" y="520" text-anchor="middle" dominant-baseline="middle">Soiree</text>
+  <text class="subtitle" x="540" y="670" text-anchor="middle" dominant-baseline="middle">Launching in IS dayid</text>
+  <g class="social" transform="translate(540, 750)" text-anchor="middle">
+    <text y="0">📷</text>
+    <text x="50">📱</text>
+    <text x="100">🌐</text>
+    <text x="150">🐦</text>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .title { font-family: 'Montserrat', sans-serif; font-weight: 700; fill: #064B56; }
+    .subtitle { font-family: 'Montserrat', sans-serif; font-weight: 400; fill: #064B56; }
+  </style>
+  <text x="540" y="480" text-anchor="middle" font-size="120" class="title">COMING</text>
+  <text x="540" y="600" text-anchor="middle" font-size="120" class="title">SOON</text>
+  <text x="540" y="700" text-anchor="middle" font-size="48" class="subtitle">www.example.com</text>
+</svg>

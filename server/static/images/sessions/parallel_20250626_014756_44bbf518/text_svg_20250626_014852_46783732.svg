@@ -1,0 +1,12 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <text x="50%" y="30%" font-family="serif" font-size="96" fill="#4A6E4D" text-anchor="middle">COMING SOON</text>
+    <text x="50%" y="50%" font-family="sans-serif" font-size="36" fill="#4A6E4D" text-anchor="middle">We’re working hard to</text>
+    <text x="50%" y="56%" font-family="sans-serif" font-size="36" fill="#4A6E4D" text-anchor="middle">launch our new site!</text>
+    <text x="50%" y="70%" font-family="sans-serif" font-size="24" fill="#4A6E4D" text-anchor="middle">Stay up to: an wreubber</text>
+    <text x="50%" y="80%" font-family="sans-serif" font-size="36" fill="#4A6E4D" text-anchor="middle">
+        <tspan dx="-50" dy="0">f</tspan>
+        <tspan dx="10" dy="0">t</tspan>
+        <tspan dx="10" dy="0">i</tspan>
+        <tspan dx="10" dy="0">n</tspan>
+    </text>
+</svg>

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet">
+  <g id="background-layer">
+    <image href="http://localhost:5000/static/images/sessions/bg_20250625_223714_0ac3179a/background_20250625_223714_64d39166.png" x="0" y="0" width="1080" height="1080" />
+  </g>
+  <g id="elements-layer" opacity="0.8" transform="scale(1.0547)">
+  </g>
+  <g id="text-layer">
+    <style>
+      .largeText {
+        fill: #FFFFFF;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        font-size: 120px;
+        text-anchor: middle;
+        filter: drop-shadow(0 0 2px rgba(0,0,0,0.7));
+      }
+      .smallText {
+        fill: #5ACFFF;
+        font-family: Arial, sans-serif;
+        font-weight: normal;
+        font-size: 48px;
+        text-anchor: middle;
+        filter: drop-shadow(0 0 1.5px rgba(0,0,0,0.6));
+      }
+    </style>
+    <text x="540" y="480" class="largeText">COMING</text>
+    <text x="540" y="600" class="largeText">SOON</text>
+    <text x="540" y="680" class="smallText">Launching on [Date]</text>
+  </g>
+</svg>

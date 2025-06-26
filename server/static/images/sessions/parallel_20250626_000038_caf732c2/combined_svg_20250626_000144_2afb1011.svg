@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <!-- Include any definitions from original SVGs -->
+  </defs>
+  <g id="background-layer">
+    <image href="http://localhost:5000/static/images/sessions/bg_20250626_000130_f2b7277c/background_20250626_000130_1dd88a9c.png" x="0" y="0" width="1080" height="1080" preserveAspectRatio="xMidYMid slice"/>
+  </g>
+  <g id="elements-layer" opacity="0.9">
+    
+  </g>
+  <g id="text-layer">
+    <defs>
+    <style>
+      .mainText {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 100px;
+        fill: #FFD700; /* Gold color */
+        text-anchor: middle;
+      }
+      .subText {
+        font-family: 'Arial', sans-serif;
+        font-size: 40px;
+        fill: #1E90FF; /* Dodger Blue */
+        text-anchor: middle;
+      }
+      .footerText {
+        font-family: 'Arial', sans-serif;
+        font-size: 30px;
+        fill: #FFFFFF; /* White */
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#gradient)"/>
+  <text class="mainText" x="540" y="300">COMING SOON</text>
+  <text class="subText" x="540" y="400">Something Annanding</text>
+  <text class="subText" x="540" y="460">is on the Honson!</text>
+  <text class="footerText" x="540" y="520">Stay Tuned!</text>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="540" y="400" font-size="72" fill="#FFD700" filter="url(#blur)">
+      COMING
+    </text>
+    <text x="540" y="480" font-size="72" fill="#FFD700" filter="url(#blur)">
+      SOON
+    </text>
+    <text x="540" y="760" font-size="36" fill="#ffffff">
+      www.yourrvebolte.com
+    </text>
+    <text x="540" y="820" font-size="36" fill="#ffffff">
+      00 - 00 - 00 - 00
+    </text>
+  </g>
+  <defs>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+  </defs>
+</svg>

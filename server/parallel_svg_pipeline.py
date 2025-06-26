@@ -26,6 +26,7 @@ import png_to_svg_converter
 from openai import OpenAI
 import requests
 import re
+import sys
 
 # Directory for parallel pipeline outputs
 PARALLEL_OUTPUTS_DIR = os.path.join(IMAGES_DIR, 'parallel')
@@ -33,6 +34,19 @@ os.makedirs(PARALLEL_OUTPUTS_DIR, exist_ok=True)
 
 # Instantiate a GPT client for chat completions
 chat_client = OpenAI()
+
+# Import optimized session from app.py
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+try:
+    from app import openai_session, optimized_openrouter_call, OPENROUTER_API_KEY
+    OPENROUTER_AVAILABLE = bool(OPENROUTER_API_KEY)
+except ImportError:
+    # Fallback to regular requests if import fails
+    import requests
+    openai_session = requests
+    OPENROUTER_AVAILABLE = False
+    def optimized_openrouter_call(*args, **kwargs):
+        return None
 
 def build_advanced_image_prompt(user_input, design_context):
     """Build an advanced image prompt optimized for parallel SVG processing"""
@@ -275,77 +289,97 @@ def reduce_svg_content(svg_code, max_chars=50000):
     return svg_code
 
 def combine_svgs(text_svg_code, traced_svg_code):
-    """Combine text and path SVGs using GPT-4o-mini to produce a unified SVG."""
+    """OPTIMIZED: Combine text and path SVGs using Google Gemini-2.5-flash via OpenRouter or GPT-4o-mini"""
     import time
-    logger.info('Stage 8: Combining SVGs using HTTP API')
-    logger.info('Stage 8.1: Starting SVG combination process')
+    logger.info('Stage 8: OPTIMIZED SVG combination using OpenRouter/OpenAI API')
+    logger.info('Stage 8.1: Starting optimized SVG combination process')
 
-    # Reduce content size to fit within token limits
+    # Reduce content size significantly for faster processing
     original_text_size = len(text_svg_code.encode('utf-8')) if isinstance(text_svg_code, str) else len(text_svg_code)
     original_path_size = len(traced_svg_code.encode('utf-8')) if isinstance(traced_svg_code, str) else len(traced_svg_code)
     logger.info(f'Stage 8.2: Original sizes - Text SVG: {original_text_size} bytes, Traced SVG: {original_path_size} bytes')
 
-    # Reduce traced SVG size significantly as it's usually the largest
-    reduced_traced_svg = reduce_svg_content(traced_svg_code, max_chars=30000)
-    reduced_text_svg = reduce_svg_content(text_svg_code, max_chars=5000)
+    # Aggressive reduction for speed
+    reduced_traced_svg = reduce_svg_content(traced_svg_code, max_chars=20000)  # Reduced from 30000
+    reduced_text_svg = reduce_svg_content(text_svg_code, max_chars=3000)       # Reduced from 5000
 
     reduced_text_size = len(reduced_text_svg.encode('utf-8'))
     reduced_path_size = len(reduced_traced_svg.encode('utf-8'))
     logger.info(f'Stage 8.3: Reduced sizes - Text SVG: {reduced_text_size} bytes, Traced SVG: {reduced_path_size} bytes')
 
-    # Use a simpler combination approach if content is still too large
+    # Use simple combination if content is still large
     total_size = reduced_text_size + reduced_path_size
-    if total_size > 40000:  # Still too large, use simple combination
+    if total_size > 25000:  # Reduced threshold
         logger.info('Stage 8.4: Content still large, using simple combination approach')
         return simple_combine_svgs(reduced_text_svg, reduced_traced_svg)
 
-    logger.info('Stage 8.4: Preparing HTTP API request')
-    system_prompt = """You are an expert SVG combiner. Your task is to create a single, complete SVG that combines vector paths (background) with text elements (foreground).
+    logger.info('Stage 8.4: Preparing optimized HTTP API request')
+    
+    # Simplified system prompt for faster processing
+    system_prompt = """You are an SVG combiner. Combine vector paths (background) with text (foreground).
 
-REQUIREMENTS:
-1. Use viewBox and dimensions from the path SVG
-2. Include ALL styles, defs, and gradients from both SVGs
-3. Layer paths BEHIND text elements
-4. Preserve all text positioning and styling
-5. Ensure proper SVG structure with xmlns namespace
-6. Return ONLY the complete SVG code, no explanations
+Requirements:
+1. Use viewBox from path SVG
+2. Layer paths BEHIND text
+3. Return ONLY complete SVG code
+4. Start with <svg>, end with </svg>
 
-STRUCTURE:
-- Start with <svg> tag with proper attributes
-- Include <style> and <defs> sections if present
-- Add background layer with paths/shapes
-- Add foreground layer with text elements
-- Close with </svg>"""
+Structure:
+<svg xmlns="http://www.w3.org/2000/svg" [attributes]>
+  [background paths/shapes]
+  [foreground text]
+</svg>"""
 
-    user_msg = f"BACKGROUND SVG (paths/shapes):\n{reduced_traced_svg}\n\nFOREGROUND SVG (text/labels):\n{reduced_text_svg}\n\nCombine these into one complete SVG with proper layering."
-    messages = [
-        {'role': 'system', 'content': system_prompt},
-        {'role': 'user', 'content': user_msg}
-    ]
-
-    # Prepare HTTP request
+    user_msg = f"BACKGROUND:\n{reduced_traced_svg}\n\nFOREGROUND:\n{reduced_text_svg}\n\nCombine into one SVG."
+    
+    start_time = time.time()
+    
+    # Try OpenRouter first if available
+    if OPENROUTER_AVAILABLE:
+        logger.info('Stage 8.5: Using Google Gemini-2.5-flash via OpenRouter')
+        combined_svg = optimized_openrouter_call(
+            system_prompt=system_prompt,
+            user_prompt=user_msg,
+            model="google/gemini-2.5-flash",
+            max_tokens=6000,
+            temperature=0.1
+        )
+        
+        if combined_svg:
+            total_time = time.time() - start_time
+            logger.info(f'Stage 8.9: Google Gemini SVG combination completed in {total_time:.2f} seconds total')
+            return validate_and_clean_svg(combined_svg)
+    
+    # Fallback to OpenAI if OpenRouter not available or fails
+    logger.info('Stage 8.5: Falling back to OpenAI GPT-4o-mini')
+    
+    # Prepare optimized HTTP request for OpenAI
     url = "https://api.openai.com/v1/chat/completions"
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': f"Bearer {os.getenv('OPENAI_API_KEY')}"
+        'Authorization': f"Bearer {os.getenv('OPENAI_API_KEY')}",
+        'Connection': 'keep-alive'  # Enable connection reuse
     }
     payload = {
-        'model': 'gpt-4o-mini',
-        'messages': messages,
-        'temperature': 0,
-        'max_tokens': 4000
+        'model': 'gpt-4o-mini',  # Faster model
+        'messages': [
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': user_msg}
+        ],
+        'temperature': 0.1,  # More deterministic
+        'max_tokens': 6000   # Reduced tokens
     }
 
-    start_time = time.time()
-    logger.info('Stage 8.5: Sending HTTP request to OpenAI API')
+    logger.info('Stage 8.6: Sending optimized HTTP request to OpenAI API')
     try:
-        resp = requests.post(url, headers=headers, json=payload, timeout=60)
+        # Use optimized session with connection pooling
+        resp = openai_session.post(url, headers=headers, json=payload, timeout=25)  # Reduced timeout
         api_response_time = time.time() - start_time
-        logger.info(f'Stage 8.6: HTTP response received in {api_response_time:.2f} seconds')
+        logger.info(f'Stage 8.7: HTTP response received in {api_response_time:.2f} seconds')
 
         if resp.status_code != 200:
             logger.error(f'Stage 8 ERROR: {resp.status_code} - {resp.text}')
-            logger.info('Stage 8.7: Falling back to simple combination')
+            logger.info('Stage 8.8: Falling back to simple combination')
             return simple_combine_svgs(reduced_text_svg, reduced_traced_svg)
 
         data = resp.json()
@@ -364,7 +398,7 @@ STRUCTURE:
         combined_size = len(combined_svg.encode('utf-8'))
         logger.info(f'Stage 8.8: Combined SVG size: {combined_size} bytes')
         total_time = time.time() - start_time
-        logger.info(f'Stage 8.9: SVG combination completed in {total_time:.2f} seconds total')
+        logger.info(f'Stage 8.9: OPTIMIZED SVG combination completed in {total_time:.2f} seconds total')
         return combined_svg
 
     except Exception as e:
@@ -544,7 +578,7 @@ def generate_parallel_svg():
         clean_svg_code, clean_svg_path, edited_png_path = clean_future.result()
 
     # Stage 8: Combine SVGs
-    logger.info('Stage 8: Combining SVGs using HTTP API')
+    logger.info('Stage 8: Combining SVGs using OpenRouter/OpenAI API')
     combined_svg_code = combine_svgs(text_svg_code, clean_svg_code)
     combined_svg_filename = f"combined_svg_{datetime.now().strftime('%Y%m%d_%H%M%S')}_{uuid.uuid4().hex[:8]}.svg"
     combined_svg_path = os.path.join(IMAGES_DIR, combined_svg_filename)

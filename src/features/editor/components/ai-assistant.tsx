@@ -224,11 +224,11 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   const ChatSidebar = () => {
     return (
       <div 
-        className={`absolute top-0 left-0 z-50 h-full w-[280px] bg-white dark:bg-slate-900 shadow-xl border-r border-slate-200 dark:border-slate-700 flex flex-col transition-transform ${
+        className={`absolute top-0 left-0 z-50 h-full w-[300px] bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl shadow-2xl border-r border-slate-200/60 dark:border-slate-700/60 flex flex-col transition-all duration-300 ${
           showChatSidebar ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="p-4 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center">
+        <div className="p-4 border-b border-slate-200/60 dark:border-slate-700/60 flex justify-between items-center bg-gradient-to-r from-slate-50/50 to-blue-50/30 dark:from-slate-800/50 dark:to-blue-900/20">
           <div className="flex items-center gap-2">
             <MessageSquare className="h-4 w-4 text-slate-500" />
             <h3 className="font-medium text-sm">Chat History</h3>
@@ -243,7 +243,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
           </Button>
         </div>
         
-        <div className="p-2 border-b border-slate-200 dark:border-slate-700">
+        <div className="p-3 border-b border-slate-200/60 dark:border-slate-700/60 bg-slate-50/30 dark:bg-slate-800/30">
           <Button
             variant="outline"
             size="sm"
@@ -266,7 +266,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
               {chats.map((chat) => (
                 <div 
                   key={chat.id}
-                  className={`p-3 rounded-lg cursor-pointer group transition-colors ${
+                  className={`p-3 rounded-xl cursor-pointer group transition-all duration-200 hover:scale-[1.02] ${
                     activeChat?.id === chat.id 
                       ? 'bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800'
                       : 'hover:bg-slate-50 dark:hover:bg-slate-800/50 border border-transparent'
@@ -627,12 +627,12 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
+    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-100/50 dark:from-slate-900 dark:via-blue-900/10 dark:to-indigo-900/20 relative overflow-hidden">
       {/* Chat Sidebar */}
       <ChatSidebar />
       
       {/* Modern Header */}
-      <div className="relative p-6 pb-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-700/50">
+      <div className="relative p-6 pb-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-700/60 shadow-lg shadow-slate-200/20 dark:shadow-slate-800/20">
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <button 
@@ -641,8 +641,11 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
             >
               <MenuSquare className="h-5 w-5 text-slate-500" />
             </button>
-            <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl">
-              <Sparkles className="h-5 w-5 text-white" />
+            <div className="p-2.5 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 rounded-xl shadow-lg ring-1 ring-white/20 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-xl"></div>
+              <div className="relative">
+                <Sparkles className="h-5 w-5 text-white drop-shadow-sm" />
+              </div>
             </div>
             <div>
               <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -669,11 +672,14 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
         <div ref={chatContainerRef} className="space-y-6">
               {/* Welcome message */}
           {messages.length === 0 && (
-                <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800">
+                <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200/50 dark:border-blue-800/50 shadow-xl ring-1 ring-blue-100/50 dark:ring-blue-800/50">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="p-2 bg-blue-500 rounded-lg">
-                        <Wand2 className="h-4 w-4 text-white" />
+                      <div className="p-2.5 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg shadow-md ring-1 ring-white/20 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-lg"></div>
+                        <div className="relative">
+                          <Wand2 className="h-4 w-4 text-white drop-shadow-sm" />
+                        </div>
                       </div>
                       <h4 className="font-semibold text-blue-700 dark:text-blue-300">
                         {activeChat ? 'Continue Your Conversation' : 'Welcome to AI Design Studio!'}
@@ -719,14 +725,14 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                   className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <Card 
-                    className={`max-w-[85%] ${
+                    className={`max-w-[85%] transition-all duration-300 hover:shadow-xl hover:scale-[1.02] ${
                       message.role === "user" 
-                        ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white border-blue-500" 
-                        : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+                        ? "bg-gradient-to-br from-blue-500 via-indigo-500 to-blue-600 text-white border-0 shadow-lg ring-1 ring-white/20 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/10 before:to-transparent" 
+                        : "bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm border-slate-200/60 dark:border-slate-700/60 shadow-md hover:shadow-lg"
                     }`}
                   >
                     <CardContent className="p-4">
-                      <div className={`text-sm ${message.role === "user" ? "text-blue-50" : "text-slate-700 dark:text-slate-300"}`}>
+                      <div className={`text-sm relative z-10 ${message.role === "user" ? "text-blue-50 drop-shadow-sm" : "text-slate-700 dark:text-slate-300"}`}>
                         {message.role === "assistant" 
                           ? formatMessageContent(message.content)
                           : <span style={{ whiteSpace: 'pre-wrap' }}>{message.content}</span>
@@ -753,7 +759,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
 
       {/* SVG Preview and actions */}
       {svgCode && (
-        <div className="p-4 border-t border-slate-200/50 dark:border-slate-700/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
+        <div className="p-5 border-t border-slate-200/60 dark:border-slate-700/60 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-lg shadow-slate-200/10 dark:shadow-slate-800/20">
           <div className="space-y-3">
             {/* Preview Title */}
             <div className="flex items-center justify-between">
@@ -761,15 +767,15 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                 <Check className="h-3 w-3 text-green-500" />
                 Design Ready
               </h4>
-              <Badge variant="outline" className="text-xs">
-                {showFullImage ? '180×180px' : '120×120px'} Preview
+              <Badge variant="outline" className="text-xs bg-white/50 dark:bg-slate-800/50 border-slate-300/50 dark:border-slate-600/50">
+                {showFullImage ? '200×200px' : '140×140px'} Preview
               </Badge>
             </div>
 
             {/* Compact Design Preview */}
             <div className="flex items-center gap-3">
               <div 
-                className={`${showFullImage ? 'w-[180px] h-[180px]' : 'w-[120px] h-[120px]'} flex items-center justify-center bg-white/50 dark:bg-slate-800/50 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex-shrink-0 relative group`}
+                className={`${showFullImage ? 'w-[200px] h-[200px]' : 'w-[140px] h-[140px]'} flex items-center justify-center bg-white/80 dark:bg-slate-800/80 rounded-xl shadow-lg border border-slate-200/60 dark:border-slate-700/60 overflow-hidden flex-shrink-0 relative group transition-all duration-300 hover:shadow-xl hover:scale-[1.02]`}
                 style={{
                   backgroundImage: `url("data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><rect width="8" height="8" fill="#f8fafc"/><rect x="8" y="8" width="8" height="8" fill="#f8fafc"/></svg>')}")`,
                   backgroundSize: '16px 16px'
@@ -803,7 +809,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                   onClick={useThisSvg}
                   disabled={isAddingToCanvas}
                   size="sm"
-                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white border-0 h-8"
+                  className="bg-gradient-to-r from-green-400 via-emerald-500 to-teal-600 hover:from-green-500 hover:via-emerald-600 hover:to-teal-700 text-white border-0 h-9 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 ring-1 ring-white/20"
                 >
                   {isAddingToCanvas ? (
                     <Loader2 className="h-3 w-3 animate-spin" />
@@ -820,7 +826,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                   onClick={saveToLibrary}
                   disabled={isSaving || isSaved}
                   size="sm"
-                  className="hover:bg-green-50 hover:border-green-300 dark:hover:bg-green-950 h-8"
+                  className="hover:bg-green-50 hover:border-green-300 dark:hover:bg-green-950 h-9 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
                 >
                   {isSaving ? (
                     <Loader2 className="h-3 w-3 animate-spin mr-1" />
@@ -836,7 +842,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                   variant="outline"
                   onClick={() => setShowFullImage(!showFullImage)}
                   size="sm"
-                  className="hover:bg-indigo-50 hover:border-indigo-300 dark:hover:bg-indigo-950 h-8"
+                  className="hover:bg-indigo-50 hover:border-indigo-300 dark:hover:bg-indigo-950 h-9 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
                 >
                   {showFullImage ? (
                     <>
@@ -855,7 +861,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                   variant="outline"
                   onClick={() => setShowQuickActions(!showQuickActions)}
                   size="sm"
-                  className="hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-blue-950 h-8"
+                  className="hover:bg-blue-50 hover:border-blue-300 dark:hover:bg-blue-950 h-9 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
                 >
                   <Wand2 className="h-3 w-3 mr-1" />
                   {showQuickActions ? 'Less' : 'Edit'}
@@ -865,7 +871,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                   variant="outline"
                   onClick={copySvgCode}
                   size="sm"
-                  className="hover:bg-purple-50 hover:border-purple-300 dark:hover:bg-purple-950 h-8"
+                  className="hover:bg-purple-50 hover:border-purple-300 dark:hover:bg-purple-950 h-9 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
                 >
                   <Copy className="h-3 w-3 mr-1" />
                   Copy
@@ -875,7 +881,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
                   variant="outline"
                   onClick={downloadSvg}
                   size="sm"
-                  className="hover:bg-amber-50 hover:border-amber-300 dark:hover:bg-amber-950 h-8"
+                  className="hover:bg-amber-50 hover:border-amber-300 dark:hover:bg-amber-950 h-9 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-105 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
                 >
                   <Download className="h-3 w-3 mr-1" />
                   Save
@@ -909,7 +915,7 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
       )}
 
       {/* Message input area */}
-      <div className="p-4 pt-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-t border-slate-200/50 dark:border-slate-700/50">
+      <div className="p-5 pt-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/60 dark:border-slate-700/60 shadow-lg shadow-slate-200/10 dark:shadow-slate-800/20">
         <div className="space-y-2">
           <div className="flex gap-3 items-end">
             <div className="flex-1 relative">
@@ -929,12 +935,12 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
             <Button 
               onClick={() => sendMessage()} 
               disabled={!newMessage.trim() || isSending}
-              className="h-[50px] w-[50px] p-0 bg-gradient-to-br from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 rounded-xl"
+              className="h-[52px] w-[52px] p-0 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 hover:from-blue-600 hover:via-indigo-600 hover:to-purple-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 ring-1 ring-white/20 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/10 before:to-transparent"
             >
               {isSending ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                <Send className="h-4 w-4" />
+                <Send className="h-4 w-4 relative z-10" />
               )}
             </Button>
           </div>

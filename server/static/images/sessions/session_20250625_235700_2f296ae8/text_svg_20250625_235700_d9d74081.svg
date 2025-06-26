@@ -1,0 +1,14 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <style>
+            .coming-soon { font-size: 120px; font-weight: bold; fill: #FFD700; font-family: Arial, sans-serif; }
+            .stay-tuned { font-size: 60px; fill: #FFFFFF; font-family: Arial, sans-serif; }
+            .website { font-size: 40px; fill: #FFFFFF; font-family: Arial, sans-serif; }
+        </style>
+    </defs>
+    <g>
+        <text x="540" y="460" text-anchor="middle" class="coming-soon">COMING SOON!</text>
+        <text x="540" y="650" text-anchor="middle" class="stay-tuned">Stay Tuned!</text>
+        <text x="540" y="740" text-anchor="middle" class="website">www.whtmoohi.com</text>
+    </g>
+</svg>

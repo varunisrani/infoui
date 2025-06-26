@@ -1,0 +1,30 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .mainText {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        font-size: 100px;
+        fill: #FFD700; /* Gold color */
+        text-anchor: middle;
+      }
+      .subText {
+        font-family: 'Arial', sans-serif;
+        font-size: 40px;
+        fill: #1E90FF; /* Dodger Blue */
+        text-anchor: middle;
+      }
+      .footerText {
+        font-family: 'Arial', sans-serif;
+        font-size: 30px;
+        fill: #FFFFFF; /* White */
+        text-anchor: middle;
+      }
+    </style>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#gradient)"/>
+  <text class="mainText" x="540" y="300">COMING SOON</text>
+  <text class="subText" x="540" y="400">Something Annanding</text>
+  <text class="subText" x="540" y="460">is on the Honson!</text>
+  <text class="footerText" x="540" y="520">Stay Tuned!</text>
+</svg>

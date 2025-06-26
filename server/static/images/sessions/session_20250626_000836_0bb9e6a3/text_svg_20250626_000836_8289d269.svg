@@ -1,0 +1,14 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .big-text { font-family: 'Arial', sans-serif; font-size: 100px; font-weight: bold; fill: white; }
+      .small-text { font-family: 'Arial', sans-serif; font-size: 40px; fill: white; }
+    </style>
+  </defs>
+  <rect width="1080" height="1080" fill="#0FB3B4"/>
+  <circle cx="540" cy="540" r="350" fill="rgba(255, 255, 255, 0.2)"/>
+  <text x="50%" y="45%" text-anchor="middle" class="big-text">COMING</text>
+  <text x="50%" y="55%" text-anchor="middle" class="big-text">SOON</text>
+  <text x="50%" y="65%" text-anchor="middle" class="small-text">aulom seu dramao digium</text>
+  <text x="50%" y="75%" text-anchor="middle" class="small-text">abeusumpleam</text>
+</svg>

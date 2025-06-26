@@ -1,0 +1,22 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <style>
+    .largeText {
+      fill: #FFFFFF;
+      font-family: Arial, sans-serif;
+      font-weight: bold;
+      font-size: 120px;
+      text-anchor: middle;
+    }
+    .smallText {
+      fill: #5ACFFF;
+      font-family: Arial, sans-serif;
+      font-weight: normal;
+      font-size: 48px;
+      text-anchor: middle;
+    }
+  </style>
+  <rect width="1080" height="1080" fill="none"/>
+  <text x="540" y="480" class="largeText">COMING</text>
+  <text x="540" y="600" class="largeText">SOON</text>
+  <text x="540" y="680" class="smallText">Launching on [Date]</text>
+</svg>
