@@ -47,119 +47,154 @@ export const AiSidebar = ({ editor, onClose }: AiSidebarProps) => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden">
+    <div className="w-full h-full flex flex-col overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
       {activeScreen === "main" ? (
         // Main screen
         <>
-          <div className="p-4 pb-2 border-b bg-white dark:bg-slate-900">
-            <div className="flex justify-between items-center">
-              <div>
-                <h3 className="text-lg font-semibold tracking-tight">AI Creator</h3>
-                <p className="text-sm text-muted-foreground">
-                  Generate creative content with AI
+          <div className="p-6 pb-4 border-b border-slate-200/60 bg-gradient-to-r from-white via-slate-50 to-blue-50/50 backdrop-blur-sm relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
+            <div className="relative z-10 flex justify-between items-center">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg">
+                    <Sparkles size={18} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold tracking-tight bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    AI Creator Studio
+                  </h3>
+                </div>
+                <p className="text-sm text-slate-600 font-medium ml-10">
+                  Transform ideas into visual content with AI
                 </p>
               </div>
-              <Button variant="outline" size="icon" onClick={onClose}>
-                <PanelRight size={16} />
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={onClose}
+                className="hover:bg-slate-100 border-slate-300 hover:border-slate-400 transition-all duration-200 hover:scale-105"
+              >
+                <PanelRight size={16} className="text-slate-600" />
               </Button>
             </div>
           </div>
 
-          <div className="p-5 flex-1 overflow-auto">
-            <div className="space-y-5">
+          <div className="p-6 flex-1 overflow-auto">
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
               {/* SVG Generator Card */}
-              <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border-slate-200 dark:border-slate-800">
+              <Card className="group hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer overflow-hidden border-slate-200/60 shadow-lg bg-gradient-to-br from-white to-blue-50/30">
                 <div 
-                  className="border-b p-5 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-950/50 dark:via-indigo-950/30 dark:to-purple-950/40"
+                  className="border-b border-blue-200/40 p-6 bg-gradient-to-br from-blue-50/80 via-indigo-50/60 to-purple-50/40 relative overflow-hidden"
                   onClick={toggleSvgGenerator}
                 >
-                  <div className="flex items-center mb-3">
-                    <div className="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center mr-3 shadow-sm">
-                      <Sparkles size={18} className="text-blue-600 dark:text-blue-400" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/10 group-hover:from-blue-500/10 group-hover:to-purple-500/15 transition-all duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center mb-4">
+                      <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 flex items-center justify-center mr-4 shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <Sparkles size={20} className="text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-lg text-slate-800 group-hover:text-blue-700 transition-colors duration-200">AI SVG Generator</h4>
+                        <p className="text-xs text-blue-600/80 font-medium">Vector Graphics Creation</p>
+                      </div>
                     </div>
-                    <h4 className="font-semibold text-base">AI SVG Generator</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Transform text descriptions into professional vector graphics with advanced AI technology
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground pl-[3.25rem]">
-                    Create custom vector graphics from text descriptions
-                  </p>
                 </div>
-                <div className="p-4 bg-white dark:bg-slate-900">
+                <div className="p-6 bg-gradient-to-r from-white to-slate-50/50">
                   <Button 
-                    className="w-full font-medium" 
-                    variant="default"
+                    className="w-full font-semibold bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 h-12" 
                     onClick={toggleSvgGenerator}
                   >
+                    <Wand2 className="h-4 w-4 mr-2" />
                     <span>Generate SVG</span>
-                    <Wand2 className="h-4 w-4 ml-2" />
                   </Button>
                 </div>
               </Card>
               
               {/* Website Scraper Card */}
-              <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border-slate-200 dark:border-slate-800">
+              <Card className="group hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer overflow-hidden border-slate-200/60 shadow-lg bg-gradient-to-br from-white to-emerald-50/30">
                 <div 
-                  className="border-b p-5 bg-gradient-to-br from-green-50 via-teal-50 to-cyan-50 dark:from-green-950/50 dark:via-teal-950/30 dark:to-cyan-950/40"
+                  className="border-b border-emerald-200/40 p-6 bg-gradient-to-br from-emerald-50/80 via-teal-50/60 to-cyan-50/40 relative overflow-hidden"
                   onClick={toggleWebsiteScraper}
                 >
-                  <div className="flex items-center mb-3">
-                    <div className="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mr-3 shadow-sm">
-                      <Globe size={18} className="text-green-600 dark:text-green-400" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-cyan-500/10 group-hover:from-emerald-500/10 group-hover:to-cyan-500/15 transition-all duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center mb-4">
+                      <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-600 flex items-center justify-center mr-4 shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <Globe size={20} className="text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-lg text-slate-800 group-hover:text-emerald-700 transition-colors duration-200">AI Website Scraper</h4>
+                        <p className="text-xs text-emerald-600/80 font-medium">Content Extraction</p>
+                      </div>
                     </div>
-                    <h4 className="font-semibold text-base">AI Website Scraper</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Extract text content, images, and color themes from any website for your design projects
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground pl-[3.25rem]">
-                    Extract text content and color themes from websites
-                  </p>
                 </div>
-                <div className="p-4 bg-white dark:bg-slate-900">
+                <div className="p-6 bg-gradient-to-r from-white to-slate-50/50">
                   <Button 
-                    className="w-full font-medium" 
-                    variant="default"
+                    className="w-full font-semibold bg-gradient-to-r from-emerald-500 via-emerald-600 to-teal-600 hover:from-emerald-600 hover:via-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 h-12" 
                     onClick={toggleWebsiteScraper}
                   >
+                    <Globe className="h-4 w-4 mr-2" />
                     <span>Scrape Website</span>
-                    <Globe className="h-4 w-4 ml-2" />
                   </Button>
                 </div>
               </Card>
               
               {/* AI Assistant Card */}
-              <Card className="hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden border-slate-200 dark:border-slate-800">
+              <Card className="group hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer overflow-hidden border-slate-200/60 shadow-lg bg-gradient-to-br from-white to-purple-50/30">
                 <div 
-                  className="border-b p-5 bg-gradient-to-br from-purple-50 via-fuchsia-50 to-pink-50 dark:from-purple-950/50 dark:via-fuchsia-950/30 dark:to-pink-950/40"
+                  className="border-b border-purple-200/40 p-6 bg-gradient-to-br from-purple-50/80 via-fuchsia-50/60 to-pink-50/40 relative overflow-hidden"
                   onClick={toggleAiAssistant}
                 >
-                  <div className="flex items-center mb-3">
-                    <div className="h-10 w-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center mr-3 shadow-sm">
-                      <MessageSquare size={18} className="text-purple-600 dark:text-purple-400" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/10 group-hover:from-purple-500/10 group-hover:to-pink-500/15 transition-all duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center mb-4">
+                      <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-purple-500 via-purple-600 to-fuchsia-600 flex items-center justify-center mr-4 shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                        <MessageSquare size={20} className="text-white" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-lg text-slate-800 group-hover:text-purple-700 transition-colors duration-200">AI Design Assistant</h4>
+                        <p className="text-xs text-purple-600/80 font-medium">Interactive Design Chat</p>
+                      </div>
                     </div>
-                    <h4 className="font-semibold text-base">AI Design Assistant</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      Collaborate with AI to brainstorm, create, and refine your design concepts through conversation
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground pl-[3.25rem]">
-                    Chat with AI to create and edit designs
-                  </p>
                 </div>
-                <div className="p-4 bg-white dark:bg-slate-900">
+                <div className="p-6 bg-gradient-to-r from-white to-slate-50/50">
                   <Button 
-                    className="w-full font-medium" 
-                    variant="default"
+                    className="w-full font-semibold bg-gradient-to-r from-purple-500 via-purple-600 to-fuchsia-600 hover:from-purple-600 hover:via-purple-700 hover:to-fuchsia-700 text-white shadow-lg hover:shadow-xl transition-all duration-200 h-12" 
                     onClick={toggleAiAssistant}
                   >
+                    <MessageSquare className="h-4 w-4 mr-2" />
                     <span>Chat with Assistant</span>
-                    <MessageSquare className="h-4 w-4 ml-2" />
                   </Button>
                 </div>
               </Card>
-              
-              {/* CTA Button */}
-              <div className="mt-8 pt-4 border-t border-slate-100 dark:border-slate-800">
+            </div>
+            
+            {/* CTA Section */}
+            <div className="mt-8 pt-6 border-t border-slate-200/60">
+              <div className="text-center space-y-4">
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-blue-50/60 border border-slate-200/60">
+                  <p className="text-xs text-slate-600 font-medium">
+                    ✨ Powered by advanced AI models for professional results
+                  </p>
+                </div>
                 <Button
                   variant="outline" 
-                  className="w-full bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 hover:from-slate-100 hover:to-slate-200 dark:hover:from-slate-800 dark:hover:to-slate-700 border-slate-200 dark:border-slate-700"
+                  className="w-full h-12 bg-gradient-to-r from-slate-50 to-slate-100 hover:from-slate-100 hover:to-slate-200 border-slate-300 text-slate-700 font-semibold shadow-md hover:shadow-lg transition-all duration-200"
                   onClick={toggleSvgGenerator}
                 >
-                  Explore AI Creator
-                  <Sparkles size={14} className="ml-2" />
+                  <Sparkles size={16} className="mr-2 text-blue-500" />
+                  Explore AI Creator Studio
                 </Button>
               </div>
             </div>

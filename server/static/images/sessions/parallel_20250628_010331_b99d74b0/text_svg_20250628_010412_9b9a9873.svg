@@ -1,0 +1,14 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text-quote { font-family: 'Helvetica', sans-serif; font-size: 48px; fill: #000000; }
+      .text-name { font-family: 'Helvetica', sans-serif; font-size: 36px; fill: #000000; }
+      .text-role { font-family: 'Helvetica', sans-serif; font-size: 24px; fill: #000000; }
+    </style>
+  </defs>
+  <text class="text-quote" x="54" y="237">“This product has encendered</text>
+  <text class="text-quote" x="54" y="307">my life tremendously and This</text>
+  <text class="text-quote" x="54" y="377">quality is outstanding.”</text>
+  <text class="text-name" x="54" y="467">John Smith</text>
+  <text class="text-role" x="54" y="507">OMAROLIZA</text>
+</svg>

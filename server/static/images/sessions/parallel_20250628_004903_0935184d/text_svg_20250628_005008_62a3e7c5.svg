@@ -1,0 +1,17 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title { font-family: 'Georgia', serif; font-size: 64px; fill: #ffffff; }
+      .quote { font-family: 'Georgia', serif; font-size: 32px; fill: #5e5e5e; }
+      .author { font-family: 'Georgia', serif; font-size: 36px; fill: #000000; }
+      .website { font-family: 'Georgia', serif; font-size: 24px; fill: #7d7d7d; }
+    </style>
+  </defs>
+  <text x="50" y="100" class="title">TESTIMONIAL</text>
+  <text x="90" y="200" class="quote">"Lorem ipsum dolor sit amet,</text>
+  <text x="90" y="250" class="quote">Isanise ctec et eit bd un iq dit ned</text>
+  <text x="90" y="300" class="quote">de s e nt nn ed reno n ci nit l ac let et</text>
+  <text x="90" y="350" class="quote">labricte s lisu, contentceli qua"</text>
+  <text x="90" y="450" class="author">John Dae</text>
+  <text x="90" y="500" class="website">kiche.asern</text>
+</svg>

@@ -494,38 +494,63 @@ export const AiSvgGenerator = ({ editor, onClose, messages = [] }: AiSvgGenerato
   };
 
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden">
-      <div className="p-4 pb-2 border-b bg-white dark:bg-slate-900">
-        <div className="flex justify-between items-center">
-          <div>
-            <h3 className="text-lg font-semibold tracking-tight">AI SVG Generator</h3>
-            <p className="text-sm text-muted-foreground">Create custom vector graphics with AI</p>
+    <div className="w-full h-full flex flex-col overflow-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
+      <div className="p-6 pb-4 border-b border-blue-200/40 bg-gradient-to-r from-white via-blue-50/50 to-indigo-50/30 backdrop-blur-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-indigo-500/5 to-purple-500/5"></div>
+        <div className="relative z-10 flex justify-between items-center">
+          <div className="space-y-1">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
+                <Wand2 size={18} className="text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold tracking-tight bg-gradient-to-r from-slate-800 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  AI SVG Generator
+                </h3>
+                <p className="text-xs text-blue-600/80 font-medium">Vector Graphics Creation</p>
+              </div>
+            </div>
+            <p className="text-sm text-slate-600 font-medium ml-12">
+              Transform your ideas into professional SVG graphics
+            </p>
           </div>
-          <Button variant="outline" size="icon" onClick={onClose}>
-            <ArrowLeft size={16} />
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={onClose}
+            className="hover:bg-slate-100 border-slate-300 hover:border-slate-400 transition-all duration-200 hover:scale-105"
+          >
+            <ArrowLeft size={16} className="text-slate-600" />
           </Button>
         </div>
       </div>
 
-      <div className="p-5 pt-4 overflow-auto flex-1">
+      <div className="p-6 pt-5 overflow-auto flex-1">
         {/* Input Section */}
-        <div className="mb-5">
-          <div className="space-y-3 mt-2">
-            <Label htmlFor="prompt" className="font-medium text-sm">Describe the SVG you want to generate</Label>
+        <div className="mb-6">
+          <div className="p-6 bg-gradient-to-br from-white to-slate-50/50 rounded-2xl border border-slate-200/60 shadow-sm space-y-4">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="p-1.5 rounded-lg bg-blue-100">
+                <Sparkles size={14} className="text-blue-600" />
+              </div>
+              <Label htmlFor="prompt" className="font-semibold text-slate-700">Describe Your Vision</Label>
+            </div>
             <Textarea
               id="prompt"
-              placeholder="E.g., A mountain landscape with sunset and pine trees"
+              placeholder="E.g., A minimalist mountain landscape with sunset colors, geometric pine trees, and clean lines..."
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              rows={3}
-              className={`resize-none border-slate-200 focus-visible:ring-blue-500 transition-all text-base ${websiteScraperData ? 'border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-900/10' : ''}`}
+              rows={4}
+              className={`resize-none border-slate-200 focus-visible:ring-blue-500 focus-visible:border-blue-300 transition-all text-base rounded-xl bg-white shadow-sm hover:shadow-md ${websiteScraperData ? 'border-emerald-200 dark:border-emerald-800 bg-emerald-50/30 dark:bg-emerald-900/10' : ''}`}
               disabled={isGenerating}
             />
             
             {websiteScraperData && (
-              <div className="flex items-center text-xs text-green-600 dark:text-green-400">
-                <Globe className="h-3 w-3 mr-1" />
-                <span>Using data from {websiteScraperData.url.substring(0, 30)}{websiteScraperData.url.length > 30 ? '...' : ''}</span>
+              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl">
+                <div className="flex items-center text-sm text-emerald-700 font-medium">
+                  <Globe className="h-4 w-4 mr-2" />
+                  <span>Inspired by: {websiteScraperData.url.substring(0, 40)}{websiteScraperData.url.length > 40 ? '...' : ''}</span>
+                </div>
               </div>
             )}
 
@@ -612,20 +637,20 @@ export const AiSvgGenerator = ({ editor, onClose, messages = [] }: AiSvgGenerato
               </div>
             )}
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 pt-2">
               <Button
                 onClick={generateSVG}
                 disabled={isGenerating || !prompt.trim()}
-                className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white border-0"
+                className="flex-1 h-12 bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 text-white border-0 shadow-lg hover:shadow-xl transition-all duration-200 font-semibold"
               >
                 {isGenerating ? (
                   <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Generating...
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                    Creating Magic...
                   </>
                 ) : (
                   <>
-                    <Wand2 className="h-4 w-4 mr-2" />
+                    <Wand2 className="h-5 w-5 mr-2" />
                     Generate SVG
                   </>
                 )}
@@ -636,26 +661,30 @@ export const AiSvgGenerator = ({ editor, onClose, messages = [] }: AiSvgGenerato
                 size="icon"
                 onClick={() => setShowOptions(!showOptions)}
                 title={showOptions ? "Hide options" : "Show options"}
-                className="border-slate-200 dark:border-slate-700"
+                className="h-12 w-12 border-slate-300 hover:border-slate-400 hover:bg-slate-100 transition-all duration-200"
               >
-                {showOptions ? <Minimize size={16} /> : <Maximize size={16} />}
+                {showOptions ? <Minimize size={18} /> : <Maximize size={18} />}
               </Button>
-              
-              {svgLoadingStatus !== "success" && svgData && (
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={reprocessSVG}
-                  disabled={isGenerating || svgLoadingStatus === "loading"}
-                  className="flex-grow border-slate-200 dark:border-slate-700"
-                >
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  Fix SVG
-                </Button>
-              )}
             </div>
-            
-            {svgData && svgData.enhancedPrompt && (
+          </div>
+        </div>
+
+        {svgLoadingStatus !== "success" && svgData && (
+          <div className="mt-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={reprocessSVG}
+              disabled={isGenerating || svgLoadingStatus === "loading"}
+              className="flex-grow border-slate-200 dark:border-slate-700"
+            >
+              <RefreshCw className="h-4 w-4 mr-2" />
+              Fix SVG
+            </Button>
+          </div>
+        )}
+
+        {svgData && svgData.enhancedPrompt && (
               <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-lg border border-blue-100 dark:border-blue-900/30">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-medium text-blue-700 dark:text-blue-400 flex items-center">
@@ -668,8 +697,6 @@ export const AiSvgGenerator = ({ editor, onClose, messages = [] }: AiSvgGenerato
                 </p>
               </div>
             )}
-          </div>
-        </div>
 
         {/* SVG Output Area */}
         <div className="mt-6 rounded-lg border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">

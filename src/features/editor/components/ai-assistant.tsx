@@ -627,42 +627,43 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-100/50 dark:from-slate-900 dark:via-blue-900/10 dark:to-indigo-900/20 relative overflow-hidden">
+    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-50 via-white to-purple-50/30 relative overflow-hidden">
       {/* Chat Sidebar */}
       <ChatSidebar />
       
-      {/* Modern Header */}
-      <div className="relative p-6 pb-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/60 dark:border-slate-700/60 shadow-lg shadow-slate-200/20 dark:shadow-slate-800/20">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={() => setShowChatSidebar(!showChatSidebar)}
-              className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
-            >
-              <MenuSquare className="h-5 w-5 text-slate-500" />
-            </button>
-            <div className="p-2.5 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 rounded-xl shadow-lg ring-1 ring-white/20 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent rounded-xl"></div>
-              <div className="relative">
-                <Sparkles className="h-5 w-5 text-white drop-shadow-sm" />
+      {/* Enhanced Header */}
+      <div className="p-6 pb-4 border-b border-purple-200/40 bg-gradient-to-r from-white via-purple-50/50 to-fuchsia-50/30 backdrop-blur-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-fuchsia-500/5 to-pink-500/5"></div>
+        <div className="relative z-10 flex justify-between items-center">
+          <div className="space-y-1">
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => setShowChatSidebar(!showChatSidebar)}
+                className="p-2 rounded-xl hover:bg-slate-100 transition-all duration-200 hover:scale-105"
+              >
+                <MenuSquare className="h-5 w-5 text-slate-500" />
+              </button>
+              <div className="p-2 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 shadow-lg">
+                <MessageSquare size={18} className="text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold tracking-tight bg-gradient-to-r from-slate-800 via-purple-600 to-fuchsia-600 bg-clip-text text-transparent">
+                  AI Design Assistant
+                </h3>
+                <p className="text-xs text-purple-600/80 font-medium">Interactive Design Chat</p>
               </div>
             </div>
-            <div>
-              <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                AI Design Studio
-              </h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Create stunning designs with AI assistance
-              </p>
-            </div>
+            <p className="text-sm text-slate-600 font-medium ml-14">
+              Collaborate with AI to create and refine designs
+            </p>
           </div>
           <Button 
-            variant="ghost" 
+            variant="outline" 
             size="icon" 
             onClick={onClose}
-            className="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"
+            className="hover:bg-slate-100 border-slate-300 hover:border-slate-400 transition-all duration-200 hover:scale-105"
           >
-            <ArrowLeft size={18} />
+            <ArrowLeft size={16} className="text-slate-600" />
           </Button>
         </div>
       </div>
@@ -914,67 +915,76 @@ export const AiAssistant = ({ editor, onClose }: AiAssistantProps) => {
         </div>
       )}
 
-      {/* Message input area */}
-      <div className="p-5 pt-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/60 dark:border-slate-700/60 shadow-lg shadow-slate-200/10 dark:shadow-slate-800/20">
-        <div className="space-y-2">
-          <div className="flex gap-3 items-end">
+      {/* Enhanced Message Input Area */}
+      <div className="p-6 bg-gradient-to-r from-white via-purple-50/50 to-fuchsia-50/30 border-t border-purple-200/40 backdrop-blur-sm relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-fuchsia-500/5 to-pink-500/5"></div>
+        <div className="relative z-10 space-y-4">
+          <div className="flex gap-4 items-end">
             <div className="flex-1 relative">
-              <Textarea
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                onKeyDown={handleKeyPress}
-                placeholder="Describe the design you want to create..."
-                className="resize-none border-slate-300 dark:border-slate-600 focus-visible:ring-blue-500 focus-visible:border-blue-500 rounded-xl pr-12 min-h-[50px]"
-                rows={2}
-                disabled={isSending}
-              />
-              <div className="absolute bottom-3 right-3">
-                <MessageSquare className="h-4 w-4 text-slate-400" />
+              <div className="p-4 bg-white rounded-2xl border border-purple-200/60 shadow-lg">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="p-1.5 rounded-lg bg-purple-100">
+                    <MessageSquare size={14} className="text-purple-600" />
+                  </div>
+                  <span className="text-sm font-semibold text-slate-700">Design Request</span>
+                </div>
+                <Textarea
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  placeholder="Describe the design you want to create... (e.g., 'Create a modern logo for a tech startup with blue and white colors')"
+                  className="resize-none border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0 min-h-[60px] text-base placeholder:text-slate-400"
+                  rows={3}
+                  disabled={isSending}
+                />
               </div>
             </div>
             <Button 
               onClick={() => sendMessage()} 
               disabled={!newMessage.trim() || isSending}
-              className="h-[52px] w-[52px] p-0 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600 hover:from-blue-600 hover:via-indigo-600 hover:to-purple-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 ring-1 ring-white/20 relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/10 before:to-transparent"
+              className="h-16 w-16 p-0 bg-gradient-to-br from-purple-500 via-purple-600 to-fuchsia-600 hover:from-purple-600 hover:via-purple-700 hover:to-fuchsia-700 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
             >
               {isSending ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-6 w-6 animate-spin" />
               ) : (
-                <Send className="h-4 w-4 relative z-10" />
+                <Send className="h-6 w-6" />
               )}
             </Button>
           </div>
           
-          {/* Suggestion Pills */}
+          {/* Enhanced Suggestion Pills */}
           {messages.length === 0 && !activeChat && (
-            <div className="flex gap-2 flex-wrap">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => sendMessage("Create a coming soon poster")}
-                className="h-7 text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 dark:bg-blue-950 dark:hover:bg-blue-900 dark:text-blue-300"
-                disabled={isSending}
-              >
-                Coming Soon Poster
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => sendMessage("Design a testimonial card")}
-                className="h-7 text-xs bg-green-50 hover:bg-green-100 text-green-700 dark:bg-green-950 dark:hover:bg-green-900 dark:text-green-300"
-                disabled={isSending}
-              >
-                Testimonial Card
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => sendMessage("Create a business logo")}
-                className="h-7 text-xs bg-purple-50 hover:bg-purple-100 text-purple-700 dark:bg-purple-950 dark:hover:bg-purple-900 dark:text-purple-300"
-                disabled={isSending}
-              >
-                Business Logo
-              </Button>
+            <div>
+              <p className="text-xs text-slate-600 font-medium mb-3">✨ Try these popular design ideas:</p>
+              <div className="flex gap-2 flex-wrap">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => sendMessage("Create a coming soon poster")}
+                  className="h-9 text-sm bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 text-blue-700 border border-blue-200/60 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                  disabled={isSending}
+                >
+                  🚀 Coming Soon Poster
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => sendMessage("Design a testimonial card")}
+                  className="h-9 text-sm bg-gradient-to-r from-emerald-50 to-emerald-100 hover:from-emerald-100 hover:to-emerald-200 text-emerald-700 border border-emerald-200/60 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                  disabled={isSending}
+                >
+                  💬 Testimonial Card
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => sendMessage("Create a business logo")}
+                  className="h-9 text-sm bg-gradient-to-r from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 text-purple-700 border border-purple-200/60 rounded-xl font-medium shadow-sm hover:shadow-md transition-all duration-200"
+                  disabled={isSending}
+                >
+                  🏢 Business Logo
+                </Button>
+              </div>
             </div>
           )}
           

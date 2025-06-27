@@ -5,7 +5,7 @@ import { Loader, TriangleAlert } from "lucide-react";
 
 import { usePaywall } from "@/features/subscriptions/hooks/use-paywall";
 import { useGetTemplates } from "@/features/projects/api/use-get-templates";
-import { useCreateProject } from "@/features/projects/api/use-create-project";
+import { useCreateProject } from "@/features/projects/api/use-projects";
 
 import { TemplateCard } from "./template-card";
 
@@ -55,43 +55,53 @@ export const TemplatesSection = () => {
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
-        <h3 className="font-semibold text-lg">
-          Start from a template
-        </h3>
-        <div className="flex items-center justify-center h-32">
-          <Loader className="size-6 text-muted-foreground animate-spin" />
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900">
+              Start from a template
+            </h3>
+            <p className="text-gray-600 mt-1">
+              Choose from our collection of professional templates
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="bg-gray-100 rounded-lg h-48 animate-pulse">
+              <div className="h-full flex items-center justify-center">
+                <Loader className="size-6 text-gray-400 animate-spin" />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     );
   }
 
-  if (isError) {
-    return (
-      <div className="space-y-4">
-        <h3 className="font-semibold text-lg">
-          Start from a template
-        </h3>
-        <div className="flex flex-col gap-y-4 items-center justify-center h-32">
-          <TriangleAlert className="size-6 text-muted-foreground" />
-          <p>
-            Failed to load templates
-          </p>
-        </div>
-      </div>
-    );
-  }
 
   if (!data?.data?.length) {
     return null;
   }
 
   return (
-    <div>
-      <h3 className="font-semibold text-lg">
-        Start from a template
-      </h3>
-      <div className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-2xl font-bold text-gray-900">
+            Start from a template
+          </h3>
+          <p className="text-gray-600 mt-1">
+            Choose from our collection of professional templates
+          </p>
+        </div>
+        <div className="hidden sm:block">
+          <p className="text-sm text-gray-500">
+            {data.data.length} template{data.data.length !== 1 ? "s" : ""} available
+          </p>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {data.data.map((template: Template) => (
           <TemplateCard
             key={template.id}

@@ -7,12 +7,14 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   return ( 
-    <div className="bg-muted h-full">
+    <div className="bg-gray-50 min-h-screen">
       <Sidebar />
-      <div className="lg:pl-[300px] flex flex-col h-full">
+      <div className="lg:pl-[300px] flex flex-col min-h-screen">
         <Navbar />
-        <main className="bg-white flex-1 overflow-auto p-8 lg:rounded-tl-2xl">
-          {children}
+        <main className="bg-gray-50 flex-1 overflow-auto">
+          <div className="px-4 py-6 lg:px-8">
+            {children}
+          </div>
         </main>
       </div>
     </div>

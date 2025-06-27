@@ -1,0 +1,11 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .text1 { font-family: 'Arial', sans-serif; font-size: 100px; fill: #ffffff; }
+      .text2 { font-family: 'Arial', sans-serif; font-size: 40px; fill: #ffffff; }
+    </style>
+  </defs>
+  <text class="text1" x="50%" y="40%" text-anchor="middle" dominant-baseline="middle" style="filter:drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));">COMING</text>
+  <text class="text1" x="50%" y="55%" text-anchor="middle" dominant-baseline="middle" style="filter:drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));">SOONI</text>
+  <text class="text2" x="50%" y="70%" text-anchor="middle" dominant-baseline="middle">Stay Turied for Updates</text>
+</svg>

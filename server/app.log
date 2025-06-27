@@ -14973,3 +14973,1203 @@ Create a stunning "Comin...
 2025-06-26 22:56:57,864 - INFO - 127.0.0.1 - - [26/Jun/2025 22:56:57] "GET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1" 200 -
 2025-06-26 22:58:19,029 - INFO - 127.0.0.1 - - [26/Jun/2025 22:58:19] "OPTIONS /static/images/sessions/bg_20250626_015910_f89b34aa/background_20250626_015910_939d63eb.png HTTP/1.1" 200 -
 2025-06-26 22:58:19,041 - INFO - 127.0.0.1 - - [26/Jun/2025 22:58:19] "GET /static/images/sessions/bg_20250626_015910_f89b34aa/background_20250626_015910_939d63eb.png HTTP/1.1" 200 -
+2025-06-28 00:28:49,316 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:28:49,320 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:28:49,346 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-28 00:28:49,346 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-28 00:28:49,346 - INFO -  * Restarting with stat
+2025-06-28 00:28:49,837 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:28:49,841 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:28:49,851 - WARNING -  * Debugger is active!
+2025-06-28 00:28:49,855 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:29:13,863 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:13] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:13,863 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:13] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,301 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_171747_a57d9686/background_20250625_171747_5500b67c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,304 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_173035_5a5ea2f5/background_20250625_173035_d7ad0b9d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,306 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_165341_bcf72a48/background_20250625_165341_d4abb9cb.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,307 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_165725_e913659d/background_20250625_165725_94e28f8f.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,308 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_170530_3758a7cb/background_20250625_170530_ed1a5c6c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,312 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_164759_b6f6b64a/background_20250625_164759_9b002f6d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,313 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_164003_1a3a18fb/background_20250625_164003_a00becea.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,314 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_164407_681e1cf4/background_20250625_164407_92249637.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,315 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "[36mGET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:19,447 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:19] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:29:19,449 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 00:29:19,450 - INFO - Stage 2: Design Planning
+2025-06-28 00:29:19,450 - INFO - Planning design for: Create a coming soon poster...
+2025-06-28 00:29:20,514 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:20] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:20,514 - INFO - 127.0.0.1 - - [28/Jun/2025 00:29:20] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 00:29:33,995 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 00:29:33,996 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 00:29:33,996 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:29:33,996 - INFO - Pre-enhancing prompt: Design Plan:
+### Coming Soon Poster Design Plan
+
+#### 1. Layout Structure
+- **Overall Composition**:...
+2025-06-28 00:29:33,996 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:29:40,624 - INFO - Successfully enhanced prompt. Result: "Create a coming soon poster with a soft gradient background transitioning from #f0f0f0 (light gray)...
+2025-06-28 00:29:40,625 - INFO - Pre-enhanced prompt generated
+2025-06-28 00:29:40,626 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 00:29:40,626 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 00:29:40,626 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:29:40,626 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:30:00,799 - INFO - Enhanced prompt generated
+2025-06-28 00:30:00,800 - INFO - Created parallel session: parallel_20250628_003000_95a1c461
+2025-06-28 00:30:00,800 - INFO - Building advanced image prompt: Here’s the comprehensive SVG specification based on your description for a "Coming Soon" poster:
+
+``...
+2025-06-28 00:30:00,801 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 00:30:14,620 - INFO - Successfully built advanced image prompt: **Ultimate Prompt for GPT Image-1:**
+
+**Title:** Viral "Coming Soon" Visual Design
+
+**Description:**...
+2025-06-28 00:30:14,622 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 00:30:14,622 - ERROR - Error in generate_parallel_svg: name 'generate_image_with_gpt' is not defined
+2025-06-28 00:30:14,623 - INFO - 127.0.0.1 - - [28/Jun/2025 00:30:14] "[35m[1mPOST /api/generate-parallel-svg HTTP/1.1[0m" 500 -
+2025-06-28 00:31:33,628 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:31:33,758 - INFO -  * Restarting with stat
+2025-06-28 00:31:34,585 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:31:34,588 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:31:34,610 - WARNING -  * Debugger is active!
+2025-06-28 00:31:34,613 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:31:38,697 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:31:38,768 - INFO -  * Restarting with stat
+2025-06-28 00:31:39,317 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:31:39,320 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:31:39,337 - WARNING -  * Debugger is active!
+2025-06-28 00:31:39,342 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:31:43,404 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:31:43,486 - INFO -  * Restarting with stat
+2025-06-28 00:31:44,076 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:31:44,080 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:31:44,096 - WARNING -  * Debugger is active!
+2025-06-28 00:31:44,100 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:31:49,171 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:31:49,268 - INFO -  * Restarting with stat
+2025-06-28 00:31:49,814 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:31:49,818 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:31:49,834 - WARNING -  * Debugger is active!
+2025-06-28 00:31:49,838 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:32:18,230 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:32:18,304 - INFO -  * Restarting with stat
+2025-06-28 00:32:19,044 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:32:19,047 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:32:19,068 - WARNING -  * Debugger is active!
+2025-06-28 00:32:19,075 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:32:47,523 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:32:47,589 - INFO -  * Restarting with stat
+2025-06-28 00:32:48,275 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:32:48,279 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:32:48,299 - WARNING -  * Debugger is active!
+2025-06-28 00:32:48,303 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:32:58,517 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:32:58,576 - INFO -  * Restarting with stat
+2025-06-28 00:32:59,305 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:32:59,308 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:32:59,326 - WARNING -  * Debugger is active!
+2025-06-28 00:32:59,333 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:33:07,514 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:33:07,609 - INFO -  * Restarting with stat
+2025-06-28 00:33:08,319 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:33:08,322 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:33:08,340 - WARNING -  * Debugger is active!
+2025-06-28 00:33:08,345 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:33:18,501 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:33:18,559 - INFO -  * Restarting with stat
+2025-06-28 00:33:19,271 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:33:19,275 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:33:19,295 - WARNING -  * Debugger is active!
+2025-06-28 00:33:19,300 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:33:29,483 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:33:29,555 - INFO -  * Restarting with stat
+2025-06-28 00:33:30,233 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:33:30,236 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:33:30,256 - WARNING -  * Debugger is active!
+2025-06-28 00:33:30,261 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:34:00,070 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:34:00,074 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 00:34:00,074 - INFO - Stage 2: Design Planning
+2025-06-28 00:34:00,074 - INFO - Planning design for: Create a coming soon poster...
+2025-06-28 00:34:00,294 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_165725_e913659d/background_20250625_165725_94e28f8f.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:00,294 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_171747_a57d9686/background_20250625_171747_5500b67c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:00,298 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_170530_3758a7cb/background_20250625_170530_ed1a5c6c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:00,298 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_173035_5a5ea2f5/background_20250625_173035_d7ad0b9d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:00,299 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_165341_bcf72a48/background_20250625_165341_d4abb9cb.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:00,302 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_164759_b6f6b64a/background_20250625_164759_9b002f6d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:00,305 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_164407_681e1cf4/background_20250625_164407_92249637.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:00,306 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_164003_1a3a18fb/background_20250625_164003_a00becea.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:00,310 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:00] "[36mGET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:01,976 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:01] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:01,981 - INFO - 127.0.0.1 - - [28/Jun/2025 00:34:01] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 00:34:13,751 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 00:34:13,752 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 00:34:13,752 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:34:13,752 - INFO - Pre-enhancing prompt: Design Plan:
+Here's a clear, actionable plan for creating a "Coming Soon" poster design:
+
+### 1. Lay...
+2025-06-28 00:34:13,752 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:34:21,335 - INFO - Successfully enhanced prompt. Result: "Create a coming soon poster with a soft white (#F7F7F7) background, featuring a centered layout tha...
+2025-06-28 00:34:21,336 - INFO - Pre-enhanced prompt generated
+2025-06-28 00:34:21,336 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 00:34:21,336 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 00:34:21,336 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:34:21,336 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:34:39,830 - INFO - Enhanced prompt generated
+2025-06-28 00:34:39,831 - INFO - Created parallel session: parallel_20250628_003439_cbbcb6e9
+2025-06-28 00:34:39,831 - INFO - Building advanced image prompt: ```svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" style=...
+2025-06-28 00:34:39,831 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 00:34:52,489 - INFO - Successfully built advanced image prompt: **Ultimate Prompt for GPT Image-1 to Generate a Viral "Coming Soon" Visual:**
+
+---
+
+**Prompt:**
+
+Cre...
+2025-06-28 00:34:52,490 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 00:34:52,490 - INFO - Generating image with GPT Image-1 using optimized workflow
+2025-06-28 00:34:52,490 - INFO - Using enhanced prompt directly: **Ultimate Prompt for GPT Image-1 to Generate a Viral "Coming Soon" Visual:**
+
+---
+
+**Prompt:**
+
+Create a visually striking "Coming Soon" poster with the following specifications, ensuring the final i...
+2025-06-28 00:35:03,926 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:35:05,494 - INFO - Image saved successfully: gpt_image_20250628_003505_c3c633bd.png in session svg_20250628_003505_d7ae6b88
+2025-06-28 00:35:05,494 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 00:35:05,494 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_003505_d7ae6b88/gpt_image_20250628_003505_c3c633bd.png
+2025-06-28 00:35:05,497 - INFO - Saving initial generated image to unified storage session: parallel_20250628_003439_cbbcb6e9
+2025-06-28 00:35:05,606 - INFO - Image saved successfully: initial_generated_20250628_003505_6b68dbd3.png in session parallel_20250628_003439_cbbcb6e9
+2025-06-28 00:35:05,606 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 00:35:05,608 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 00:35:05,615 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 00:35:11,094 - INFO - Background analysis: The background features a gradient that transitions from a deep navy blue at the top to a lighter teal at the bottom. This gradient creates a calming yet vibrant atmosphere. The overall tone is smooth...
+2025-06-28 00:35:11,094 - INFO - Generating background with GPT Image-1...
+2025-06-28 00:35:12,905 - INFO - SVG saved successfully: text_svg_20250628_003512_92dae27f.svg in session session_20250628_003512_3995ff52
+2025-06-28 00:35:22,758 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:35:23,307 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-28 00:35:24,248 - INFO - Image saved successfully: background_20250628_003524_4d5e982d.png in session bg_20250628_003524_b19607db
+2025-06-28 00:35:24,249 - INFO - Background extracted and saved: background_20250628_003524_4d5e982d.png
+2025-06-28 00:35:24,249 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png
+2025-06-28 00:35:24,638 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-28 00:35:24,926 - INFO - Image saved successfully: background_20250628_003524_6165a136.png in session parallel_20250628_003439_cbbcb6e9
+2025-06-28 00:35:24,927 - INFO - SVG saved successfully: text_svg_20250628_003524_c101e3d4.svg in session parallel_20250628_003439_cbbcb6e9
+2025-06-28 00:35:24,927 - INFO - SVG saved successfully: elements_svg_20250628_003524_4fc77855.svg in session parallel_20250628_003439_cbbcb6e9
+2025-06-28 00:35:25,031 - INFO - Image saved successfully: elements_png_20250628_003524_a89fa525.png in session parallel_20250628_003439_cbbcb6e9
+2025-06-28 00:35:25,031 - INFO - Generated public URLs:
+2025-06-28 00:35:25,031 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250628_003439_cbbcb6e9/initial_generated_20250628_003505_6b68dbd3.png
+2025-06-28 00:35:25,031 - INFO -   Background: http://localhost:5000/static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png
+2025-06-28 00:35:25,031 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250628_003439_cbbcb6e9/text_svg_20250628_003524_c101e3d4.svg
+2025-06-28 00:35:25,031 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250628_003439_cbbcb6e9/elements_svg_20250628_003524_4fc77855.svg
+2025-06-28 00:35:25,031 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250628_003439_cbbcb6e9/elements_png_20250628_003524_a89fa525.png
+2025-06-28 00:35:25,031 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4o-mini with PUBLIC background URL
+2025-06-28 00:35:25,031 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png
+2025-06-28 00:35:25,032 - INFO - Using OPTIMIZED Google Gemini-2.5-flash to combine 3-layer SVG...
+2025-06-28 00:35:25,032 - INFO - Making OPTIMIZED OpenRouter call: google/gemini-2.5-flash, tokens: 32000, prompt_size: 15760
+2025-06-28 00:35:30,586 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 00:36:36,400 - INFO - ✅ OPTIMIZED OpenRouter API response in 71.37s (was 15760 chars)
+2025-06-28 00:36:36,402 - INFO - Google Gemini successfully combined 3-layer SVG - optimized version
+2025-06-28 00:36:36,402 - WARNING - Combined SVG doesn't start with <svg, using fallback with public URL
+2025-06-28 00:36:36,402 - INFO - Using fallback 3-layer SVG combination method
+2025-06-28 00:36:36,403 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-28 00:36:36,403 - INFO - Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4o-mini
+2025-06-28 00:36:36,403 - INFO - OPTIMIZED post-processing SVG using Google Gemini-2.5-flash...
+2025-06-28 00:36:36,404 - INFO - Successfully removed first path using regex (fast method)
+2025-06-28 00:36:36,405 - INFO - SVG saved successfully: combined_svg_20250628_003636_5f54bdd7.svg in session parallel_20250628_003439_cbbcb6e9
+2025-06-28 00:36:36,405 - INFO - Combined SVG saved successfully: combined_svg_20250628_003636_5f54bdd7.svg
+2025-06-28 00:36:36,414 - INFO - 127.0.0.1 - - [28/Jun/2025 00:36:36] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:36:36,593 - INFO - 127.0.0.1 - - [28/Jun/2025 00:36:36] "GET /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1" 200 -
+2025-06-28 00:37:04,059 - INFO - 127.0.0.1 - - [28/Jun/2025 00:37:04] "OPTIONS /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1" 200 -
+2025-06-28 00:37:04,061 - INFO - 127.0.0.1 - - [28/Jun/2025 00:37:04] "GET /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1" 200 -
+2025-06-28 00:40:19,480 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:40:19,600 - INFO -  * Restarting with stat
+2025-06-28 00:40:20,434 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:40:20,438 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:40:20,458 - WARNING -  * Debugger is active!
+2025-06-28 00:40:20,466 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:40:53,998 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:40:54,077 - INFO -  * Restarting with stat
+2025-06-28 00:40:54,842 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:40:54,845 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:40:54,861 - WARNING -  * Debugger is active!
+2025-06-28 00:40:54,867 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:41:52,610 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:52] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:41:52,615 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 00:41:52,615 - INFO - Stage 2: Design Planning
+2025-06-28 00:41:52,615 - INFO - Planning design for: Create a coming soon poster...
+2025-06-28 00:41:53,449 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_170530_3758a7cb/background_20250625_170530_ed1a5c6c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,450 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,452 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_173035_5a5ea2f5/background_20250625_173035_d7ad0b9d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,453 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_165341_bcf72a48/background_20250625_165341_d4abb9cb.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,454 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_171747_a57d9686/background_20250625_171747_5500b67c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,456 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_165725_e913659d/background_20250625_165725_94e28f8f.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,458 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_164759_b6f6b64a/background_20250625_164759_9b002f6d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,459 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_164407_681e1cf4/background_20250625_164407_92249637.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,461 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_164003_1a3a18fb/background_20250625_164003_a00becea.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:53,462 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:53] "[36mGET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:55,864 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:55] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 00:41:55,864 - INFO - 127.0.0.1 - - [28/Jun/2025 00:41:55] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 00:42:04,422 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 00:42:04,422 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 00:42:04,422 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:42:04,422 - INFO - Pre-enhancing prompt: Design Plan:
+### Coming Soon Poster Design Plan
+
+#### 1. Layout Structure
+- **Overall Composition**:...
+2025-06-28 00:42:04,423 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:42:13,552 - INFO - Successfully enhanced prompt. Result: "Create a coming soon page with a soft pastel gradient background featuring a centered layout that d...
+2025-06-28 00:42:13,553 - INFO - Pre-enhanced prompt generated
+2025-06-28 00:42:13,553 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 00:42:13,553 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 00:42:13,553 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:42:13,553 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:42:32,333 - INFO - Enhanced prompt generated
+2025-06-28 00:42:32,334 - INFO - Created parallel session: parallel_20250628_004232_fb8e6c6b
+2025-06-28 00:42:32,334 - INFO - Building advanced image prompt: Below is the comprehensive SVG technical specification based on your design description for a "Comin...
+2025-06-28 00:42:32,334 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 00:42:43,773 - INFO - Successfully built advanced image prompt: ### Ultimate Prompt for Generating a Viral "Coming Soon" Image
+
+**Prompt:**
+
+Create a captivating "C...
+2025-06-28 00:42:43,774 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 00:42:43,774 - INFO - Generating image with GPT Image-1 using optimized workflow
+2025-06-28 00:42:43,774 - INFO - Using enhanced prompt directly: ### Ultimate Prompt for Generating a Viral "Coming Soon" Image
+
+**Prompt:**
+
+Create a captivating "Coming Soon" visual that demands attention and sparks excitement. The design should be energetic and ...
+2025-06-28 00:42:55,145 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:42:59,636 - INFO - Image saved successfully: gpt_image_20250628_004259_e5616120.png in session svg_20250628_004259_646febeb
+2025-06-28 00:42:59,636 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 00:42:59,636 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_004259_646febeb/gpt_image_20250628_004259_e5616120.png
+2025-06-28 00:42:59,640 - INFO - Saving initial generated image to unified storage session: parallel_20250628_004232_fb8e6c6b
+2025-06-28 00:42:59,739 - INFO - Image saved successfully: initial_generated_20250628_004259_0cf78616.png in session parallel_20250628_004232_fb8e6c6b
+2025-06-28 00:42:59,740 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 00:42:59,748 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 00:42:59,750 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 00:43:08,485 - INFO - Background analysis: The background features a smooth gradient transitioning from a deep blue at the top to a vibrant orange at the bottom. Within this gradient, there are soft, circular bokeh effects in lighter shades of...
+2025-06-28 00:43:08,486 - INFO - Generating background with GPT Image-1...
+2025-06-28 00:43:14,330 - INFO - SVG saved successfully: text_svg_20250628_004314_cb7c06a0.svg in session session_20250628_004314_6917cdf9
+2025-06-28 00:43:19,736 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:43:21,708 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-28 00:43:25,027 - INFO - Image saved successfully: background_20250628_004324_19464969.png in session bg_20250628_004324_f73eef49
+2025-06-28 00:43:25,027 - INFO - Background extracted and saved: background_20250628_004324_19464969.png
+2025-06-28 00:43:25,027 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png
+2025-06-28 00:43:26,761 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-28 00:43:26,937 - INFO - Image saved successfully: background_20250628_004326_16b8aef4.png in session parallel_20250628_004232_fb8e6c6b
+2025-06-28 00:43:26,937 - INFO - SVG saved successfully: text_svg_20250628_004326_8f95aba7.svg in session parallel_20250628_004232_fb8e6c6b
+2025-06-28 00:43:26,937 - INFO - SVG saved successfully: elements_svg_20250628_004326_2188173f.svg in session parallel_20250628_004232_fb8e6c6b
+2025-06-28 00:43:27,046 - INFO - Image saved successfully: elements_png_20250628_004326_52f6e2c8.png in session parallel_20250628_004232_fb8e6c6b
+2025-06-28 00:43:27,047 - INFO - Generated public URLs:
+2025-06-28 00:43:27,047 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250628_004232_fb8e6c6b/initial_generated_20250628_004259_0cf78616.png
+2025-06-28 00:43:27,047 - INFO -   Background: http://localhost:5000/static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png
+2025-06-28 00:43:27,047 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250628_004232_fb8e6c6b/text_svg_20250628_004326_8f95aba7.svg
+2025-06-28 00:43:27,047 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250628_004232_fb8e6c6b/elements_svg_20250628_004326_2188173f.svg
+2025-06-28 00:43:27,047 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250628_004232_fb8e6c6b/elements_png_20250628_004326_52f6e2c8.png
+2025-06-28 00:43:27,047 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4o-mini with PUBLIC background URL
+2025-06-28 00:43:27,047 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png
+2025-06-28 00:43:27,047 - INFO - Using OPTIMIZED Google Gemini-2.5-flash to combine 3-layer SVG...
+2025-06-28 00:43:27,047 - INFO - Making OPTIMIZED OpenRouter call: google/gemini-2.5-flash, tokens: 32000, prompt_size: 5614
+2025-06-28 00:43:29,801 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 00:43:49,613 - INFO - ✅ OPTIMIZED OpenRouter API response in 22.57s (was 5614 chars)
+2025-06-28 00:43:49,614 - INFO - Google Gemini successfully combined 3-layer SVG - optimized version
+2025-06-28 00:43:49,614 - WARNING - Combined SVG doesn't start with <svg, using fallback with public URL
+2025-06-28 00:43:49,614 - INFO - Using fallback 3-layer SVG combination method
+2025-06-28 00:43:49,615 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-28 00:43:49,615 - INFO - Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4o-mini
+2025-06-28 00:43:49,615 - INFO - OPTIMIZED post-processing SVG using Google Gemini-2.5-flash...
+2025-06-28 00:43:49,615 - INFO - Successfully removed first path using regex (fast method)
+2025-06-28 00:43:49,617 - INFO - SVG saved successfully: combined_svg_20250628_004349_b4ee2424.svg in session parallel_20250628_004232_fb8e6c6b
+2025-06-28 00:43:49,617 - INFO - Combined SVG saved successfully: combined_svg_20250628_004349_b4ee2424.svg
+2025-06-28 00:43:49,624 - INFO - 127.0.0.1 - - [28/Jun/2025 00:43:49] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:43:49,834 - INFO - 127.0.0.1 - - [28/Jun/2025 00:43:49] "GET /static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png HTTP/1.1" 200 -
+2025-06-28 00:44:14,401 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,405 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_171747_a57d9686/background_20250625_171747_5500b67c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,405 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_173035_5a5ea2f5/background_20250625_173035_d7ad0b9d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,406 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,410 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_170530_3758a7cb/background_20250625_170530_ed1a5c6c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,410 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_165725_e913659d/background_20250625_165725_94e28f8f.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,412 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_165341_bcf72a48/background_20250625_165341_d4abb9cb.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,413 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_164759_b6f6b64a/background_20250625_164759_9b002f6d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,416 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_164407_681e1cf4/background_20250625_164407_92249637.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,418 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_164003_1a3a18fb/background_20250625_164003_a00becea.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:14,419 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:14] "[36mGET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:15,548 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:15] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:15,549 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:15] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 00:44:30,067 - INFO - 127.0.0.1 - - [28/Jun/2025 00:44:30] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:44:30,071 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 00:44:30,071 - INFO - Stage 2: Design Planning
+2025-06-28 00:44:30,071 - INFO - Planning design for: “Create a coming soon poster for my clothing brand”...
+2025-06-28 00:44:41,375 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 00:44:41,375 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 00:44:41,376 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:44:41,376 - INFO - Pre-enhancing prompt: Design Plan:
+### Coming Soon Poster Design Plan for Clothing Brand
+
+#### 1. Layout Structure
+- **Ove...
+2025-06-28 00:44:41,376 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:44:46,852 - INFO - Successfully enhanced prompt. Result: "Create a coming soon poster with a light grey background (#F8F9FA), featuring an asymmetrical layou...
+2025-06-28 00:44:46,852 - INFO - Pre-enhanced prompt generated
+2025-06-28 00:44:46,852 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 00:44:46,853 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 00:44:46,853 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:44:46,853 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:45:05,196 - INFO - Enhanced prompt generated
+2025-06-28 00:45:05,196 - INFO - Created parallel session: parallel_20250628_004505_0c023a4f
+2025-06-28 00:45:05,196 - INFO - Building advanced image prompt: Based on your design description for a "Coming Soon" poster, here’s the comprehensive SVG specificat...
+2025-06-28 00:45:05,197 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 00:45:16,225 - INFO - Successfully built advanced image prompt: **FINAL PROMPT FOR GPT IMAGE-1: VIRAL "COMING SOON" VISUAL**
+
+**Prompt:**
+
+Create an eye-catching "C...
+2025-06-28 00:45:16,227 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 00:45:16,227 - INFO - Generating image with GPT Image-1 using optimized workflow
+2025-06-28 00:45:16,227 - INFO - Using enhanced prompt directly: **FINAL PROMPT FOR GPT IMAGE-1: VIRAL "COMING SOON" VISUAL**
+
+**Prompt:**
+
+Create an eye-catching "Coming Soon" poster for a premium clothing brand that embodies excitement and exclusivity. The visual...
+2025-06-28 00:45:29,449 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:45:31,536 - INFO - Image saved successfully: gpt_image_20250628_004531_99b9a6af.png in session svg_20250628_004531_b31740dd
+2025-06-28 00:45:31,537 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 00:45:31,537 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_004531_b31740dd/gpt_image_20250628_004531_99b9a6af.png
+2025-06-28 00:45:31,540 - INFO - Saving initial generated image to unified storage session: parallel_20250628_004505_0c023a4f
+2025-06-28 00:45:31,653 - INFO - Image saved successfully: initial_generated_20250628_004531_f4a858d3.png in session parallel_20250628_004505_0c023a4f
+2025-06-28 00:45:31,653 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 00:45:31,655 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 00:45:31,662 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 00:45:38,752 - INFO - Background analysis: The background features a gradient that transitions from a deep navy blue at the top to a vibrant gradient of red and warm orange towards the bottom. The tones create a bold, striking contrast, with t...
+2025-06-28 00:45:38,753 - INFO - Generating background with GPT Image-1...
+2025-06-28 00:45:41,938 - INFO - SVG saved successfully: text_svg_20250628_004541_7c8a0ccc.svg in session session_20250628_004541_46038fcc
+2025-06-28 00:45:49,114 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-28 00:45:51,308 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-28 00:45:51,403 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:45:53,077 - INFO - Image saved successfully: background_20250628_004552_e4c544d2.png in session bg_20250628_004552_1c4b887e
+2025-06-28 00:45:53,078 - INFO - Background extracted and saved: background_20250628_004552_e4c544d2.png
+2025-06-28 00:45:53,078 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png
+2025-06-28 00:45:53,193 - INFO - Image saved successfully: background_20250628_004553_17887286.png in session parallel_20250628_004505_0c023a4f
+2025-06-28 00:45:53,193 - INFO - SVG saved successfully: text_svg_20250628_004553_e5c73ac2.svg in session parallel_20250628_004505_0c023a4f
+2025-06-28 00:45:53,193 - INFO - SVG saved successfully: elements_svg_20250628_004553_e71f9c92.svg in session parallel_20250628_004505_0c023a4f
+2025-06-28 00:45:53,302 - INFO - Image saved successfully: elements_png_20250628_004553_5d35778e.png in session parallel_20250628_004505_0c023a4f
+2025-06-28 00:45:53,302 - INFO - Generated public URLs:
+2025-06-28 00:45:53,302 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250628_004505_0c023a4f/initial_generated_20250628_004531_f4a858d3.png
+2025-06-28 00:45:53,302 - INFO -   Background: http://localhost:5000/static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png
+2025-06-28 00:45:53,302 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250628_004505_0c023a4f/text_svg_20250628_004553_e5c73ac2.svg
+2025-06-28 00:45:53,302 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250628_004505_0c023a4f/elements_svg_20250628_004553_e71f9c92.svg
+2025-06-28 00:45:53,302 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250628_004505_0c023a4f/elements_png_20250628_004553_5d35778e.png
+2025-06-28 00:45:53,302 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4o-mini with PUBLIC background URL
+2025-06-28 00:45:53,302 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png
+2025-06-28 00:45:53,302 - INFO - Using OPTIMIZED Google Gemini-2.5-flash to combine 3-layer SVG...
+2025-06-28 00:45:53,302 - INFO - Making OPTIMIZED OpenRouter call: google/gemini-2.5-flash, tokens: 32000, prompt_size: 1493
+2025-06-28 00:45:56,431 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 00:45:59,358 - INFO - ✅ OPTIMIZED OpenRouter API response in 6.06s (was 1493 chars)
+2025-06-28 00:45:59,358 - INFO - Google Gemini successfully combined 3-layer SVG - optimized version
+2025-06-28 00:45:59,358 - WARNING - Combined SVG doesn't start with <svg, using fallback with public URL
+2025-06-28 00:45:59,358 - INFO - Using fallback 3-layer SVG combination method
+2025-06-28 00:45:59,358 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-28 00:45:59,358 - INFO - Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4o-mini
+2025-06-28 00:45:59,358 - INFO - OPTIMIZED post-processing SVG using Google Gemini-2.5-flash...
+2025-06-28 00:45:59,358 - INFO - Successfully removed first path using regex (fast method)
+2025-06-28 00:45:59,359 - INFO - SVG saved successfully: combined_svg_20250628_004559_5006ac5d.svg in session parallel_20250628_004505_0c023a4f
+2025-06-28 00:45:59,359 - INFO - Combined SVG saved successfully: combined_svg_20250628_004559_5006ac5d.svg
+2025-06-28 00:45:59,368 - INFO - 127.0.0.1 - - [28/Jun/2025 00:45:59] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:45:59,568 - INFO - 127.0.0.1 - - [28/Jun/2025 00:45:59] "GET /static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png HTTP/1.1" 200 -
+2025-06-28 00:46:39,495 - INFO - 127.0.0.1 - - [28/Jun/2025 00:46:39] "OPTIONS /static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png HTTP/1.1" 200 -
+2025-06-28 00:46:39,497 - INFO - 127.0.0.1 - - [28/Jun/2025 00:46:39] "GET /static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png HTTP/1.1" 200 -
+2025-06-28 00:48:27,325 - INFO - 127.0.0.1 - - [28/Jun/2025 00:48:27] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 00:48:27,326 - INFO - 127.0.0.1 - - [28/Jun/2025 00:48:27] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 00:48:29,235 - INFO - 127.0.0.1 - - [28/Jun/2025 00:48:29] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:48:29,238 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 00:48:29,238 - INFO - Stage 2: Design Planning
+2025-06-28 00:48:29,238 - INFO - Planning design for: Design a testimonial graphic with a teal background, featuring a beige square container with \"TESTI...
+2025-06-28 00:48:43,228 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 00:48:43,228 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 00:48:43,228 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:48:43,228 - INFO - Pre-enhancing prompt: Design Plan:
+### Design Plan for Testimonial Graphic
+
+#### 1. Layout Structure
+- **Overall Compositi...
+2025-06-28 00:48:43,228 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:48:47,613 - INFO - Successfully enhanced prompt. Result: "Create a testimonial graphic with a full-screen teal background (#008080), featuring a centered bei...
+2025-06-28 00:48:47,614 - INFO - Pre-enhanced prompt generated
+2025-06-28 00:48:47,614 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 00:48:47,614 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 00:48:47,614 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:48:47,614 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:49:03,319 - INFO - Enhanced prompt generated
+2025-06-28 00:49:03,321 - INFO - Created parallel session: parallel_20250628_004903_0935184d
+2025-06-28 00:49:03,321 - INFO - Building advanced image prompt: Here's the comprehensive SVG specification based on your design description for a testimonial graphi...
+2025-06-28 00:49:03,321 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 00:49:16,522 - INFO - Successfully built advanced image prompt: ### Final Prompt for Trust-Building Testimonial Visual Generation
+
+**Prompt:**
+
+Create a high-qualit...
+2025-06-28 00:49:16,523 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 00:49:16,523 - INFO - Generating image with GPT Image-1 using optimized workflow
+2025-06-28 00:49:16,523 - INFO - Using enhanced prompt directly: ### Final Prompt for Trust-Building Testimonial Visual Generation
+
+**Prompt:**
+
+Create a high-quality SVG graphic for a testimonial that maximizes credibility and is optimized for conversion. The desi...
+2025-06-28 00:49:29,179 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:49:34,880 - INFO - Image saved successfully: gpt_image_20250628_004934_1c2344de.png in session svg_20250628_004934_f928a53c
+2025-06-28 00:49:34,881 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 00:49:34,881 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_004934_f928a53c/gpt_image_20250628_004934_1c2344de.png
+2025-06-28 00:49:34,884 - INFO - Saving initial generated image to unified storage session: parallel_20250628_004903_0935184d
+2025-06-28 00:49:35,001 - INFO - Image saved successfully: initial_generated_20250628_004934_cd0c7610.png in session parallel_20250628_004903_0935184d
+2025-06-28 00:49:35,001 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 00:49:35,005 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 00:49:35,007 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 00:49:52,379 - INFO - Background analysis: The background features a rich teal color that sets a strong and vibrant tone. There is a lighter, cream-colored rectangle in the center, providing a stark contrast to the teal. This rectangle serves ...
+2025-06-28 00:49:52,380 - INFO - Generating background with GPT Image-1...
+2025-06-28 00:49:55,743 - INFO - SVG saved successfully: text_svg_20250628_004955_4417c98e.svg in session session_20250628_004955_f424d254
+2025-06-28 00:50:01,792 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-28 00:50:04,287 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-28 00:50:06,186 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:50:08,156 - INFO - Image saved successfully: background_20250628_005008_f223ed3b.png in session bg_20250628_005008_2454b55f
+2025-06-28 00:50:08,156 - INFO - Background extracted and saved: background_20250628_005008_f223ed3b.png
+2025-06-28 00:50:08,157 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250628_005008_2454b55f/background_20250628_005008_f223ed3b.png
+2025-06-28 00:50:08,276 - INFO - Image saved successfully: background_20250628_005008_79d8fec8.png in session parallel_20250628_004903_0935184d
+2025-06-28 00:50:08,277 - INFO - SVG saved successfully: text_svg_20250628_005008_62a3e7c5.svg in session parallel_20250628_004903_0935184d
+2025-06-28 00:50:08,277 - INFO - SVG saved successfully: elements_svg_20250628_005008_130c7edc.svg in session parallel_20250628_004903_0935184d
+2025-06-28 00:50:08,401 - INFO - Image saved successfully: elements_png_20250628_005008_807ffc92.png in session parallel_20250628_004903_0935184d
+2025-06-28 00:50:08,402 - INFO - Generated public URLs:
+2025-06-28 00:50:08,402 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250628_004903_0935184d/initial_generated_20250628_004934_cd0c7610.png
+2025-06-28 00:50:08,402 - INFO -   Background: http://localhost:5000/static/images/sessions/bg_20250628_005008_2454b55f/background_20250628_005008_f223ed3b.png
+2025-06-28 00:50:08,402 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250628_004903_0935184d/text_svg_20250628_005008_62a3e7c5.svg
+2025-06-28 00:50:08,402 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250628_004903_0935184d/elements_svg_20250628_005008_130c7edc.svg
+2025-06-28 00:50:08,402 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250628_004903_0935184d/elements_png_20250628_005008_807ffc92.png
+2025-06-28 00:50:08,402 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4o-mini with PUBLIC background URL
+2025-06-28 00:50:08,402 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bg_20250628_005008_2454b55f/background_20250628_005008_f223ed3b.png
+2025-06-28 00:50:08,402 - INFO - Using OPTIMIZED Google Gemini-2.5-flash to combine 3-layer SVG...
+2025-06-28 00:50:08,402 - INFO - Making OPTIMIZED OpenRouter call: google/gemini-2.5-flash, tokens: 32000, prompt_size: 8847
+2025-06-28 00:50:15,861 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 00:50:51,257 - INFO - ✅ OPTIMIZED OpenRouter API response in 42.85s (was 8847 chars)
+2025-06-28 00:50:51,258 - INFO - Google Gemini successfully combined 3-layer SVG - optimized version
+2025-06-28 00:50:51,258 - WARNING - Combined SVG doesn't start with <svg, using fallback with public URL
+2025-06-28 00:50:51,258 - INFO - Using fallback 3-layer SVG combination method
+2025-06-28 00:50:51,258 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-28 00:50:51,258 - INFO - Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4o-mini
+2025-06-28 00:50:51,258 - INFO - OPTIMIZED post-processing SVG using Google Gemini-2.5-flash...
+2025-06-28 00:50:51,258 - INFO - Successfully removed first path using regex (fast method)
+2025-06-28 00:50:51,259 - INFO - SVG saved successfully: combined_svg_20250628_005051_ccc4e4b0.svg in session parallel_20250628_004903_0935184d
+2025-06-28 00:50:51,259 - INFO - Combined SVG saved successfully: combined_svg_20250628_005051_ccc4e4b0.svg
+2025-06-28 00:50:51,267 - INFO - 127.0.0.1 - - [28/Jun/2025 00:50:51] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:50:51,488 - INFO - 127.0.0.1 - - [28/Jun/2025 00:50:51] "GET /static/images/sessions/bg_20250628_005008_2454b55f/background_20250628_005008_f223ed3b.png HTTP/1.1" 200 -
+2025-06-28 00:54:00,161 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:54:00,297 - INFO -  * Restarting with stat
+2025-06-28 00:54:01,194 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:54:01,201 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:54:01,223 - WARNING -  * Debugger is active!
+2025-06-28 00:54:01,229 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:54:38,868 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:54:38,972 - INFO -  * Restarting with stat
+2025-06-28 00:54:39,757 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:54:39,763 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:54:39,783 - WARNING -  * Debugger is active!
+2025-06-28 00:54:39,787 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:54:57,015 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:54:57,085 - INFO -  * Restarting with stat
+2025-06-28 00:54:57,868 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:54:57,872 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:54:57,893 - WARNING -  * Debugger is active!
+2025-06-28 00:54:57,898 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:55:31,419 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:55:31,591 - INFO -  * Restarting with stat
+2025-06-28 00:55:32,322 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:55:32,325 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:55:32,344 - WARNING -  * Debugger is active!
+2025-06-28 00:55:32,348 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:56:23,406 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:23] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 00:56:23,415 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 00:56:23,415 - INFO - Stage 2: Design Planning
+2025-06-28 00:56:23,415 - INFO - Planning design for: Design a testimonial graphic with a teal background, featuring a beige square container with \"TESTI...
+2025-06-28 00:56:32,711 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 00:56:32,712 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 00:56:32,712 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:56:32,712 - INFO - Pre-enhancing prompt: Design Plan:
+### Design Plan for Testimonial Graphic
+
+#### 1. Layout Structure
+- **Overall Compositi...
+2025-06-28 00:56:32,712 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:56:38,763 - INFO - Successfully enhanced prompt. Result: "Create a testimonial graphic with a full-page teal background (#009688), featuring a large beige sq...
+2025-06-28 00:56:38,764 - INFO - Pre-enhanced prompt generated
+2025-06-28 00:56:38,764 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 00:56:38,764 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 00:56:38,764 - INFO - Using model: gpt-4o-mini
+2025-06-28 00:56:38,764 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 00:56:54,117 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,117 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,743 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250628_005008_2454b55f/background_20250628_005008_f223ed3b.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,747 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,749 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,750 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,755 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_170530_3758a7cb/background_20250625_170530_ed1a5c6c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,756 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_171747_a57d9686/background_20250625_171747_5500b67c.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,758 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_165725_e913659d/background_20250625_165725_94e28f8f.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,758 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_173035_5a5ea2f5/background_20250625_173035_d7ad0b9d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,760 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_165341_bcf72a48/background_20250625_165341_d4abb9cb.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,761 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_164759_b6f6b64a/background_20250625_164759_9b002f6d.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,762 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_164407_681e1cf4/background_20250625_164407_92249637.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,763 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_164003_1a3a18fb/background_20250625_164003_a00becea.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:54,769 - INFO - 127.0.0.1 - - [28/Jun/2025 00:56:54] "[36mGET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1[0m" 304 -
+2025-06-28 00:56:58,990 - INFO - Enhanced prompt generated
+2025-06-28 00:56:58,991 - INFO - Created parallel session: parallel_20250628_005658_c0db1cc3
+2025-06-28 00:56:58,991 - INFO - Building advanced image prompt: Here is a detailed SVG specification that captures your design description for the testimonial graph...
+2025-06-28 00:56:58,991 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 00:57:24,639 - INFO - Successfully built advanced image prompt: ### Final Image Generation Prompt for Trust-Building Testimonial Visuals
+
+---
+
+**Prompt for GPT-Imag...
+2025-06-28 00:57:24,640 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 00:57:24,640 - INFO - Generating image with GPT Image-1 using optimized workflow
+2025-06-28 00:57:24,640 - INFO - Using enhanced prompt directly: ### Final Image Generation Prompt for Trust-Building Testimonial Visuals
+
+---
+
+**Prompt for GPT-Image-1:**
+
+Create a trust-building testimonial graphic in SVG format with the following specifications ...
+2025-06-28 00:57:39,473 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:57:41,408 - INFO - Image saved successfully: gpt_image_20250628_005741_1485213e.png in session svg_20250628_005741_3928b854
+2025-06-28 00:57:41,408 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 00:57:41,409 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_005741_3928b854/gpt_image_20250628_005741_1485213e.png
+2025-06-28 00:57:41,412 - INFO - Saving initial generated image to unified storage session: parallel_20250628_005658_c0db1cc3
+2025-06-28 00:57:41,557 - INFO - Image saved successfully: initial_generated_20250628_005741_23f5315b.png in session parallel_20250628_005658_c0db1cc3
+2025-06-28 00:57:41,557 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 00:57:41,567 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 00:57:41,568 - INFO - Starting optimized elements SVG processing...
+2025-06-28 00:57:41,571 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 00:57:41,571 - INFO - Generating elements-only image from prompt...
+2025-06-28 00:57:41,571 - INFO - Generating elements-only image for vtracer processing...
+2025-06-28 00:57:41,571 - INFO - Generating elements-only image with GPT Image-1...
+2025-06-28 00:57:41,854 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 400 Bad Request"
+2025-06-28 00:57:41,855 - ERROR - Error generating elements-only image: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-28 00:57:41,855 - ERROR - Error in optimized elements SVG processing: Error code: 400 - {'error': {'message': "Invalid value: 'standard'. Supported values are: 'low', 'medium', 'high', and 'auto'.", 'type': 'invalid_request_error', 'param': 'quality', 'code': 'invalid_value'}}
+2025-06-28 00:57:41,855 - INFO - Falling back to original process_clean_svg method...
+2025-06-28 00:57:41,855 - INFO - Starting clean SVG processing with elements-only image generation...
+2025-06-28 00:57:44,004 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 400 Bad Request"
+2025-06-28 00:57:47,734 - INFO - Background analysis: The background features a smooth gradient transitioning from a deeper teal at the edges to a lighter turquoise at the center. This gradient creates a calming and uplifting atmosphere. There are subtle...
+2025-06-28 00:57:47,735 - INFO - Generating background with GPT Image-1...
+2025-06-28 00:57:51,436 - INFO - SVG saved successfully: text_svg_20250628_005751_752ee8fc.svg in session session_20250628_005751_e3466f2d
+2025-06-28 00:57:57,677 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 00:57:59,227 - INFO - Image saved successfully: background_20250628_005759_cbc2deea.png in session bg_20250628_005759_63bbac69
+2025-06-28 00:57:59,227 - INFO - Background extracted and saved: background_20250628_005759_cbc2deea.png
+2025-06-28 00:57:59,227 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250628_005759_63bbac69/background_20250628_005759_cbc2deea.png
+2025-06-28 00:57:59,228 - ERROR - Error in generate_parallel_svg: Error code: 400 - {'error': {'message': 'Invalid image file or mode for image 1, please check your image file.', 'type': 'image_generation_user_error', 'param': None, 'code': 'invalid_image_file'}}
+2025-06-28 00:57:59,228 - INFO - 127.0.0.1 - - [28/Jun/2025 00:57:59] "[35m[1mPOST /api/generate-parallel-svg HTTP/1.1[0m" 500 -
+2025-06-28 00:58:37,894 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:58:38,024 - INFO -  * Restarting with stat
+2025-06-28 00:58:38,908 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:58:38,911 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:58:38,937 - WARNING -  * Debugger is active!
+2025-06-28 00:58:38,941 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:58:52,124 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:58:52,212 - INFO -  * Restarting with stat
+2025-06-28 00:58:52,949 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:58:52,952 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:58:52,972 - WARNING -  * Debugger is active!
+2025-06-28 00:58:52,978 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:59:03,148 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:59:03,234 - INFO -  * Restarting with stat
+2025-06-28 00:59:04,010 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:59:04,014 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:59:04,030 - WARNING -  * Debugger is active!
+2025-06-28 00:59:04,034 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:59:14,194 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:59:14,316 - INFO -  * Restarting with stat
+2025-06-28 00:59:15,211 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:59:15,221 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:59:15,244 - WARNING -  * Debugger is active!
+2025-06-28 00:59:15,251 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:59:28,468 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 00:59:28,535 - INFO -  * Restarting with stat
+2025-06-28 00:59:29,504 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 00:59:29,508 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 00:59:29,529 - WARNING -  * Debugger is active!
+2025-06-28 00:59:29,534 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 00:59:59,992 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:00:00,083 - INFO -  * Restarting with stat
+2025-06-28 01:00:00,783 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:00:00,786 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:00:00,803 - WARNING -  * Debugger is active!
+2025-06-28 01:00:00,810 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:00:15,015 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:00:15,100 - INFO -  * Restarting with stat
+2025-06-28 01:00:15,923 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:00:15,926 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:00:15,947 - WARNING -  * Debugger is active!
+2025-06-28 01:00:15,952 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:00:41,336 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:00:41,397 - INFO -  * Restarting with stat
+2025-06-28 01:00:42,152 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:00:42,156 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:00:42,181 - WARNING -  * Debugger is active!
+2025-06-28 01:00:42,190 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:01:12,688 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:01:12,800 - INFO -  * Restarting with stat
+2025-06-28 01:01:13,589 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:01:13,593 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:01:13,611 - WARNING -  * Debugger is active!
+2025-06-28 01:01:13,617 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:01:31,892 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:01:31,965 - INFO -  * Restarting with stat
+2025-06-28 01:01:32,744 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:01:32,747 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:01:32,768 - WARNING -  * Debugger is active!
+2025-06-28 01:01:32,772 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:01:48,993 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:01:49,059 - INFO -  * Restarting with stat
+2025-06-28 01:01:49,783 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:01:49,787 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:01:49,808 - WARNING -  * Debugger is active!
+2025-06-28 01:01:49,815 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:02:01,973 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:02:02,060 - INFO -  * Restarting with stat
+2025-06-28 01:02:02,799 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:02:02,802 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:02:02,823 - WARNING -  * Debugger is active!
+2025-06-28 01:02:02,827 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:02:35,345 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:02:35,436 - INFO -  * Restarting with stat
+2025-06-28 01:02:36,247 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:02:36,250 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:02:36,269 - WARNING -  * Debugger is active!
+2025-06-28 01:02:36,277 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:02:48,694 - INFO - 127.0.0.1 - - [28/Jun/2025 01:02:48] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:02:48,695 - INFO - 127.0.0.1 - - [28/Jun/2025 01:02:48] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:03:00,104 - INFO - 127.0.0.1 - - [28/Jun/2025 01:03:00] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 01:03:00,107 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 01:03:00,107 - INFO - Stage 2: Design Planning
+2025-06-28 01:03:00,107 - INFO - Planning design for: Design a testimonial graphic with a teal background, featuring a beige square container with \"TESTI...
+2025-06-28 01:03:13,267 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 01:03:13,267 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 01:03:13,267 - INFO - Using model: gpt-4o-mini
+2025-06-28 01:03:13,267 - INFO - Pre-enhancing prompt: Design Plan:
+### Design Plan for Testimonial Graphic
+
+#### 1. Layout Structure
+- **Overall Compositi...
+2025-06-28 01:03:13,267 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:03:17,379 - INFO - Successfully enhanced prompt. Result: "Create a testimonial with a teal background (#008080) featuring a centered beige square container m...
+2025-06-28 01:03:17,380 - INFO - Pre-enhanced prompt generated
+2025-06-28 01:03:17,380 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 01:03:17,380 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 01:03:17,380 - INFO - Using model: gpt-4o-mini
+2025-06-28 01:03:17,380 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:03:31,247 - INFO - Enhanced prompt generated
+2025-06-28 01:03:31,249 - INFO - Created parallel session: parallel_20250628_010331_b99d74b0
+2025-06-28 01:03:31,249 - INFO - Building advanced image prompt: Below is the comprehensive SVG specification based on the provided design description for a testimon...
+2025-06-28 01:03:31,249 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 01:03:43,232 - INFO - Successfully built advanced image prompt: Here's the optimized final prompt for generating a conversion-optimized testimonial visual that buil...
+2025-06-28 01:03:43,233 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 01:03:43,233 - INFO - Generating image with GPT Image-1 using optimized workflow
+2025-06-28 01:03:43,233 - INFO - Using enhanced prompt directly: Here's the optimized final prompt for generating a conversion-optimized testimonial visual that builds trust and encourages viewer engagement:
+
+---
+
+**Final Prompt for Trust-Building Testimonial Visua...
+2025-06-28 01:03:55,340 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 01:03:56,696 - INFO - Image saved successfully: gpt_image_20250628_010356_2c261721.png in session svg_20250628_010356_7bd0b473
+2025-06-28 01:03:56,697 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 01:03:56,697 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_010356_7bd0b473/gpt_image_20250628_010356_2c261721.png
+2025-06-28 01:03:56,700 - INFO - Saving initial generated image to unified storage session: parallel_20250628_010331_b99d74b0
+2025-06-28 01:03:56,826 - INFO - Image saved successfully: initial_generated_20250628_010356_5ec60b95.png in session parallel_20250628_010331_b99d74b0
+2025-06-28 01:03:56,826 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 01:03:56,828 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 01:03:56,831 - INFO - Starting optimized elements SVG processing...
+2025-06-28 01:03:56,833 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 01:03:56,833 - INFO - Generating elements-only image from prompt...
+2025-06-28 01:03:56,833 - ERROR - Error in background extraction: local variable 'requests' referenced before assignment
+2025-06-28 01:03:56,833 - INFO - Generating elements-only image for vtracer processing...
+2025-06-28 01:03:56,835 - INFO - Generating elements-only image with GPT Image-1...
+2025-06-28 01:03:56,946 - INFO - Image saved successfully: background_fallback_20250628_010356_71dc6892.png in session bgfb_20250628_010356_cff08974
+2025-06-28 01:03:56,946 - WARNING - Using original image as background fallback
+2025-06-28 01:03:56,946 - INFO - Fallback background public URL: http://localhost:5000/static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png
+2025-06-28 01:04:04,866 - INFO - SVG saved successfully: text_svg_20250628_010404_794b9c4b.svg in session session_20250628_010404_97114a06
+2025-06-28 01:04:10,338 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 01:04:11,863 - INFO - Elements-only image generated successfully
+2025-06-28 01:04:11,871 - INFO - Elements-only image saved: temp_elements_20250628_010411_56db0d16.png
+2025-06-28 01:04:11,872 - INFO - Converting elements-only image to SVG with vtracer...
+2025-06-28 01:04:11,927 - INFO - Elements SVG generated: /Users/varunisrani/infoui/server/static/images/elements_20250628_010411_16912a9d.svg
+2025-06-28 01:04:11,928 - INFO - Temporary elements image cleaned up
+2025-06-28 01:04:11,928 - INFO - Optimized elements SVG processing completed successfully
+2025-06-28 01:04:12,037 - INFO - Image saved successfully: background_20250628_010411_1b20396c.png in session parallel_20250628_010331_b99d74b0
+2025-06-28 01:04:12,037 - INFO - SVG saved successfully: text_svg_20250628_010412_9b9a9873.svg in session parallel_20250628_010331_b99d74b0
+2025-06-28 01:04:12,038 - INFO - SVG saved successfully: elements_svg_20250628_010412_1abe3e84.svg in session parallel_20250628_010331_b99d74b0
+2025-06-28 01:04:12,038 - WARNING - Error saving files to unified storage: [Errno 2] No such file or directory: 'temp_elements_20250628_010411_56db0d16.png'
+2025-06-28 01:04:12,038 - INFO - Generated public URLs:
+2025-06-28 01:04:12,038 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250628_010331_b99d74b0/initial_generated_20250628_010356_5ec60b95.png
+2025-06-28 01:04:12,038 - INFO -   Background: http://localhost:5000/static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png
+2025-06-28 01:04:12,038 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250628_010331_b99d74b0/text_svg_20250628_010404_794b9c4b.svg
+2025-06-28 01:04:12,038 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250628_010331_b99d74b0/elements_20250628_010411_16912a9d.svg
+2025-06-28 01:04:12,038 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250628_010331_b99d74b0/temp_elements_20250628_010411_56db0d16.png
+2025-06-28 01:04:12,038 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4o-mini with PUBLIC background URL
+2025-06-28 01:04:12,038 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png
+2025-06-28 01:04:12,038 - INFO - Using OPTIMIZED Google Gemini-2.5-flash to combine 3-layer SVG...
+2025-06-28 01:04:12,038 - INFO - Making OPTIMIZED OpenRouter call: google/gemini-2.5-flash, tokens: 32000, prompt_size: 15998
+2025-06-28 01:04:15,032 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 01:05:24,771 - INFO - ✅ OPTIMIZED OpenRouter API response in 72.73s (was 15998 chars)
+2025-06-28 01:05:24,773 - INFO - Google Gemini successfully combined 3-layer SVG - optimized version
+2025-06-28 01:05:24,773 - WARNING - Combined SVG doesn't start with <svg, using fallback with public URL
+2025-06-28 01:05:24,773 - INFO - Using fallback 3-layer SVG combination method
+2025-06-28 01:05:24,775 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-28 01:05:24,775 - INFO - Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4o-mini
+2025-06-28 01:05:24,775 - INFO - OPTIMIZED post-processing SVG using Google Gemini-2.5-flash...
+2025-06-28 01:05:24,777 - INFO - Successfully removed first path using regex (fast method)
+2025-06-28 01:05:24,778 - INFO - SVG saved successfully: combined_svg_20250628_010524_ef35d651.svg in session parallel_20250628_010331_b99d74b0
+2025-06-28 01:05:24,778 - INFO - Combined SVG saved successfully: combined_svg_20250628_010524_ef35d651.svg
+2025-06-28 01:05:24,785 - INFO - 127.0.0.1 - - [28/Jun/2025 01:05:24] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 01:05:24,967 - INFO - 127.0.0.1 - - [28/Jun/2025 01:05:24] "GET /static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png HTTP/1.1" 200 -
+2025-06-28 01:05:32,771 - INFO - 127.0.0.1 - - [28/Jun/2025 01:05:32] "OPTIONS /static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png HTTP/1.1" 200 -
+2025-06-28 01:05:32,781 - INFO - 127.0.0.1 - - [28/Jun/2025 01:05:32] "GET /static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png HTTP/1.1" 200 -
+2025-06-28 01:06:55,410 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:06:55,529 - INFO -  * Restarting with stat
+2025-06-28 01:06:56,412 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:06:56,416 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:06:56,437 - WARNING -  * Debugger is active!
+2025-06-28 01:06:56,442 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:07:04,598 - INFO - 127.0.0.1 - - [28/Jun/2025 01:07:04] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:07:04,598 - INFO - 127.0.0.1 - - [28/Jun/2025 01:07:04] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:07:10,030 - INFO - 127.0.0.1 - - [28/Jun/2025 01:07:10] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 01:07:10,032 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 01:07:10,032 - INFO - Stage 2: Design Planning
+2025-06-28 01:07:10,032 - INFO - Planning design for: Design a testimonial graphic with a teal background, featuring a beige square container with \"TESTI...
+2025-06-28 01:07:21,701 - INFO - Stage 3: Design Knowledge Generation
+2025-06-28 01:07:21,702 - INFO - Generating design knowledge...
+2025-06-28 01:07:23,020 - ERROR - Design knowledge generation error: {'error': {'message': 'max_tokens is too large: 18000. This model supports at most 16384 completion tokens, whereas you provided 18000.', 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'invalid_value'}}
+2025-06-28 01:07:23,020 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 01:07:23,020 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 01:07:23,020 - INFO - Using model: gpt-4o-mini
+2025-06-28 01:07:23,020 - INFO - Pre-enhancing prompt: Design Plan:
+### Design Plan for Testimonial Graphic
+
+#### 1. Layout Structure
+- **Overall Compositi...
+2025-06-28 01:07:23,020 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:07:25,692 - INFO - Successfully enhanced prompt. Result: "Create a testimonial with a teal background featuring a beige square container at the center. The l...
+2025-06-28 01:07:25,693 - INFO - Pre-enhanced prompt generated
+2025-06-28 01:07:25,693 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 01:07:25,693 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 01:07:25,693 - INFO - Using model: gpt-4o-mini
+2025-06-28 01:07:25,693 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:07:43,164 - INFO - Enhanced prompt generated
+2025-06-28 01:07:43,166 - INFO - Created parallel session: parallel_20250628_010743_d773b12f
+2025-06-28 01:07:43,166 - INFO - Building advanced image prompt: Here is a comprehensive SVG specification based on your design description, featuring a testimonial ...
+2025-06-28 01:07:43,166 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 01:07:56,194 - INFO - Successfully built advanced image prompt: ```plaintext
+**FINAL PROMPT:**
+
+Generate a visually compelling SVG testimonial graphic that maximize...
+2025-06-28 01:07:56,194 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 01:07:56,195 - INFO - Generating image with GPT Image-1
+2025-06-28 01:07:56,195 - INFO - Enhancing prompt for GPT Image-1: ```plaintext
+**FINAL PROMPT:**
+
+Generate a visually compelling SVG testimonial graphic that maximize...
+2025-06-28 01:07:56,195 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:08:00,801 - INFO - Successfully enhanced prompt for GPT Image-1: Create a testimonial with a teal background #008080 featuring a beige rectangle container (#c4b18e) ...
+2025-06-28 01:08:00,801 - INFO - Optimized prompt: Create a testimonial with a teal background #008080 featuring a beige rectangle container (#c4b18e) with rounded corners (rx and ry: 15) centered in the graphic, measuring 300 x 200 pixels. The layout...
+2025-06-28 01:08:12,037 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 01:08:15,231 - INFO - Image saved successfully: gpt_image_20250628_010815_a9fec29e.png in session svg_20250628_010815_a9e8d8a4
+2025-06-28 01:08:15,231 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 01:08:15,231 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_010815_a9e8d8a4/gpt_image_20250628_010815_a9fec29e.png
+2025-06-28 01:08:15,234 - INFO - Saving initial generated image to unified storage session: parallel_20250628_010743_d773b12f
+2025-06-28 01:08:15,350 - INFO - Image saved successfully: initial_generated_20250628_010815_c3a1b2ff.png in session parallel_20250628_010743_d773b12f
+2025-06-28 01:08:15,350 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 01:08:15,352 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 01:08:15,358 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 01:08:23,841 - INFO - Background analysis: The background of the image consists of two main colors. 
+
+1. **Main Background Color**: A deep teal that covers the entire canvas, providing a rich and elegant tone.
+2. **Secondary Color**: Inside th...
+2025-06-28 01:08:23,842 - INFO - Generating background with GPT Image-1...
+2025-06-28 01:08:27,834 - INFO - SVG saved successfully: text_svg_20250628_010827_2a6fa196.svg in session session_20250628_010827_126e8a75
+2025-06-28 01:08:32,942 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-28 01:08:34,353 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-28 01:08:34,900 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 01:08:39,833 - INFO - Image saved successfully: background_20250628_010839_04241b90.png in session bg_20250628_010839_26aee9fd
+2025-06-28 01:08:39,834 - INFO - Background extracted and saved: background_20250628_010839_04241b90.png
+2025-06-28 01:08:39,834 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png
+2025-06-28 01:08:39,965 - INFO - Image saved successfully: background_20250628_010839_5fa2fa28.png in session parallel_20250628_010743_d773b12f
+2025-06-28 01:08:39,966 - INFO - SVG saved successfully: text_svg_20250628_010839_784bb5d2.svg in session parallel_20250628_010743_d773b12f
+2025-06-28 01:08:39,966 - INFO - SVG saved successfully: elements_svg_20250628_010839_d86dabc9.svg in session parallel_20250628_010743_d773b12f
+2025-06-28 01:08:40,099 - INFO - Image saved successfully: elements_png_20250628_010839_4c351060.png in session parallel_20250628_010743_d773b12f
+2025-06-28 01:08:40,100 - INFO - Generated public URLs:
+2025-06-28 01:08:40,100 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250628_010743_d773b12f/initial_generated_20250628_010815_c3a1b2ff.png
+2025-06-28 01:08:40,100 - INFO -   Background: http://localhost:5000/static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png
+2025-06-28 01:08:40,100 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250628_010743_d773b12f/text_svg_20250628_010839_784bb5d2.svg
+2025-06-28 01:08:40,100 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250628_010743_d773b12f/elements_svg_20250628_010839_d86dabc9.svg
+2025-06-28 01:08:40,100 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250628_010743_d773b12f/elements_png_20250628_010839_4c351060.png
+2025-06-28 01:08:40,100 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4o-mini with PUBLIC background URL
+2025-06-28 01:08:40,100 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png
+2025-06-28 01:08:40,100 - INFO - Using OPTIMIZED Google Gemini-2.5-flash to combine 3-layer SVG...
+2025-06-28 01:08:40,100 - INFO - Making OPTIMIZED OpenRouter call: google/gemini-2.5-flash, tokens: 32000, prompt_size: 6765
+2025-06-28 01:08:45,299 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 01:09:10,380 - INFO - ✅ OPTIMIZED OpenRouter API response in 30.28s (was 6765 chars)
+2025-06-28 01:09:10,381 - INFO - Google Gemini successfully combined 3-layer SVG - optimized version
+2025-06-28 01:09:10,381 - WARNING - Combined SVG doesn't start with <svg, using fallback with public URL
+2025-06-28 01:09:10,381 - INFO - Using fallback 3-layer SVG combination method
+2025-06-28 01:09:10,382 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-28 01:09:10,382 - INFO - Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4o-mini
+2025-06-28 01:09:10,382 - INFO - OPTIMIZED post-processing SVG using Google Gemini-2.5-flash...
+2025-06-28 01:09:10,382 - INFO - Successfully removed first path using regex (fast method)
+2025-06-28 01:09:10,383 - INFO - SVG saved successfully: combined_svg_20250628_010910_96f75835.svg in session parallel_20250628_010743_d773b12f
+2025-06-28 01:09:10,384 - INFO - Combined SVG saved successfully: combined_svg_20250628_010910_96f75835.svg
+2025-06-28 01:09:10,393 - INFO - 127.0.0.1 - - [28/Jun/2025 01:09:10] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 01:09:10,620 - INFO - 127.0.0.1 - - [28/Jun/2025 01:09:10] "GET /static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png HTTP/1.1" 200 -
+2025-06-28 01:09:26,092 - INFO - 127.0.0.1 - - [28/Jun/2025 01:09:26] "OPTIONS /static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png HTTP/1.1" 200 -
+2025-06-28 01:09:26,094 - INFO - 127.0.0.1 - - [28/Jun/2025 01:09:26] "GET /static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png HTTP/1.1" 200 -
+2025-06-28 01:09:57,937 - INFO - 127.0.0.1 - - [28/Jun/2025 01:09:57] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 01:09:57,941 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 01:09:57,941 - INFO - Stage 2: Design Planning
+2025-06-28 01:09:57,941 - INFO - Planning design for: Create a coming soon poster...
+2025-06-28 01:10:01,658 - INFO - 127.0.0.1 - - [28/Jun/2025 01:10:01] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:10:01,659 - INFO - 127.0.0.1 - - [28/Jun/2025 01:10:01] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:10:11,193 - INFO - Stage 3: Design Knowledge Generation
+2025-06-28 01:10:11,193 - INFO - Generating design knowledge...
+2025-06-28 01:10:11,618 - ERROR - Design knowledge generation error: {'error': {'message': 'max_tokens is too large: 18000. This model supports at most 16384 completion tokens, whereas you provided 18000.', 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'invalid_value'}}
+2025-06-28 01:10:11,619 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 01:10:11,619 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 01:10:11,619 - INFO - Using model: gpt-4o-mini
+2025-06-28 01:10:11,619 - INFO - Pre-enhancing prompt: Design Plan:
+## Coming Soon Poster Design Plan
+
+### 1. Layout Structure
+- **Overall Composition**: C...
+2025-06-28 01:10:11,619 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:10:21,831 - INFO - Successfully enhanced prompt. Result: "Create a coming soon poster with a light gray (#F0F0F0) background, featuring a centered layout tha...
+2025-06-28 01:10:21,832 - INFO - Pre-enhanced prompt generated
+2025-06-28 01:10:21,832 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 01:10:21,832 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 01:10:21,832 - INFO - Using model: gpt-4o-mini
+2025-06-28 01:10:21,832 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:10:40,052 - INFO - Enhanced prompt generated
+2025-06-28 01:10:40,053 - INFO - Created parallel session: parallel_20250628_011040_e4f2e8b5
+2025-06-28 01:10:40,053 - INFO - Building advanced image prompt: Here are the comprehensive SVG specifications transformed from the design description for the "Comin...
+2025-06-28 01:10:40,053 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 01:10:50,684 - INFO - Successfully built advanced image prompt: **Ultimate Prompt for GPT Image-1: Coming Soon Viral Visuals**
+
+Create an explosive "Coming Soon" po...
+2025-06-28 01:10:50,685 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 01:10:50,685 - INFO - Generating image with GPT Image-1
+2025-06-28 01:10:50,685 - INFO - Enhancing prompt for GPT Image-1: **Ultimate Prompt for GPT Image-1: Coming Soon Viral Visuals**
+
+Create an explosive "Coming Soon" po...
+2025-06-28 01:10:50,685 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:10:53,552 - INFO - Successfully enhanced prompt for GPT Image-1: Create a coming soon page with a dramatic background featuring bursting colors and abstract shapes. ...
+2025-06-28 01:10:53,553 - INFO - Optimized prompt: Create a coming soon page with a dramatic background featuring bursting colors and abstract shapes. The background is a vibrant explosion of neon pink, electric green, and fiery orange radiating from ...
+2025-06-28 01:11:07,587 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 01:11:09,896 - INFO - Image saved successfully: gpt_image_20250628_011109_61f95cd6.png in session svg_20250628_011109_a6db0a0b
+2025-06-28 01:11:09,896 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 01:11:09,896 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_011109_a6db0a0b/gpt_image_20250628_011109_61f95cd6.png
+2025-06-28 01:11:09,900 - INFO - Saving initial generated image to unified storage session: parallel_20250628_011040_e4f2e8b5
+2025-06-28 01:11:09,997 - INFO - Image saved successfully: initial_generated_20250628_011109_2dc550e0.png in session parallel_20250628_011040_e4f2e8b5
+2025-06-28 01:11:09,998 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 01:11:10,004 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 01:11:10,007 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 01:11:27,040 - INFO - Background analysis: The background features a vibrant blend of colors, primarily deep purples and blacks, interspersed with bright hues of pink, orange, and green. There are subtle color gradients that create a sense of ...
+2025-06-28 01:11:27,041 - INFO - Generating background with GPT Image-1...
+2025-06-28 01:11:27,916 - INFO - SVG saved successfully: text_svg_20250628_011127_3c8c2423.svg in session session_20250628_011127_4cce6ee2
+2025-06-28 01:11:38,350 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 01:11:39,983 - INFO - Image saved successfully: background_20250628_011139_3f7f6ffc.png in session bg_20250628_011139_8bf5d11b
+2025-06-28 01:11:39,984 - INFO - Background extracted and saved: background_20250628_011139_3f7f6ffc.png
+2025-06-28 01:11:39,984 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250628_011139_8bf5d11b/background_20250628_011139_3f7f6ffc.png
+2025-06-28 01:11:41,002 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-28 01:11:42,657 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-28 01:11:42,888 - INFO - Image saved successfully: background_20250628_011142_22f2cd46.png in session parallel_20250628_011040_e4f2e8b5
+2025-06-28 01:11:42,890 - INFO - SVG saved successfully: text_svg_20250628_011142_034e84c4.svg in session parallel_20250628_011040_e4f2e8b5
+2025-06-28 01:11:42,890 - INFO - SVG saved successfully: elements_svg_20250628_011142_c9f4f6b4.svg in session parallel_20250628_011040_e4f2e8b5
+2025-06-28 01:11:43,078 - INFO - Image saved successfully: elements_png_20250628_011142_f28ac157.png in session parallel_20250628_011040_e4f2e8b5
+2025-06-28 01:11:43,079 - INFO - Generated public URLs:
+2025-06-28 01:11:43,079 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250628_011040_e4f2e8b5/initial_generated_20250628_011109_2dc550e0.png
+2025-06-28 01:11:43,079 - INFO -   Background: http://localhost:5000/static/images/sessions/bg_20250628_011139_8bf5d11b/background_20250628_011139_3f7f6ffc.png
+2025-06-28 01:11:43,079 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250628_011040_e4f2e8b5/text_svg_20250628_011142_034e84c4.svg
+2025-06-28 01:11:43,079 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250628_011040_e4f2e8b5/elements_svg_20250628_011142_c9f4f6b4.svg
+2025-06-28 01:11:43,079 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250628_011040_e4f2e8b5/elements_png_20250628_011142_f28ac157.png
+2025-06-28 01:11:43,079 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4o-mini with PUBLIC background URL
+2025-06-28 01:11:43,079 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bg_20250628_011139_8bf5d11b/background_20250628_011139_3f7f6ffc.png
+2025-06-28 01:11:43,079 - INFO - Using OPTIMIZED Google Gemini-2.5-flash to combine 3-layer SVG...
+2025-06-28 01:11:43,079 - INFO - Making OPTIMIZED OpenRouter call: google/gemini-2.5-flash, tokens: 32000, prompt_size: 15998
+2025-06-28 01:11:47,442 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 01:13:27,191 - INFO - ✅ OPTIMIZED OpenRouter API response in 104.11s (was 15998 chars)
+2025-06-28 01:13:27,194 - INFO - Google Gemini successfully combined 3-layer SVG - optimized version
+2025-06-28 01:13:27,194 - WARNING - Combined SVG doesn't start with <svg, using fallback with public URL
+2025-06-28 01:13:27,194 - INFO - Using fallback 3-layer SVG combination method
+2025-06-28 01:13:27,198 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-28 01:13:27,198 - INFO - Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4o-mini
+2025-06-28 01:13:27,199 - INFO - OPTIMIZED post-processing SVG using Google Gemini-2.5-flash...
+2025-06-28 01:13:27,203 - INFO - Successfully removed first path using regex (fast method)
+2025-06-28 01:13:27,204 - INFO - SVG saved successfully: combined_svg_20250628_011327_0a069c84.svg in session parallel_20250628_011040_e4f2e8b5
+2025-06-28 01:13:27,204 - INFO - Combined SVG saved successfully: combined_svg_20250628_011327_0a069c84.svg
+2025-06-28 01:13:27,218 - INFO - 127.0.0.1 - - [28/Jun/2025 01:13:27] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 01:13:27,401 - INFO - 127.0.0.1 - - [28/Jun/2025 01:13:27] "GET /static/images/sessions/bg_20250628_011139_8bf5d11b/background_20250628_011139_3f7f6ffc.png HTTP/1.1" 200 -
+2025-06-28 01:17:54,103 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:17:54,252 - INFO -  * Restarting with stat
+2025-06-28 01:17:55,113 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:17:55,117 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:17:55,136 - WARNING -  * Debugger is active!
+2025-06-28 01:17:55,142 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:18:09,386 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:18:09,467 - INFO -  * Restarting with stat
+2025-06-28 01:18:10,156 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:18:10,159 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:18:10,177 - WARNING -  * Debugger is active!
+2025-06-28 01:18:10,183 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:18:39,660 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:18:39,738 - INFO -  * Restarting with stat
+2025-06-28 01:18:40,431 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:18:40,434 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:18:40,452 - WARNING -  * Debugger is active!
+2025-06-28 01:18:40,456 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:18:50,674 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-28 01:18:50,757 - INFO -  * Restarting with stat
+2025-06-28 01:18:51,467 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:18:51,471 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:18:51,487 - WARNING -  * Debugger is active!
+2025-06-28 01:18:51,490 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:18:56,592 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/parallel_svg_pipeline.py', reloading
+2025-06-28 01:18:56,660 - INFO -  * Restarting with stat
+2025-06-28 01:18:57,195 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:18:57,199 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:18:57,214 - WARNING -  * Debugger is active!
+2025-06-28 01:18:57,218 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:21:22,318 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:22] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:22,318 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:22] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,437 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,437 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,438 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250628_011139_8bf5d11b/background_20250628_011139_3f7f6ffc.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,440 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250628_005008_2454b55f/background_20250628_005008_f223ed3b.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,442 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,443 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,445 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,449 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_171747_a57d9686/background_20250625_171747_5500b67c.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,450 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_173035_5a5ea2f5/background_20250625_173035_d7ad0b9d.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,450 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_170530_3758a7cb/background_20250625_170530_ed1a5c6c.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,451 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_165341_bcf72a48/background_20250625_165341_d4abb9cb.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,451 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_165725_e913659d/background_20250625_165725_94e28f8f.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,453 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_164759_b6f6b64a/background_20250625_164759_9b002f6d.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,454 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_164407_681e1cf4/background_20250625_164407_92249637.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,459 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_164003_1a3a18fb/background_20250625_164003_a00becea.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:24,460 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:24] "[36mGET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1[0m" 304 -
+2025-06-28 01:21:32,309 - INFO - 127.0.0.1 - - [28/Jun/2025 01:21:32] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 01:21:32,313 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 01:21:32,313 - INFO - Stage 2: Design Planning
+2025-06-28 01:21:32,313 - INFO - Planning design for: Design a testimonial graphic with a teal background, featuring a beige square container with \"TESTI...
+2025-06-28 01:21:46,520 - INFO - Stage 3: Design Knowledge Generation
+2025-06-28 01:21:46,520 - INFO - Generating design knowledge...
+2025-06-28 01:21:46,865 - ERROR - Design knowledge generation error: {'error': {'message': 'max_tokens is too large: 18000. This model supports at most 16384 completion tokens, whereas you provided 18000.', 'type': 'invalid_request_error', 'param': 'max_tokens', 'code': 'invalid_value'}}
+2025-06-28 01:21:46,865 - INFO - Stage 4: Pre-Enhancement Phase
+2025-06-28 01:21:46,865 - INFO - Pre-enhancing prompt with design context...
+2025-06-28 01:21:46,865 - INFO - Using model: gpt-4o-mini
+2025-06-28 01:21:46,865 - INFO - Pre-enhancing prompt: Design Plan:
+### Design Plan for Testimonial Graphic
+
+#### 1. Layout Structure
+- **Overall Compositi...
+2025-06-28 01:21:46,865 - INFO - Calling OpenAI Chat API for initial prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:21:52,376 - INFO - Successfully enhanced prompt. Result: "Create a testimonial graphic with a teal background (`#008080`) featuring a beige square container ...
+2025-06-28 01:21:52,377 - INFO - Pre-enhanced prompt generated
+2025-06-28 01:21:52,377 - INFO - Stage 5: Final Enhancement Phase
+2025-06-28 01:21:52,377 - INFO - Enhancing prompt with technical specifications...
+2025-06-28 01:21:52,377 - INFO - Using model: gpt-4o-mini
+2025-06-28 01:21:52,377 - INFO - Calling OpenAI Chat API for prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:22:08,232 - INFO - Enhanced prompt generated
+2025-06-28 01:22:08,233 - INFO - Created parallel session: parallel_20250628_012208_642b5d3e
+2025-06-28 01:22:08,233 - INFO - Building advanced image prompt: Below is a detailed SVG technical specification to create a testimonial graphic based on the provide...
+2025-06-28 01:22:08,233 - INFO - Calling OpenAI for advanced image prompt building
+2025-06-28 01:22:27,569 - INFO - Successfully built advanced image prompt: ### Ultimate Prompt for Generating Trust-Building Testimonial Visuals
+
+**Prompt:**
+
+Create a high-qu...
+2025-06-28 01:22:27,571 - INFO - Stage 6: Image Generation via GPT-Image with enhanced prompt
+2025-06-28 01:22:27,571 - INFO - Generating image with GPT Image-1
+2025-06-28 01:22:27,571 - INFO - Enhancing prompt for GPT Image-1: ### Ultimate Prompt for Generating Trust-Building Testimonial Visuals
+
+**Prompt:**
+
+Create a high-qu...
+2025-06-28 01:22:27,572 - INFO - Calling OpenAI for GPT Image-1 prompt enhancement with model: gpt-4o-mini
+2025-06-28 01:22:31,604 - INFO - Successfully enhanced prompt for GPT Image-1: Create a testimonial with a teal background (#14B8A6) featuring a beige square container (300px) at ...
+2025-06-28 01:22:31,605 - INFO - Optimized prompt with VTracer separation: Create a testimonial with a teal background (#14B8A6) featuring a beige square container (300px) at the center. The layout includes "'TESTIMONIAL' in bold Alfarn font, size 36" at the top center, styl...
+2025-06-28 01:22:43,096 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 01:22:44,423 - INFO - Image saved successfully: gpt_image_20250628_012244_900f8944.png in session svg_20250628_012244_4a7fc1ac
+2025-06-28 01:22:44,424 - INFO - Image generated and saved successfully with GPT Image-1
+2025-06-28 01:22:44,424 - INFO - Public URL created: http://localhost:5000/static/images/sessions/svg_20250628_012244_4a7fc1ac/gpt_image_20250628_012244_900f8944.png
+2025-06-28 01:22:44,427 - INFO - Saving initial generated image to unified storage session: parallel_20250628_012208_642b5d3e
+2025-06-28 01:22:44,537 - INFO - Image saved successfully: initial_generated_20250628_012244_41af54f7.png in session parallel_20250628_012208_642b5d3e
+2025-06-28 01:22:44,537 - INFO - Stage 7: Triple Parallel Processing - Text SVG, Background Extraction, and Elements SVG
+2025-06-28 01:22:44,540 - INFO - Starting background extraction using gpt-4o-mini vision...
+2025-06-28 01:22:44,545 - INFO - Analyzing background with gpt-4o-mini vision...
+2025-06-28 01:22:50,188 - INFO - Background analysis: The background of the image features a solid teal color that creates a calming and appealing atmosphere. This color is uniform throughout the background, providing a consistent feel. The absence of gr...
+2025-06-28 01:22:50,188 - INFO - Generating background with GPT Image-1...
+2025-06-28 01:22:54,155 - INFO - SVG saved successfully: text_svg_20250628_012254_48857bf9.svg in session session_20250628_012254_cd6d1b0c
+2025-06-28 01:23:00,685 - INFO - HTTP Request: POST https://api.openai.com/v1/images/generations "HTTP/1.1 200 OK"
+2025-06-28 01:23:01,250 - INFO - HTTP Request: POST https://api.openai.com/v1/images/edits "HTTP/1.1 200 OK"
+2025-06-28 01:23:02,196 - INFO - Image saved successfully: background_20250628_012302_1fcfb573.png in session bg_20250628_012302_9923d854
+2025-06-28 01:23:02,196 - INFO - Background extracted and saved: background_20250628_012302_1fcfb573.png
+2025-06-28 01:23:02,196 - INFO - Background public URL: http://localhost:5000/static/images/sessions/bg_20250628_012302_9923d854/background_20250628_012302_1fcfb573.png
+2025-06-28 01:23:02,623 - INFO - Text removed from image, proceeding with V-Tracer for element isolation...
+2025-06-28 01:23:02,851 - INFO - Image saved successfully: background_20250628_012302_2fada09d.png in session parallel_20250628_012208_642b5d3e
+2025-06-28 01:23:02,852 - INFO - SVG saved successfully: text_svg_20250628_012302_226c9133.svg in session parallel_20250628_012208_642b5d3e
+2025-06-28 01:23:02,853 - INFO - SVG saved successfully: elements_svg_20250628_012302_aa74d03e.svg in session parallel_20250628_012208_642b5d3e
+2025-06-28 01:23:02,974 - INFO - Image saved successfully: elements_png_20250628_012302_42eb22a8.png in session parallel_20250628_012208_642b5d3e
+2025-06-28 01:23:02,974 - INFO - Generated public URLs:
+2025-06-28 01:23:02,974 - INFO -   Initial image: http://localhost:5000/static/images/sessions/parallel_20250628_012208_642b5d3e/initial_generated_20250628_012244_41af54f7.png
+2025-06-28 01:23:02,974 - INFO -   Background: http://localhost:5000/static/images/sessions/bg_20250628_012302_9923d854/background_20250628_012302_1fcfb573.png
+2025-06-28 01:23:02,974 - INFO -   Text SVG: http://localhost:5000/static/images/sessions/parallel_20250628_012208_642b5d3e/text_svg_20250628_012302_226c9133.svg
+2025-06-28 01:23:02,974 - INFO -   Elements SVG: http://localhost:5000/static/images/sessions/parallel_20250628_012208_642b5d3e/elements_svg_20250628_012302_aa74d03e.svg
+2025-06-28 01:23:02,974 - INFO -   Elements PNG: http://localhost:5000/static/images/sessions/parallel_20250628_012208_642b5d3e/elements_png_20250628_012302_42eb22a8.png
+2025-06-28 01:23:02,974 - INFO - Stage 8: AI-Powered 3-Layer SVG Combination using gpt-4o-mini with PUBLIC background URL
+2025-06-28 01:23:02,974 - INFO - Using public background URL for SVG combination: http://localhost:5000/static/images/sessions/bg_20250628_012302_9923d854/background_20250628_012302_1fcfb573.png
+2025-06-28 01:23:02,974 - INFO - Using OPTIMIZED Google Gemini-2.5-flash to combine 3-layer SVG...
+2025-06-28 01:23:02,974 - INFO - Making OPTIMIZED OpenRouter call: google/gemini-2.5-flash, tokens: 32000, prompt_size: 16284
+2025-06-28 01:23:06,007 - INFO - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 200 OK"
+2025-06-28 01:24:11,370 - INFO - ✅ OPTIMIZED OpenRouter API response in 68.40s (was 16284 chars)
+2025-06-28 01:24:11,372 - INFO - Google Gemini successfully combined 3-layer SVG - optimized version
+2025-06-28 01:24:11,372 - WARNING - Combined SVG doesn't start with <svg, using fallback with public URL
+2025-06-28 01:24:11,372 - INFO - Using fallback 3-layer SVG combination method
+2025-06-28 01:24:11,373 - INFO - Fallback 3-layer SVG combination completed successfully
+2025-06-28 01:24:11,374 - INFO - Stage 9: Post-processing SVG to remove first path in elements-layer using gpt-4o-mini
+2025-06-28 01:24:11,374 - INFO - OPTIMIZED post-processing SVG using Google Gemini-2.5-flash...
+2025-06-28 01:24:11,375 - INFO - Successfully removed first path using regex (fast method)
+2025-06-28 01:24:11,376 - INFO - SVG saved successfully: combined_svg_20250628_012411_c960bafd.svg in session parallel_20250628_012208_642b5d3e
+2025-06-28 01:24:11,376 - INFO - Combined SVG saved successfully: combined_svg_20250628_012411_c960bafd.svg
+2025-06-28 01:24:11,386 - INFO - 127.0.0.1 - - [28/Jun/2025 01:24:11] "POST /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 01:24:11,582 - INFO - 127.0.0.1 - - [28/Jun/2025 01:24:11] "GET /static/images/sessions/bg_20250628_012302_9923d854/background_20250628_012302_1fcfb573.png HTTP/1.1" 200 -
+2025-06-28 01:26:25,469 - INFO -  * Detected change in '/Users/varunisrani/infoui/server/app.py', reloading
+2025-06-28 01:26:25,571 - INFO -  * Restarting with stat
+2025-06-28 01:26:26,466 - INFO - ✅ OpenRouter API key found - Google Gemini-2.5-flash enabled for ultra-fast SVG processing!
+2025-06-28 01:26:26,469 - INFO - Starting Flask application on 127.0.0.1:5000 (debug=True)
+2025-06-28 01:26:26,492 - WARNING -  * Debugger is active!
+2025-06-28 01:26:26,499 - INFO -  * Debugger PIN: 110-643-955
+2025-06-28 01:34:56,902 - INFO - 127.0.0.1 - - [28/Jun/2025 01:34:56] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:34:56,903 - INFO - 127.0.0.1 - - [28/Jun/2025 01:34:56] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:43,919 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:43] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:43,919 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:43] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:48,907 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:48] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:48,907 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:48] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:50,826 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:50] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:50,827 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:50] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:52,747 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:52] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:52,747 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:52] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:55,636 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:55] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:55,637 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:55] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,271 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250628_012302_9923d854/background_20250628_012302_1fcfb573.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,273 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250628_011139_8bf5d11b/background_20250628_011139_3f7f6ffc.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,274 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,276 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,276 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250628_005008_2454b55f/background_20250628_005008_f223ed3b.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,278 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,280 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,282 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,284 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_173035_5a5ea2f5/background_20250625_173035_d7ad0b9d.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,285 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_171747_a57d9686/background_20250625_171747_5500b67c.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,290 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_165725_e913659d/background_20250625_165725_94e28f8f.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,291 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_170530_3758a7cb/background_20250625_170530_ed1a5c6c.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,291 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_165341_bcf72a48/background_20250625_165341_d4abb9cb.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,292 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_164759_b6f6b64a/background_20250625_164759_9b002f6d.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,292 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_164407_681e1cf4/background_20250625_164407_92249637.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,294 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_164003_1a3a18fb/background_20250625_164003_a00becea.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:57,299 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:57] "[36mGET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:59,210 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:59] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:37:59,212 - INFO - 127.0.0.1 - - [28/Jun/2025 01:37:59] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:38:07,849 - INFO - 127.0.0.1 - - [28/Jun/2025 01:38:07] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:38:07,849 - INFO - 127.0.0.1 - - [28/Jun/2025 01:38:07] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:38:10,799 - INFO - 127.0.0.1 - - [28/Jun/2025 01:38:10] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:38:10,800 - INFO - 127.0.0.1 - - [28/Jun/2025 01:38:10] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:38:19,738 - INFO - 127.0.0.1 - - [28/Jun/2025 01:38:19] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:38:19,738 - INFO - 127.0.0.1 - - [28/Jun/2025 01:38:19] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:05,890 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:05] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:05,891 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:05] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:08,756 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:08] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:08,757 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:08] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:10,896 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:10] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:10,896 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:10] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:13,790 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:13] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:13,791 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:13] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:20,002 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:20] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:20,003 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:20] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:27,594 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:27] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:42:27,594 - INFO - 127.0.0.1 - - [28/Jun/2025 01:42:27] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:43:01,163 - INFO - 127.0.0.1 - - [28/Jun/2025 01:43:01] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:43:01,167 - INFO - 127.0.0.1 - - [28/Jun/2025 01:43:01] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:43:16,898 - INFO - 127.0.0.1 - - [28/Jun/2025 01:43:16] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:43:16,900 - INFO - 127.0.0.1 - - [28/Jun/2025 01:43:16] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:46:04,447 - INFO - 127.0.0.1 - - [28/Jun/2025 01:46:04] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:46:04,448 - INFO - 127.0.0.1 - - [28/Jun/2025 01:46:04] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:46:23,244 - INFO - 127.0.0.1 - - [28/Jun/2025 01:46:23] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:46:23,245 - INFO - 127.0.0.1 - - [28/Jun/2025 01:46:23] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:47:04,070 - INFO - 127.0.0.1 - - [28/Jun/2025 01:47:04] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:47:04,070 - INFO - 127.0.0.1 - - [28/Jun/2025 01:47:04] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:50:26,944 - INFO - 127.0.0.1 - - [28/Jun/2025 01:50:26] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:50:26,944 - INFO - 127.0.0.1 - - [28/Jun/2025 01:50:26] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:51:06,445 - INFO - 127.0.0.1 - - [28/Jun/2025 01:51:06] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:51:06,445 - INFO - 127.0.0.1 - - [28/Jun/2025 01:51:06] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:52:20,238 - INFO - 127.0.0.1 - - [28/Jun/2025 01:52:20] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:52:20,239 - INFO - 127.0.0.1 - - [28/Jun/2025 01:52:20] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:52:53,248 - INFO - 127.0.0.1 - - [28/Jun/2025 01:52:53] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:52:53,249 - INFO - 127.0.0.1 - - [28/Jun/2025 01:52:53] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:53:57,743 - INFO - 127.0.0.1 - - [28/Jun/2025 01:53:57] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:53:57,745 - INFO - 127.0.0.1 - - [28/Jun/2025 01:53:57] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 01:55:46,704 - INFO - 127.0.0.1 - - [28/Jun/2025 01:55:46] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 01:55:46,705 - INFO - 127.0.0.1 - - [28/Jun/2025 01:55:46] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:11:24,933 - INFO - 127.0.0.1 - - [28/Jun/2025 02:11:24] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:11:24,933 - INFO - 127.0.0.1 - - [28/Jun/2025 02:11:24] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:12,981 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:12] "[36mGET /static/images/sessions/bg_20250628_011139_8bf5d11b/background_20250628_011139_3f7f6ffc.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:12,982 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:12] "[36mGET /static/images/sessions/bg_20250628_012302_9923d854/background_20250628_012302_1fcfb573.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:12,987 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:12] "[36mGET /static/images/sessions/bg_20250628_010839_26aee9fd/background_20250628_010839_04241b90.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:12,989 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:12] "[36mGET /static/images/sessions/bgfb_20250628_010356_cff08974/background_fallback_20250628_010356_71dc6892.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:12,999 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:12] "[36mGET /static/images/sessions/bg_20250628_005008_2454b55f/background_20250628_005008_f223ed3b.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,004 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250628_004552_1c4b887e/background_20250628_004552_e4c544d2.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,010 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250628_004324_f73eef49/background_20250628_004324_19464969.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,018 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250628_003524_b19607db/background_20250628_003524_4d5e982d.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,337 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_170530_3758a7cb/background_20250625_170530_ed1a5c6c.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,338 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_173035_5a5ea2f5/background_20250625_173035_d7ad0b9d.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,338 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_171747_a57d9686/background_20250625_171747_5500b67c.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,347 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_165725_e913659d/background_20250625_165725_94e28f8f.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,348 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_164759_b6f6b64a/background_20250625_164759_9b002f6d.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,348 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_165341_bcf72a48/background_20250625_165341_d4abb9cb.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,356 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_164407_681e1cf4/background_20250625_164407_92249637.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,357 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_164003_1a3a18fb/background_20250625_164003_a00becea.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:13,358 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:13] "[36mGET /static/images/sessions/bg_20250625_162835_cfa3d1f6/background_20250625_162835_a8011624.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:14,971 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:14] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:14,972 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:14] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:44,152 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:44] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 02:12:44,153 - INFO - 127.0.0.1 - - [28/Jun/2025 02:12:44] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:13:03,220 - INFO - 127.0.0.1 - - [28/Jun/2025 02:13:03] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 02:13:03,237 - INFO - 127.0.0.1 - - [28/Jun/2025 02:13:03] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:30:12,266 - INFO - 127.0.0.1 - - [28/Jun/2025 02:30:12] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 02:30:12,266 - INFO - 127.0.0.1 - - [28/Jun/2025 02:30:12] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:32:22,509 - INFO - 127.0.0.1 - - [28/Jun/2025 02:32:22] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 02:32:22,510 - INFO - 127.0.0.1 - - [28/Jun/2025 02:32:22] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:33:25,132 - INFO - 127.0.0.1 - - [28/Jun/2025 02:33:25] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:33:25,133 - INFO - 127.0.0.1 - - [28/Jun/2025 02:33:25] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 02:34:40,821 - INFO - 127.0.0.1 - - [28/Jun/2025 02:34:40] "[36mGET /static/images/sessions/bg_20250626_015435_f09327dd/background_20250626_015435_54d96ea3.png HTTP/1.1[0m" 304 -
+2025-06-28 02:34:40,822 - INFO - 127.0.0.1 - - [28/Jun/2025 02:34:40] "[36mGET /static/images/sessions/bg_20250626_002401_65da361c/background_20250626_002401_1f9c9370.png HTTP/1.1[0m" 304 -
+2025-06-28 02:35:57,307 - INFO - 127.0.0.1 - - [28/Jun/2025 02:35:57] "GET /static/images/sessions/bg_20250626_015910_f89b34aa/background_20250626_015910_939d63eb.png HTTP/1.1" 200 -
+2025-06-28 02:35:57,307 - INFO - 127.0.0.1 - - [28/Jun/2025 02:35:57] "GET /static/images/sessions/bg_20250626_014613_27fc049b/background_20250626_014613_6bc0cc10.png HTTP/1.1" 200 -
+2025-06-28 02:35:57,308 - INFO - 127.0.0.1 - - [28/Jun/2025 02:35:57] "GET /static/images/sessions/bg_20250626_002938_dc3a4df5/background_20250626_002938_33dbb29a.png HTTP/1.1" 200 -
+2025-06-28 02:35:57,309 - INFO - 127.0.0.1 - - [28/Jun/2025 02:35:57] "GET /static/images/sessions/bg_20250626_000847_b4427380/background_20250626_000847_7f59d6af.png HTTP/1.1" 200 -
+2025-06-28 02:35:57,310 - INFO - 127.0.0.1 - - [28/Jun/2025 02:35:57] "GET /static/images/sessions/bg_20250626_000130_f2b7277c/background_20250626_000130_1dd88a9c.png HTTP/1.1" 200 -
+2025-06-28 02:35:57,333 - INFO - 127.0.0.1 - - [28/Jun/2025 02:35:57] "GET /static/images/sessions/bg_20250625_232553_e1bbc3c6/background_20250625_232553_d52ed83f.png HTTP/1.1" 200 -
+2025-06-28 02:35:57,335 - INFO - 127.0.0.1 - - [28/Jun/2025 02:35:57] "GET /static/images/sessions/bg_20250625_232320_4c1b144d/background_20250625_232320_9a1da166.png HTTP/1.1" 200 -
+2025-06-28 02:35:57,340 - INFO - 127.0.0.1 - - [28/Jun/2025 02:35:57] "GET /static/images/sessions/bg_20250625_223714_0ac3179a/background_20250625_223714_64d39166.png HTTP/1.1" 200 -
+2025-06-28 02:36:04,350 - INFO - 127.0.0.1 - - [28/Jun/2025 02:36:04] "OPTIONS /api/generate-parallel-svg HTTP/1.1" 200 -
+2025-06-28 02:36:04,358 - INFO - === PARALLEL SVG PIPELINE START ===
+2025-06-28 02:36:04,358 - INFO - Stage 2: Design Planning
+2025-06-28 02:36:04,358 - INFO - Planning design for: Create a coming soon poster...

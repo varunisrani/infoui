@@ -110,6 +110,7 @@ def build_advanced_image_prompt(user_input, design_context):
     # 2. Technical specifications for optimal SVG conversion
     prompt_parts.append("Technical specs: 1024x1024 resolution, high contrast elements, clear edge definition, distinct boundaries")
     prompt_parts.append("SVG optimization: Vector-friendly graphics, clean background separation, text-image distinction, sharp details")
+    prompt_parts.append("VTracer ready: Ensure elements have NO background remnants, crisp edges, solid colors, perfect element isolation")
 
     # 3. Quality and aesthetic requirements
     prompt_parts.append("Quality standards: Professional finish, polished appearance, commercial-grade design, publication-ready")
@@ -122,6 +123,7 @@ def build_advanced_image_prompt(user_input, design_context):
 
     # 5. Parallel processing optimization
     prompt_parts.append("Processing optimization: Clear text-background separation, distinct graphic elements, OCR-friendly text placement")
+    prompt_parts.append("Element isolation: Graphics must be cleanly separable from background for perfect VTracer processing")
 
     # Combine all parts with separators
     final_prompt = " || ".join(prompt_parts)

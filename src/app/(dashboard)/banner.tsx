@@ -163,14 +163,19 @@ export const Banner = () => {
   };
 
   return (
-    <div className="flex items-center gap-x-2">
-      <Button onClick={onClick} disabled={loading}>
+    <div className="flex flex-col sm:flex-row items-center gap-4">
+      <Button 
+        onClick={onClick} 
+        disabled={loading}
+        size="lg"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3"
+      >
         {loading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Loader2 className="h-5 w-5 animate-spin" />
         ) : (
           <>
             Start creating
-            <ArrowRight className="h-4 w-4 ml-2" />
+            <ArrowRight className="h-5 w-5 ml-2" />
           </>
         )}
       </Button>
@@ -178,14 +183,16 @@ export const Banner = () => {
       <Button 
         onClick={() => setAiDialogOpen(true)} 
         variant="outline"
+        size="lg"
         disabled={loading || aiLoading}
+        className="border-blue-200 text-blue-700 hover:bg-blue-50 px-8 py-3"
       >
         {aiLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Loader2 className="h-5 w-5 animate-spin" />
         ) : (
           <>
             AI Generate
-            <Wand2 className="h-4 w-4 ml-2" />
+            <Wand2 className="h-5 w-5 ml-2" />
           </>
         )}
       </Button>
