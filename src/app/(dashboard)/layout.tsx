@@ -11,7 +11,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       <Sidebar />
       <div className="lg:pl-[300px] flex flex-col min-h-screen">
         <Navbar />
-        <main className="bg-gray-50 flex-1 overflow-auto">
+        <main id="main-content" className="bg-gray-50 flex-1 overflow-auto" role="main">
           <div className="px-4 py-6 lg:px-8">
             {children}
           </div>

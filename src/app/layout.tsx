@@ -5,6 +5,7 @@ import { SubscriptionAlert } from "@/features/subscriptions/components/subscript
 import { Modals } from "@/components/modals";
 import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "@/components/providers";
+import { SkipLinks } from "@/components/skip-links";
 
 import "./globals.css";
 
@@ -26,6 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans">
+        <SkipLinks />
+        <div id="status-announcements" aria-live="polite" aria-atomic="true" className="sr-only"></div>
+        <div id="alert-announcements" aria-live="assertive" aria-atomic="true" className="sr-only"></div>
         <Suspense>
           <Providers>
             <Modals />
